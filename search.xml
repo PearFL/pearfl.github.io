@@ -1,32 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-  
-    
-    <entry>
-      <title>新篇章，新世界</title>
-      <link href="/2019/12/27/1.hello-world/"/>
-      <url>/2019/12/27/1.hello-world/</url>
-      
-        <content type="html"><![CDATA[<p>&emsp;&emsp;在之前的hexo博客中写了50+篇文章，但其实质量都不是很高，可能百度解决起来都比之前文章阅读时间的少，正好之前的相关文档不幸丢失了，于是就重启hexo+github的博客生活，同时为了避免纯github pages有时导致的无法打开的情况，今后所有的博客文章同步发表在牛客网的博客中</p><p>&emsp;&emsp;牛客网博客地址：<a href="https://blog.nowcoder.net/mxh" target="_blank" rel="noopener">https://blog.nowcoder.net/mxh</a></p><p>&emsp;&emsp;今后的每一篇文章我都会尽心尽力而为，不灌水，如果对文章有问题或者想要交流的小伙伴，可以加我的qq或给我发送邮件进行联系。</p><p>&emsp;&emsp;那么，加油！</p>]]></content>
-      
-      
+<search>
+  <entry>
+    <title>新篇章，新世界</title>
+    <url>/2019/12/27/1.hello-world/</url>
+    <content><![CDATA[<p>&emsp;&emsp;我在之前的hexo博客中写了50+篇文章，但质量都不太让我满意，解决问题的效率甚至比不上百度，恰巧之前的文档因操作失误丢失了，于是我就重置了整个博客内容从零开始，同时为了避免出现再次丢失的情况，今后所有的博客文章同步发表在牛客网的博客中</p>
+<p>&emsp;&emsp;牛客网博客地址：<a href="https://blog.nowcoder.net/mxh" target="_blank" rel="noopener">https://blog.nowcoder.net/mxh</a></p>
+<p>&emsp;&emsp;今后的每一篇文章我都会尽心尽力而为，不灌水，如果对文章有问题或者想要交流的小伙伴，可以加我的qq或给我发送邮件进行联系。</p>
+<p>&emsp;&emsp;那么，加油！</p>
+]]></content>
       <categories>
-          
-          <category> 个人感想 </category>
-          
+        <category>个人感想</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> Hexo </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-  
-  
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
 </search>
