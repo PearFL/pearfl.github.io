@@ -1,13 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>spark之RDD</title>
+    <url>/2019/12/30/5.spark%E4%B9%8BRDD/</url>
+    <content><![CDATA[<h1 id="linux系统管理"><a href="#linux系统管理" class="headerlink" title="linux系统管理"></a>linux系统管理</h1><p>&emsp;&emsp;</p>
+]]></content>
+      <categories>
+        <category>bigdata</category>
+      </categories>
+      <tags>
+        <tag>RDD</tag>
+        <tag>spark</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux用户管理</title>
+    <url>/2019/12/30/4.linux%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h1 id="linux系统管理"><a href="#linux系统管理" class="headerlink" title="linux系统管理"></a>linux系统管理</h1><p>&emsp;&emsp;</p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>系统</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>linux用户管理</title>
     <url>/2019/12/30/3.linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/</url>
     <content><![CDATA[<h1 id="linux用户管理"><a href="#linux用户管理" class="headerlink" title="linux用户管理"></a>linux用户管理</h1><h2 id="用户和用户组"><a href="#用户和用户组" class="headerlink" title="用户和用户组"></a>用户和用户组</h2><p>用户：使用操作系统的人</p>
 <p>用户组：具有相同系统权限的一组用户</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;etc&#x2F;group 存储当前系统中所有用户组信息</span><br><span class="line">- Group:     x    : 123 : abc,def,xyz</span><br><span class="line">- 组名称:组密码占位符:组编号:组中用户列表名</span><br><span class="line"></span><br><span class="line">&#x2F;etc&#x2F;gshadow 存储当前系统中用户组的密码信息</span><br><span class="line">- Group:  *  :       :abc,def,xyz</span><br><span class="line">- 组名称:组密码:组管理者:组中用户列表名</span><br><span class="line"></span><br><span class="line">&#x2F;etc&#x2F;passwd 存储当前系统中所有用户的信息</span><br><span class="line">- user :    x   :   123 :   456   : xxxxxxx : &#x2F;home&#x2F;user : &#x2F;bin&#x2F;bash</span><br><span class="line">- 用户名:密码占位符:用户编号:用户组编号:用户注释信息: 用户主目录  : shell类型</span><br><span class="line"></span><br><span class="line">&#x2F;etc&#x2F;shadow 存储当前系统中所有用户的密码信息</span><br><span class="line">- user : xxx :::::</span><br><span class="line">- 用户名: 密码 ::::</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># groupadd sexy 创建sexy用户组</span><br><span class="line"># groupadd -n market sexy 用sexy组名改为market</span><br><span class="line"># groupmod -g 668 market 修改market用户组编号</span><br><span class="line"># groupadd -g 888 boss 创建boss用户组，编号为888</span><br><span class="line"># groupdel market 删除market用户组</span><br><span class="line"># useradd -g sexy sdf 添加用户</span><br><span class="line"># useradd -g sexy jzmb</span><br><span class="line"># useradd -d &#x2F;home&#x2F;xxx imooc 添加用户并指定用户文件夹所在位置</span><br><span class="line"># usermod -c dgdzmx sdf 修改sdf注释</span><br><span class="line"># usermod -l cls sdf 用户名sdf更改为cls</span><br><span class="line"># usermod -d &#x2F;home&#x2F;cls cls 修改cls文件夹路径</span><br><span class="line"># usermod -g sexy imooc imooc切换进sexy用户组</span><br><span class="line"># userdel jzmb 删除jzmb账号</span><br><span class="line"># userdel -r jzmb 删除jzmb用户文件夹</span><br><span class="line"></span><br><span class="line">touch &#x2F;etc&#x2F;nologin 禁止root以外的其他账户登录</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">一套样例</span><br><span class="line"></span><br><span class="line"># groupadd sexy 创建sexy用户组</span><br><span class="line"># groupadd -n market sexy 用sexy组名改为market</span><br><span class="line"># groupmod -g 668 market 修改market用户组编号</span><br><span class="line"># groupadd -g 888 boss 创建boss用户组，编号为888</span><br><span class="line"># groupdel market 删除market用户组</span><br><span class="line"># useradd -g sexy sdf 添加用户</span><br><span class="line"># useradd -g sexy jzmb</span><br><span class="line"># useradd -d &#x2F;home&#x2F;xxx imooc 添加用户并指定用户文件夹所在位置</span><br><span class="line"># usermod -c dgdzmx sdf 修改sdf注释</span><br><span class="line"># usermod -l cls sdf 用户名sdf更改为cls</span><br><span class="line"># usermod -d &#x2F;home&#x2F;cls cls 修改cls文件夹路径</span><br><span class="line"># usermod -g sexy imooc imooc切换进sexy用户组</span><br><span class="line"># userdel jzmb 删除jzmb账号</span><br><span class="line"># userdel -r jzmb 删除jzmb用户文件夹</span><br><span class="line"></span><br><span class="line">touch &#x2F;etc&#x2F;nologin 禁止root以外的其他账户登录</span><br></pre></td></tr></table></figure>
 
 
 
@@ -20,7 +46,7 @@
 <li>一个主要组</li>
 <li>多个附属组</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># gpasswd -a cls boss boss组变为cls的附属组,用逗号可以添加多个附属组</span><br><span class="line"># newgrp boss （cls自己执行，切换到boss组）</span><br><span class="line"># gpasswd -a cls boss cls不在是boss组的附属组</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">一套样例</span><br><span class="line"></span><br><span class="line"># gpasswd -a cls boss boss组变为cls的附属组,用逗号可以添加多个附属组</span><br><span class="line"># newgrp boss （cls自己执行，切换到boss组）</span><br><span class="line"># gpasswd -a cls boss cls不在是boss组的附属组</span><br></pre></td></tr></table></figure>
 
 
 
@@ -52,6 +78,8 @@
 <p>3.利用处于内网或防火墙后的机器，对外网环境提供 TCP 和 UDP 服务，例如在家里通过 SSH 访问处于公司内网环境内的主机。</p>
 <h1 id="frp安装"><a href="#frp安装" class="headerlink" title="frp安装"></a>frp安装</h1><p>FRP 采用 Go 语言开发，支持 Windows、Linux、MacOS、ARM等多平台部署。FRP 安装非常容易，只需下载对应系统平台的软件包，并解压就可用。</p>
 <p>这里以 Linux 为例，为了方便管理我们把解压后的目录重命名为 frp ：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># wget https:&#x2F;&#x2F;github.com&#x2F;fatedier&#x2F;frp&#x2F;releases&#x2F;download&#x2F;v0.30.0&#x2F;frp_0.30.0_linux_amd64.tar.gz</span><br><span class="line">#</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>github项目应用</category>
