@@ -46,17 +46,20 @@
   };
 </script>
 
-  <meta name="description" content="热爱从不降温">
-<meta property="og:type" content="website">
-<meta property="og:title" content="叶梨子的小窝">
-<meta property="og:url" content="http://yoursite.com/archives/2019/12/index.html">
+  <meta name="description" content="前言&amp;emsp;&amp;emsp;对于没有公网ip的内网用户来说，远程管理或在外网访问内网机器上的服务是一个比较麻烦的问题，为了解决这个问题，我介绍一款相当好用的内网穿透工具frp。&amp;emsp;&amp;emsp;frp 是一个使用 Go 语言开发的高性能的反向代理应用，可以帮助您轻松地进行内网穿透，对外网提供服务。FRP 支持 TCP、UDP、HTTP、HTTPS等协议类型，并且支持 Web 服务根据域名进行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="frp实现内网穿透">
+<meta property="og:url" content="http://yoursite.com/2019/12/29/2.frp%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/index.html">
 <meta property="og:site_name" content="叶梨子的小窝">
-<meta property="og:description" content="热爱从不降温">
+<meta property="og:description" content="前言&amp;emsp;&amp;emsp;对于没有公网ip的内网用户来说，远程管理或在外网访问内网机器上的服务是一个比较麻烦的问题，为了解决这个问题，我介绍一款相当好用的内网穿透工具frp。&amp;emsp;&amp;emsp;frp 是一个使用 Go 语言开发的高性能的反向代理应用，可以帮助您轻松地进行内网穿透，对外网提供服务。FRP 支持 TCP、UDP、HTTP、HTTPS等协议类型，并且支持 Web 服务根据域名进行">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-12-29T06:35:12.000Z">
+<meta property="article:modified_time" content="2019-12-30T08:25:19.934Z">
 <meta property="article:author" content="pearfl">
+<meta property="article:tag" content="frp">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/archives/2019/12/">
+<link rel="canonical" href="http://yoursite.com/2019/12/29/2.frp%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">
 
 
 <script id="page-configurations">
@@ -64,11 +67,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false
+    isPost: true
   };
 </script>
 
-  <title>归档 | 叶梨子的小窝</title>
+  <title>frp实现内网穿透 | 叶梨子的小窝</title>
   
 
 
@@ -205,89 +208,124 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 3 篇日志。 继续努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/29/2.frp%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="pearfl">
+      <meta itemprop="description" content="热爱从不降温">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="叶梨子的小窝">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          frp实现内网穿透
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-29 14:35:12" itemprop="dateCreated datePublished" datetime="2019-12-29T14:35:12+08:00">2019-12-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-30 16:25:19" itemprop="dateModified" datetime="2019-12-30T16:25:19+08:00">2019-12-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github%E9%A1%B9%E7%9B%AE%E5%BA%94%E7%94%A8/" itemprop="url" rel="index">
+                    <span itemprop="name">github项目应用</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>563</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2019</h1>
-    </div>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&emsp;&emsp;对于没有公网ip的内网用户来说，远程管理或在外网访问内网机器上的服务是一个比较麻烦的问题，为了解决这个问题，我介绍一款相当好用的内网穿透工具frp。<br>&emsp;&emsp;frp 是一个使用 Go 语言开发的高性能的反向代理应用，可以帮助您轻松地进行内网穿透，对外网提供服务。FRP 支持 TCP、UDP、HTTP、HTTPS等协议类型，并且支持 Web 服务根据域名进行路由转发。<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frp项目地址: https:&#x2F;&#x2F;github.com&#x2F;fatedier&#x2F;frp</span><br></pre></td></tr></table></figure>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-12-30T16:38:22+08:00"
-              content="2019-12-30">
-          12-30
-        </time>
-      </div>
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/12/30/3.linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" itemprop="url">
-            <span itemprop="name">linux用户管理</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-12-29T14:35:12+08:00"
-              content="2019-12-29">
-          12-29
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/12/29/2.frp%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" itemprop="url">
-            <span itemprop="name">frp实现内网穿透</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-12-23T16:29:04+08:00"
-              content="2019-12-23">
-          12-23
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/12/23/1.hello-world/" itemprop="url">
-            <span itemprop="name">新篇章，新世界</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
+<h1 id="frp的作用"><a href="#frp的作用" class="headerlink" title="frp的作用"></a>frp的作用</h1><p>1.利用处于内网或防火墙后的机器，对外网环境提供 HTTP 或 HTTPS 服务。</p>
+<p>2.对于 HTTP, HTTPS 服务支持基于域名的虚拟主机，支持自定义域名绑定，使多个域名可以共用一个 80 端口。</p>
+<p>3.利用处于内网或防火墙后的机器，对外网环境提供 TCP 和 UDP 服务，例如在家里通过 SSH 访问处于公司内网环境内的主机。</p>
+<h1 id="frp安装"><a href="#frp安装" class="headerlink" title="frp安装"></a>frp安装</h1><p>FRP 采用 Go 语言开发，支持 Windows、Linux、MacOS、ARM等多平台部署。FRP 安装非常容易，只需下载对应系统平台的软件包，并解压就可用。</p>
+<p>这里以 Linux 为例，为了方便管理我们把解压后的目录重命名为 frp ：</p>
 
     </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/frp/" rel="tag"># frp</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/12/23/1.hello-world/" rel="prev" title="新篇章，新世界">
+      <i class="fa fa-chevron-left"></i> 新篇章，新世界
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/12/30/3.linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="next" title="linux用户管理">
+      linux用户管理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
@@ -338,6 +376,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#frp的作用"><span class="nav-number">2.</span> <span class="nav-text">frp的作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#frp安装"><span class="nav-number">3.</span> <span class="nav-text">frp安装</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
