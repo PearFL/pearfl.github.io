@@ -1,35 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>spark之RDD</title>
-    <url>/2019/12/30/5.spark%E4%B9%8BRDD/</url>
-    <content><![CDATA[<h1 id="linux系统管理"><a href="#linux系统管理" class="headerlink" title="linux系统管理"></a>linux系统管理</h1><p>&emsp;&emsp;</p>
-]]></content>
-      <categories>
-        <category>bigdata</category>
-      </categories>
-      <tags>
-        <tag>RDD</tag>
-        <tag>spark</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>linux用户管理</title>
-    <url>/2019/12/30/4.linux%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<h1 id="linux系统管理"><a href="#linux系统管理" class="headerlink" title="linux系统管理"></a>linux系统管理</h1><p>&emsp;&emsp;</p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>系统</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>linux用户管理</title>
     <url>/2019/12/30/3.linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<h1 id="linux用户管理"><a href="#linux用户管理" class="headerlink" title="linux用户管理"></a>linux用户管理</h1><h2 id="用户和用户组"><a href="#用户和用户组" class="headerlink" title="用户和用户组"></a>用户和用户组</h2><p>用户：使用操作系统的人</p>
+    <content><![CDATA[<h2 id="用户和用户组"><a href="#用户和用户组" class="headerlink" title="用户和用户组"></a>用户和用户组</h2><p>用户：使用操作系统的人</p>
 <p>用户组：具有相同系统权限的一组用户</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;etc&#x2F;group 存储当前系统中所有用户组信息</span><br><span class="line">- Group:     x    : 123 : abc,def,xyz</span><br><span class="line">- 组名称:组密码占位符:组编号:组中用户列表名</span><br><span class="line"></span><br><span class="line">&#x2F;etc&#x2F;gshadow 存储当前系统中用户组的密码信息</span><br><span class="line">- Group:  *  :       :abc,def,xyz</span><br><span class="line">- 组名称:组密码:组管理者:组中用户列表名</span><br><span class="line"></span><br><span class="line">&#x2F;etc&#x2F;passwd 存储当前系统中所有用户的信息</span><br><span class="line">- user :    x   :   123 :   456   : xxxxxxx : &#x2F;home&#x2F;user : &#x2F;bin&#x2F;bash</span><br><span class="line">- 用户名:密码占位符:用户编号:用户组编号:用户注释信息: 用户主目录  : shell类型</span><br><span class="line"></span><br><span class="line">&#x2F;etc&#x2F;shadow 存储当前系统中所有用户的密码信息</span><br><span class="line">- user : xxx :::::</span><br><span class="line">- 用户名: 密码 ::::</span><br></pre></td></tr></table></figure>
 
