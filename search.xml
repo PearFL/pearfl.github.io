@@ -1,163 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-  
-    
-    <entry>
-      <title>hdfs简单API编程</title>
-      <link href="/2020/01/07/6.hdfs%E7%AE%80%E5%8D%95API%E7%BC%96%E7%A8%8B/"/>
-      <url>/2020/01/07/6.hdfs%E7%AE%80%E5%8D%95API%E7%BC%96%E7%A8%8B/</url>
-      
-        <content type="html"><![CDATA[<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.*;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.permission.FsPermission;</span><br><span class="line"><span class="keyword">import</span> org.junit.After;</span><br><span class="line"><span class="keyword">import</span> org.junit.Before;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.net.URI;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HDFSAPITest2</span> </span>&#123;</span><br><span class="line">    FileSystem fileSystem;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUp</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        URI uri = <span class="keyword">new</span> URI(<span class="string">"hdfs://hadoop:8020"</span>);</span><br><span class="line">        Configuration configuration = <span class="keyword">new</span> Configuration();</span><br><span class="line"></span><br><span class="line">        configuration.set(<span class="string">"dfs.client.use.datanode.hostname"</span>, <span class="string">"true"</span>);</span><br><span class="line">        configuration.set(<span class="string">"dfs.replication"</span>, <span class="string">"1"</span>);</span><br><span class="line">        <span class="comment">// 1) 获取HDFS客户端</span></span><br><span class="line">        fileSystem = FileSystem.get(uri, configuration, <span class="string">"root"</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@After</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">shutdown</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        <span class="comment">// 3) 关闭资源</span></span><br><span class="line">        <span class="keyword">if</span>(fileSystem != <span class="keyword">null</span>)&#123;</span><br><span class="line">            fileSystem.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mkdir</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        fileSystem.mkdirs(<span class="keyword">new</span> Path(<span class="string">"hdfs://hadoop:8020/hdfstest0"</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">copyFromLocalFile</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        Path src = <span class="keyword">new</span> Path(<span class="string">"data/ruozedata.txt"</span>);</span><br><span class="line">        Path dst = <span class="keyword">new</span> Path(<span class="string">"/hdfstest"</span>);</span><br><span class="line">        fileSystem.copyFromLocalFile(src, dst);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">copyToLocalFile</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        Path src = <span class="keyword">new</span> Path(<span class="string">"/20201011/146.txt"</span>);</span><br><span class="line">        Path dst = <span class="keyword">new</span> Path(<span class="string">"output/146.txt"</span>);</span><br><span class="line">        fileSystem.copyToLocalFile(src, dst);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rename</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        Path src = <span class="keyword">new</span> Path(<span class="string">"/20201011/20201011-0.txt"</span>);</span><br><span class="line">        Path dst = <span class="keyword">new</span> Path(<span class="string">"/20201011/146.txt"</span>);</span><br><span class="line">        fileSystem.rename(src, dst);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">listFiles</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        RemoteIterator&lt;LocatedFileStatus&gt; files = fileSystem.listFiles(<span class="keyword">new</span> Path(<span class="string">"/20201011"</span>), <span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(files.hasNext())&#123;</span><br><span class="line">            LocatedFileStatus fileStatus = files.next();</span><br><span class="line">            String path = fileStatus.getPath().toString();</span><br><span class="line">            <span class="keyword">long</span> len = fileStatus.getLen();</span><br><span class="line">            <span class="keyword">short</span> replication = fileStatus.getReplication();</span><br><span class="line">            FsPermission permission = fileStatus.getPermission();</span><br><span class="line">            String isDir = fileStatus.isDirectory()? <span class="string">"文件夹"</span> : <span class="string">"文件"</span>;</span><br><span class="line"></span><br><span class="line">            System.out.println(path + <span class="string">"\t"</span> + len + <span class="string">"\t"</span> + replication + <span class="string">"\t"</span> + permission + <span class="string">"\t"</span> + isDir);</span><br><span class="line"></span><br><span class="line">            BlockLocation[] blockLocations = fileStatus.getBlockLocations();</span><br><span class="line">            <span class="keyword">for</span>(BlockLocation location : blockLocations)&#123;</span><br><span class="line">                String[] hosts = location.getHosts();</span><br><span class="line">                <span class="keyword">for</span>(String host : hosts)&#123;</span><br><span class="line">                    System.out.println(host + <span class="string">"........"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        fileSystem.delete(<span class="keyword">new</span> Path(<span class="string">"/hdfstest"</span>), <span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
+<search>
+  <entry>
+    <title>hdfs简单API编程</title>
+    <url>/2020/01/07/6.hdfs%E7%AE%80%E5%8D%95API%E7%BC%96%E7%A8%8B/</url>
+    <content><![CDATA[<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.*;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.permission.FsPermission;</span><br><span class="line"><span class="keyword">import</span> org.junit.After;</span><br><span class="line"><span class="keyword">import</span> org.junit.Before;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.net.URI;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HDFSAPITest2</span> </span>&#123;</span><br><span class="line">    FileSystem fileSystem;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUp</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        URI uri = <span class="keyword">new</span> URI(<span class="string">"hdfs://hadoop:8020"</span>);</span><br><span class="line">        Configuration configuration = <span class="keyword">new</span> Configuration();</span><br><span class="line"></span><br><span class="line">        configuration.set(<span class="string">"dfs.client.use.datanode.hostname"</span>, <span class="string">"true"</span>);</span><br><span class="line">        configuration.set(<span class="string">"dfs.replication"</span>, <span class="string">"1"</span>);</span><br><span class="line">        <span class="comment">// 1) 获取HDFS客户端</span></span><br><span class="line">        fileSystem = FileSystem.get(uri, configuration, <span class="string">"root"</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@After</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">shutdown</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        <span class="comment">// 3) 关闭资源</span></span><br><span class="line">        <span class="keyword">if</span>(fileSystem != <span class="keyword">null</span>)&#123;</span><br><span class="line">            fileSystem.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mkdir</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        fileSystem.mkdirs(<span class="keyword">new</span> Path(<span class="string">"hdfs://hadoop:8020/hdfstest0"</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">copyFromLocalFile</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        Path src = <span class="keyword">new</span> Path(<span class="string">"data/ruozedata.txt"</span>);</span><br><span class="line">        Path dst = <span class="keyword">new</span> Path(<span class="string">"/hdfstest"</span>);</span><br><span class="line">        fileSystem.copyFromLocalFile(src, dst);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">copyToLocalFile</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        Path src = <span class="keyword">new</span> Path(<span class="string">"/20201011/146.txt"</span>);</span><br><span class="line">        Path dst = <span class="keyword">new</span> Path(<span class="string">"output/146.txt"</span>);</span><br><span class="line">        fileSystem.copyToLocalFile(src, dst);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rename</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        Path src = <span class="keyword">new</span> Path(<span class="string">"/20201011/20201011-0.txt"</span>);</span><br><span class="line">        Path dst = <span class="keyword">new</span> Path(<span class="string">"/20201011/146.txt"</span>);</span><br><span class="line">        fileSystem.rename(src, dst);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">listFiles</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        RemoteIterator&lt;LocatedFileStatus&gt; files = fileSystem.listFiles(<span class="keyword">new</span> Path(<span class="string">"/20201011"</span>), <span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(files.hasNext())&#123;</span><br><span class="line">            LocatedFileStatus fileStatus = files.next();</span><br><span class="line">            String path = fileStatus.getPath().toString();</span><br><span class="line">            <span class="keyword">long</span> len = fileStatus.getLen();</span><br><span class="line">            <span class="keyword">short</span> replication = fileStatus.getReplication();</span><br><span class="line">            FsPermission permission = fileStatus.getPermission();</span><br><span class="line">            String isDir = fileStatus.isDirectory()? <span class="string">"文件夹"</span> : <span class="string">"文件"</span>;</span><br><span class="line"></span><br><span class="line">            System.out.println(path + <span class="string">"\t"</span> + len + <span class="string">"\t"</span> + replication + <span class="string">"\t"</span> + permission + <span class="string">"\t"</span> + isDir);</span><br><span class="line"></span><br><span class="line">            BlockLocation[] blockLocations = fileStatus.getBlockLocations();</span><br><span class="line">            <span class="keyword">for</span>(BlockLocation location : blockLocations)&#123;</span><br><span class="line">                String[] hosts = location.getHosts();</span><br><span class="line">                <span class="keyword">for</span>(String host : hosts)&#123;</span><br><span class="line">                    System.out.println(host + <span class="string">"........"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        fileSystem.delete(<span class="keyword">new</span> Path(<span class="string">"/hdfstest"</span>), <span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-          
-          <category> 大数据 </category>
-          
+        <category>大数据</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> hadoop </tag>
-            
-            <tag> hdfs </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>hadoop单结点集群搭建</title>
-      <link href="/2020/01/06/5.hadoop%E5%8D%95%E7%BB%93%E7%82%B9%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/"/>
-      <url>/2020/01/06/5.hadoop%E5%8D%95%E7%BB%93%E7%82%B9%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</url>
-      
-        <content type="html"><![CDATA[<p>官网描述:<a href="https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html" target="_blank" rel="noopener">https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html</a></p><p>本文在官网描述的基础上做翻译和细节补充</p><h2 id="hadoop部署"><a href="#hadoop部署" class="headerlink" title="hadoop部署"></a>hadoop部署</h2><p>类似于前一篇章的jdk部署</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf hadoop-2.6.0-cdh5.16.2.tar.gz -C ~&#x2F;app&#x2F;</span><br><span class="line"></span><br><span class="line">hadoop软件包常见目录说明</span><br><span class="line">bin: hadoop客户端命令</span><br><span class="line">etc: hadoop相关的配置文件存放目录</span><br><span class="line">sbin:启动hadoop相关进程的脚本</span><br><span class="line">share:常用例子</span><br><span class="line"></span><br><span class="line">配置.bash_profile</span><br><span class="line">export HADOOP_HOME&#x3D;&#x2F;root&#x2F;app&#x2F;hadoop-2.6.0-cdh5.16.2</span><br><span class="line">export PATH&#x3D;$HADOOP_HOME&#x2F;bin:$PATH</span><br></pre></td></tr></table></figure><p>修改相关的配置文件</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">hadoop-env.sh内需要配置JAVA_HOME</span><br><span class="line">localhost:8020中的localhost需要修改</span><br><span class="line"></span><br><span class="line">core-site.xml</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;fs.defaultFS&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;value&gt;hdfs:&#x2F;&#x2F;localhost:8020&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">&lt;&#x2F;configuration&gt;</span><br><span class="line"></span><br><span class="line">hdfs-site.xml</span><br><span class="line">其中hadoop.tmp.dir修改是因为机器每次重启时候会清空tmp目录</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.replication&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;value&gt;1&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;hadoop.tmp.dir&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;value&gt;&#x2F;root&#x2F;app&#x2F;tmp&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">&lt;&#x2F;configuration&gt;</span><br><span class="line"></span><br><span class="line">slaves</span><br><span class="line">mxh(设置成你喜欢的就行了，注意需要与hostname一致)</span><br></pre></td></tr></table></figure><p>启动HDFS：第一次执行的时候一定要格式化文件系统，不要重复执行</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs namenode -format</span><br></pre></td></tr></table></figure><p>启动集群</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$HADOOP_HOME&#x2F;sbin&#x2F;start-dfs.sh</span><br><span class="line">验证:</span><br><span class="line">#jps</span><br><span class="line">8148 NameNode</span><br><span class="line">8245 DataNode</span><br><span class="line">8540 SecondaryNameNode</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
+      <tags>
+        <tag>hadoop</tag>
+        <tag>hdfs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hadoop单结点集群搭建</title>
+    <url>/2020/01/06/5.hadoop%E5%8D%95%E7%BB%93%E7%82%B9%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<p>官网描述:<a href="https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html" target="_blank" rel="noopener">https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html</a></p>
+<p>本文在官网描述的基础上做翻译和细节补充</p>
+<h2 id="hadoop部署"><a href="#hadoop部署" class="headerlink" title="hadoop部署"></a>hadoop部署</h2><p>类似于前一篇章的jdk部署</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tar -zxvf hadoop-2.6.0-cdh5.16.2.tar.gz -C ~&#x2F;app&#x2F;</span><br><span class="line"></span><br><span class="line">hadoop软件包常见目录说明</span><br><span class="line">	bin: hadoop客户端命令</span><br><span class="line">	etc: hadoop相关的配置文件存放目录</span><br><span class="line">	sbin:启动hadoop相关进程的脚本</span><br><span class="line">	share:常用例子</span><br><span class="line"></span><br><span class="line">配置.bash_profile</span><br><span class="line">export HADOOP_HOME&#x3D;&#x2F;root&#x2F;app&#x2F;hadoop-2.6.0-cdh5.16.2</span><br><span class="line">export PATH&#x3D;$HADOOP_HOME&#x2F;bin:$PATH</span><br></pre></td></tr></table></figure>
+
+
+
+<p>修改相关的配置文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hadoop-env.sh内需要配置JAVA_HOME</span><br><span class="line">localhost:8020中的localhost需要修改</span><br><span class="line"></span><br><span class="line">core-site.xml</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;fs.defaultFS&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;value&gt;hdfs:&#x2F;&#x2F;localhost:8020&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">&lt;&#x2F;configuration&gt;</span><br><span class="line"></span><br><span class="line">hdfs-site.xml</span><br><span class="line">其中hadoop.tmp.dir修改是因为机器每次重启时候会清空tmp目录</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.replication&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;value&gt;1&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;hadoop.tmp.dir&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;value&gt;&#x2F;root&#x2F;app&#x2F;tmp&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">&lt;&#x2F;configuration&gt;</span><br><span class="line"></span><br><span class="line">slaves</span><br><span class="line">	mxh(设置成你喜欢的就行了，注意需要与hostname一致)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>启动HDFS：第一次执行的时候一定要格式化文件系统，不要重复执行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hdfs namenode -format</span><br></pre></td></tr></table></figure>
+
+
+<p>启动集群</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$HADOOP_HOME&#x2F;sbin&#x2F;start-dfs.sh</span><br><span class="line">验证:</span><br><span class="line">#jps</span><br><span class="line">8148 NameNode</span><br><span class="line">8245 DataNode</span><br><span class="line">8540 SecondaryNameNode</span><br></pre></td></tr></table></figure>
+
+]]></content>
       <categories>
-          
-          <category> 大数据 </category>
-          
+        <category>大数据</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> hadoop </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>hadoop学习前置部署</title>
-      <link href="/2020/01/04/4.hadoop%E5%AD%A6%E4%B9%A0%E5%89%8D%E6%9C%9F%E9%83%A8%E7%BD%B2/"/>
-      <url>/2020/01/04/4.hadoop%E5%AD%A6%E4%B9%A0%E5%89%8D%E6%9C%9F%E9%83%A8%E7%BD%B2/</url>
-      
-        <content type="html"><![CDATA[<h2 id="jdk部署"><a href="#jdk部署" class="headerlink" title="jdk部署"></a>jdk部署</h2><p><strong>Hadoop安装前置要求Java版本在1.8+</strong></p><p>安装过程（本过程在root用户下进行，非root用户目录有轻微变动）：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">拷贝本地软件包到服务器（wget等方法均可）</span><br><span class="line"></span><br><span class="line">解压jdk:tar -zvxf jdk-8u231-linux-x64.tar.gz -C ~&#x2F;app&#x2F;</span><br><span class="line"># 解压的包放置在app文件夹内，根据个人需要选择</span><br><span class="line"></span><br><span class="line">把jdk配置在系统环境变量中: ~&#x2F;.bash_profile</span><br><span class="line">export JAVA_HOME&#x3D;&#x2F;root&#x2F;app&#x2F;jdk1.8.0_231</span><br><span class="line">export PATH&#x3D;$JAVA_HOME&#x2F;bin:$PATH</span><br><span class="line"></span><br><span class="line">之后source一下使其生效:source .bash_profile</span><br><span class="line">可以通过echo $JAVA_HOME检查是否生效</span><br><span class="line">提示：此处&#x3D;左右不可有空格</span><br></pre></td></tr></table></figure><h2 id="ssh免密登录"><a href="#ssh免密登录" class="headerlink" title="ssh免密登录"></a>ssh免密登录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># ssh-keygen -t rsa  #一路回车</span><br><span class="line">此时.ssh文件夹下有3个新文件</span><br><span class="line">id_rsa          # 私钥</span><br><span class="line">id_rsa.pub      # 公钥</span><br><span class="line">known_hosts     # </span><br><span class="line"></span><br><span class="line"># cat id_rsa.pub &gt;&gt; authorized_keys</span><br><span class="line"># chmod 600 authorized_keys</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
+      <tags>
+        <tag>hadoop</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hadoop学习前置部署</title>
+    <url>/2020/01/04/4.hadoop%E5%AD%A6%E4%B9%A0%E5%89%8D%E6%9C%9F%E9%83%A8%E7%BD%B2/</url>
+    <content><![CDATA[<h2 id="jdk部署"><a href="#jdk部署" class="headerlink" title="jdk部署"></a>jdk部署</h2><p><strong>Hadoop安装前置要求Java版本在1.8+</strong></p>
+<p>安装过程（本过程在root用户下进行，非root用户目录有轻微变动）：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">拷贝本地软件包到服务器（wget等方法均可）</span><br><span class="line"></span><br><span class="line">解压jdk:tar -zvxf jdk-8u231-linux-x64.tar.gz -C ~&#x2F;app&#x2F;</span><br><span class="line"># 解压的包放置在app文件夹内，根据个人需要选择</span><br><span class="line"></span><br><span class="line">把jdk配置在系统环境变量中: ~&#x2F;.bash_profile</span><br><span class="line">export JAVA_HOME&#x3D;&#x2F;root&#x2F;app&#x2F;jdk1.8.0_231</span><br><span class="line">export PATH&#x3D;$JAVA_HOME&#x2F;bin:$PATH</span><br><span class="line"></span><br><span class="line">之后source一下使其生效:source .bash_profile</span><br><span class="line">可以通过echo $JAVA_HOME检查是否生效</span><br><span class="line">提示：此处&#x3D;左右不可有空格</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="ssh免密登录"><a href="#ssh免密登录" class="headerlink" title="ssh免密登录"></a>ssh免密登录</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># ssh-keygen -t rsa  #一路回车</span><br><span class="line">此时.ssh文件夹下有3个新文件</span><br><span class="line">id_rsa          # 私钥</span><br><span class="line">id_rsa.pub      # 公钥</span><br><span class="line">known_hosts     # </span><br><span class="line"></span><br><span class="line"># cat id_rsa.pub &gt;&gt; authorized_keys</span><br><span class="line"># chmod 600 authorized_keys</span><br></pre></td></tr></table></figure>
+
+
+]]></content>
       <categories>
-          
-          <category> 大数据 </category>
-          
+        <category>大数据</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> hadoop </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>linux用户管理</title>
-      <link href="/2019/12/30/3.linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/"/>
-      <url>/2019/12/30/3.linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/</url>
-      
-        <content type="html"><![CDATA[<h2 id="简易命令"><a href="#简易命令" class="headerlink" title="简易命令"></a>简易命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">useradd testuser  创建用户testuser</span><br><span class="line">passwd testuser  给已创建的用户testuser设置密码</span><br><span class="line">说明：新创建的用户会在&#x2F;home下创建一个用户目录testuser</span><br><span class="line">usermod --help  修改用户这个命令的相关参数</span><br><span class="line">userdel testuser  删除用户testuser</span><br><span class="line">rm -rf testuser  删除用户testuser所在目录</span><br></pre></td></tr></table></figure><h2 id="给用户添加root权限"><a href="#给用户添加root权限" class="headerlink" title="给用户添加root权限"></a>给用户添加root权限</h2><p>使用Linux系统时，经常会被要求使用超级权限，但是root的权限太过大了，一般慎用！！！因此可以通过给普通用户添加sudo权限，平常用普通用户进行操作，当需要root权限的时候进行sudo操作。以下为解决办法：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 进入超级用户模式，也就是输入”su root”，系统会让你输入超级用户密码，输入密码后就进入了超级用户模式。（当然，你也可以直接用root进入修改）</span><br><span class="line">2. 添加文件的写权限，也就是输入命令”chmod u+w &#x2F;etc&#x2F;sudoers”。</span><br><span class="line">3. 编辑&#x2F;etc&#x2F;sudoers文件，也就是输入命令”vim &#x2F;etc&#x2F;sudoers”，进入编辑模式，找到这一 行：”root ALL&#x3D;(ALL) ALL”（会用vim编辑器的可以使用“&#x2F;root ALL&#x3D;(ALL)ALL”定位）在其下面添加”xxx ALL&#x3D;(ALL) ALL”(这里的xxx是你的用户名)，然后保存退出。</span><br><span class="line">4. 撤销文件的写权限，也就是输入命令”chmod u-w &#x2F;etc&#x2F;sudoers”。</span><br></pre></td></tr></table></figure><h2 id="用户和用户组"><a href="#用户和用户组" class="headerlink" title="用户和用户组"></a>用户和用户组</h2><p>用户：使用操作系统的人</p><p>用户组：具有相同系统权限的一组用户</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;etc&#x2F;group 存储当前系统中所有用户组信息</span><br><span class="line">- Group:     x    : 123 : abc,def,xyz</span><br><span class="line">- 组名称:组密码占位符:组编号:组中用户列表名</span><br><span class="line"></span><br><span class="line">&#x2F;etc&#x2F;gshadow 存储当前系统中用户组的密码信息</span><br><span class="line">- Group:  *  :       :abc,def,xyz</span><br><span class="line">- 组名称:组密码:组管理者:组中用户列表名</span><br><span class="line"></span><br><span class="line">&#x2F;etc&#x2F;passwd 存储当前系统中所有用户的信息</span><br><span class="line">- user :    x   :   123 :   456   : xxxxxxx : &#x2F;home&#x2F;user : &#x2F;bin&#x2F;bash</span><br><span class="line">- 用户名:密码占位符:用户编号:用户组编号:用户注释信息: 用户主目录  : shell类型</span><br><span class="line"></span><br><span class="line">&#x2F;etc&#x2F;shadow 存储当前系统中所有用户的密码信息</span><br><span class="line">- user : xxx :::::</span><br><span class="line">- 用户名: 密码 ::::</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">一套样例</span><br><span class="line"></span><br><span class="line"># groupadd sexy 创建sexy用户组</span><br><span class="line"># groupadd -n market sexy 用sexy组名改为market</span><br><span class="line"># groupmod -g 668 market 修改market用户组编号</span><br><span class="line"># groupadd -g 888 boss 创建boss用户组，编号为888</span><br><span class="line"># groupdel market 删除market用户组</span><br><span class="line"># useradd -g sexy sdf 添加用户</span><br><span class="line"># useradd -g sexy jzmb</span><br><span class="line"># useradd -d &#x2F;home&#x2F;xxx imooc 添加用户并指定用户文件夹所在位置</span><br><span class="line"># usermod -c dgdzmx sdf 修改sdf注释</span><br><span class="line"># usermod -l cls sdf 用户名sdf更改为cls</span><br><span class="line"># usermod -d &#x2F;home&#x2F;cls cls 修改cls文件夹路径</span><br><span class="line"># usermod -g sexy imooc imooc切换进sexy用户组</span><br><span class="line"># userdel jzmb 删除jzmb账号</span><br><span class="line"># userdel -r jzmb 删除jzmb用户文件夹</span><br><span class="line"></span><br><span class="line">touch &#x2F;etc&#x2F;nologin 禁止root以外的其他账户登录</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># passwd -l cls 锁定cls</span><br><span class="line"># passwd -u cls 解锁cls</span><br><span class="line"># passwd -d cls cls账户无密码登录</span><br></pre></td></tr></table></figure><h2 id="主要组和附属组"><a href="#主要组和附属组" class="headerlink" title="主要组和附属组"></a>主要组和附属组</h2><p>用户可以同时属于多个组</p><ul><li>一个主要组</li><li>多个附属组</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">一套样例</span><br><span class="line"></span><br><span class="line"># gpasswd -a cls boss boss组变为cls的附属组,用逗号可以添加多个附属组</span><br><span class="line"># newgrp boss （cls自己执行，切换到boss组）</span><br><span class="line"># gpasswd -a cls boss cls不在是boss组的附属组</span><br></pre></td></tr></table></figure><p>&emsp;&emsp;</p>]]></content>
-      
-      
+      <tags>
+        <tag>hadoop</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux用户管理</title>
+    <url>/2019/12/30/3.linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h2 id="简易命令"><a href="#简易命令" class="headerlink" title="简易命令"></a>简易命令</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">useradd testuser  创建用户testuser</span><br><span class="line">passwd testuser  给已创建的用户testuser设置密码</span><br><span class="line">说明：新创建的用户会在&#x2F;home下创建一个用户目录testuser</span><br><span class="line">usermod --help  修改用户这个命令的相关参数</span><br><span class="line">userdel testuser  删除用户testuser</span><br><span class="line">rm -rf testuser  删除用户testuser所在目录</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="给用户添加root权限"><a href="#给用户添加root权限" class="headerlink" title="给用户添加root权限"></a>给用户添加root权限</h2><p>使用Linux系统时，经常会被要求使用超级权限，但是root的权限太过大了，一般慎用！！！因此可以通过给普通用户添加sudo权限，平常用普通用户进行操作，当需要root权限的时候进行sudo操作。以下为解决办法：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 进入超级用户模式，也就是输入”su root”，系统会让你输入超级用户密码，输入密码后就进入了超级用户模式。（当然，你也可以直接用root进入修改）</span><br><span class="line">2. 添加文件的写权限，也就是输入命令”chmod u+w &#x2F;etc&#x2F;sudoers”。</span><br><span class="line">3. 编辑&#x2F;etc&#x2F;sudoers文件，也就是输入命令”vim &#x2F;etc&#x2F;sudoers”，进入编辑模式，找到这一 行：”root ALL&#x3D;(ALL) ALL”（会用vim编辑器的可以使用“&#x2F;root ALL&#x3D;(ALL)ALL”定位）在其下面添加”xxx ALL&#x3D;(ALL) ALL”(这里的xxx是你的用户名)，然后保存退出。</span><br><span class="line">4. 撤销文件的写权限，也就是输入命令”chmod u-w &#x2F;etc&#x2F;sudoers”。</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="修改hostname"><a href="#修改hostname" class="headerlink" title="修改hostname"></a>修改hostname</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo hostnamectl set-hostname &lt;newhostname&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="用户和用户组"><a href="#用户和用户组" class="headerlink" title="用户和用户组"></a>用户和用户组</h2><p>用户：使用操作系统的人</p>
+<p>用户组：具有相同系统权限的一组用户</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;etc&#x2F;group 存储当前系统中所有用户组信息</span><br><span class="line">- Group:     x    : 123 : abc,def,xyz</span><br><span class="line">- 组名称:组密码占位符:组编号:组中用户列表名</span><br><span class="line"></span><br><span class="line">&#x2F;etc&#x2F;gshadow 存储当前系统中用户组的密码信息</span><br><span class="line">- Group:  *  :       :abc,def,xyz</span><br><span class="line">- 组名称:组密码:组管理者:组中用户列表名</span><br><span class="line"></span><br><span class="line">&#x2F;etc&#x2F;passwd 存储当前系统中所有用户的信息</span><br><span class="line">- user :    x   :   123 :   456   : xxxxxxx : &#x2F;home&#x2F;user : &#x2F;bin&#x2F;bash</span><br><span class="line">- 用户名:密码占位符:用户编号:用户组编号:用户注释信息: 用户主目录  : shell类型</span><br><span class="line"></span><br><span class="line">&#x2F;etc&#x2F;shadow 存储当前系统中所有用户的密码信息</span><br><span class="line">- user : xxx :::::</span><br><span class="line">- 用户名: 密码 ::::</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">一套样例</span><br><span class="line"></span><br><span class="line"># groupadd sexy 创建sexy用户组</span><br><span class="line"># groupadd -n market sexy 用sexy组名改为market</span><br><span class="line"># groupmod -g 668 market 修改market用户组编号</span><br><span class="line"># groupadd -g 888 boss 创建boss用户组，编号为888</span><br><span class="line"># groupdel market 删除market用户组</span><br><span class="line"># useradd -g sexy sdf 添加用户</span><br><span class="line"># useradd -g sexy jzmb</span><br><span class="line"># useradd -d &#x2F;home&#x2F;xxx imooc 添加用户并指定用户文件夹所在位置</span><br><span class="line"># usermod -c dgdzmx sdf 修改sdf注释</span><br><span class="line"># usermod -l cls sdf 用户名sdf更改为cls</span><br><span class="line"># usermod -d &#x2F;home&#x2F;cls cls 修改cls文件夹路径</span><br><span class="line"># usermod -g sexy imooc imooc切换进sexy用户组</span><br><span class="line"># userdel jzmb 删除jzmb账号</span><br><span class="line"># userdel -r jzmb 删除jzmb用户文件夹</span><br><span class="line"></span><br><span class="line">touch &#x2F;etc&#x2F;nologin 禁止root以外的其他账户登录</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># passwd -l cls 锁定cls</span><br><span class="line"># passwd -u cls 解锁cls</span><br><span class="line"># passwd -d cls cls账户无密码登录</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="主要组和附属组"><a href="#主要组和附属组" class="headerlink" title="主要组和附属组"></a>主要组和附属组</h2><p>用户可以同时属于多个组</p>
+<ul>
+<li>一个主要组</li>
+<li>多个附属组</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">一套样例</span><br><span class="line"></span><br><span class="line"># gpasswd -a cls boss boss组变为cls的附属组,用逗号可以添加多个附属组</span><br><span class="line"># newgrp boss （cls自己执行，切换到boss组）</span><br><span class="line"># gpasswd -a cls boss cls不在是boss组的附属组</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<p>&emsp;&emsp;</p>
+]]></content>
       <categories>
-          
-          <category> linux </category>
-          
+        <category>linux</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 权限 </tag>
-            
-            <tag> linux </tag>
-            
-            <tag> 用户 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>frp实现内网穿透</title>
-      <link href="/2019/12/29/2.frp%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/"/>
-      <url>/2019/12/29/2.frp%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/</url>
-      
-        <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&emsp;&emsp;对于没有公网ip的内网用户来说，远程管理或在外网访问内网机器上的服务是一个比较麻烦的问题，为了解决这个问题，我介绍一款相当好用的内网穿透工具frp。<br>&emsp;&emsp;frp 是一个使用 Go 语言开发的高性能的反向代理应用，可以帮助您轻松地进行内网穿透，对外网提供服务。FRP 支持 TCP、UDP、HTTP、HTTPS等协议类型，并且支持 Web 服务根据域名进行路由转发。<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frp项目地址: https:&#x2F;&#x2F;github.com&#x2F;fatedier&#x2F;frp</span><br></pre></td></tr></table></figure><h1 id="frp的作用"><a href="#frp的作用" class="headerlink" title="frp的作用"></a>frp的作用</h1><p>1.利用处于内网或防火墙后的机器，对外网环境提供 HTTP 或 HTTPS 服务。</p><p>2.对于 HTTP, HTTPS 服务支持基于域名的虚拟主机，支持自定义域名绑定，使多个域名可以共用一个 80 端口。</p><p>3.利用处于内网或防火墙后的机器，对外网环境提供 TCP 和 UDP 服务，例如在家里通过 SSH 访问处于公司内网环境内的主机。</p><h1 id="frp安装"><a href="#frp安装" class="headerlink" title="frp安装"></a>frp安装</h1><p>FRP 采用 Go 语言开发，支持 Windows、Linux、MacOS、ARM等多平台部署。FRP 安装非常容易，只需下载对应系统平台的软件包，并解压就可用。</p><p>这里以 Linux 为例，为了方便管理我们把解压后的目录重命名为 frp ：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># wget https:&#x2F;&#x2F;github.com&#x2F;fatedier&#x2F;frp&#x2F;releases&#x2F;download&#x2F;v0.30.0&#x2F;frp_0.30.0_linux_amd64.tar.gz</span><br><span class="line">#</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
+      <tags>
+        <tag>权限</tag>
+        <tag>linux</tag>
+        <tag>用户</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>frp实现内网穿透</title>
+    <url>/2019/12/29/2.frp%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&emsp;&emsp;对于没有公网ip的内网用户来说，远程管理或在外网访问内网机器上的服务是一个比较麻烦的问题，为了解决这个问题，我介绍一款相当好用的内网穿透工具frp。<br>&emsp;&emsp;frp 是一个使用 Go 语言开发的高性能的反向代理应用，可以帮助您轻松地进行内网穿透，对外网提供服务。FRP 支持 TCP、UDP、HTTP、HTTPS等协议类型，并且支持 Web 服务根据域名进行路由转发。<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">frp项目地址: https:&#x2F;&#x2F;github.com&#x2F;fatedier&#x2F;frp</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="frp的作用"><a href="#frp的作用" class="headerlink" title="frp的作用"></a>frp的作用</h1><p>1.利用处于内网或防火墙后的机器，对外网环境提供 HTTP 或 HTTPS 服务。</p>
+<p>2.对于 HTTP, HTTPS 服务支持基于域名的虚拟主机，支持自定义域名绑定，使多个域名可以共用一个 80 端口。</p>
+<p>3.利用处于内网或防火墙后的机器，对外网环境提供 TCP 和 UDP 服务，例如在家里通过 SSH 访问处于公司内网环境内的主机。</p>
+<h1 id="frp安装"><a href="#frp安装" class="headerlink" title="frp安装"></a>frp安装</h1><p>FRP 采用 Go 语言开发，支持 Windows、Linux、MacOS、ARM等多平台部署。FRP 安装非常容易，只需下载对应系统平台的软件包，并解压就可用。</p>
+<p>这里以 Linux 为例，为了方便管理我们把解压后的目录重命名为 frp ：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># wget https:&#x2F;&#x2F;github.com&#x2F;fatedier&#x2F;frp&#x2F;releases&#x2F;download&#x2F;v0.30.0&#x2F;frp_0.30.0_linux_amd64.tar.gz</span><br><span class="line">#</span><br></pre></td></tr></table></figure>
+
+]]></content>
       <categories>
-          
-          <category> github项目应用 </category>
-          
+        <category>github项目应用</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> frp </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>新篇章，新世界</title>
-      <link href="/2019/12/23/1.hello-world/"/>
-      <url>/2019/12/23/1.hello-world/</url>
-      
-        <content type="html"><![CDATA[<p>&emsp;&emsp;我在之前的hexo博客中写了50+篇文章，但质量都不太让我满意，解决问题的效率甚至比不上百度，恰巧之前的文档因操作失误丢失了，于是我就重置了整个博客内容从零开始</p><p>&emsp;&emsp;今后的每一篇文章我都会尽心尽力而为，不灌水，如果对文章有问题或者想要交流的小伙伴，可以加我的qq或给我发送邮件进行联系。</p><p>&emsp;&emsp;那么，加油！</p>]]></content>
-      
-      
+      <tags>
+        <tag>frp</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>新篇章，新世界</title>
+    <url>/2019/12/23/1.hello-world/</url>
+    <content><![CDATA[<p>&emsp;&emsp;我在之前的hexo博客中写了50+篇文章，但质量都不太让我满意，解决问题的效率甚至比不上百度，恰巧之前的文档因操作失误丢失了，于是我就重置了整个博客内容从零开始</p>
+<p>&emsp;&emsp;今后的每一篇文章我都会尽心尽力而为，不灌水，如果对文章有问题或者想要交流的小伙伴，可以加我的qq或给我发送邮件进行联系。</p>
+<p>&emsp;&emsp;那么，加油！</p>
+]]></content>
       <categories>
-          
-          <category> 个人感想 </category>
-          
+        <category>个人感想</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> Hexo </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-  
-  
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
 </search>
