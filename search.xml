@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>DBWritable与Writable的坑</title>
+    <url>/2020/01/18/9.DBWritable%E4%B8%8EWritable%E7%9A%84%E5%9D%91/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>hadoop</tag>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mysql5.6安装</title>
+    <url>/2020/01/15/8.mysql5.6%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>随笔分享</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>手机流量统计-自定义序列化类</title>
     <url>/2020/01/14/7.%E6%89%8B%E6%9C%BA%E6%B5%81%E9%87%8F%E7%BB%9F%E8%AE%A1-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BA%8F%E5%88%97%E5%8C%96%E7%B1%BB/</url>
     <content><![CDATA[<p>Access.java</p>
@@ -153,7 +177,7 @@
 
 ]]></content>
       <categories>
-        <category>github项目应用</category>
+        <category>随笔分享</category>
       </categories>
       <tags>
         <tag>frp</tag>
