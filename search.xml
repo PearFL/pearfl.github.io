@@ -44,6 +44,48 @@
       </tags>
   </entry>
   <entry>
+    <title>pip源以及virtualenv基本操作</title>
+    <url>/2020/01/22/12.CentOS7%E4%BD%BF%E7%94%A8firewalld%E6%89%93%E5%BC%80%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99%E4%B8%8E%E7%AB%AF%E5%8F%A3/</url>
+    <content><![CDATA[<h2 id="CentOS7使用firewalld打开关闭防火墙与端口"><a href="#CentOS7使用firewalld打开关闭防火墙与端口" class="headerlink" title="CentOS7使用firewalld打开关闭防火墙与端口"></a>CentOS7使用firewalld打开关闭防火墙与端口</h2><p>1、firewalld的基本使用</p>
+<p>启动： systemctl start firewalld</p>
+<p>关闭： systemctl stop firewalld</p>
+<p>查看状态： systemctl status firewalld </p>
+<p>开机禁用 ： systemctl disable firewalld</p>
+<p>开机启用 ： systemctl enable firewalld</p>
+<p>2.systemctl是CentOS7的服务管理工具中主要的工具，它融合之前service和chkconfig的功能于一体。</p>
+<p>启动一个服务：systemctl start firewalld.service<br>关闭一个服务：systemctl stop firewalld.service<br>重启一个服务：systemctl restart firewalld.service<br>显示一个服务的状态：systemctl status firewalld.service<br>在开机时启用一个服务：systemctl enable firewalld.service<br>在开机时禁用一个服务：systemctl disable firewalld.service<br>查看服务是否开机启动：systemctl is-enabled firewalld.service<br>查看已启动的服务列表：systemctl list-unit-files|grep enabled<br>查看启动失败的服务列表：systemctl –failed</p>
+<p>3.配置firewalld-cmd</p>
+<p>查看版本： firewall-cmd –version</p>
+<p>查看帮助： firewall-cmd –help</p>
+<p>显示状态： firewall-cmd –state</p>
+<p>查看所有打开的端口： firewall-cmd –zone=public –list-ports</p>
+<p>更新防火墙规则： firewall-cmd –reload</p>
+<p>查看区域信息:  firewall-cmd –get-active-zones</p>
+<p>查看指定接口所属区域： firewall-cmd –get-zone-of-interface=eth0</p>
+<p>拒绝所有包：firewall-cmd –panic-on</p>
+<p>取消拒绝状态： firewall-cmd –panic-off</p>
+<p>查看是否拒绝： firewall-cmd –query-panic</p>
+<p>那怎么开启一个端口呢</p>
+<p>添加</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">firewall-cmd --zone&#x3D;public --add-port&#x3D;80&#x2F;tcp --permanent   （--permanent永久生效，没有此参数重启后失效）</span><br></pre></td></tr></table></figure>
+
+<p>重新载入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+
+<p>查看</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">firewall-cmd --zone&#x3D; public --query-port&#x3D;80&#x2F;tcp</span><br></pre></td></tr></table></figure>
+
+<p>删除</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">firewall-cmd --zone&#x3D; public --remove-port&#x3D;80&#x2F;tcp --permanent</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>随笔分享</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>firewalld</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>无法停止hadoop集群</title>
     <url>/2020/01/20/10.%E6%97%A0%E6%B3%95%E5%81%9C%E6%AD%A2hadoop%E9%9B%86%E7%BE%A4/</url>
     <content><![CDATA[<p>问题描述：</p>
@@ -80,7 +122,29 @@
   <entry>
     <title>mysql5.6安装</title>
     <url>/2020/01/15/8.mysql5.6%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<p>本次操作在centos7.2版本的服务器上成功实现，本文不涉及rpm和源码安装2种方式，本文采用二进制安装</p>
+<h2 id="1-首先我们需要卸载内置的mariadb"><a href="#1-首先我们需要卸载内置的mariadb" class="headerlink" title="1.首先我们需要卸载内置的mariadb"></a>1.首先我们需要卸载内置的mariadb</h2><p>原因是以前的Linux系统中数据库大部分是mysql，不过自从被sun收购之后，就没用集成在centos这些开源Linux系统中了，那么如果想用的话就需要自己安装了，首先centos7 已经不支持mysql，因为收费了你懂得，所以内部集成了mariadb，而安装mysql的话会和mariadb的文件冲突，所以需要先卸载掉mariadb</p>
+<p>操作</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># yum search mysql &#x2F;&#x2F;检查是否有mariadb.x86_64</span><br><span class="line"># yum remove mariadb-libs.x86_64</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-下载mysql"><a href="#2-下载mysql" class="headerlink" title="2.下载mysql"></a>2.下载mysql</h2><p>安装包：mysql-5.6.47-linux-glibc2.12-x86_64.tar.gz</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 下载</span><br><span class="line">#wget https:&#x2F;&#x2F;dev.mysql.com&#x2F;get&#x2F;Downloads&#x2F;MySQL-5.6&#x2F;mysql-5.6.47-linux-glibc2.12-x86_64.tar.gz</span><br><span class="line">&#x2F;&#x2F; 解压</span><br><span class="line"># tar -zxvf mysql-5.6.47-linux-glibc2.12-x86_64.tar.gz</span><br><span class="line">&#x2F;&#x2F; 复制解压后的mysql目录</span><br><span class="line"># cp -r mysql-5.6.47-linux-glibc2.12-x86_64 &#x2F;usr&#x2F;local&#x2F;mysql</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-添加用户组和用户"><a href="#3-添加用户组和用户" class="headerlink" title="3.添加用户组和用户"></a>3.添加用户组和用户</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;添加用户组</span><br><span class="line"># groupadd mysql</span><br><span class="line">&#x2F;&#x2F;添加用户mysql 到用户组mysql</span><br><span class="line"># useradd -g mysql mysql</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="4-安装"><a href="#4-安装" class="headerlink" title="4.安装"></a>4.安装</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># cd &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;</span><br><span class="line"># mkdir .&#x2F;data&#x2F;mysql</span><br><span class="line"># chown -R mysql:mysql .&#x2F;</span><br><span class="line"># .&#x2F;scripts&#x2F;mysql_install_db --user&#x3D;mysql --datadir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;data&#x2F;mysql</span><br><span class="line"># cp support-files&#x2F;mysql.server &#x2F;etc&#x2F;init.d&#x2F;mysqld</span><br><span class="line"># chmod 755 &#x2F;etc&#x2F;init.d&#x2F;mysqld</span><br><span class="line"># cp support-files&#x2F;my-default.cnf &#x2F;etc&#x2F;my.cnf</span><br></pre></td></tr></table></figure>
+
+<p>如果出现问题：FATAL ERROR: please install the following Perl modules before executing</p>
+<p>解决方法：安装autoconf库 </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum -y install autoconf</span><br></pre></td></tr></table></figure>
+
+]]></content>
       <categories>
         <category>随笔分享</category>
       </categories>
