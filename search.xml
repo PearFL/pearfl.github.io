@@ -1,6 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>MySQL创建用户与授权</title>
+    <url>/2020/01/24/13.MySQL%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E4%B8%8E%E6%8E%88%E6%9D%83/</url>
+    <content><![CDATA[<h2 id="1-创建用户"><a href="#1-创建用户" class="headerlink" title="1.创建用户"></a>1.创建用户</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE USER &#39;username&#39;@&#39;host&#39; IDENTIFIED BY &#39;password&#39;;</span><br></pre></td></tr></table></figure>
+
+<p>username：你将创建的用户名<br>host：指定该用户在哪个主机上可以登陆，如果是本地用户可用localhost，如果想让该用户可以从任意远程主机登陆，可以使用通配符%<br>password：该用户的登陆密码，密码可以为空，如果为空则该用户可以不需要密码登陆服务器</p>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE USER &#39;dog&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;123456&#39;;</span><br><span class="line">CREATE USER &#39;pig&#39;@&#39;192.168.1.101_&#39; IDENDIFIED BY &#39;123456&#39;;</span><br><span class="line">CREATE USER &#39;pig&#39;@&#39;%&#39; IDENTIFIED BY &#39;123456&#39;;</span><br><span class="line">CREATE USER &#39;pig&#39;@&#39;%&#39; IDENTIFIED BY &#39;&#39;;</span><br><span class="line">CREATE USER &#39;pig&#39;@&#39;%&#39;;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="2-授权"><a href="#2-授权" class="headerlink" title="2.授权"></a>2.授权</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">GRANT privileges ON databasename.tablename TO &#39;username&#39;@&#39;host&#39;</span><br></pre></td></tr></table></figure>
+
+<p>privileges：用户的操作权限，如SELECT，INSERT，UPDATE等，如果要授予所的权限则使用ALL<br>databasename：数据库名<br>tablename：表名，如果要授予该用户对所有数据库和表的相应操作权限则可用<em>表示，如</em>.*</p>
+<p>用以上命令授权的用户不能给其它用户授权，如果想让该用户可以授权，用以下命令:<br>GRANT privileges ON databasename.tablename TO ‘username’@’host’ WITH GRANT OPTION;</p>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">GRANT SELECT, INSERT ON test.user TO &#39;pig&#39;@&#39;%&#39;;</span><br><span class="line">GRANT ALL ON *.* TO &#39;pig&#39;@&#39;%&#39;;</span><br><span class="line">GRANT ALL ON maindataplus.* TO &#39;pig&#39;@&#39;%&#39;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-设置与更改用户密码"><a href="#3-设置与更改用户密码" class="headerlink" title="3.设置与更改用户密码"></a>3.设置与更改用户密码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SET PASSWORD FOR &#39;username&#39;@&#39;host&#39; &#x3D; PASSWORD(&#39;newpassword&#39;);</span><br></pre></td></tr></table></figure>
+
+<p>如果是当前登陆用户用:<br>SET PASSWORD = PASSWORD(“newpassword”);</p>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SET PASSWORD FOR &#39;pig&#39;@&#39;%&#39; &#x3D; PASSWORD(&quot;123456&quot;);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="4-撤销用户权限"><a href="#4-撤销用户权限" class="headerlink" title="4.撤销用户权限"></a>4.撤销用户权限</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">REVOKE privilege ON databasename.tablename FROM &#39;username&#39;@&#39;host&#39;;</span><br></pre></td></tr></table></figure>
+
+<p>privilege, databasename, tablename：同授权部分</p>
+<p>假如你在给用户‘pig’@’%’授权的时候是这样的（或类似的）：GRANT SELECT ON test.user TO ‘pig’@’%’，则在使用REVOKE SELECT ON <em>.</em> FROM ‘pig’@’%’;命令并不能撤销该用户对test数据库中user表的SELECT 操作。</p>
+<p>相反，如果授权使用的是GRANT SELECT ON <em>.</em> TO ‘pig’@’%’;则REVOKE SELECT ON test.user FROM ‘pig’@’%’;命令也不能撤销该用户对test数据库中user表的Select权限。</p>
+<p>具体信息可以用命令SHOW GRANTS FOR ‘pig’@’%’; 查看。</p>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">REVOKE SELECT ON *.* FROM &#39;pig&#39;@&#39;%&#39;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="5-删除用户"><a href="#5-删除用户" class="headerlink" title="5.删除用户"></a>5.删除用户</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DROP USER &#39;username&#39;@&#39;host&#39;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>随笔分享</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CentOS7使用firewalld打开关闭防火墙与端口</title>
+    <url>/2020/01/23/12.CentOS7%E4%BD%BF%E7%94%A8firewalld%E6%89%93%E5%BC%80%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99%E4%B8%8E%E7%AB%AF%E5%8F%A3%20-%20%E5%89%AF%E6%9C%AC/</url>
+    <content><![CDATA[<h2 id="CentOS7使用firewalld打开关闭防火墙与端口"><a href="#CentOS7使用firewalld打开关闭防火墙与端口" class="headerlink" title="CentOS7使用firewalld打开关闭防火墙与端口"></a>CentOS7使用firewalld打开关闭防火墙与端口</h2><p>1、firewalld的基本使用</p>
+<p>启动： systemctl start firewalld</p>
+<p>关闭： systemctl stop firewalld</p>
+<p>查看状态： systemctl status firewalld </p>
+<p>开机禁用 ： systemctl disable firewalld</p>
+<p>开机启用 ： systemctl enable firewalld</p>
+<p>2.systemctl是CentOS7的服务管理工具中主要的工具，它融合之前service和chkconfig的功能于一体。</p>
+<p>启动一个服务：systemctl start firewalld.service<br>关闭一个服务：systemctl stop firewalld.service<br>重启一个服务：systemctl restart firewalld.service<br>显示一个服务的状态：systemctl status firewalld.service<br>在开机时启用一个服务：systemctl enable firewalld.service<br>在开机时禁用一个服务：systemctl disable firewalld.service<br>查看服务是否开机启动：systemctl is-enabled firewalld.service<br>查看已启动的服务列表：systemctl list-unit-files|grep enabled<br>查看启动失败的服务列表：systemctl –failed</p>
+<p>3.配置firewalld-cmd</p>
+<p>查看版本： firewall-cmd –version</p>
+<p>查看帮助： firewall-cmd –help</p>
+<p>显示状态： firewall-cmd –state</p>
+<p>查看所有打开的端口： firewall-cmd –zone=public –list-ports</p>
+<p>更新防火墙规则： firewall-cmd –reload</p>
+<p>查看区域信息:  firewall-cmd –get-active-zones</p>
+<p>查看指定接口所属区域： firewall-cmd –get-zone-of-interface=eth0</p>
+<p>拒绝所有包：firewall-cmd –panic-on</p>
+<p>取消拒绝状态： firewall-cmd –panic-off</p>
+<p>查看是否拒绝： firewall-cmd –query-panic</p>
+<p>那怎么开启一个端口呢</p>
+<p>添加</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">firewall-cmd --zone&#x3D;public --add-port&#x3D;80&#x2F;tcp --permanent   （--permanent永久生效，没有此参数重启后失效）</span><br></pre></td></tr></table></figure>
+
+<p>重新载入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+
+<p>查看</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">firewall-cmd --zone&#x3D; public --query-port&#x3D;80&#x2F;tcp</span><br></pre></td></tr></table></figure>
+
+<p>删除</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">firewall-cmd --zone&#x3D; public --remove-port&#x3D;80&#x2F;tcp --permanent</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>随笔分享</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>firewalld</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>pip源以及virtualenv基本操作</title>
     <url>/2020/01/22/11.pip%E6%BA%90%E4%BB%A5%E5%8F%8Avirtualenv%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
     <content><![CDATA[<h2 id="virtualenv基本操作（windows环境）"><a href="#virtualenv基本操作（windows环境）" class="headerlink" title="virtualenv基本操作（windows环境）"></a>virtualenv基本操作（windows环境）</h2><p>1、下载virtualenv</p>
@@ -41,48 +133,6 @@
       </categories>
       <tags>
         <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>pip源以及virtualenv基本操作</title>
-    <url>/2020/01/22/12.CentOS7%E4%BD%BF%E7%94%A8firewalld%E6%89%93%E5%BC%80%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99%E4%B8%8E%E7%AB%AF%E5%8F%A3/</url>
-    <content><![CDATA[<h2 id="CentOS7使用firewalld打开关闭防火墙与端口"><a href="#CentOS7使用firewalld打开关闭防火墙与端口" class="headerlink" title="CentOS7使用firewalld打开关闭防火墙与端口"></a>CentOS7使用firewalld打开关闭防火墙与端口</h2><p>1、firewalld的基本使用</p>
-<p>启动： systemctl start firewalld</p>
-<p>关闭： systemctl stop firewalld</p>
-<p>查看状态： systemctl status firewalld </p>
-<p>开机禁用 ： systemctl disable firewalld</p>
-<p>开机启用 ： systemctl enable firewalld</p>
-<p>2.systemctl是CentOS7的服务管理工具中主要的工具，它融合之前service和chkconfig的功能于一体。</p>
-<p>启动一个服务：systemctl start firewalld.service<br>关闭一个服务：systemctl stop firewalld.service<br>重启一个服务：systemctl restart firewalld.service<br>显示一个服务的状态：systemctl status firewalld.service<br>在开机时启用一个服务：systemctl enable firewalld.service<br>在开机时禁用一个服务：systemctl disable firewalld.service<br>查看服务是否开机启动：systemctl is-enabled firewalld.service<br>查看已启动的服务列表：systemctl list-unit-files|grep enabled<br>查看启动失败的服务列表：systemctl –failed</p>
-<p>3.配置firewalld-cmd</p>
-<p>查看版本： firewall-cmd –version</p>
-<p>查看帮助： firewall-cmd –help</p>
-<p>显示状态： firewall-cmd –state</p>
-<p>查看所有打开的端口： firewall-cmd –zone=public –list-ports</p>
-<p>更新防火墙规则： firewall-cmd –reload</p>
-<p>查看区域信息:  firewall-cmd –get-active-zones</p>
-<p>查看指定接口所属区域： firewall-cmd –get-zone-of-interface=eth0</p>
-<p>拒绝所有包：firewall-cmd –panic-on</p>
-<p>取消拒绝状态： firewall-cmd –panic-off</p>
-<p>查看是否拒绝： firewall-cmd –query-panic</p>
-<p>那怎么开启一个端口呢</p>
-<p>添加</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">firewall-cmd --zone&#x3D;public --add-port&#x3D;80&#x2F;tcp --permanent   （--permanent永久生效，没有此参数重启后失效）</span><br></pre></td></tr></table></figure>
-
-<p>重新载入</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
-
-<p>查看</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">firewall-cmd --zone&#x3D; public --query-port&#x3D;80&#x2F;tcp</span><br></pre></td></tr></table></figure>
-
-<p>删除</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">firewall-cmd --zone&#x3D; public --remove-port&#x3D;80&#x2F;tcp --permanent</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>随笔分享</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>firewalld</tag>
       </tags>
   </entry>
   <entry>
@@ -138,13 +188,22 @@
 
 
 
-<h2 id="4-安装"><a href="#4-安装" class="headerlink" title="4.安装"></a>4.安装</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># cd &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;</span><br><span class="line"># mkdir .&#x2F;data&#x2F;mysql</span><br><span class="line"># chown -R mysql:mysql .&#x2F;</span><br><span class="line"># .&#x2F;scripts&#x2F;mysql_install_db --user&#x3D;mysql --datadir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;data&#x2F;mysql</span><br><span class="line"># cp support-files&#x2F;mysql.server &#x2F;etc&#x2F;init.d&#x2F;mysqld</span><br><span class="line"># chmod 755 &#x2F;etc&#x2F;init.d&#x2F;mysqld</span><br><span class="line"># cp support-files&#x2F;my-default.cnf &#x2F;etc&#x2F;my.cnf</span><br></pre></td></tr></table></figure>
+<h2 id="4-安装"><a href="#4-安装" class="headerlink" title="4.安装"></a>4.安装</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># cd &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;</span><br><span class="line"># mkdir .&#x2F;data&#x2F;mysql</span><br><span class="line"># chown -R mysql:mysql .&#x2F;</span><br><span class="line"># .&#x2F;scripts&#x2F;mysql_install_db --user&#x3D;mysql --datadir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;data&#x2F;mysql</span><br><span class="line"># cp support-files&#x2F;mysql.server &#x2F;etc&#x2F;init.d&#x2F;mysqld</span><br><span class="line"># chmod 755 &#x2F;etc&#x2F;init.d&#x2F;mysqld</span><br><span class="line"># cp support-files&#x2F;my-default.cnf &#x2F;etc&#x2F;my.cnf</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;修改启动脚本</span><br><span class="line"># vi &#x2F;etc&#x2F;init.d&#x2F;mysqld</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;修改项：</span><br><span class="line">basedir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;</span><br><span class="line">datadir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;data&#x2F;mysql</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;启动服务</span><br><span class="line"># service mysqld start</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;加入环境变量，编辑 &#x2F;etc&#x2F;profile，这样可以在任何地方用mysql命令了</span><br><span class="line"># export PATH&#x3D;$PATH:&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;&#x2F;bin&lt;br&gt;source &#x2F;etc&#x2F;profile</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;启动mysql</span><br><span class="line"># service mysqld start</span><br><span class="line">&#x2F;&#x2F;关闭mysql</span><br><span class="line"># service mysqld stop</span><br><span class="line">&#x2F;&#x2F;查看运行状态</span><br><span class="line"># service mysqld status</span><br></pre></td></tr></table></figure>
 
-<p>如果出现问题：FATAL ERROR: please install the following Perl modules before executing</p>
-<p>解决方法：安装autoconf库 </p>
+
+
+<p>可能出现的问题↓</p>
+<p>问题1:：FATAL ERROR: please install the following Perl modules before executing</p>
+<p>问题原因：缺少autoconf库</p>
+<p>解决方案：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum -y install autoconf</span><br></pre></td></tr></table></figure>
 
-]]></content>
+
+
+<p>问题2：Installing MySQL system tables…./bin/mysqld: error while loading shared libraries: libaio.so.1: cannot open shared object file: No such file or directory</p>
+<p>问题原因：缺少libaio库文件</p>
+<p>解决方案：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum -y install libaio*</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>随笔分享</category>
       </categories>
