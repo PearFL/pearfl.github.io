@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>log4j相关配置</title>
+    <url>/2020/01/27/15.log4j%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<p>log4j.properties</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">log4j.rootCategory&#x3D;info, console</span><br><span class="line">log4j.appender.console&#x3D;org.apache.log4j.ConsoleAppender</span><br><span class="line">log4j.appender.console.target&#x3D;System.err</span><br><span class="line">log4j.appender.console.layout&#x3D;org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.console.layout.ConversionPattern&#x3D;%p %c&#123;1&#125;: %m%n</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>随笔分享</category>
+      </categories>
+      <tags>
+        <tag>配置</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>最短路径算法</title>
     <url>/2020/01/26/14.%E6%9C%80%E7%9F%AD%E8%B7%AF%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<h2 id="最短路径算法"><a href="#最短路径算法" class="headerlink" title="最短路径算法"></a>最短路径算法</h2><h3 id="1-Dijkstra-算法"><a href="#1-Dijkstra-算法" class="headerlink" title="1.$Dijkstra$算法"></a>1.$Dijkstra$算法</h3><p>解决单源最短路径问题常用 Dijkstra 算法，用于计算一个顶点到其他所有顶点的最短路径。Dijkstra 算法的主要特点是以起点为中心，逐层向外扩展（这一点类似于 bfs，但是不同的是，bfs 每次扩展一个层，但是 Dijkstra 每次只会扩展一个点），每次都会取一个最近点继续扩展，直到取完所有点为止。 </p>
@@ -337,6 +351,42 @@
       </categories>
       <tags>
         <tag>hadoop</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hive部署</title>
+    <url>/2020/01/06/16.Hive%E9%83%A8%E7%BD%B2/</url>
+    <content><![CDATA[<h2 id="Hive部署"><a href="#Hive部署" class="headerlink" title="Hive部署"></a>Hive部署</h2><p>1）下载</p>
+<p>2）解压</p>
+<p>3）添加HIVE_HOME到系统环境变量</p>
+<p>4）修改配置 hive-env.sh</p>
+<p>5）拷贝MySQL驱动包到$HIVE_HOME/lib</p>
+<p>6）前提是要安装一个MySQL数据库</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tar -zxvf hive-1.1.0-cdh5.16.2.tar.gz -C ~&#x2F;app&#x2F;</span><br><span class="line"></span><br><span class="line">配置.bash_profile</span><br><span class="line">export HIVE_HOME&#x3D;&#x2F;root&#x2F;app&#x2F;hive-1.1.0-cdh5.16.2</span><br><span class="line">export PATH&#x3D;$HIVE_HOME&#x2F;bin:$PATH</span><br></pre></td></tr></table></figure>
+
+
+
+<p>在hive文件夹的conf文件夹内进行配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># cp hive-env.sh.template hive-env.sh</span><br></pre></td></tr></table></figure>
+
+<p>若hadoop没有配置进环境变量，需要再hive-env.sh内配置HADOOP_HOME</p>
+<p>配置hive-site.xml</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;?xml-stylesheet type&#x3D;&quot;text&#x2F;xsl&quot; href&#x3D;&quot;configuration.xsl&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;javax.jdo.option.ConnectionURL&lt;&#x2F;name&gt;</span><br><span class="line">  &lt;value&gt;jdbc:mysql:&#x2F;&#x2F;hadoop000:3306&#x2F;hadoop_hive?createDatabaseIfNotExist&#x3D;true&lt;&#x2F;value&gt;</span><br><span class="line">&lt;&#x2F;property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;&#x2F;name&gt;</span><br><span class="line">  &lt;value&gt;com.mysql.jdbc.Driver&lt;&#x2F;value&gt;</span><br><span class="line">&lt;&#x2F;property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;javax.jdo.option.ConnectionUserName&lt;&#x2F;name&gt;</span><br><span class="line">  &lt;value&gt;root&lt;&#x2F;value&gt;</span><br><span class="line">&lt;&#x2F;property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;javax.jdo.option.ConnectionPassword&lt;&#x2F;name&gt;</span><br><span class="line">  &lt;value&gt;root&lt;&#x2F;value&gt;</span><br><span class="line">&lt;&#x2F;property&gt;</span><br><span class="line">&lt;&#x2F;configuration&gt;</span><br></pre></td></tr></table></figure>
+
+<p>javax.jdo.option.ConnectionUserName对应mysql中的账号</p>
+<p>javax.jdo.option.ConnectionPassword对应mysql中的密码</p>
+<p>拷贝mysql的架包到hive文件夹下的lib文件夹中</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp mysql-connector-java-5.1.28.jar &#x2F;root&#x2F;app&#x2F;hive-1.1.0-cdh5.16.2&#x2F;lib&#x2F;mysql-connector-java-5.1.28.jar</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>hadoop</tag>
+        <tag>hive</tag>
       </tags>
   </entry>
   <entry>
