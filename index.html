@@ -293,7 +293,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/02/19.Python%E7%9A%84%E5%88%97%E8%A1%A8%E3%80%81%E5%85%83%E7%A5%96%E3%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/02/19.Python%E7%9A%84%E5%88%97%E8%A1%A8%E3%80%81%E5%85%83%E7%BB%84%E3%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -307,7 +307,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/02/19.Python%E7%9A%84%E5%88%97%E8%A1%A8%E3%80%81%E5%85%83%E7%A5%96%E3%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-title-link" itemprop="url">Python的列表、元祖、字符串</a>
+            <a href="/2020/02/02/19.Python%E7%9A%84%E5%88%97%E8%A1%A8%E3%80%81%E5%85%83%E7%BB%84%E3%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-title-link" itemprop="url">Python的列表、元组、字符串</a>
         </h1>
 
         <div class="post-meta">
@@ -318,7 +318,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-02-02 18:38:22 / 修改时间：22:09:52" itemprop="dateCreated datePublished" datetime="2020-02-02T18:38:22+08:00">2020-02-02</time>
+              <time title="创建时间：2020-02-02 18:38:22 / 修改时间：22:54:51" itemprop="dateCreated datePublished" datetime="2020-02-02T18:38:22+08:00">2020-02-02</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -338,14 +338,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
+              <span>2.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -409,7 +409,53 @@
 
 
 
-<h3 id="列表元素的删除"><a href="#列表元素的删除" class="headerlink" title="列表元素的删除"></a>列表元素的删除</h3>
+<h3 id="列表元素的删除"><a href="#列表元素的删除" class="headerlink" title="列表元素的删除"></a>列表元素的删除</h3><p>1.按索引删除元素</p>
+<p><strong>pop(索引)</strong> 会将索引对应的元素从列表中删除，同时返回这个元素。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">元素 = 列表.pop(索引)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = [‘a’, ‘b’, ‘c’]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters.pop(<span class="number">0</span>)</span><br><span class="line">’a’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters</span><br><span class="line">[‘b’, ‘c’]</span><br></pre></td></tr></table></figure>
+
+<p>也可以不传递索引，这样的话默认删除并返回最后一个元素</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = [‘a’, ‘b’, ‘c’]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters.pop()</span><br><span class="line">’c’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters</span><br><span class="line">[‘a’, ‘b’]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.按索引删除元素（<code>del</code> 方法)</p>
+<p>删除一个列表元素也可以使用 Python 中的 <code>del</code> 关键字，如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">del</span> 列表[索引]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = [‘a’, ‘b’, ‘c’]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">del</span> letters[<span class="number">0</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters</span><br><span class="line">[‘b’, ‘c’]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>3.直接删除元素</p>
+<p>直接删除元素时，Python 会先在列表中遍历该元素，然后将匹配到的第一个元素删除</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">列表.remove(元素)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = [‘a’, ‘b’, ‘c’]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters.remove(‘b’)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters</span><br><span class="line">[‘a’, ‘c’]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>4.清空所有元素</p>
+<p>清空所有元素即是把列表元素全部删除，最后仅为列表仅为 <code>[]</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">列表.clear()</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = [‘a’, ‘b’, ‘c’]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters.clear()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters</span><br><span class="line">[]</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="列表元素的修改"><a href="#列表元素的修改" class="headerlink" title="列表元素的修改"></a>列表元素的修改</h3><p>1.通过赋值修改列表元素</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">列表[索引] = 新元素</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = [‘a’, ‘b’, ‘c’]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters[<span class="number">2</span>] = <span class="string">'d’</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; letters</span></span><br><span class="line"><span class="string">[‘a’, ‘b’, ‘d’]</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.反转整个列表</p>
+<p>反转整个列表会将所有的元素倒序排列</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">列表.reverse()</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = [‘a’, ‘b’, ‘c’]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters.reverse()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters</span><br><span class="line">[‘c’, ‘b’, ‘a’]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>3.列表元素排序</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">列表.sort()</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers = [<span class="number">2</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">3</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers.sort()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">7</span>]</span><br></pre></td></tr></table></figure>
+
+<p>也可以通过指定 <code>sort</code> 方法的 <code>reverse</code> 参数来倒序排列</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">列表.sort(reverse=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers = [<span class="number">2</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">3</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers.sort(reverse=<span class="literal">True</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers</span><br><span class="line">[<span class="number">7</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h2>
       
     </div>
 
@@ -1467,12 +1513,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">29k</span>
+    <span title="站点总字数">30k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">48 分钟</span>
+    <span title="站点阅读时长">50 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
