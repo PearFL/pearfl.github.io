@@ -13,7 +13,7 @@
   </entry>
   <entry>
     <title>Python的列表、元组、字符串</title>
-    <url>/2020/02/02/19.Python%E7%9A%84%E5%88%97%E8%A1%A8%E3%80%81%E5%85%83%E7%BB%84%E3%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
+    <url>/2020/02/02/19.Python%E7%9A%84%E5%88%97%E8%A1%A8%E3%80%81%E5%85%83%E7%A5%96%E3%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
     <content><![CDATA[<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><p>列表是用于存放若干元素的<strong>有序序列</strong>。列表使用方括号（<code>[]</code>）来表示，其中的元素写入方括号中，多个元素时用逗号分隔，如 <code>[1, &#39;go&#39;, [0.1, 0.2]]</code>。它的元素可以是任意数据类型，甚至也可以是个列表。</p>
 <p>元素之间有顺序关系，每个元素都有自己的位置，每个位置从 0 开始依次标号，这个表示位置的数字叫作<strong>索引</strong>。</p>
 <p>列表被创建之后，我们可以对它做很多操作，包括添加元素，删除元素，修改元素，查找元素等。</p>
@@ -112,7 +112,71 @@
 
 
 
-<h2 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h2>]]></content>
+<h2 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h2><p>元组和列表非常相似，也是用于存放元素的有序序列。它用的圆括号（<code>()</code>）表示，元素写入圆括号中，多个元素时用逗号分隔，如 <code>(1, 2, 3)</code>。</p>
+<p>元组同样具有索引，索引使用方式与列表一致。其元素同样可以是任意类型。</p>
+<p>看起来元组就是披着圆括号外衣的列表嘛！有什么区别？</p>
+<p>元组创建完成后，便不能向其中添加元素，也不能修改和删除其中的任何一个元素。所以它与列表相比，只能查找元素，也就是说只具备读的功能，不具备写的功能。元组的这一特性叫作<strong>不可变（性）</strong>（Immutable），而列表是<strong>可变的</strong>（Mutable）。</p>
+<h3 id="创建元组"><a href="#创建元组" class="headerlink" title="创建元组"></a>创建元组</h3><p>1.创建空的元组</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">元组 = ()</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>items = ()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>items</span><br><span class="line">()</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.创建包含多个元素的元组</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">元组 = (元素<span class="number">1</span>, 元素<span class="number">2</span>, ..., 元素N)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>items = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>items</span><br><span class="line">(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>3.创建只包含一个元素的元组</p>
+<p>只包含一个元素的情况需要单独说明一下，因为它的形式与直觉不相符。</p>
+<p>创建只包含一个元素的元组，需要在唯一的那个元素后面<strong>加上逗号</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">元组 = (元素,)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>items = (<span class="number">1</span>,)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>items</span><br><span class="line">(<span class="number">1</span>,)</span><br></pre></td></tr></table></figure>
+
+<p>这是因为，如果括号中只有一个元素，那么 Python 会将这个括号当作优先级符号进行处理（像数学中的那样），而不是当作元组</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>items = (<span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>items</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(items)</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> ‘<span class="title">int</span>’&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="元组元素的获取"><a href="#元组元素的获取" class="headerlink" title="元组元素的获取"></a>元组元素的获取</h3><p>1.通过索引获取元素</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">元素 = 元组[索引]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = (‘a’, ‘b’, ‘c’)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters[<span class="number">2</span>]</span><br><span class="line">’c’</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.通过元素获取索引</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">索引 = 元组.index(元素)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = (‘a’, ‘b’, ‘c’)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters.index(‘c’)</span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>3.查看元素是否存在于元组中</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">布尔值 = 元素 <span class="keyword">in</span> 元组</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = (‘a’, ‘b’, ‘c’)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>‘a’ <span class="keyword">in</span> letters</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>‘z’ <span class="keyword">in</span> letters</span><br><span class="line"><span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>4.统计元素在元组中出现的个数</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">个数 = 元组.count(元素)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">7</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers.count(<span class="number">5</span>)</span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="元组和列表的差别"><a href="#元组和列表的差别" class="headerlink" title="元组和列表的差别"></a>元组和列表的差别</h2><p>我们可以看到，元组所具有的操作在使用方式上与和列表非常相似，甚至在一定程度上可以将元组看作是列表的精简版，但它们之间也有明显的差别。</p>
+<ul>
+<li>元组是不可变的（Immutable），列表是可变的（Mutable），元组在被创建之后，就不能添加、删除和修改元素，而列表可以</li>
+<li>一般情况下元组的性能在略高于列表</li>
+</ul>
+<p>我们在什么时候用列表，什么时候用元组？</p>
+<p>列表还是元组，通常性能不是从它们中做选择的主要考虑因素，因为它们之间的性能差异不是很大。我们的选择通常围绕着可变和不可变的特性进行，当我们需要添加元素或修改元素时，使用列表；当我们希望所有元素在创建之后便不再改变，可使用元组。</p>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>字符串是 Python 中用来存放字符序列的数据类型，其中的元素只能是字符。字符串使用单引号或双引号来表示，如 <code>&#39;pick&#39;</code>，<code>&quot;cherry&quot;</code>，通常我们首先使用单引号。</p>
+<p>字符串是有序序列，可以使用索引来获取其中某个位置的元素。它是不可变的，被创建之后其中的元素（也就是字符）不能被修改和删除。</p>
+<h3 id="创建字符串"><a href="#创建字符串" class="headerlink" title="创建字符串"></a>创建字符串</h3><p>1.创建空字符串（即不包含字符的字符串）</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">字符串 = <span class="string">''</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = <span class="string">''</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string</span><br><span class="line">’’</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.创建包含元素的字符串</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">字符串 = <span class="string">'若干字符'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = <span class="string">'happy’</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; string</span></span><br><span class="line"><span class="string">’happy’</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="字符串的获取"><a href="#字符串的获取" class="headerlink" title="字符串的获取"></a>字符串的获取</h3><p>1.</p>
+]]></content>
       <categories>
         <category>随笔分享</category>
       </categories>
