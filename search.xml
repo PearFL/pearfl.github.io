@@ -1,9 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>数据倾斜解决方案</title>
+    <url>/2020/02/04/22.%E6%95%B0%E6%8D%AE%E5%80%BE%E6%96%9C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
+    <content><![CDATA[<p>同key分发到同一个reduce去执行==&gt;skew</p>
+<p>数据倾斜解决方案：打散再处理</p>
+<p>假设原task要处理9000w的数据量，我们通过随机数打散为100份</p>
+<p>==&gt; 原来都在一个reducetask中取处理的数据，被我们打散后变为9000w / 100</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">chain:</span><br><span class="line">	第一个mr：key加随机数打散</span><br><span class="line">	data_8 100</span><br><span class="line">	data_1 200</span><br><span class="line">	data_2 300</span><br><span class="line">	data_4 200</span><br><span class="line">	第二个mr：第一个mr加的随机数去掉</span><br><span class="line">	data 100</span><br><span class="line">	data 200</span><br><span class="line">	data 300</span><br><span class="line">	data 200</span><br><span class="line">	</span><br><span class="line">	在第二个mr中的reduce来做最终的聚合操作</span><br><span class="line">	ruoze 800</span><br></pre></td></tr></table></figure>
+
+<p>Hadoop不怕数据量大，就怕数据倾斜hhhhhhhhhhhhh（跑不动）</p>
+]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>hadoop</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hive之Join详解</title>
     <url>/2020/02/03/21.Hive%E4%B9%8BJoin%E8%AF%A6%E8%A7%A3/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Reduce&#x2F;Shuffle&#x2F;Common Join</span><br><span class="line">	join操作是在reduce端完成的</span><br><span class="line">Map Join</span><br><span class="line">	join操作是在map端完成的</span><br></pre></td></tr></table></figure>
+
+<p>Map Join</p>
+<p>join操作是在map端完成的，无Shuffle和Reduce</p>
+<p>思路：小表加载到内存中，读取大表时，读一条和内存中的数据匹配一下</p>
+<p>缺点：没办法处理大数据量的表，适合打表join小表</p>
+]]></content>
       <categories>
         <category>大数据</category>
       </categories>

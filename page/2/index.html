@@ -210,6 +210,125 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/23/12.CentOS7%E4%BD%BF%E7%94%A8firewalld%E6%89%93%E5%BC%80%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99%E4%B8%8E%E7%AB%AF%E5%8F%A3%20-%20%E5%89%AF%E6%9C%AC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="pearfl">
+      <meta itemprop="description" content="热爱从不降温">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="叶梨子的小窝">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/23/12.CentOS7%E4%BD%BF%E7%94%A8firewalld%E6%89%93%E5%BC%80%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99%E4%B8%8E%E7%AB%AF%E5%8F%A3%20-%20%E5%89%AF%E6%9C%AC/" class="post-title-link" itemprop="url">CentOS7使用firewalld打开关闭防火墙与端口</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-23 11:02:13" itemprop="dateCreated datePublished" datetime="2020-01-23T11:02:13+08:00">2020-01-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-29 15:10:34" itemprop="dateModified" datetime="2020-01-29T15:10:34+08:00">2020-01-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9A%8F%E7%AC%94%E5%88%86%E4%BA%AB/" itemprop="url" rel="index">
+                    <span itemprop="name">随笔分享</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="CentOS7使用firewalld打开关闭防火墙与端口"><a href="#CentOS7使用firewalld打开关闭防火墙与端口" class="headerlink" title="CentOS7使用firewalld打开关闭防火墙与端口"></a>CentOS7使用firewalld打开关闭防火墙与端口</h2><p>1、firewalld的基本使用</p>
+<p>启动： systemctl start firewalld</p>
+<p>关闭： systemctl stop firewalld</p>
+<p>查看状态： systemctl status firewalld </p>
+<p>开机禁用 ： systemctl disable firewalld</p>
+<p>开机启用 ： systemctl enable firewalld</p>
+<p>2.systemctl是CentOS7的服务管理工具中主要的工具，它融合之前service和chkconfig的功能于一体。</p>
+<p>启动一个服务：systemctl start firewalld.service<br>关闭一个服务：systemctl stop firewalld.service<br>重启一个服务：systemctl restart firewalld.service<br>显示一个服务的状态：systemctl status firewalld.service<br>在开机时启用一个服务：systemctl enable firewalld.service<br>在开机时禁用一个服务：systemctl disable firewalld.service<br>查看服务是否开机启动：systemctl is-enabled firewalld.service<br>查看已启动的服务列表：systemctl list-unit-files|grep enabled<br>查看启动失败的服务列表：systemctl –failed</p>
+<p>3.配置firewalld-cmd</p>
+<p>查看版本： firewall-cmd –version</p>
+<p>查看帮助： firewall-cmd –help</p>
+<p>显示状态： firewall-cmd –state</p>
+<p>查看所有打开的端口： firewall-cmd –zone=public –list-ports</p>
+<p>更新防火墙规则： firewall-cmd –reload</p>
+<p>查看区域信息:  firewall-cmd –get-active-zones</p>
+<p>查看指定接口所属区域： firewall-cmd –get-zone-of-interface=eth0</p>
+<p>拒绝所有包：firewall-cmd –panic-on</p>
+<p>取消拒绝状态： firewall-cmd –panic-off</p>
+<p>查看是否拒绝： firewall-cmd –query-panic</p>
+<p>那怎么开启一个端口呢</p>
+<p>添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone&#x3D;public --add-port&#x3D;80&#x2F;tcp --permanent   （--permanent永久生效，没有此参数重启后失效）</span><br></pre></td></tr></table></figure>
+
+<p>重新载入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+
+<p>查看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone&#x3D; public --query-port&#x3D;80&#x2F;tcp</span><br></pre></td></tr></table></figure>
+
+<p>删除</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone&#x3D; public --remove-port&#x3D;80&#x2F;tcp --permanent</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/22/11.pip%E6%BA%90%E4%BB%A5%E5%8F%8Avirtualenv%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1158,107 +1277,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/29/%EF%BC%812.frp%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="pearfl">
-      <meta itemprop="description" content="热爱从不降温">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="叶梨子的小窝">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/29/%EF%BC%812.frp%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" class="post-title-link" itemprop="url">frp实现内网穿透</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-12-29 14:35:12" itemprop="dateCreated datePublished" datetime="2019-12-29T14:35:12+08:00">2019-12-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-20 17:10:01" itemprop="dateModified" datetime="2020-01-20T17:10:01+08:00">2020-01-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9A%8F%E7%AC%94%E5%88%86%E4%BA%AB/" itemprop="url" rel="index">
-                    <span itemprop="name">随笔分享</span>
-                  </a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>698</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&emsp;&emsp;对于没有公网ip的内网用户来说，远程管理或在外网访问内网机器上的服务是一个比较麻烦的问题，为了解决这个问题，我介绍一款相当好用的内网穿透工具frp。<br>&emsp;&emsp;frp 是一个使用 Go 语言开发的高性能的反向代理应用，可以帮助您轻松地进行内网穿透，对外网提供服务。FRP 支持 TCP、UDP、HTTP、HTTPS等协议类型，并且支持 Web 服务根据域名进行路由转发。<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frp项目地址: https:&#x2F;&#x2F;github.com&#x2F;fatedier&#x2F;frp</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="frp的作用"><a href="#frp的作用" class="headerlink" title="frp的作用"></a>frp的作用</h1><p>1.利用处于内网或防火墙后的机器，对外网环境提供 HTTP 或 HTTPS 服务。</p>
-<p>2.对于 HTTP, HTTPS 服务支持基于域名的虚拟主机，支持自定义域名绑定，使多个域名可以共用一个 80 端口。</p>
-<p>3.利用处于内网或防火墙后的机器，对外网环境提供 TCP 和 UDP 服务，例如在家里通过 SSH 访问处于公司内网环境内的主机。</p>
-<h1 id="frp安装"><a href="#frp安装" class="headerlink" title="frp安装"></a>frp安装</h1><p>FRP 采用 Go 语言开发，支持 Windows、Linux、MacOS、ARM等多平台部署。FRP 安装非常容易，只需下载对应系统平台的软件包，并解压就可用。</p>
-<p>这里以 Linux 为例，为了方便管理我们把解压后的目录重命名为 frp ：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># wget https:&#x2F;&#x2F;github.com&#x2F;fatedier&#x2F;frp&#x2F;releases&#x2F;download&#x2F;v0.30.0&#x2F;frp_0.30.0_linux_amd64.tar.gz</span><br><span class="line">#</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1331,7 +1349,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1392,12 +1410,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">32k</span>
+    <span title="站点总字数">33k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">53 分钟</span>
+    <span title="站点阅读时长">54 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
