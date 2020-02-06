@@ -46,20 +46,20 @@
   };
 </script>
 
-  <meta name="description" content="热爱从不降温">
+  <meta name="description" content="jps最主要的功能使查看java接口的进程号 jps(Java Virtual Machine Process Status Tool)是JDK 1.5提供的一个显示当前所有 java 进程 pid 的命令，简单实用，非常适合在 linux&#x2F;unix 平台上简单察看当前java进程的一些简单情况。 注：jps命令有个地方很不好，似乎只能显示当前用户的java进程，要显示其他用户的还是只能用unix">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python的字典、集合">
-<meta property="og:url" content="http://yoursite.com/2020/02/02/%EF%BC%8120.Python%E7%9A%84%E5%AD%97%E5%85%B8%E3%80%81%E9%9B%86%E5%90%88/index.html">
+<meta property="og:title" content="hadoop之jps详解">
+<meta property="og:url" content="http://yoursite.com/2020/02/06/25.hadoop%E4%B9%8Bjps%E8%AF%A6%E8%A7%A3/index.html">
 <meta property="og:site_name" content="叶梨子的小窝">
-<meta property="og:description" content="热爱从不降温">
+<meta property="og:description" content="jps最主要的功能使查看java接口的进程号 jps(Java Virtual Machine Process Status Tool)是JDK 1.5提供的一个显示当前所有 java 进程 pid 的命令，简单实用，非常适合在 linux&#x2F;unix 平台上简单察看当前java进程的一些简单情况。 注：jps命令有个地方很不好，似乎只能显示当前用户的java进程，要显示其他用户的还是只能用unix">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-02-02T14:10:14.000Z">
-<meta property="article:modified_time" content="2020-02-02T14:10:36.463Z">
+<meta property="article:published_time" content="2020-02-06T06:22:11.000Z">
+<meta property="article:modified_time" content="2020-02-06T06:32:18.241Z">
 <meta property="article:author" content="pearfl">
-<meta property="article:tag" content="python">
+<meta property="article:tag" content="hadoop">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2020/02/02/%EF%BC%8120.Python%E7%9A%84%E5%AD%97%E5%85%B8%E3%80%81%E9%9B%86%E5%90%88/">
+<link rel="canonical" href="http://yoursite.com/2020/02/06/25.hadoop%E4%B9%8Bjps%E8%AF%A6%E8%A7%A3/">
 
 
 <script id="page-configurations">
@@ -71,7 +71,7 @@
   };
 </script>
 
-  <title>Python的字典、集合 | 叶梨子的小窝</title>
+  <title>hadoop之jps详解 | 叶梨子的小窝</title>
   
 
 
@@ -213,7 +213,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/02/%EF%BC%8120.Python%E7%9A%84%E5%AD%97%E5%85%B8%E3%80%81%E9%9B%86%E5%90%88/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/06/25.hadoop%E4%B9%8Bjps%E8%AF%A6%E8%A7%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -226,7 +226,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Python的字典、集合
+          hadoop之jps详解
         </h1>
 
         <div class="post-meta">
@@ -237,7 +237,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-02-02 22:10:14 / 修改时间：22:10:36" itemprop="dateCreated datePublished" datetime="2020-02-02T22:10:14+08:00">2020-02-02</time>
+              <time title="创建时间：2020-02-06 14:22:11 / 修改时间：14:32:18" itemprop="dateCreated datePublished" datetime="2020-02-06T14:22:11+08:00">2020-02-06</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -245,8 +245,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9A%8F%E7%AC%94%E5%88%86%E4%BA%AB/" itemprop="url" rel="index">
-                    <span itemprop="name">随笔分享</span>
+                  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
                   </a>
                 </span>
             </span>
@@ -257,14 +257,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
+              <span>970</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -276,7 +276,22 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <p><strong>jps最主要的功能使查看java接口的进程号</strong></p>
+<p>jps(Java Virtual Machine Process Status Tool)是JDK 1.5提供的一个显示当前所有 java 进程 pid 的命令，简单实用，非常适合在 linux/unix 平台上简单察看当前java进程的一些简单情况。</p>
+<p>注：jps命令有个地方很不好，似乎只能显示当前用户的java进程，要显示其他用户的还是只能用unix/linux的ps命令</p>
+<h2 id="jps常用参数"><a href="#jps常用参数" class="headerlink" title="jps常用参数"></a>jps常用参数</h2><p>1.命令jps类似于Linux下的ps，但它只用于列出Java的进程。直接运行jps不加任何参数，可以列出Java程序的进程ID以及Main函数等名称。</p>
+<p>其中一个输出jps就是jps命令本身，这更加证明此命令的本质也是一个Java程序</p>
+<p>2.参数-q 指定jps只输出进程ID，而不输出类的短名称</p>
+<p>3.参数-m 用于输出传递给Java进程（主函数）的参数</p>
+<p>4.参数-l 输出应用程序main class的完整package名 或者 应用程序的jar文件完整路径名</p>
+<p>5.参数-v 可以显示传递给JVM的参数</p>
+<h2 id="问题：process-information-unavailable"><a href="#问题：process-information-unavailable" class="headerlink" title="问题：process information unavailable"></a>问题：process information unavailable</h2><p>1.找到进程号jps</p>
+<p>2.ps -ef|grep pid是否存在（这步很关键要做判断查看进程是否存在）</p>
+<p>3.假如进程不存在，我们可以去该/tmp/hsperfdata_xxx去删除</p>
+<p>4.如果存在千万别删，自己查看是不可以的，其他用户查看是可用的。</p>
+<p>5不存在举例：我不知道是这个进程是属于哪个用户的我们怎么操作呢？ps -ef|grep pid查看进程号属于哪个目录删除就可了</p>
+<p>6.如果存在ps -ef |grep pid 看到了用户名，su 切换过去jps一下就好了</p>
+<h2 id="关于jps的一些总结"><a href="#关于jps的一些总结" class="headerlink" title="关于jps的一些总结"></a>关于jps的一些总结</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">hadoop用户启动的 .&#x2F;start-dfs.sh  jps后可以看到进程,</span><br><span class="line">root用户看到的就是5235 -- process information unavailable,</span><br><span class="line">ps -ef| grep 5235 看的到是hadoop用户的这个进程还在,</span><br><span class="line">那这个状态就是假死,因为进程还在,所以说root用户是看不到hadoop启动的jps进程,</span><br><span class="line">只有root用户启动hdfs才能看到jps下的三个进程,</span><br><span class="line"></span><br><span class="line">root 使用jps只有两种情况：</span><br><span class="line"></span><br><span class="line">第一种: 查看正常信息</span><br><span class="line">第二种: - process information unavailable</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -285,7 +300,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/hadoop/" rel="tag"># hadoop</a>
           </div>
 
         
@@ -294,12 +309,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/02/02/%EF%BC%8119.Python%E7%9A%84%E5%88%97%E8%A1%A8%E3%80%81%E5%85%83%E7%A5%96%E3%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="prev" title="Python的列表、元组、字符串">
-      <i class="fa fa-chevron-left"></i> Python的列表、元组、字符串
+    <a href="/2020/02/06/24.Centos%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%95%B4%E7%90%86/" rel="prev" title="CentOS最常用命令及快捷键整理">
+      <i class="fa fa-chevron-left"></i> CentOS最常用命令及快捷键整理
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/02/03/21.Hive%E4%B9%8BJoin%E8%AF%A6%E8%A7%A3/" rel="next" title="Hive之Join详解">
-      Hive之Join详解 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/02/06/%EF%BC%8126.leetcode-java%E5%9F%BA%E7%A1%80%E6%8A%80%E5%B7%A7/" rel="next" title="leetcode-java基础技巧">
+      leetcode-java基础技巧 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -360,6 +375,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#jps常用参数"><span class="nav-number">1.</span> <span class="nav-text">jps常用参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题：process-information-unavailable"><span class="nav-number">2.</span> <span class="nav-text">问题：process information unavailable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于jps的一些总结"><span class="nav-number">3.</span> <span class="nav-text">关于jps的一些总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
