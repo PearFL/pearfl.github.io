@@ -49,17 +49,17 @@
   <meta name="description" content="列表列表是用于存放若干元素的有序序列。列表使用方括号（[]）来表示，其中的元素写入方括号中，多个元素时用逗号分隔，如 [1, &#39;go&#39;, [0.1, 0.2]]。它的元素可以是任意数据类型，甚至也可以是个列表。 元素之间有顺序关系，每个元素都有自己的位置，每个位置从 0 开始依次标号，这个表示位置的数字叫作索引。 列表被创建之后，我们可以对它做很多操作，包括添加元素，删除元素，修改">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python的列表、元组、字符串">
-<meta property="og:url" content="http://yoursite.com/2020/02/02/%EF%BC%8119.Python%E7%9A%84%E5%88%97%E8%A1%A8%E3%80%81%E5%85%83%E7%A5%96%E3%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2/index.html">
+<meta property="og:url" content="http://yoursite.com/2020/02/02/19.Python%E7%9A%84%E5%88%97%E8%A1%A8%E3%80%81%E5%85%83%E7%A5%96%E3%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2/index.html">
 <meta property="og:site_name" content="叶梨子的小窝">
 <meta property="og:description" content="列表列表是用于存放若干元素的有序序列。列表使用方括号（[]）来表示，其中的元素写入方括号中，多个元素时用逗号分隔，如 [1, &#39;go&#39;, [0.1, 0.2]]。它的元素可以是任意数据类型，甚至也可以是个列表。 元素之间有顺序关系，每个元素都有自己的位置，每个位置从 0 开始依次标号，这个表示位置的数字叫作索引。 列表被创建之后，我们可以对它做很多操作，包括添加元素，删除元素，修改">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-02-02T10:38:22.000Z">
-<meta property="article:modified_time" content="2020-02-07T02:53:46.568Z">
+<meta property="article:modified_time" content="2020-02-07T04:00:19.390Z">
 <meta property="article:author" content="pearfl">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2020/02/02/%EF%BC%8119.Python%E7%9A%84%E5%88%97%E8%A1%A8%E3%80%81%E5%85%83%E7%A5%96%E3%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+<link rel="canonical" href="http://yoursite.com/2020/02/02/19.Python%E7%9A%84%E5%88%97%E8%A1%A8%E3%80%81%E5%85%83%E7%A5%96%E3%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2/">
 
 
 <script id="page-configurations">
@@ -213,7 +213,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/02/%EF%BC%8119.Python%E7%9A%84%E5%88%97%E8%A1%A8%E3%80%81%E5%85%83%E7%A5%96%E3%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/02/19.Python%E7%9A%84%E5%88%97%E8%A1%A8%E3%80%81%E5%85%83%E7%A5%96%E3%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -243,7 +243,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-07 10:53:46" itemprop="dateModified" datetime="2020-02-07T10:53:46+08:00">2020-02-07</time>
+                <time title="修改时间：2020-02-07 12:00:19" itemprop="dateModified" datetime="2020-02-07T12:00:19+08:00">2020-02-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -263,14 +263,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.8k</span>
+              <span>7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>8 分钟</span>
+              <span>12 分钟</span>
             </span>
 
         </div>
@@ -456,6 +456,85 @@
 
 <p>当字符或子串不存在时，<code>index</code> 方法将抛出 <code>ValueError</code> 错误。</p>
 <p>也可采用字符串的 <code>find</code> 方法来查找子串，使用方式与 <code>index</code> 一致，不同点在于 <code>find</code> 方法未找到子串时返回数字 <code>-1</code>，而不抛异常。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = ‘happy’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string.find(‘app’)</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string.find(‘z’)</span><br><span class="line"><span class="number">-1</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>3.查看字符是否存在于字符串中</p>
+<p>查看字符是否存在于字符串中，需要借助 Python 的关键字 <code>in</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">布尔值 = 字符 <span class="keyword">in</span> 字符串</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = ‘happy’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>‘a’ <span class="keyword">in</span> string</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>‘z’ <span class="keyword">in</span> string</span><br><span class="line"><span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>4.统计字符在字符串中的个数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">个数 = 字符串.count(字符)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = ‘happy’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string.count(‘p’)</span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="字符串的处理"><a href="#字符串的处理" class="headerlink" title="字符串的处理"></a>字符串的处理</h3><p>字符串自带的方法非常多，除了上面介绍的几个之外还有四十多个，这是因为字符处理是编程时的一项高频工作。Python 将这些字符处理相关的功能以方法的形式集成在字符串里。这里列举几个常见的方法</p>
+<p>1.startswith：判断字符串是否以某个子串开头，返回布尔值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = ‘happy’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string.startswith(‘ha’)</span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.endswith：判断字符串是否以某个子串结尾，返回布尔值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = ‘happy’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string.endswith(‘y’)</span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>3.replace：将字符串的子串用一个另一个字符串替换，返回一个新的字符串</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = ‘happy’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string.replace(‘y’, ‘iness’)</span><br><span class="line">’happiness’</span><br></pre></td></tr></table></figure>
+
+
+
+<p>4.strip：去除字符串前后的空白符号，如空格、换行符、制表符，返回一个新的字符串</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = ’ \t happy \n’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string.strip()</span><br><span class="line">’happy’</span><br></pre></td></tr></table></figure>
+
+
+
+<p>5.split：将字符串用某个子串分隔开，分隔后的各个部分放入列表中，并返回这个列表</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = ‘I am happy’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string.split(’ <span class="string">')</span></span><br><span class="line"><span class="string">[‘I’, ‘am’, ‘happy’]</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>6.join：将一个序列中的元素用某个字符（串）拼接，组成一个大的字符串，并返回这个字符串</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>words = [‘I’, ‘am’, ‘happy’]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>’ <span class="string">'.join(words)</span></span><br><span class="line"><span class="string">’I am happy’</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>7.upper：将字符串转化为大写字母形式，返回一个新的字符串</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = ‘happy’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string.upper()</span><br><span class="line">’HAPPY’</span><br></pre></td></tr></table></figure>
+
+
+
+<p>8.lower：将字符串转化为小写字母形式，返回一个新的字符串</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = ‘HAPPY’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string.lower()</span><br><span class="line">’happy’</span><br></pre></td></tr></table></figure>
+
+<p>注意上面的这些字符处理功能，对字符串作处理后都是返回一个新的字符串，而不会直接修改原有的字符串。为什么呢？<strong>字符串不可变呀！</strong></p>
+<h2 id="列表、元组、字符串的通用操作"><a href="#列表、元组、字符串的通用操作" class="headerlink" title="列表、元组、字符串的通用操作"></a>列表、元组、字符串的通用操作</h2><p>我们把列表、元组、字符串统称为<strong>序列</strong></p>
+<p>1.使用 <code>len()</code> 函数获取序列长度</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = (‘a’, ‘b’)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(letters)</span><br><span class="line"><span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = ‘abcd’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(letters)</span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.获取序列中的一个子序列</p>
+<p>获取序列中的子序列可以使用<strong>切片</strong>，以 <code>[起始索引:结束索引]</code> 表示。切片其实代表一个索引区间，这个区间是一个<strong>左开右闭区间</strong>，该区间内的所有元素作为子序列被返回。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers[<span class="number">0</span>:<span class="number">2</span>]</span><br><span class="line">(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers[<span class="number">2</span>:<span class="number">4</span>]</span><br><span class="line">(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = ‘abcd’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters[<span class="number">1</span>:<span class="number">5</span>]</span><br><span class="line">’bcd’</span><br></pre></td></tr></table></figure>
+
+
+
+<p>3.使用 <code>+</code> 符号来拼接两个序列</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters_1 = (‘a’, ‘b’)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters_2 = (‘c’, ‘d’, ‘e’)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters_1 + letters_2</span><br><span class="line">(‘a’, ‘b’, ‘c’, ‘d’, ‘e’)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters_1 = ‘ab’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters_2 = ‘cde’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters_1 + letters_2</span><br><span class="line">’abcde’</span><br></pre></td></tr></table></figure>
+
+
+
+<p>4.使用 <code>*</code> 符号来重复序列中的元素</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = (‘a’, ‘b’)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters * <span class="number">3</span></span><br><span class="line">(‘a’, ‘b’, ‘a’, ‘b’, ‘a’, ‘b’)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = ‘abcd’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters * <span class="number">2</span></span><br><span class="line">’abcdabcd’</span><br></pre></td></tr></table></figure>
+
+<p>注意上面的操作结果都是返回一个新的序列，不会对修改序列的内部元素</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>列表、元组、字符串都是有序序列，都可以使用索引。</p>
+<p>列表和元组中可以存放任意数据类型的元素，而字符串中只能存放字符。</p>
+<p>列表是可变的，而元组和字符串是不可变的。</p>
 
     </div>
 
@@ -540,7 +619,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#列表"><span class="nav-number">1.</span> <span class="nav-text">列表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建列表"><span class="nav-number">1.1.</span> <span class="nav-text">创建列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表元素的获取"><span class="nav-number">1.2.</span> <span class="nav-text">列表元素的获取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表元素的添加"><span class="nav-number">1.3.</span> <span class="nav-text">列表元素的添加</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表元素的删除"><span class="nav-number">1.4.</span> <span class="nav-text">列表元素的删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表元素的修改"><span class="nav-number">1.5.</span> <span class="nav-text">列表元素的修改</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元组"><span class="nav-number">2.</span> <span class="nav-text">元组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建元组"><span class="nav-number">2.1.</span> <span class="nav-text">创建元组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#元组元素的获取"><span class="nav-number">2.2.</span> <span class="nav-text">元组元素的获取</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元组和列表的差别"><span class="nav-number">3.</span> <span class="nav-text">元组和列表的差别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串"><span class="nav-number">4.</span> <span class="nav-text">字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建字符串"><span class="nav-number">4.1.</span> <span class="nav-text">创建字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符的获取"><span class="nav-number">4.2.</span> <span class="nav-text">字符的获取</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#列表"><span class="nav-number">1.</span> <span class="nav-text">列表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建列表"><span class="nav-number">1.1.</span> <span class="nav-text">创建列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表元素的获取"><span class="nav-number">1.2.</span> <span class="nav-text">列表元素的获取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表元素的添加"><span class="nav-number">1.3.</span> <span class="nav-text">列表元素的添加</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表元素的删除"><span class="nav-number">1.4.</span> <span class="nav-text">列表元素的删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表元素的修改"><span class="nav-number">1.5.</span> <span class="nav-text">列表元素的修改</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元组"><span class="nav-number">2.</span> <span class="nav-text">元组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建元组"><span class="nav-number">2.1.</span> <span class="nav-text">创建元组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#元组元素的获取"><span class="nav-number">2.2.</span> <span class="nav-text">元组元素的获取</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元组和列表的差别"><span class="nav-number">3.</span> <span class="nav-text">元组和列表的差别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串"><span class="nav-number">4.</span> <span class="nav-text">字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建字符串"><span class="nav-number">4.1.</span> <span class="nav-text">创建字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符的获取"><span class="nav-number">4.2.</span> <span class="nav-text">字符的获取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串的处理"><span class="nav-number">4.3.</span> <span class="nav-text">字符串的处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表、元组、字符串的通用操作"><span class="nav-number">5.</span> <span class="nav-text">列表、元组、字符串的通用操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -617,12 +696,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">42k</span>
+    <span title="站点总字数">45k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:11</span>
+    <span title="站点阅读时长">1:14</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
