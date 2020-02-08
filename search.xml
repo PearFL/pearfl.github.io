@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>浅谈jackson</title>
+    <url>/2020/02/08/27.%E6%B5%85%E8%B0%88jackson/</url>
+    <content><![CDATA[<p>官方文档：<a href="https://github.com/FasterXML/jackson-docs" target="_blank" rel="noopener">https://github.com/FasterXML/jackson-docs</a></p>
+]]></content>
+      <categories>
+        <category>随笔分享</category>
+      </categories>
+      <tags>
+        <tag>json</tag>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>聊聊正则表达式</title>
     <url>/2020/02/07/26.%E8%81%8A%E8%81%8A%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
     <content><![CDATA[<p>正则学习文章推荐（本篇博文为转载）：<a href="https://github.com/cdoco/learn-regex-zh" target="_blank" rel="noopener">https://github.com/cdoco/learn-regex-zh</a></p>
@@ -241,7 +254,7 @@
 </ul>
 ]]></content>
       <categories>
-        <category>随笔分享</category>
+        <category>转载</category>
       </categories>
       <tags>
         <tag>正则表达式</tag>
@@ -1459,6 +1472,7 @@
     <content><![CDATA[<p>&emsp;&emsp;我在之前的hexo博客中写了50+篇文章，但质量都不太让我满意，解决问题的效率甚至比不上百度，恰巧之前的文档因操作失误丢失了，于是我就重置了整个博客内容从零开始</p>
 <p>&emsp;&emsp;今后的每一篇文章我都会尽心尽力而为，不灌水，如果对文章有问题或者想要交流的小伙伴，可以加我的qq或给我发送邮件进行联系。</p>
 <p>&emsp;&emsp;那么，加油！</p>
+<p>hexo搭建及相关教程可参考这→ <a href="https://io-oi.me/tech/hexo-next-optimization/" target="_blank" rel="noopener">https://io-oi.me/tech/hexo-next-optimization/</a></p>
 ]]></content>
       <categories>
         <category>个人感想</category>
