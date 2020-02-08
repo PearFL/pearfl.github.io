@@ -46,15 +46,15 @@
   };
 </script>
 
-  <meta name="description" content="官方文档：https:&#x2F;&#x2F;github.com&#x2F;FasterXML&#x2F;jackson-docs">
+  <meta name="description" content="官方文档：https:&#x2F;&#x2F;github.com&#x2F;FasterXML&#x2F;jackson-docs Jackson是当前用的比较广泛的，用来序列化和反序列化json的Java开源框架。Jackson社区相对比较活跃，更新速度也比较快， 从Github中的统计来看，Jackson是最流行的json解析器之一，Spring MVC的默认json解析器便是Jackson。 Jackson优点很多：  Jack">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅谈jackson">
 <meta property="og:url" content="http://yoursite.com/2020/02/08/27.%E6%B5%85%E8%B0%88jackson/index.html">
 <meta property="og:site_name" content="叶梨子的小窝">
-<meta property="og:description" content="官方文档：https:&#x2F;&#x2F;github.com&#x2F;FasterXML&#x2F;jackson-docs">
+<meta property="og:description" content="官方文档：https:&#x2F;&#x2F;github.com&#x2F;FasterXML&#x2F;jackson-docs Jackson是当前用的比较广泛的，用来序列化和反序列化json的Java开源框架。Jackson社区相对比较活跃，更新速度也比较快， 从Github中的统计来看，Jackson是最流行的json解析器之一，Spring MVC的默认json解析器便是Jackson。 Jackson优点很多：  Jack">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-02-08T09:28:33.000Z">
-<meta property="article:modified_time" content="2020-02-08T09:30:17.667Z">
+<meta property="article:modified_time" content="2020-02-08T10:29:58.638Z">
 <meta property="article:author" content="pearfl">
 <meta property="article:tag" content="json">
 <meta property="article:tag" content="java">
@@ -238,7 +238,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-02-08 17:28:33 / 修改时间：17:30:17" itemprop="dateCreated datePublished" datetime="2020-02-08T17:28:33+08:00">2020-02-08</time>
+              <time title="创建时间：2020-02-08 17:28:33 / 修改时间：18:29:58" itemprop="dateCreated datePublished" datetime="2020-02-08T17:28:33+08:00">2020-02-08</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -258,7 +258,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>46</span>
+              <span>604</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -278,6 +278,24 @@
 
       
         <p>官方文档：<a href="https://github.com/FasterXML/jackson-docs" target="_blank" rel="noopener">https://github.com/FasterXML/jackson-docs</a></p>
+<p>Jackson是当前用的比较广泛的，用来序列化和反序列化json的Java开源框架。Jackson社区相对比较活跃，更新速度也比较快， 从Github中的统计来看，Jackson是最流行的json解析器之一，Spring MVC的默认json解析器便是Jackson。</p>
+<p>Jackson优点很多：</p>
+<ol>
+<li><p>Jackson 所依赖的jar包较少，简单易用。</p>
+</li>
+<li><p>与其他 Java 的 json 的框架 Gson 等相比，Jackson 解析大的 json 文件速度比较快。</p>
+</li>
+<li><p>Jackson 运行时占用内存比较低，性能比较好</p>
+</li>
+<li><p>Jackson 有灵活的 API，可以很容易进行扩展和定制。</p>
+</li>
+</ol>
+<p>Jackson 的核心模块由三部分组成：</p>
+<ol>
+<li>jackson-core 核心包，提供基于”流模式”解析的相关 API，它包括 JsonPaser 和 JsonGenerator。Jackson 内部实现正是通过高性能的流模式 API 的 JsonGenerator 和 JsonParser 来生成和解析 json。</li>
+<li>jackson-annotations 注解包，提供标准注解功能；</li>
+<li>jackson-databind 数据绑定包，提供基于”对象绑定” 解析的相关 API（ ObjectMapper ）和”树模型” 解析的相关 API（JsonNode）；基于”对象绑定” 解析的 API 和”树模型”解析的 API 依赖基于”流模式”解析的 API。</li>
+</ol>
 
     </div>
 
@@ -441,7 +459,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:40</span>
+    <span title="站点阅读时长">1:41</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
