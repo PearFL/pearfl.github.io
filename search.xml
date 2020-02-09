@@ -2,11 +2,13 @@
 <search>
   <entry>
     <title>hive编译问题</title>
-    <url>/2020/02/09/31.hive%E7%BC%96%E8%AF%91%E9%97%AE%E9%A2%98/</url>
+    <url>/2020/02/09/33.hive%E7%BC%96%E8%AF%91%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<p>hive-1.1.0-cdh5.16.2-src.tar.gz已下载在~/tmp下</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># cd &#x2F;tmp&#x2F;</span><br><span class="line"># tar -xf hive-1.1.0-cdh5.16.2-src.tar.gz</span><br><span class="line"># cd &#x2F;hive-1.1.0-cdh5.16.2</span><br><span class="line"># mvn clean package -DskipTests -Phadoop-2 -Pdist</span><br></pre></td></tr></table></figure>
 
 <p>之后会有一个比较长时间的等待</p>
+<p>编译生成的包在以下位置：</p>
+<p>packaging/target/apache-hive-1.1.0-cdh5.7.1-bin.tar.gz</p>
 ]]></content>
       <categories>
         <category>大数据</category>
@@ -17,8 +19,33 @@
       </tags>
   </entry>
   <entry>
+    <title>maven安装</title>
+    <url>/2020/02/09/31.maven%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<p>官网下载链接：<a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">http://maven.apache.org/download.cgi</a></p>
+<p>下载后我放置在服务器用户根目录的software文件夹下，现在我们解压到app下面</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># tar -zxvf apache-maven-3.6.3-bin.tar.gz -C ~&#x2F;app&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>在app文件夹下，开始操作</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">进入maven文件夹</span><br><span class="line"># cd apache-maven-3.6.3&#x2F;</span><br><span class="line">pwd获取当前的路径</span><br><span class="line"># vi ~&#x2F;.bash_profile</span><br><span class="line">export MAVEN_HOME&#x3D;&#x2F;root&#x2F;app&#x2F;apache-maven-3.6.3</span><br><span class="line">export PATH&#x3D;$MAVEN_HOME&#x2F;bin:$PATH</span><br><span class="line"># source ~&#x2F;.bash_profile</span><br><span class="line"></span><br><span class="line">可以通过mvn -v检查是否生效</span><br></pre></td></tr></table></figure>
+
+
+
+<p>完成后，conf内有些数据建议更改一下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># cd conf</span><br><span class="line"># vi settings.xml</span><br><span class="line">  &lt;!-- localRepository</span><br><span class="line">   | The path to the local repository maven will use to store artifacts.</span><br><span class="line">   |</span><br><span class="line">   | Default: $&#123;user.home&#125;&#x2F;.m2&#x2F;repository</span><br><span class="line">  &lt;localRepository&gt;&#x2F;path&#x2F;to&#x2F;local&#x2F;repo&lt;&#x2F;localRepository&gt;</span><br><span class="line">  --&gt;</span><br><span class="line">  &lt;localRepository&gt;&#x2F;root&#x2F;maven_repos&#x2F;&lt;&#x2F;localRepository&gt;</span><br></pre></td></tr></table></figure>
+
+<p>/root/maven_repos/ 位置存放你下载的包，这个根据个人需求修改</p>
+]]></content>
+      <categories>
+        <category>随笔分享</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>maven</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>linux上的maven安装</title>
-    <url>/2020/02/09/30.linux%E4%B8%8A%E7%9A%84maven%E5%AE%89%E8%A3%85/</url>
+    <url>/2020/02/09/32.linux%E4%B8%8A%E7%9A%84maven%E5%AE%89%E8%A3%85/</url>
     <content><![CDATA[<p>官网下载链接：<a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">http://maven.apache.org/download.cgi</a></p>
 <p>下载后我放置在服务器用户根目录的software文件夹下，现在我们解压到app下面</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># tar -zxvf apache-maven-3.6.3-bin.tar.gz -C ~&#x2F;app&#x2F;</span><br></pre></td></tr></table></figure>
@@ -43,7 +70,7 @@
   </entry>
   <entry>
     <title>leetcode-962（单调栈）</title>
-    <url>/2020/02/09/29.leetcode-962%EF%BC%88%E5%8D%95%E8%B0%83%E6%A0%88%EF%BC%89/</url>
+    <url>/2020/02/09/30.leetcode-962%EF%BC%88%E5%8D%95%E8%B0%83%E6%A0%88%EF%BC%89/</url>
     <content><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">给定一个整数数组 A，坡是元组 (i, j)，其中  i &lt; j 且 A[i] &lt;&#x3D; A[j]。这样的坡的宽度为 j - i。</span><br><span class="line"></span><br><span class="line">找出 A 中的坡的最大宽度，如果不存在，返回 0 。</span><br><span class="line"></span><br><span class="line">来源：力扣（LeetCode）</span><br><span class="line">链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;maximum-width-ramp</span><br><span class="line"></span><br><span class="line">实例1：</span><br><span class="line">输入：[6,0,8,2,1,5]</span><br><span class="line">输出：4</span><br><span class="line">解释：</span><br><span class="line">最大宽度的坡为 (i, j) &#x3D; (1, 5): A[1] &#x3D; 0 且 A[5] &#x3D; 5.</span><br><span class="line"></span><br><span class="line">实例2：</span><br><span class="line">输入：[9,8,1,0,1,9,4,0,4,1]</span><br><span class="line">输出：7</span><br><span class="line">解释：</span><br><span class="line">最大宽度的坡为 (i, j) &#x3D; (2, 9): A[2] &#x3D; 1 且 A[9] &#x3D; 1.</span><br><span class="line"></span><br><span class="line">提示：</span><br><span class="line">1.	2 &lt;&#x3D; A.length &lt;&#x3D; 50000</span><br><span class="line">2.	0 &lt;&#x3D; A[i] &lt;&#x3D; 50000</span><br></pre></td></tr></table></figure>
 
 
@@ -62,7 +89,7 @@
   </entry>
   <entry>
     <title>mapreduce解析json数据</title>
-    <url>/2020/02/09/28.mapreduce%E8%A7%A3%E6%9E%90json%E6%95%B0%E6%8D%AE/</url>
+    <url>/2020/02/09/29.mapreduce%E8%A7%A3%E6%9E%90json%E6%95%B0%E6%8D%AE/</url>
     <content><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入数据</span><br><span class="line">&#123;&quot;status&quot;:&quot;0&quot;,&quot;message&quot;:&quot;成功&quot;,&quot;data&quot;:&#123;&quot;name&quot;:&quot;mxh&quot; , &quot;age&quot;:22 , &quot;cars&quot;:[&#123;&quot;id&quot;:1,&quot;name&quot;:&quot;Porsche&quot;&#125;,&#123;&quot;id&quot;:2,&quot;name&quot;:&quot;BMW&quot;&#125;]&#125;&#125;</span><br><span class="line">&#123;&quot;status&quot;:&quot;0&quot;,&quot;message&quot;:&quot;成功&quot;,&quot;data&quot;:&#123;&quot;name&quot;:&quot;mxh&quot; , &quot;age&quot;:22 , &quot;cars&quot;:[ &quot;Porsche&quot;, &quot;BMW&quot;, &quot;Volvo&quot; ]&#125;&#125;</span><br><span class="line">&#123;&quot;status&quot;:&quot;0&quot;,&quot;message&quot;:&quot;成功&quot;,&quot;data&quot;:&#123;&quot;name&quot;:&quot;mxh&quot; , &quot;age&quot;:22 , &quot;male&quot;:true&#125;&#125;</span><br><span class="line"></span><br><span class="line">输出数据</span><br><span class="line">0	成功	mxh	22	1	Porsche	2	BMW	</span><br><span class="line">0	成功	mxh	22	Porsche	BMW	Volvo	</span><br><span class="line">0	成功	mxh	22	true</span><br></pre></td></tr></table></figure>
 
 <p>解析采用jackson</p>
@@ -78,7 +105,7 @@
   </entry>
   <entry>
     <title>浅谈jackson</title>
-    <url>/2020/02/08/27.%E6%B5%85%E8%B0%88jackson/</url>
+    <url>/2020/02/08/28.%E6%B5%85%E8%B0%88jackson/</url>
     <content><![CDATA[<p>官方文档：<a href="https://github.com/FasterXML/jackson-docs" target="_blank" rel="noopener">https://github.com/FasterXML/jackson-docs</a></p>
 <p>Jackson是当前用的比较广泛的，用来序列化和反序列化json的Java开源框架。Jackson社区相对比较活跃，更新速度也比较快， 从Github中的统计来看，Jackson是最流行的json解析器之一，Spring MVC的默认json解析器便是Jackson。</p>
 <p>Jackson优点很多：</p>
@@ -109,7 +136,7 @@
   </entry>
   <entry>
     <title>聊聊正则表达式</title>
-    <url>/2020/02/07/26.%E8%81%8A%E8%81%8A%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
+    <url>/2020/02/07/27.%E8%81%8A%E8%81%8A%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
     <content><![CDATA[<p>正则学习文章推荐（本篇博文为转载）：<a href="https://github.com/cdoco/learn-regex-zh" target="_blank" rel="noopener">https://github.com/cdoco/learn-regex-zh</a></p>
 <p>正则表达式测试工具：<a href="https://c.runoob.com/front-end/854" target="_blank" rel="noopener">https://c.runoob.com/front-end/854</a></p>
 <h2 id="1-基本匹配"><a href="#1-基本匹配" class="headerlink" title="1. 基本匹配"></a>1. 基本匹配</h2><p>正则表达式只是我们用于在文本中检索字母和数字的模式。例如正则表达式 <code>cat</code>，表示: 字母 <code>c</code> 后面跟着一个字母 <code>a</code>，再后面跟着一个字母 <code>t</code>。</p>
@@ -1129,6 +1156,12 @@
 
 
 
+<h2 id="hive编译安装"><a href="#hive编译安装" class="headerlink" title="hive编译安装"></a>hive编译安装</h2><p>hive-1.1.0-cdh5.16.2-src.tar.gz已下载在~/tmp下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># cd &#x2F;tmp&#x2F;</span><br><span class="line"># tar -xf hive-1.1.0-cdh5.16.2-src.tar.gz</span><br><span class="line"># cd &#x2F;hive-1.1.0-cdh5.16.2</span><br><span class="line"># mvn clean package -DskipTests -Phadoop-2 -Pdist</span><br></pre></td></tr></table></figure>
+
+<p>之后会有一个比较长时间的等待</p>
+<p>编译生成的包在以下位置：</p>
+<p>packaging/target/apache-hive-1.1.0-cdh5.7.1-bin.tar.gz，之后就是像之前博客一样配置环境变量</p>
 ]]></content>
       <categories>
         <category>大数据</category>
