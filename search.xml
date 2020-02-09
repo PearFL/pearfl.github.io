@@ -1,6 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>hive编译问题</title>
+    <url>/2020/02/09/31.hive%E7%BC%96%E8%AF%91%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>hive-1.1.0-cdh5.16.2-src.tar.gz已下载在~/tmp下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># cd &#x2F;tmp&#x2F;</span><br><span class="line"># tar -xf hive-1.1.0-cdh5.16.2-src.tar.gz</span><br><span class="line"># cd &#x2F;hive-1.1.0-cdh5.16.2</span><br><span class="line"># mvn clean package -DskipTests -Phadoop-2 -Pdist</span><br></pre></td></tr></table></figure>
+
+<p>之后会有一个比较长时间的等待</p>
+]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>hive</tag>
+        <tag>maven</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux上的maven安装</title>
+    <url>/2020/02/09/30.linux%E4%B8%8A%E7%9A%84maven%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<p>官网下载链接：<a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">http://maven.apache.org/download.cgi</a></p>
+<p>下载后我放置在服务器用户根目录的software文件夹下，现在我们解压到app下面</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># tar -zxvf apache-maven-3.6.3-bin.tar.gz -C ~&#x2F;app&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>在app文件夹下，开始操作</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">进入maven文件夹</span><br><span class="line"># cd apache-maven-3.6.3&#x2F;</span><br><span class="line">pwd获取当前的路径</span><br><span class="line"># vi ~&#x2F;.bash_profile</span><br><span class="line">export MAVEN_HOME&#x3D;&#x2F;root&#x2F;app&#x2F;apache-maven-3.6.3</span><br><span class="line">export PATH&#x3D;$MAVEN_HOME&#x2F;bin:$PATH</span><br><span class="line"># source ~&#x2F;.bash_profile</span><br><span class="line"></span><br><span class="line">可以通过mvn -v检查是否生效</span><br></pre></td></tr></table></figure>
+
+
+
+<p>完成后，conf内有些数据建议更改一下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># cd conf</span><br><span class="line"># vi settings.xml</span><br><span class="line">  &lt;!-- localRepository</span><br><span class="line">   | The path to the local repository maven will use to store artifacts.</span><br><span class="line">   |</span><br><span class="line">   | Default: $&#123;user.home&#125;&#x2F;.m2&#x2F;repository</span><br><span class="line">  &lt;localRepository&gt;&#x2F;path&#x2F;to&#x2F;local&#x2F;repo&lt;&#x2F;localRepository&gt;</span><br><span class="line">  --&gt;</span><br><span class="line">  &lt;localRepository&gt;&#x2F;root&#x2F;maven_repos&#x2F;&lt;&#x2F;localRepository&gt;</span><br></pre></td></tr></table></figure>
+
+<p>/root/maven_repos/ 位置存放你下载的包，这个根据个人需求修改</p>
+]]></content>
+      <categories>
+        <category>随笔分享</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>maven</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>leetcode-962（单调栈）</title>
     <url>/2020/02/09/29.leetcode-962%EF%BC%88%E5%8D%95%E8%B0%83%E6%A0%88%EF%BC%89/</url>
     <content><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">给定一个整数数组 A，坡是元组 (i, j)，其中  i &lt; j 且 A[i] &lt;&#x3D; A[j]。这样的坡的宽度为 j - i。</span><br><span class="line"></span><br><span class="line">找出 A 中的坡的最大宽度，如果不存在，返回 0 。</span><br><span class="line"></span><br><span class="line">来源：力扣（LeetCode）</span><br><span class="line">链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;maximum-width-ramp</span><br><span class="line"></span><br><span class="line">实例1：</span><br><span class="line">输入：[6,0,8,2,1,5]</span><br><span class="line">输出：4</span><br><span class="line">解释：</span><br><span class="line">最大宽度的坡为 (i, j) &#x3D; (1, 5): A[1] &#x3D; 0 且 A[5] &#x3D; 5.</span><br><span class="line"></span><br><span class="line">实例2：</span><br><span class="line">输入：[9,8,1,0,1,9,4,0,4,1]</span><br><span class="line">输出：7</span><br><span class="line">解释：</span><br><span class="line">最大宽度的坡为 (i, j) &#x3D; (2, 9): A[2] &#x3D; 1 且 A[9] &#x3D; 1.</span><br><span class="line"></span><br><span class="line">提示：</span><br><span class="line">1.	2 &lt;&#x3D; A.length &lt;&#x3D; 50000</span><br><span class="line">2.	0 &lt;&#x3D; A[i] &lt;&#x3D; 50000</span><br></pre></td></tr></table></figure>
@@ -352,10 +393,38 @@
 
 
 <h2 id="3-数组排序"><a href="#3-数组排序" class="headerlink" title="3.数组排序"></a>3.数组排序</h2><p>Arrays.Sort() 快排</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123; </span><br><span class="line">    <span class="keyword">int</span>[] arrayToSort = <span class="keyword">new</span> <span class="keyword">int</span>[] &#123; <span class="number">48</span>, <span class="number">5</span>, <span class="number">89</span>, <span class="number">80</span>, <span class="number">81</span>, <span class="number">23</span>, <span class="number">45</span>, <span class="number">16</span>, <span class="number">2</span> &#125;;</span><br><span class="line">    System.out.println(<span class="string">"排序前"</span>); </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arrayToSort.length; i++) System.out.println(arrayToSort[i]); <span class="comment">// 调用数组的静态排序方法sort </span></span><br><span class="line">    Arrays.sort(arrayToSort); </span><br><span class="line">    System.out.println(<span class="string">"排序后"</span>); </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arrayToSort.length; i++) System.out.println(arrayToSort[i]); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Arrays.sort(arys[])</span><br><span class="line">Arrays.sort(arys[],int from,int to) &#x2F;&#x2F; 排序范围:from--&gt;to-1</span><br><span class="line">Arrays.sort(arys[],new MyComparator())</span><br><span class="line">Arrays.sort(arys[],int from,int to,new MyComparator())</span><br></pre></td></tr></table></figure>
 
-<p>Collections.sort(，new comparator&lt;&gt;(){重写compare方法})</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Collections.sort(intervals,<span class="keyword">new</span> Comparator&lt;Interval&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Interval i1,Interval i2)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> i1.start-i2.start;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//按某一关键字 从小到大排序</span></span><br></pre></td></tr></table></figure>
+<p>Arrays.sort()方法可对任何实现compareble接口的对象数组排序, 像Integer,String这两种引用类型都实现了compareble接口，所以这两种类型的数组都可直接使用Arrays.sort()进行排序。</p>
+<p>1.数字排序</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span>[] intArray = <span class="keyword">new</span> <span class="keyword">int</span>[] &#123; <span class="number">4</span>, <span class="number">1</span>, <span class="number">3</span>, -<span class="number">23</span> &#125;;</span><br><span class="line">Arrays.sort(intArray);</span><br><span class="line"></span><br><span class="line">输出： [-<span class="number">23</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.字符串排序，先大写后小写 String[] strArray = new String[] { “z”, “a”, “C” };</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String[] strArray = <span class="keyword">new</span> String[] &#123; <span class="string">"z"</span>, <span class="string">"a"</span>, <span class="string">"C"</span> &#125;;</span><br><span class="line">Arrays.sort(strArray);</span><br><span class="line"></span><br><span class="line">输出： [C, a, z]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>3.严格按字母表顺序排序，也就是忽略大小写排序 Case-insensitive sort</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Arrays.sort(strArray, String.CASE_INSENSITIVE_ORDER);</span><br><span class="line"></span><br><span class="line">输出： [a, C, z]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>4.反向排序,Reverse-order sort</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Arrays.sort(strArray, Collections.reverseOrder());</span><br><span class="line"></span><br><span class="line">输出：[z, a, C]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>5.忽略大小写反向排序 Case-insensitive reverse-order sort</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Arrays.sort(strArray, String.CASE_INSENSITIVE_ORDER);</span><br><span class="line">Collections.reverse(Arrays.asList(strArray));</span><br><span class="line"></span><br><span class="line">输出： [z, C, a]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Collections.sort模板</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Collections.sort(list, <span class="keyword">new</span> Comparator&lt;String&gt;() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(String str1, String str2)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">　　　　　　* 升序排的话就是第一个参数.compareTo(第二个参数);</span></span><br><span class="line"><span class="comment">　　　　　　* 降序排的话就是第二个参数.compareTo(第一个参数);</span></span><br><span class="line"><span class="comment">　　　　　　*/</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 按首字母升序排</span></span><br><span class="line">        <span class="comment">// return str1.compareTo(str2);</span></span><br><span class="line">        <span class="comment">// 按第二个字母升序排</span></span><br><span class="line">        <span class="keyword">char</span> c1 = str1.charAt(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">char</span> c2 = str2.charAt(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> c1 - c2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
 
 
 
