@@ -210,6 +210,264 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/06/%EF%BC%8126.leetcode-java%E5%9F%BA%E7%A1%80%E6%8A%80%E5%B7%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="pearfl">
+      <meta itemprop="description" content="热爱从不降温">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="叶梨子的小窝">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/06/%EF%BC%8126.leetcode-java%E5%9F%BA%E7%A1%80%E6%8A%80%E5%B7%A7/" class="post-title-link" itemprop="url">leetcode-java基础技巧</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-06 15:33:32" itemprop="dateCreated datePublished" datetime="2020-02-06T15:33:32+08:00">2020-02-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-09 12:35:55" itemprop="dateModified" datetime="2020-02-09T12:35:55+08:00">2020-02-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index">
+                    <span itemprop="name">算法与数据结构</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>之前打算法竞赛一直是用C+STL，包括牛客网上写题练习也是用这个方式来解决的，长期习惯了以后，开始对java刷题甚至产生了排斥……但鉴于java以后肯定是要常用的，因此必须矫正这个问题</p>
+<p>本篇博文讲述刷leetcode过程中采用java语言遇到的坑，明明一眼就知道该怎么写但不能用其他语言写出来就是不行啊！</p>
+<p>根据自己经验，有竞赛基础的建议直接从周赛题开始摸坑=3=（倒着刷）</p>
+<p>（本文长期更新）</p>
+<h2 id="1-String转int、long"><a href="#1-String转int、long" class="headerlink" title="1.String转int、long"></a>1.String转int、long</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="string">"123"</span></span><br><span class="line"><span class="keyword">int</span> n1 = Integer.parseInt(s);</span><br><span class="line"><span class="keyword">long</span> n2 = Long.parseLong(s);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-StringBuffer"><a href="#2-StringBuffer" class="headerlink" title="2.StringBuffer"></a>2.StringBuffer</h2><p>StringBuffer类和String一样，也用来代表字符串，只是由于StringBuffer的内部实现方式和String不同，所以StringBuffer在进行字符串处理时，不生成新的对象，在内存使用上要优于String类。所以在实际使用时，如果经常需要对一个字符串进行修改，例如插入、删除等操作，使用StringBuffer要更加适合一些.</p>
+<p>StringBuffer与String有一个显著的区别：<strong>StringBuffer对象的每次修改都会改变对象自身</strong></p>
+<p>StringBuffer是线程安全的，所以在多线程程序中也可以很方便的进行使用，但是程序的执行效率相对来说就要稍微慢一些</p>
+<p>1.String转StringBuffer</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer s = <span class="keyword">new</span> StringBuffer(<span class="string">"abc"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>2.append方法，将内容追加到StringBuffer末尾</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer s = <span class="keyword">new</span> StringBuffer(<span class="string">"abc"</span>);</span><br><span class="line">s.append(<span class="string">"efg"</span>);</span><br><span class="line">System.out.println(s.toString());</span><br></pre></td></tr></table></figure>
+
+<p>3.delete方法</p>
+<p>deleteCharAt(int index)<br>该方法的作用是删除指定位置的字符，然后将剩余的内容形成新的字符串。第一位为0<br>s.delete(int start,int end)<br>该方法的作用是删除指定区间以内的所有字符，包含start，不包含end索引值的区间。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer s = <span class="keyword">new</span> StringBuffer(<span class="string">"abc"</span>);</span><br><span class="line">s.append(<span class="string">"efg"</span>);</span><br><span class="line">s.deleteCharAt(<span class="number">2</span>);</span><br><span class="line">s.delete(<span class="number">0</span>,<span class="number">2</span>);</span><br><span class="line">System.out.println(s.toString());</span><br></pre></td></tr></table></figure>
+
+<p>4.insert方法</p>
+<p>StringBuffer insert(int offset, String str)<br>该方法的作用是在StringBuffer对象中插入内容，然后形成新的字符串</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer sb = <span class="keyword">new</span> StringBuffer(<span class="string">"TestString"</span>);</span><br><span class="line">sb.insert(<span class="number">4</span>,<span class="string">"hello"</span>);</span><br><span class="line">System.out.println(sb.toString());</span><br></pre></td></tr></table></figure>
+
+<p>5.reverse方法</p>
+<p>StringBuffer reverse()<br>该方法的作用是将StringBuffer对象中的内容反转，然后形成新的字符串</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer sb = <span class="keyword">new</span> StringBuffer(<span class="string">"TestString"</span>);</span><br><span class="line">sb.reverse();</span><br><span class="line">System.out.println(sb.toString());</span><br></pre></td></tr></table></figure>
+
+<p>6.setCharAt方法</p>
+<p>setCharAt(int index, char ch)<br>该方法的作用是修改对象中索引值为index位置的字符为新的字符ch</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer sb = <span class="keyword">new</span> StringBuffer(<span class="string">"bc"</span>);</span><br><span class="line">sb.setCharAt(<span class="number">1</span>,<span class="string">'D'</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-数组排序"><a href="#3-数组排序" class="headerlink" title="3.数组排序"></a>3.数组排序</h2><p>Arrays.Sort() 快排</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(arys[])</span><br><span class="line">Arrays.sort(arys[],int from,int to) &#x2F;&#x2F; 排序范围:from--&gt;to-1</span><br><span class="line">Arrays.sort(arys[],new MyComparator())</span><br><span class="line">Arrays.sort(arys[],int from,int to,new MyComparator())</span><br></pre></td></tr></table></figure>
+
+<p>Arrays.sort()方法可对任何实现compareble接口的对象数组排序, 像Integer,String这两种引用类型都实现了compareble接口，所以这两种类型的数组都可直接使用Arrays.sort()进行排序。</p>
+<p>1.数字排序</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] intArray = <span class="keyword">new</span> <span class="keyword">int</span>[] &#123; <span class="number">4</span>, <span class="number">1</span>, <span class="number">3</span>, -<span class="number">23</span> &#125;;</span><br><span class="line">Arrays.sort(intArray);</span><br><span class="line"></span><br><span class="line">输出： [-<span class="number">23</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.字符串排序，先大写后小写 String[] strArray = new String[] { “z”, “a”, “C” };</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String[] strArray = <span class="keyword">new</span> String[] &#123; <span class="string">"z"</span>, <span class="string">"a"</span>, <span class="string">"C"</span> &#125;;</span><br><span class="line">Arrays.sort(strArray);</span><br><span class="line"></span><br><span class="line">输出： [C, a, z]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>3.严格按字母表顺序排序，也就是忽略大小写排序 Case-insensitive sort</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(strArray, String.CASE_INSENSITIVE_ORDER);</span><br><span class="line"></span><br><span class="line">输出： [a, C, z]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>4.反向排序,Reverse-order sort</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(strArray, Collections.reverseOrder());</span><br><span class="line"></span><br><span class="line">输出：[z, a, C]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>5.忽略大小写反向排序 Case-insensitive reverse-order sort</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(strArray, String.CASE_INSENSITIVE_ORDER);</span><br><span class="line">Collections.reverse(Arrays.asList(strArray));</span><br><span class="line"></span><br><span class="line">输出： [z, C, a]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Collections.sort模板</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Collections.sort(list, <span class="keyword">new</span> Comparator&lt;String&gt;() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(String str1, String str2)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">　　　　　　* 升序排的话就是第一个参数.compareTo(第二个参数);</span></span><br><span class="line"><span class="comment">　　　　　　* 降序排的话就是第二个参数.compareTo(第一个参数);</span></span><br><span class="line"><span class="comment">　　　　　　*/</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 按首字母升序排</span></span><br><span class="line">        <span class="comment">// return str1.compareTo(str2);</span></span><br><span class="line">        <span class="comment">// 按第二个字母升序排</span></span><br><span class="line">        <span class="keyword">char</span> c1 = str1.charAt(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">char</span> c2 = str2.charAt(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> c1 - c2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/06/25.hadoop%E4%B9%8Bjps%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="pearfl">
+      <meta itemprop="description" content="热爱从不降温">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="叶梨子的小窝">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/06/25.hadoop%E4%B9%8Bjps%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">hadoop之jps详解</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-06 14:22:11 / 修改时间：14:32:18" itemprop="dateCreated datePublished" datetime="2020-02-06T14:22:11+08:00">2020-02-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>970</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>jps最主要的功能使查看java接口的进程号</strong></p>
+<p>jps(Java Virtual Machine Process Status Tool)是JDK 1.5提供的一个显示当前所有 java 进程 pid 的命令，简单实用，非常适合在 linux/unix 平台上简单察看当前java进程的一些简单情况。</p>
+<p>注：jps命令有个地方很不好，似乎只能显示当前用户的java进程，要显示其他用户的还是只能用unix/linux的ps命令</p>
+<h2 id="jps常用参数"><a href="#jps常用参数" class="headerlink" title="jps常用参数"></a>jps常用参数</h2><p>1.命令jps类似于Linux下的ps，但它只用于列出Java的进程。直接运行jps不加任何参数，可以列出Java程序的进程ID以及Main函数等名称。</p>
+<p>其中一个输出jps就是jps命令本身，这更加证明此命令的本质也是一个Java程序</p>
+<p>2.参数-q 指定jps只输出进程ID，而不输出类的短名称</p>
+<p>3.参数-m 用于输出传递给Java进程（主函数）的参数</p>
+<p>4.参数-l 输出应用程序main class的完整package名 或者 应用程序的jar文件完整路径名</p>
+<p>5.参数-v 可以显示传递给JVM的参数</p>
+<h2 id="问题：process-information-unavailable"><a href="#问题：process-information-unavailable" class="headerlink" title="问题：process information unavailable"></a>问题：process information unavailable</h2><p>1.找到进程号jps</p>
+<p>2.ps -ef|grep pid是否存在（这步很关键要做判断查看进程是否存在）</p>
+<p>3.假如进程不存在，我们可以去该/tmp/hsperfdata_xxx去删除</p>
+<p>4.如果存在千万别删，自己查看是不可以的，其他用户查看是可用的。</p>
+<p>5不存在举例：我不知道是这个进程是属于哪个用户的我们怎么操作呢？ps -ef|grep pid查看进程号属于哪个目录删除就可了</p>
+<p>6.如果存在ps -ef |grep pid 看到了用户名，su 切换过去jps一下就好了</p>
+<h2 id="关于jps的一些总结"><a href="#关于jps的一些总结" class="headerlink" title="关于jps的一些总结"></a>关于jps的一些总结</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">hadoop用户启动的 .&#x2F;start-dfs.sh  jps后可以看到进程,</span><br><span class="line">root用户看到的就是5235 -- process information unavailable,</span><br><span class="line">ps -ef| grep 5235 看的到是hadoop用户的这个进程还在,</span><br><span class="line">那这个状态就是假死,因为进程还在,所以说root用户是看不到hadoop启动的jps进程,</span><br><span class="line">只有root用户启动hdfs才能看到jps下的三个进程,</span><br><span class="line"></span><br><span class="line">root 使用jps只有两种情况：</span><br><span class="line"></span><br><span class="line">第一种: 查看正常信息</span><br><span class="line">第二种: - process information unavailable</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/06/24.Centos%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%95%B4%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -519,403 +777,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/03/21.Hive%E4%B9%8BJoin%E8%AF%A6%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="pearfl">
-      <meta itemprop="description" content="热爱从不降温">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="叶梨子的小窝">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/03/21.Hive%E4%B9%8BJoin%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">Hive之Join详解</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-03 22:12:44" itemprop="dateCreated datePublished" datetime="2020-02-03T22:12:44+08:00">2020-02-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-04 17:15:40" itemprop="dateModified" datetime="2020-02-04T17:15:40+08:00">2020-02-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index">
-                    <span itemprop="name">大数据</span>
-                  </a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>174</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Reduce&#x2F;Shuffle&#x2F;Common Join</span><br><span class="line">	join操作是在reduce端完成的</span><br><span class="line">Map Join</span><br><span class="line">	join操作是在map端完成的</span><br></pre></td></tr></table></figure>
-
-<p>Map Join</p>
-<p>join操作是在map端完成的，无Shuffle和Reduce</p>
-<p>思路：小表加载到内存中，读取大表时，读一条和内存中的数据匹配一下</p>
-<p>缺点：没办法处理大数据量的表，适合打表join小表</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/02/20.Python%E7%9A%84%E5%AD%97%E5%85%B8%E3%80%81%E9%9B%86%E5%90%88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="pearfl">
-      <meta itemprop="description" content="热爱从不降温">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="叶梨子的小窝">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/02/20.Python%E7%9A%84%E5%AD%97%E5%85%B8%E3%80%81%E9%9B%86%E5%90%88/" class="post-title-link" itemprop="url">Python的字典、集合</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-02 22:10:14" itemprop="dateCreated datePublished" datetime="2020-02-02T22:10:14+08:00">2020-02-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-07 18:39:10" itemprop="dateModified" datetime="2020-02-07T18:39:10+08:00">2020-02-07</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9A%8F%E7%AC%94%E5%88%86%E4%BA%AB/" itemprop="url" rel="index">
-                    <span itemprop="name">随笔分享</span>
-                  </a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>8.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>14 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h2><p>字典是一种用来存放若干键值对的数据类型。</p>
-<p>什么是键值对呢？<strong>键值对</strong>就是两个对象，其中一个是用来做定位的数据，叫做<strong>键</strong>（Key），另一个是要存放的数据，叫做<strong>值</strong>（Value）。在字典中，键值对作为一个整体被存放，我们可以通过键来快速获取到对应的值。</p>
-<p>在 Python 中字典用花括号（<code>{}</code>）来表示，键值对以 <code>键:值</code> 的方式写入花括号中，有多个键值对时用逗号分隔。</p>
-<p>如 <code>{&#39;010&#39;: &#39;beijing&#39;, &#39;021&#39;: &#39;shanghai&#39;}</code> 便是一个字典，其中包含两个键值对。</p>
-<p>使用时，我们可以通过 <code>&#39;010&#39;</code> 快速查询到其对应的值是 <code>&#39;beijing&#39;</code>。这就好比现实中的一本字典一样，通过拼音或偏旁来映射一个具体的字词，以此来实现字词的快速查找，而这个拼音或偏旁就相当于 Python 字典的键，而字词就相当于 Python 字典的值，它们在字典中是映射关系。</p>
-<p>Python 字典中的键是有要求的，需要是不可变的类型，如元组、字符串、数字。而字典中的值可以是任意类型。字典本身是可变的，我们可以向其中添加、删除、修改键值对。</p>
-<p>因为字典不是序列，更不是有序的，所有它没有列表那样的索引，也不能保证每个键值对的存放次序。</p>
-<h3 id="创建字典"><a href="#创建字典" class="headerlink" title="创建字典"></a>创建字典</h3><p>1.创建空的字典</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">字典 &#x3D; &#123;&#125;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; empty_dict &#x3D; &#123;&#125;</span><br><span class="line">&gt;&gt;&gt; empty_dict</span><br><span class="line">&#123;&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>2.创建包含键值对的字典</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">字典 = &#123;键<span class="number">1</span>:值<span class="number">1</span>, 键<span class="number">2</span>:值<span class="number">2</span>, ..., 键N:值N&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes = &#123;‘beijing’: ‘<span class="number">010</span>’, ‘shanghai’: ‘<span class="number">021</span>’&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes</span><br><span class="line">&#123;‘beijing’: ‘<span class="number">010</span>’, ‘shanghai’: ‘<span class="number">021</span>’&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="字典键值对的添加"><a href="#字典键值对的添加" class="headerlink" title="字典键值对的添加"></a>字典键值对的添加</h3><p>1.向字典中增加键值对</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">字典[键] = 值</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes = &#123;‘beijing’: ‘<span class="number">010</span>’, ‘shanghai’: ‘<span class="number">021</span>’&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes[‘tianjin’] = <span class="string">'022’</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; codes</span></span><br><span class="line"><span class="string">&#123;‘beijing’: ‘010’, ‘shanghai’: ‘021’, ‘tianjin’: ‘022’&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>使用这种方式时，若字典中没有这个键，则会创建这个键值对；若字典中原本已有这个键，则是修改键所对应的值。</p>
-<h3 id="键值对的获取"><a href="#键值对的获取" class="headerlink" title="键值对的获取"></a>键值对的获取</h3><p>1.通过键获取值</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">值 = 字典[键]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes = &#123;‘beijing’: ‘<span class="number">010</span>’, ‘shanghai’: ‘<span class="number">021</span>’&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes[‘beijing’]</span><br><span class="line">‘<span class="number">010</span>’</span><br></pre></td></tr></table></figure>
-
-<p>注意若键不存在则将抛出 <code>KeyError</code> 异常</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes = &#123;‘beijing’: ‘<span class="number">010</span>’, ‘shanghai’: ‘<span class="number">021</span>’&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes[‘a’]</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">     File “”, line <span class="number">1</span>, <span class="keyword">in</span></span><br><span class="line">KeyError: ‘a’</span><br></pre></td></tr></table></figure>
-
-
-
-<p>2.通过键获取值（ <code>get</code> 方法）</p>
-<p>如果通过键获取值时不希望 <code>KeyError</code> 异常抛出，可以使用 <code>get</code> 方法，若键不存在，则直接返回 <code>None</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">值 = 字典.get(键)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes = &#123;‘beijing’: ‘<span class="number">010</span>’, ‘shanghai’: ‘<span class="number">021</span>’&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes.get(‘a’)</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
-
-<p>返回的 <code>None</code> 代表什么都没有，所以没有任何值显示</p>
-<p>也可以给 <code>get</code> 方法传递第二个参数作为默认值，使得键不存在时直接返回默认值</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">值 = 字典.get(键, 默认值)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes = &#123;‘beijing’: ‘<span class="number">010</span>’, ‘shanghai’: ‘<span class="number">021</span>’&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes.get(‘a’, ‘<span class="number">000</span>’)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>‘<span class="number">000</span>’</span><br></pre></td></tr></table></figure>
-
-
-
-<p>3.判断字典中是否包含某个键</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">布尔值 = 键 <span class="keyword">in</span> 字典</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes = &#123;‘beijing’: ‘<span class="number">010</span>’, ‘shanghai’: ‘<span class="number">021</span>’&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>‘beijing’ <span class="keyword">in</span> codes</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>‘guangzhou’ <span class="keyword">in</span> codes</span><br><span class="line"><span class="literal">False</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>4.获取所有键</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">键的列表 = 字典.keys()</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes = &#123;‘beijing’: ‘<span class="number">010</span>’, ‘shanghai’: ‘<span class="number">021</span>’&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes.keys()</span><br><span class="line">dict_keys([‘beijing’, ‘shanghai’])</span><br></pre></td></tr></table></figure>
-
-<p>获取到的所有键是以迭代器的形式存在,在这里我们可以用 <code>list()</code> 函数将迭代器转换为列表</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(codes.keys())</span><br><span class="line">[‘beijing’, ‘shanghai’]</span><br></pre></td></tr></table></figure>
-
-
-
-<p>5.获取所有值</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">值的列表 = 字典.values()</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes = &#123;‘beijing’: ‘<span class="number">010</span>’, ‘shanghai’: ‘<span class="number">021</span>’&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes.values()</span><br><span class="line">dict_values([‘<span class="number">010</span>’, ‘<span class="number">021</span>’])</span><br></pre></td></tr></table></figure>
-
-<p>获取到的所有值是以迭代器的形式存在，我们用 <code>list()</code> 函数将迭代器转换为列表</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(codes.values())</span><br><span class="line">[‘<span class="number">010</span>’, ‘<span class="number">021</span>’]</span><br></pre></td></tr></table></figure>
-
-
-
-<p>6.获取所有键值对的列表</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">值的列表 = 字典.items()</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes = &#123;‘beijing’: ‘<span class="number">010</span>’, ‘shanghai’: ‘<span class="number">021</span>’&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes.items()</span><br><span class="line">dict_items([(‘beijing’, ‘<span class="number">010</span>’), (‘shanghai’, ‘<span class="number">021</span>’)])</span><br></pre></td></tr></table></figure>
-
-<p>获取到的所有键值对是以迭代器的形式存在，我们用 <code>list()</code> 函数将迭代器转换为列表</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(codes.items())</span><br><span class="line">[(‘beijing’, ‘<span class="number">010</span>’), (‘shanghai’, ‘<span class="number">021</span>’)]</span><br></pre></td></tr></table></figure>
-
-<p>列表中的每一个元素是都是二元组（即包含两个元素的元组），每个二元组的第一个元素是键，第二个元素是值</p>
-<h3 id="字典键值对的删除"><a href="#字典键值对的删除" class="headerlink" title="字典键值对的删除"></a>字典键值对的删除</h3><p>1.通过键删除键值对</p>
-<p>可以使用 <code>pop</code> 方法删除一个键值对，并将值返回</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">值 = 字典.pop(键)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes = &#123;‘beijing’: ‘<span class="number">010</span>’, ‘shanghai’: ‘<span class="number">021</span>’&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes.pop(‘beijing’)</span><br><span class="line">’<span class="number">010</span>’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes</span><br><span class="line">&#123;‘shanghai’: ‘<span class="number">021</span>’&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如果 <code>pop</code> 一个不存在的键，则会抛出 <code>KeyError</code> 异常</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes.pop(‘a’)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">     File “”, line <span class="number">1</span>, <span class="keyword">in</span></span><br><span class="line">KeyError: ‘a’</span><br></pre></td></tr></table></figure>
-
-<p>如果你不希望异常抛出，可以传递 <code>pop</code> 方法的第二个参数作为默认值。默认值仅在键不存在时生效，此时方法将直接返回这个默认值，且跳过删除操作</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">值 = 字典.pop(键, 默认值)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes = &#123;‘beijing’: ‘<span class="number">010</span>’, ‘shanghai’: ‘<span class="number">021</span>’&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes.pop(‘guangzhou’, ‘<span class="number">000</span>’)</span><br><span class="line">’<span class="number">000</span>’</span><br></pre></td></tr></table></figure>
-
-
-
-<p>2.通过键删除键值对（<code>del</code> 方法）</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">del</span> 字典[键]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes = &#123;‘beijing’: ‘<span class="number">010</span>’, ‘shanghai’: ‘<span class="number">021</span>’&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">del</span> codes[‘beijing’]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes</span><br><span class="line">&#123;‘shanghai’: ‘<span class="number">021</span>’&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>3.随机删除一个键值对</p>
-<p>使用 <code>popitem</code> 随机删除一个键值对，并返回这个键值对的二元组，二元组的第一个元素是键，第二个元素是值</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">键值二元组 = 字典.popitem()</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes = &#123;‘beijing’: ‘<span class="number">010</span>’, ‘shanghai’: ‘<span class="number">021</span>’&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes.popitem()</span><br><span class="line">(‘shanghai’, ‘<span class="number">021</span>’)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes</span><br><span class="line">&#123;‘beijing’: ‘<span class="number">010</span>’&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>4.清空所有键值对</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">键值二元组 = 字典.clear()</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes = &#123;‘beijing’: ‘<span class="number">010</span>’, ‘shanghai’: ‘<span class="number">021</span>’&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes.clear()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes</span><br><span class="line">&#123;&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="字典中键值对修改"><a href="#字典中键值对修改" class="headerlink" title="字典中键值对修改"></a>字典中键值对修改</h3><p>1.修改键对应的值</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">字典[键] = 值</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes = &#123;‘beijing’: ‘<span class="number">010</span>’&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes[‘beijing’] = <span class="string">'021’</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; codes</span></span><br><span class="line"><span class="string">&#123;‘beijing’: ‘021’&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>如果键不存在，则创建键值对</p>
-<p>2.用字典批量更新键值对</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">字典.update(另一字典)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes = &#123;‘beijing’: ‘<span class="number">010</span>’, ‘shanghai’: ‘<span class="number">021</span>’&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes.update(&#123;‘guangzhou’: ‘<span class="number">020</span>’, ‘shanghai’: ‘<span class="number">000</span>’&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes</span><br><span class="line">&#123;‘beijing’: ‘<span class="number">010</span>’, ‘shanghai’: ‘<span class="number">000</span>’, ‘guangzhou’: ‘<span class="number">020</span>’&#125;</span><br></pre></td></tr></table></figure>
-
-<p>可以看到字典中新增了 <code>&#39;guangzhou&#39;: &#39;020&#39;</code> 这个键值对，同时将 <code>&#39;shanghai&#39;: &#39;021&#39;</code> 修改为 <code>&#39;shanghai&#39;: &#39;000&#39;</code></p>
-<h3 id="什么时候用字典"><a href="#什么时候用字典" class="headerlink" title="什么时候用字典"></a>什么时候用字典</h3><p>字典的显著优势是可以通过键快速地查询数据。字典中的元素以键值对的形式存在，使用时通过键来获取和修改值，由于字典内部的特殊实现，字典通过键获取值的效率非常高。</p>
-<p>如果我们希望将批量的数据存放起来，并且在需要时能以很高的执行效率来获取其中某个指定的数据，这时就可以使用字典。除此之外，如果我们想在程序中暂时维护一个映射关系，也可以使用字典，因为字典本质上就是一个映射关系。</p>
-<p>如，我们可以将城市名和对应的区号保存在字典中，这样就可以通过城市名快速地查询到其区号，而不需要进行遍历。</p>
-<h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><p>集合是一个用于存放批量元素的数据类型，它不是有序的，其中的元素<strong>没有顺序</strong>关系。集合中的元素<strong>没有重复</strong>，重复的元素将被自动剔除最终只留下一个。</p>
-<p>集合也是用花括号（<code>{}</code>）来表示，不同于字典的是，花括号中放的是一个个数据，而不是键值对。</p>
-<p>集合是可变的，我们可以向其中添加、删除、修改元素。</p>
-<h3 id="创建集合"><a href="#创建集合" class="headerlink" title="创建集合"></a>创建集合</h3><p>1.创建包含元素的集合</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">集合 = &#123;元素<span class="number">1</span>, 元素<span class="number">2</span>, 元素N&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers</span><br><span class="line">&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>2.创建空集合</p>
-<p>注意创建空集合不能直接使用 <code>{}</code>，那样是表示空字典，而是使用 <code>set()</code>，这才表示空集合</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">集合 = set()</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>empty_set = set()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>empty_set</span><br><span class="line">set()</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="集合元素的添加"><a href="#集合元素的添加" class="headerlink" title="集合元素的添加"></a>集合元素的添加</h3><p>1.向集合中添加一个元素</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">集合.add(元素)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers = &#123;<span class="number">1</span>, <span class="number">2</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers.add(<span class="number">3</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers</span><br><span class="line">&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>向集合中添加重复元素时，会被去重处理</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers = &#123;<span class="number">1</span>, <span class="number">2</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers.add(<span class="number">2</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers</span><br><span class="line">&#123;<span class="number">1</span>, <span class="number">2</span>&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>2.从另一集合中批量添加元素</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">集合.update(另一集合)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_1 = &#123;<span class="number">1</span>, <span class="number">2</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_2 = &#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_1.update(numbers_2)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_1</span><br><span class="line">&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>可以看到，集合<code>numbers_2</code> 中的所有元素被添加到了集合 <code>numbers_1</code> 中，并且其中重复的元素被剔除仅保留一份</p>
-<h3 id="集合元素的获取"><a href="#集合元素的获取" class="headerlink" title="集合元素的获取"></a>集合元素的获取</h3><p>集合不能像列表那样通过索引来获取元素，也不能像字典那样通过键来获取值，集合没法直接获取到某个指定的元素。想要获取元素，只能通过遍历的方式。</p>
-<p>虽然集合不能直接获取到元素，但是我们依然可以用 <code>in</code> 关键字来判断元素是否存在于集合中。</p>
-<p>1.查看元素是否存在于集合中</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">布尔值 = 元素 <span class="keyword">in</span> 集合</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = &#123;‘a’, ‘b’, ‘c’&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>‘a’ <span class="keyword">in</span> letters</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>‘z’ <span class="keyword">in</span> letters</span><br><span class="line"><span class="literal">False</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="集合元素的删除"><a href="#集合元素的删除" class="headerlink" title="集合元素的删除"></a>集合元素的删除</h3><p>1.随机删除一个元素，并返回这个元素</p>
-<p>使用 <code>pop</code> 方法随机删除一个元素的时候，这个元素会被返回</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">元素 = 集合.pop()</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers.pop()</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers.pop()</span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers</span><br><span class="line">&#123;<span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>2.删除一个指定的元素</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">集合.remove(元素)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers.remove(<span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers</span><br><span class="line">&#123;<span class="number">2</span>, <span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如果要删除的元素不存在，则抛出 <code>KeyError</code> 异常</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers.remove(<span class="number">4</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">     File “”, line <span class="number">1</span>, <span class="keyword">in</span></span><br><span class="line">KeyError: <span class="number">4</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>3.删除一个指定的元素，且不抛出 <code>KeyError</code> 异常</p>
-<p>使用 <code>remove</code> 方法删除一个不存在的元素时，会抛出 <code>KeyError</code> 异常，如果我们不想让异常抛出，可以使用 <code>discard</code> 方法</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">集合.discard(元素)</span><br><span class="line">           </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers.discard(<span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers</span><br><span class="line">&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>4.清空所有元素</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">集合.clear()</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers.clear()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers</span><br><span class="line">set()</span><br></pre></td></tr></table></figure>
-
-<p>为什么元组没有这个方法？因为元组是不可变的！我们不能删除元组的元素，也不能添加和修改元素。</p>
-<h3 id="集合的运算"><a href="#集合的运算" class="headerlink" title="集合的运算"></a>集合的运算</h3><p>Python 中的集合和数学中的集合颇为相似，首先集合的所有元素都是唯一的，不存在重复；此外集合有子集、超集的概念，也可以进行交集、并集、差集的运算</p>
-<p>1.求交集</p>
-<p>可以通过 <code>intersection</code> 方法求多个集合的交集</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">交集 = 集合<span class="number">1.</span>intersection(集合<span class="number">2</span>, 集合<span class="number">3</span>, 集合N)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_1 = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_2 = &#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_3 = &#123;<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_1.intersection(numbers_2, numbers_3)</span><br><span class="line">&#123;<span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>也可以直接使用<strong>与运算符</strong> <code>&amp;</code> 来代替，完全等效</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">交集 = 集合<span class="number">1</span> &amp; 集合<span class="number">2</span> &amp; 集合N</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_1 &amp; numbers_2 &amp; numbers_3</span><br><span class="line">&#123;<span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>2.求并集</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">交集 = 集合<span class="number">1.</span>union(集合<span class="number">2</span>, 集合<span class="number">3</span>, 集合N)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_1 = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_2 = &#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_3 = &#123;<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_1.union(numbers_2, numbers_3)</span><br><span class="line">&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>也可以直接使用<strong>或运算符</strong> <code>|</code> 来代替，完全等效</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">交集 = 集合<span class="number">1</span> | 集合<span class="number">2</span> | 集合N</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_1 | numbers_2 | numbers_3</span><br><span class="line">&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>3.求差集</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">交集 = 集合<span class="number">1.</span>difference(集合<span class="number">2</span>, 集合<span class="number">3</span>, 集合N)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_1 = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_2 = &#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_3 = &#123;<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_1.difference(numbers_2, numbers_3)</span><br><span class="line">&#123;<span class="number">1</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>也可以直接使用运算符 <code>-</code> 来代替，完全等效</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">交集 = 集合<span class="number">1</span> - 集合<span class="number">2</span> - 集合N</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_1 - numbers_2 - numbers_3</span><br><span class="line">&#123;<span class="number">1</span>&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>4.判断是否为子集</p>
-<p>判断 <code>集合1</code> 是否为 <code>集合2</code> 的子集</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">布尔值 = 集合<span class="number">1.</span>issubset(集合<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_1 = &#123;<span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_2 = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_1.issubset(numbers_2)</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_3 = &#123;<span class="number">3</span>, <span class="number">4</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_1.issubset(numbers_3)</span><br><span class="line"><span class="literal">False</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>5.判断是否为超集</p>
-<p>判断 <code>集合1</code> 是否为 <code>集合2</code> 的超集</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">布尔值 = 集合<span class="number">1.</span>issuperset(集合<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_1 = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_2 = &#123;<span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_1.issuperset(numbers_2)</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_3 = &#123;<span class="number">3</span>, <span class="number">4</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers_1.issuperset(numbers_3)</span><br><span class="line"><span class="literal">False</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="什么时候用集合"><a href="#什么时候用集合" class="headerlink" title="什么时候用集合"></a>什么时候用集合</h3><p>集合非常重要的一个特性是元素无重复，每个元素都是唯一的，重复的元素将被自动剔除（去重）。</p>
-<p>所以如果我们需要存放一系列的数据，并且不希望其中出现重复，那么就可以使用集合。</p>
-<p>另外如果想计算两个数据集的交集、并集、差集，使用集合来承载数据再合适不过了，集合自带的集合运算能轻松解决这些问题。</p>
-<h3 id="获取字典和集合中的元素数量"><a href="#获取字典和集合中的元素数量" class="headerlink" title="获取字典和集合中的元素数量"></a>获取字典和集合中的元素数量</h3><p>我们可以通过 <code>len()</code> 函数来获取字典中的键值对数量和集合中的元素数量</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>字典是一种用来存放若干键值对的数据类型，可通过键来快速查找值。</p>
-<p>字典的键需要是不可变的类型，如数字，字符串和元组。字典的值可以是任意类型。字典本身是可变的，所以可向其中添加、修改、删除键值对。</p>
-<p>集合是一个用于存放批量元素的序列。它不是有序的，且元素<strong>不会有重复</strong>。集合也是可变的，我们可以向其中添加、删除、修改元素。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -983,7 +849,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1047,12 +913,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">67k</span>
+    <span title="站点总字数">75k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:52</span>
+    <span title="站点阅读时长">2:06</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
