@@ -1,8 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Spark编译安装</title>
+    <url>/2020/02/11/38.Spark%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>1.JDK:Spark 2.2.0及以上版本只支持JDK1.8</p>
+<p>2.Maven：3.6.3</p>
+<ol>
+<li><p>设置maven环境变量时，需设置maven内存：</p>
+</li>
+<li><p>export MAVEN_OPTS=”-Xmx2g -XX:ReservedCodeCacheSize=512m”</p>
+</li>
+</ol>
+<p>3.Scala：2.13.1</p>
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><ol>
+<li><p><strong>下载spark的tar包，并解压</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># wget https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;apache&#x2F;spark&#x2F;spark-2.4.5&#x2F;spark-2.4.5.tgz</span><br><span class="line"># tar -xzvf spark-2.4.5.tgz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>编辑dev/make-distribution.sh</strong></p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#  vi dev&#x2F;make-distribution.sh</span><br></pre></td></tr></table></figure>
+
+
+<p>注释以下内容：</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#VERSION&#x3D;$(&quot;$MVN&quot; help:evaluate -Dexpression&#x3D;project.version $@ 2&gt;&#x2F;dev&#x2F;null | grep -v &quot;INFO&quot; | tail -n 1)</span><br><span class="line">#SCALA_VERSION&#x3D;$(&quot;$MVN&quot; help:evaluate -Dexpression&#x3D;scala.binary.version $@ 2&gt;&#x2F;dev&#x2F;null\</span><br><span class="line">#    | grep -v &quot;INFO&quot;\</span><br><span class="line">#    | tail -n 1)</span><br><span class="line">#SPARK_HADOOP_VERSION&#x3D;$(&quot;$MVN&quot; help:evaluate -Dexpression&#x3D;hadoop.version $@ 2&gt;&#x2F;dev&#x2F;null\</span><br><span class="line">#    | grep -v &quot;INFO&quot;\</span><br><span class="line">#    | tail -n 1)</span><br><span class="line">#SPARK_HIVE&#x3D;$(&quot;$MVN&quot; help:evaluate -Dexpression&#x3D;project.activeProfiles -pl sql&#x2F;hive $@ 2&gt;&#x2F;dev&#x2F;null\</span><br><span class="line">#    | grep -v &quot;INFO&quot;\</span><br><span class="line">#    | fgrep --count &quot;&lt;id&gt;hive&lt;&#x2F;id&gt;&quot;;\</span><br><span class="line">#    # Reset exit status to 0, otherwise the script stops here if the last grep finds nothing\</span><br><span class="line">#    # because we use &quot;set -o pipefail&quot;</span><br><span class="line">#    echo -n)</span><br></pre></td></tr></table></figure>
+
+<p> 添加以下内容：</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">VERSION&#x3D;2.4.5</span><br><span class="line">SCALA_VERSION&#x3D;2.13</span><br><span class="line">SPARK_HADOOP_VERSION&#x3D;2.6.0-cdh5.16.2</span><br><span class="line">SPARK_HIVE&#x3D;1</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p><strong>编辑pom.xml</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">添加</span><br><span class="line"></span><br><span class="line">&lt;repository&gt;</span><br><span class="line"></span><br><span class="line">      &lt;id&gt;clouders&lt;&#x2F;id&gt;</span><br><span class="line"></span><br><span class="line">      &lt;name&gt;clouders Repository&lt;&#x2F;name&gt;</span><br><span class="line"></span><br><span class="line">      &lt;url&gt;https:&#x2F;&#x2F;repository.cloudera.com&#x2F;artifactory&#x2F;cloudera-repos&#x2F;&lt;&#x2F;url&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;repository&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>安装</strong></p>
+<p>在解压后的spark目录下</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># $ .&#x2F;dev&#x2F;make-distribution.sh --name 2.6.0-cdh5.16.2 --tgz -Dhadoop.version&#x3D;2.6.0-cdh5.16.2 -Phadoop-2.6 -Phive -Phive-thriftserver -Pyarn</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>spark</tag>
+        <tag>maven</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Scala安装</title>
+    <url>/2020/02/10/37.Scala%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<p>需要预先安装好jdk8+</p>
+<p>已经下载好scala包放置于software目录下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># tar -zxvf scala-2.13.1.tgz -C ~&#x2F;app&#x2F;</span><br><span class="line"># vi ~&#x2F;.bash_profile</span><br><span class="line">export SCALA_HOME&#x3D;&#x2F;root&#x2F;app&#x2F;scala-2.13.1</span><br><span class="line">export PATH&#x3D;$SCALA_HOME&#x2F;bin:$PATH</span><br><span class="line"># source ~&#x2F;.bash_profile</span><br></pre></td></tr></table></figure>
+
+
+
+<p>非常的简单哟</p>
+]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>scala</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>彻底明白Java的值传递和引用传递</title>
-    <url>/2020/02/10/36.%E5%BD%BB%E5%BA%95%E6%98%8E%E7%99%BDJava%E7%9A%84%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/</url>
+    <url>/2020/02/10/36.%E5%BD%BB%E5%BA%95%E6%98%8E%E7%99%BDJava%E7%9A%84%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92%20-%20%E5%89%AF%E6%9C%AC/</url>
     <content><![CDATA[<p>原文链接：<a href="https://blog.csdn.net/bntx2jsqfehy7/article/details/83508006" target="_blank" rel="noopener">https://blog.csdn.net/bntx2jsqfehy7/article/details/83508006</a></p>
 <h2 id="一、形参与实参"><a href="#一、形参与实参" class="headerlink" title="一、形参与实参"></a>一、形参与实参</h2><ol>
 <li>形参：方法被调用时需要传递进来的参数，如：func(int a)中的a，它只有在func被调用期间a才有意义，也就是会被分配内存空间，在方法func执行完成后，a就会被销毁释放空间，也就是不存在了</li>
