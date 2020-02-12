@@ -210,7 +210,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/11/38.Spark%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/12/41.%E6%B5%85%E8%B0%88flume/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -224,7 +224,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/11/38.Spark%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">Spark编译安装</a>
+            <a href="/2020/02/12/41.%E6%B5%85%E8%B0%88flume/" class="post-title-link" itemprop="url">浅谈flume的基础使用</a>
         </h1>
 
         <div class="post-meta">
@@ -235,7 +235,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-02-11 10:06:11 / 修改时间：10:29:10" itemprop="dateCreated datePublished" datetime="2020-02-11T10:06:11+08:00">2020-02-11</time>
+              <time title="创建时间：2020-02-12 23:43:22 / 修改时间：23:43:44" itemprop="dateCreated datePublished" datetime="2020-02-12T23:43:22+08:00">2020-02-12</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -255,14 +255,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.7k</span>
+              <span>0</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -274,41 +274,112 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>1.JDK:Spark 2.2.0及以上版本只支持JDK1.8</p>
-<p>2.Maven：3.6.3</p>
-<ol>
-<li><p>设置maven环境变量时，需设置maven内存：</p>
-</li>
-<li><p>export MAVEN_OPTS=”-Xmx2g -XX:ReservedCodeCacheSize=512m”</p>
-</li>
-</ol>
-<p>3.Scala：2.13.1</p>
-<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><ol>
-<li><p><strong>下载spark的tar包，并解压</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># wget https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;apache&#x2F;spark&#x2F;spark-2.4.5&#x2F;spark-2.4.5.tgz</span><br><span class="line"># tar -xzvf spark-2.4.5.tgz</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>编辑dev/make-distribution.sh</strong></p>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#  vi dev&#x2F;make-distribution.sh</span><br></pre></td></tr></table></figure>
+          
+      
+    </div>
 
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
 
-<p>注释以下内容：</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#VERSION&#x3D;$(&quot;$MVN&quot; help:evaluate -Dexpression&#x3D;project.version $@ 2&gt;&#x2F;dev&#x2F;null | grep -v &quot;INFO&quot; | tail -n 1)</span><br><span class="line">#SCALA_VERSION&#x3D;$(&quot;$MVN&quot; help:evaluate -Dexpression&#x3D;scala.binary.version $@ 2&gt;&#x2F;dev&#x2F;null\</span><br><span class="line">#    | grep -v &quot;INFO&quot;\</span><br><span class="line">#    | tail -n 1)</span><br><span class="line">#SPARK_HADOOP_VERSION&#x3D;$(&quot;$MVN&quot; help:evaluate -Dexpression&#x3D;hadoop.version $@ 2&gt;&#x2F;dev&#x2F;null\</span><br><span class="line">#    | grep -v &quot;INFO&quot;\</span><br><span class="line">#    | tail -n 1)</span><br><span class="line">#SPARK_HIVE&#x3D;$(&quot;$MVN&quot; help:evaluate -Dexpression&#x3D;project.activeProfiles -pl sql&#x2F;hive $@ 2&gt;&#x2F;dev&#x2F;null\</span><br><span class="line">#    | grep -v &quot;INFO&quot;\</span><br><span class="line">#    | fgrep --count &quot;&lt;id&gt;hive&lt;&#x2F;id&gt;&quot;;\</span><br><span class="line">#    # Reset exit status to 0, otherwise the script stops here if the last grep finds nothing\</span><br><span class="line">#    # because we use &quot;set -o pipefail&quot;</span><br><span class="line">#    echo -n)</span><br></pre></td></tr></table></figure>
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/12/40.python%E7%9A%84map()%E5%92%8C%20filter()/">
 
-<p> 添加以下内容：</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">VERSION&#x3D;2.4.5</span><br><span class="line">SCALA_VERSION&#x3D;2.13</span><br><span class="line">SPARK_HADOOP_VERSION&#x3D;2.6.0-cdh5.16.2</span><br><span class="line">SPARK_HIVE&#x3D;1</span><br></pre></td></tr></table></figure>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="pearfl">
+      <meta itemprop="description" content="热爱从不降温">
+    </span>
 
-<ol start="3">
-<li><p><strong>编辑pom.xml</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">添加</span><br><span class="line"></span><br><span class="line">&lt;repository&gt;</span><br><span class="line"></span><br><span class="line">      &lt;id&gt;clouders&lt;&#x2F;id&gt;</span><br><span class="line"></span><br><span class="line">      &lt;name&gt;clouders Repository&lt;&#x2F;name&gt;</span><br><span class="line"></span><br><span class="line">      &lt;url&gt;https:&#x2F;&#x2F;repository.cloudera.com&#x2F;artifactory&#x2F;cloudera-repos&#x2F;&lt;&#x2F;url&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;repository&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>安装</strong></p>
-<p>在解压后的spark目录下</p>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># $ .&#x2F;dev&#x2F;make-distribution.sh --name 2.6.0-cdh5.16.2 --tgz -Dhadoop.version&#x3D;2.6.0-cdh5.16.2 -Phadoop-2.6 -Phive -Phive-thriftserver -Pyarn</span><br></pre></td></tr></table></figure>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="叶梨子的小窝">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/12/40.python%E7%9A%84map()%E5%92%8C%20filter()/" class="post-title-link" itemprop="url">python的map()和 filter()</a>
+        </h1>
 
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-12 15:33:14 / 修改时间：23:44:07" itemprop="dateCreated datePublished" datetime="2020-02-12T15:33:14+08:00">2020-02-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9A%8F%E7%AC%94%E5%88%86%E4%BA%AB/" itemprop="url" rel="index">
+                    <span itemprop="name">随笔分享</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>959</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="map-和-filter"><a href="#map-和-filter" class="headerlink" title="map() 和 filter()"></a>map() 和 filter()</h1><p>Python 内置有两个非常好用的高阶函数 <code>map()</code> 和 <code>filter()</code>。</p>
+<p><code>filter()</code> 用于从可迭代对象中筛选元素。用法如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filter(筛选函数, 可迭代对象)</span><br></pre></td></tr></table></figure>
+
+<p><code>filter()</code> 依次对 <code>可迭代对象</code> 中的每个元素调用 <code>筛选函数</code>，如果返回值为 <code>True</code>，则当前这个元素会被保留，否则被排除。最终返回一个包含所有被保留元素的迭代器。</p>
+<p>显然这里的 <code>筛选函数</code> 可以用 lambda 表达式来创建。</p>
+<p>例如，从 <code>[&#39;a&#39;, &#39;b&#39;, &#39;cd&#39;, &#39;efg&#39;, &#39;hig&#39;, &#39;klmn&#39;, &#39;opqr&#39;]</code> 筛选出长度为奇数的字符串。可以这样写：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filter(<span class="keyword">lambda</span> x: len(x) % <span class="number">2</span> == <span class="number">1</span>, [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'cd'</span>, <span class="string">'efg'</span>, <span class="string">'hig'</span>, <span class="string">'klmn'</span>, <span class="string">'opqr'</span>])</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(filter(<span class="keyword">lambda</span> x: len(x) % <span class="number">2</span> == <span class="number">1</span>, [‘a’, ‘b’, ‘cd’, ‘efg’, ‘hig’, ‘klmn’, ‘opqr’]))</span><br><span class="line">[‘a’, ‘b’, ‘efg’, ‘hig’]</span><br></pre></td></tr></table></figure>
+
+<p>这里我们用 <code>list()</code> 将迭代器转换为列表。</p>
+<p><code>map()</code> 用于对可迭代对象中每一个元素逐一作处理。用法如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map(处理函数, 可迭代对象)</span><br></pre></td></tr></table></figure>
+
+<p><code>map()</code>依次对<code>可迭代对象</code>中的每个元素调用<code>处理函数</code>，最终返回一个包含所有被处理过后的元素的迭代器。</p>
+<p>显然这里的<code>处理函数</code>也可以用 lambda 表达式来创建。</p>
+<p>例如，将<code>[&#39;a&#39;, &#39;b&#39;, &#39;cd&#39;, &#39;efg&#39;, &#39;hig&#39;, &#39;klmn&#39;, &#39;opqr&#39;]</code>全部转换为大写。可以这样来写：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map(<span class="keyword">lambda</span> x: x.upper(), [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'cd'</span>, <span class="string">'efg'</span>, <span class="string">'hig'</span>, <span class="string">'klmn'</span>, <span class="string">'opqr'</span>])</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(map(<span class="keyword">lambda</span> x: x.upper(), [‘a’, ‘b’, ‘cd’, ‘efg’, ‘hig’, ‘klmn’, ‘opqr’]))</span><br><span class="line">[‘A’, ‘B’, ‘CD’, ‘EFG’, ‘HIG’, ‘KLMN’, ‘OPQR’]</span><br></pre></td></tr></table></figure>
+
+<p>这里我们用 <code>list()</code> 将迭代器转换为列表</p>
 
       
     </div>
@@ -328,7 +399,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/11/39.python%E4%B8%ADlambda%20%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/12/39.python%E4%B8%ADlambda%20%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -342,7 +413,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/11/39.python%E4%B8%ADlambda%20%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8/" class="post-title-link" itemprop="url">python中lambda 表达式的简单应用</a>
+            <a href="/2020/02/12/39.python%E4%B8%ADlambda%20%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8/" class="post-title-link" itemprop="url">python中lambda 表达式的简单应用</a>
         </h1>
 
         <div class="post-meta">
@@ -353,7 +424,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-02-11 10:06:11 / 修改时间：17:42:40" itemprop="dateCreated datePublished" datetime="2020-02-11T10:06:11+08:00">2020-02-11</time>
+              <time title="创建时间：2020-02-12 11:55:32 / 修改时间：23:44:23" itemprop="dateCreated datePublished" datetime="2020-02-12T11:55:32+08:00">2020-02-12</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -440,7 +511,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/11/40.python%E7%9A%84map()%E5%92%8C%20filter()/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/11/38.Spark%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -454,7 +525,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/11/40.python%E7%9A%84map()%E5%92%8C%20filter()/" class="post-title-link" itemprop="url">python的map()和 filter()</a>
+            <a href="/2020/02/11/38.Spark%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">Spark编译安装</a>
         </h1>
 
         <div class="post-meta">
@@ -471,7 +542,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-12 12:58:13" itemprop="dateModified" datetime="2020-02-12T12:58:13+08:00">2020-02-12</time>
+                <time title="修改时间：2020-02-12 23:43:05" itemprop="dateModified" datetime="2020-02-12T23:43:05+08:00">2020-02-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -479,8 +550,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9A%8F%E7%AC%94%E5%88%86%E4%BA%AB/" itemprop="url" rel="index">
-                    <span itemprop="name">随笔分享</span>
+                  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
                   </a>
                 </span>
             </span>
@@ -491,14 +562,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>959</span>
+              <span>1.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -510,29 +581,42 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="map-和-filter"><a href="#map-和-filter" class="headerlink" title="map() 和 filter()"></a>map() 和 filter()</h1><p>Python 内置有两个非常好用的高阶函数 <code>map()</code> 和 <code>filter()</code>。</p>
-<p><code>filter()</code> 用于从可迭代对象中筛选元素。用法如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filter(筛选函数, 可迭代对象)</span><br></pre></td></tr></table></figure>
+          <h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>1.JDK:Spark 2.2.0及以上版本只支持JDK1.8</p>
+<p>2.Maven：3.6.3</p>
+<ol>
+<li><p>设置maven环境变量时，需设置maven内存：</p>
+</li>
+<li><p>export MAVEN_OPTS=”-Xmx2g -XX:ReservedCodeCacheSize=512m”</p>
+</li>
+</ol>
+<p>3.Scala：2.13.1</p>
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><ol>
+<li><strong>下载spark的tar包，并解压</strong></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># wget https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;apache&#x2F;spark&#x2F;spark-2.4.5&#x2F;spark-2.4.5.tgz</span><br><span class="line"># tar -xzvf spark-2.4.5.tgz</span><br></pre></td></tr></table></figure>
 
-<p><code>filter()</code> 依次对 <code>可迭代对象</code> 中的每个元素调用 <code>筛选函数</code>，如果返回值为 <code>True</code>，则当前这个元素会被保留，否则被排除。最终返回一个包含所有被保留元素的迭代器。</p>
-<p>显然这里的 <code>筛选函数</code> 可以用 lambda 表达式来创建。</p>
-<p>例如，从 <code>[&#39;a&#39;, &#39;b&#39;, &#39;cd&#39;, &#39;efg&#39;, &#39;hig&#39;, &#39;klmn&#39;, &#39;opqr&#39;]</code> 筛选出长度为奇数的字符串。可以这样写：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filter(<span class="keyword">lambda</span> x: len(x) % <span class="number">2</span> == <span class="number">1</span>, [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'cd'</span>, <span class="string">'efg'</span>, <span class="string">'hig'</span>, <span class="string">'klmn'</span>, <span class="string">'opqr'</span>])</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><strong>编辑dev/make-distribution.sh</strong></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#  vi dev&#x2F;make-distribution.sh</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(filter(<span class="keyword">lambda</span> x: len(x) % <span class="number">2</span> == <span class="number">1</span>, [‘a’, ‘b’, ‘cd’, ‘efg’, ‘hig’, ‘klmn’, ‘opqr’]))</span><br><span class="line">[‘a’, ‘b’, ‘efg’, ‘hig’]</span><br></pre></td></tr></table></figure>
 
-<p>这里我们用 <code>list()</code> 将迭代器转换为列表。</p>
-<p><code>map()</code> 用于对可迭代对象中每一个元素逐一作处理。用法如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map(处理函数, 可迭代对象)</span><br></pre></td></tr></table></figure>
+<p>注释以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#VERSION&#x3D;$(&quot;$MVN&quot; help:evaluate -Dexpression&#x3D;project.version $@ 2&gt;&#x2F;dev&#x2F;null | grep -v &quot;INFO&quot; | tail -n 1)</span><br><span class="line">#SCALA_VERSION&#x3D;$(&quot;$MVN&quot; help:evaluate -Dexpression&#x3D;scala.binary.version $@ 2&gt;&#x2F;dev&#x2F;null\</span><br><span class="line">#    | grep -v &quot;INFO&quot;\</span><br><span class="line">#    | tail -n 1)</span><br><span class="line">#SPARK_HADOOP_VERSION&#x3D;$(&quot;$MVN&quot; help:evaluate -Dexpression&#x3D;hadoop.version $@ 2&gt;&#x2F;dev&#x2F;null\</span><br><span class="line">#    | grep -v &quot;INFO&quot;\</span><br><span class="line">#    | tail -n 1)</span><br><span class="line">#SPARK_HIVE&#x3D;$(&quot;$MVN&quot; help:evaluate -Dexpression&#x3D;project.activeProfiles -pl sql&#x2F;hive $@ 2&gt;&#x2F;dev&#x2F;null\</span><br><span class="line">#    | grep -v &quot;INFO&quot;\</span><br><span class="line">#    | fgrep --count &quot;&lt;id&gt;hive&lt;&#x2F;id&gt;&quot;;\</span><br><span class="line">#    # Reset exit status to 0, otherwise the script stops here if the last grep finds nothing\</span><br><span class="line">#    # because we use &quot;set -o pipefail&quot;</span><br><span class="line">#    echo -n)</span><br></pre></td></tr></table></figure>
 
-<p><code>map()</code>依次对<code>可迭代对象</code>中的每个元素调用<code>处理函数</code>，最终返回一个包含所有被处理过后的元素的迭代器。</p>
-<p>显然这里的<code>处理函数</code>也可以用 lambda 表达式来创建。</p>
-<p>例如，将<code>[&#39;a&#39;, &#39;b&#39;, &#39;cd&#39;, &#39;efg&#39;, &#39;hig&#39;, &#39;klmn&#39;, &#39;opqr&#39;]</code>全部转换为大写。可以这样来写：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map(<span class="keyword">lambda</span> x: x.upper(), [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'cd'</span>, <span class="string">'efg'</span>, <span class="string">'hig'</span>, <span class="string">'klmn'</span>, <span class="string">'opqr'</span>])</span><br></pre></td></tr></table></figure>
+<p> 添加以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">VERSION&#x3D;2.4.5</span><br><span class="line">SCALA_VERSION&#x3D;2.13</span><br><span class="line">SPARK_HADOOP_VERSION&#x3D;2.6.0-cdh5.16.2</span><br><span class="line">SPARK_HIVE&#x3D;1</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(map(<span class="keyword">lambda</span> x: x.upper(), [‘a’, ‘b’, ‘cd’, ‘efg’, ‘hig’, ‘klmn’, ‘opqr’]))</span><br><span class="line">[‘A’, ‘B’, ‘CD’, ‘EFG’, ‘HIG’, ‘KLMN’, ‘OPQR’]</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li><p><strong>编辑pom.xml</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">添加</span><br><span class="line"></span><br><span class="line">&lt;repository&gt;</span><br><span class="line"></span><br><span class="line">      &lt;id&gt;clouders&lt;&#x2F;id&gt;</span><br><span class="line"></span><br><span class="line">      &lt;name&gt;clouders Repository&lt;&#x2F;name&gt;</span><br><span class="line"></span><br><span class="line">      &lt;url&gt;https:&#x2F;&#x2F;repository.cloudera.com&#x2F;artifactory&#x2F;cloudera-repos&#x2F;&lt;&#x2F;url&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;repository&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>安装</strong></p>
+<p>在解压后的spark目录下</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># $ .&#x2F;dev&#x2F;make-distribution.sh --name 2.6.0-cdh5.16.2 --tgz -Dhadoop.version&#x3D;2.6.0-cdh5.16.2 -Phadoop-2.6 -Phive -Phive-thriftserver -Pyarn</span><br></pre></td></tr></table></figure>
 
-<p>这里我们用 <code>list()</code> 将迭代器转换为列表</p>
 
       
     </div>
@@ -644,109 +728,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/10/36.%E5%BD%BB%E5%BA%95%E6%98%8E%E7%99%BDJava%E7%9A%84%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92%20-%20%E5%89%AF%E6%9C%AC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="pearfl">
-      <meta itemprop="description" content="热爱从不降温">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="叶梨子的小窝">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/10/36.%E5%BD%BB%E5%BA%95%E6%98%8E%E7%99%BDJava%E7%9A%84%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92%20-%20%E5%89%AF%E6%9C%AC/" class="post-title-link" itemprop="url">彻底明白Java的值传递和引用传递</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-02-10 14:51:20 / 修改时间：17:11:48" itemprop="dateCreated datePublished" datetime="2020-02-10T14:51:20+08:00">2020-02-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%BD%AC%E8%BD%BD/" itemprop="url" rel="index">
-                    <span itemprop="name">转载</span>
-                  </a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>7.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>13 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>原文链接：<a href="https://blog.csdn.net/bntx2jsqfehy7/article/details/83508006" target="_blank" rel="noopener">https://blog.csdn.net/bntx2jsqfehy7/article/details/83508006</a></p>
-<h2 id="一、形参与实参"><a href="#一、形参与实参" class="headerlink" title="一、形参与实参"></a>一、形参与实参</h2><ol>
-<li>形参：方法被调用时需要传递进来的参数，如：func(int a)中的a，它只有在func被调用期间a才有意义，也就是会被分配内存空间，在方法func执行完成后，a就会被销毁释放空间，也就是不存在了</li>
-<li>实参：方法被调用时是传入的实际值，它在方法被调用前就已经被初始化并且在方法被调用时传入。</li>
-</ol>
-<h2 id="二、-java的数据类型"><a href="#二、-java的数据类型" class="headerlink" title="二、 java的数据类型"></a>二、 java的数据类型</h2><p>所谓数据类型，是编程语言中对内存的一种抽象表达方式，我们知道程序是由代码文件和静态资源组成，在程序被运行前，这些代码存在在硬盘里，程序开始运行，这些代码会被转成计算机能识别的内容放到内存中被执行</p>
-<p>数据类型实质上是用来定义编程语言中相同类型的数据的存储形式，也就是决定了如何将代表这些值的位存储到计算机的内存中。</p>
-<p>所以，数据在内存中的存储，是根据数据类型来划定存储形式和存储位置的。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/10/36.%E5%BD%BB%E5%BA%95%E6%98%8E%E7%99%BDJava%E7%9A%84%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92%20-%20%E5%89%AF%E6%9C%AC/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -814,7 +800,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -827,7 +813,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
