@@ -210,6 +210,183 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/09/30.leetcode-962%EF%BC%88%E5%8D%95%E8%B0%83%E6%A0%88%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="pearfl">
+      <meta itemprop="description" content="热爱从不降温">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="叶梨子的小窝">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/09/30.leetcode-962%EF%BC%88%E5%8D%95%E8%B0%83%E6%A0%88%EF%BC%89/" class="post-title-link" itemprop="url">leetcode-962（单调栈）</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-09 09:59:45 / 修改时间：10:02:19" itemprop="dateCreated datePublished" datetime="2020-02-09T09:59:45+08:00">2020-02-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index">
+                    <span itemprop="name">算法与数据结构</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">给定一个整数数组 A，坡是元组 (i, j)，其中  i &lt; j 且 A[i] &lt;&#x3D; A[j]。这样的坡的宽度为 j - i。</span><br><span class="line"></span><br><span class="line">找出 A 中的坡的最大宽度，如果不存在，返回 0 。</span><br><span class="line"></span><br><span class="line">来源：力扣（LeetCode）</span><br><span class="line">链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;maximum-width-ramp</span><br><span class="line"></span><br><span class="line">实例1：</span><br><span class="line">输入：[6,0,8,2,1,5]</span><br><span class="line">输出：4</span><br><span class="line">解释：</span><br><span class="line">最大宽度的坡为 (i, j) &#x3D; (1, 5): A[1] &#x3D; 0 且 A[5] &#x3D; 5.</span><br><span class="line"></span><br><span class="line">实例2：</span><br><span class="line">输入：[9,8,1,0,1,9,4,0,4,1]</span><br><span class="line">输出：7</span><br><span class="line">解释：</span><br><span class="line">最大宽度的坡为 (i, j) &#x3D; (2, 9): A[2] &#x3D; 1 且 A[9] &#x3D; 1.</span><br><span class="line"></span><br><span class="line">提示：</span><br><span class="line">1.	2 &lt;&#x3D; A.length &lt;&#x3D; 50000</span><br><span class="line">2.	0 &lt;&#x3D; A[i] &lt;&#x3D; 50000</span><br></pre></td></tr></table></figure>
+
+
+
+<p>思路：找到当前元素左边第一个比它小的元素，很明显采用单调栈的方法</p>
+<p>单调栈应用范围：<br>求解数组中元素右边第一个比它小的元素的下标，从前往后，构造单调递增栈；<br>求解数组中元素右边第一个比它大的元素的下标，从前往后，构造单调递减栈；<br>求解数组中元素左边第一个比它小的元素的下标，从后往前，构造单调递减栈；<br>求解数组中元素左边第一个比它小的元素的下标，从后往前，构造单调递增栈。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxWidthRamp</span><span class="params">(<span class="keyword">int</span>[] A)</span> </span>&#123;</span><br><span class="line">        Stack&lt;Integer&gt; stacks = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        stacks.push(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">int</span> length = A.length;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (A[i] &lt;= A[stacks.peek()]) &#123;</span><br><span class="line">                stacks.push(i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">while</span> (!stacks.isEmpty() &amp;&amp; A[i] &gt;= A[stacks.peek()]) &#123;</span><br><span class="line">                max = Math.max(max, i - stacks.pop());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/09/29.mapreduce%E8%A7%A3%E6%9E%90json%E6%95%B0%E6%8D%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="pearfl">
+      <meta itemprop="description" content="热爱从不降温">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="叶梨子的小窝">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/09/29.mapreduce%E8%A7%A3%E6%9E%90json%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">mapreduce解析json数据</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-09 00:30:22 / 修改时间：00:32:12" itemprop="dateCreated datePublished" datetime="2020-02-09T00:30:22+08:00">2020-02-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">输入数据</span><br><span class="line">&#123;&quot;status&quot;:&quot;0&quot;,&quot;message&quot;:&quot;成功&quot;,&quot;data&quot;:&#123;&quot;name&quot;:&quot;mxh&quot; , &quot;age&quot;:22 , &quot;cars&quot;:[&#123;&quot;id&quot;:1,&quot;name&quot;:&quot;Porsche&quot;&#125;,&#123;&quot;id&quot;:2,&quot;name&quot;:&quot;BMW&quot;&#125;]&#125;&#125;</span><br><span class="line">&#123;&quot;status&quot;:&quot;0&quot;,&quot;message&quot;:&quot;成功&quot;,&quot;data&quot;:&#123;&quot;name&quot;:&quot;mxh&quot; , &quot;age&quot;:22 , &quot;cars&quot;:[ &quot;Porsche&quot;, &quot;BMW&quot;, &quot;Volvo&quot; ]&#125;&#125;</span><br><span class="line">&#123;&quot;status&quot;:&quot;0&quot;,&quot;message&quot;:&quot;成功&quot;,&quot;data&quot;:&#123;&quot;name&quot;:&quot;mxh&quot; , &quot;age&quot;:22 , &quot;male&quot;:true&#125;&#125;</span><br><span class="line"></span><br><span class="line">输出数据</span><br><span class="line">0	成功	mxh	22	1	Porsche	2	BMW	</span><br><span class="line">0	成功	mxh	22	Porsche	BMW	Volvo	</span><br><span class="line">0	成功	mxh	22	true</span><br></pre></td></tr></table></figure>
+
+<p>解析采用jackson</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JsonDriver</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        String input = <span class="string">"data/json/data.txt"</span>;</span><br><span class="line">        String output = <span class="string">"out"</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1:获取job对象</span></span><br><span class="line">        Configuration configuration = <span class="keyword">new</span> Configuration();</span><br><span class="line">        Job job = Job.getInstance(configuration);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//删除已存在目录</span></span><br><span class="line">        FileUtils.deleteOutput(configuration,output);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2：本job对应执行的主类</span></span><br><span class="line">        job.setJarByClass(JsonDriver<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3）设置Mapper</span></span><br><span class="line">        job.setMapperClass(MyMapper<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4）设置Mapper阶段输出数据的类型</span></span><br><span class="line">        job.setMapOutputKeyClass(Text<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        job.setMapOutputValueClass(NullWritable<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 5）设置输入和输出路径</span></span><br><span class="line">        FileInputFormat.setInputPaths(job, <span class="keyword">new</span> Path(input));</span><br><span class="line">        FileOutputFormat.setOutputPath(job, <span class="keyword">new</span> Path(output));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 6）提交作业</span></span><br><span class="line">        <span class="keyword">boolean</span> result = job.waitForCompletion(<span class="keyword">true</span>);</span><br><span class="line">        System.exit(result ? <span class="number">0</span> : <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyMapper</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>,<span class="title">Text</span>,<span class="title">Text</span>,<span class="title">NullWritable</span>&gt;</span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(LongWritable key,Text values,Context context)</span> <span class="keyword">throws</span> IOException,InterruptedException</span>&#123;</span><br><span class="line">            String str = values.toString();</span><br><span class="line">            String out = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">            ObjectMapper mapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">            JsonNode root = mapper.readTree(str);</span><br><span class="line"></span><br><span class="line">            Iterator&lt;JsonNode&gt; elements = root.elements();</span><br><span class="line">            out = dfs(elements, out);</span><br><span class="line">            out = out.replace(<span class="string">"\""</span>,<span class="string">""</span>);</span><br><span class="line">            context.write(<span class="keyword">new</span> Text(out),NullWritable.get());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">dfs</span><span class="params">(Iterator&lt;JsonNode&gt; elements, String out)</span></span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(elements.hasNext())&#123;</span><br><span class="line">            JsonNode node = elements.next();</span><br><span class="line">            <span class="keyword">if</span>(node.isObject())&#123;</span><br><span class="line">                Iterator&lt;JsonNode&gt; e = node.elements();</span><br><span class="line">                out = dfs(e, out);</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(node.isArray())&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;node.size();i++) &#123;</span><br><span class="line">                    <span class="keyword">if</span>(node.get(i).isObject())&#123;</span><br><span class="line">                        Iterator&lt;JsonNode&gt; e2 = node.elements();</span><br><span class="line">                        out = dfs(e2, out);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                        out = out + node.get(i) + <span class="string">'\t'</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                out = out + node.toString() + <span class="string">'\t'</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> out;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/08/28.%E6%B5%85%E8%B0%88jackson/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -787,217 +964,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/06/25.hadoop%E4%B9%8Bjps%E8%AF%A6%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="pearfl">
-      <meta itemprop="description" content="热爱从不降温">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="叶梨子的小窝">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/06/25.hadoop%E4%B9%8Bjps%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">hadoop之jps详解</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-02-06 14:22:11 / 修改时间：14:32:18" itemprop="dateCreated datePublished" datetime="2020-02-06T14:22:11+08:00">2020-02-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index">
-                    <span itemprop="name">大数据</span>
-                  </a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>970</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>jps最主要的功能使查看java接口的进程号</strong></p>
-<p>jps(Java Virtual Machine Process Status Tool)是JDK 1.5提供的一个显示当前所有 java 进程 pid 的命令，简单实用，非常适合在 linux/unix 平台上简单察看当前java进程的一些简单情况。</p>
-<p>注：jps命令有个地方很不好，似乎只能显示当前用户的java进程，要显示其他用户的还是只能用unix/linux的ps命令</p>
-<h2 id="jps常用参数"><a href="#jps常用参数" class="headerlink" title="jps常用参数"></a>jps常用参数</h2><p>1.命令jps类似于Linux下的ps，但它只用于列出Java的进程。直接运行jps不加任何参数，可以列出Java程序的进程ID以及Main函数等名称。</p>
-<p>其中一个输出jps就是jps命令本身，这更加证明此命令的本质也是一个Java程序</p>
-<p>2.参数-q 指定jps只输出进程ID，而不输出类的短名称</p>
-<p>3.参数-m 用于输出传递给Java进程（主函数）的参数</p>
-<p>4.参数-l 输出应用程序main class的完整package名 或者 应用程序的jar文件完整路径名</p>
-<p>5.参数-v 可以显示传递给JVM的参数</p>
-<h2 id="问题：process-information-unavailable"><a href="#问题：process-information-unavailable" class="headerlink" title="问题：process information unavailable"></a>问题：process information unavailable</h2><p>1.找到进程号jps</p>
-<p>2.ps -ef|grep pid是否存在（这步很关键要做判断查看进程是否存在）</p>
-<p>3.假如进程不存在，我们可以去该/tmp/hsperfdata_xxx去删除</p>
-<p>4.如果存在千万别删，自己查看是不可以的，其他用户查看是可用的。</p>
-<p>5不存在举例：我不知道是这个进程是属于哪个用户的我们怎么操作呢？ps -ef|grep pid查看进程号属于哪个目录删除就可了</p>
-<p>6.如果存在ps -ef |grep pid 看到了用户名，su 切换过去jps一下就好了</p>
-<h2 id="关于jps的一些总结"><a href="#关于jps的一些总结" class="headerlink" title="关于jps的一些总结"></a>关于jps的一些总结</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">hadoop用户启动的 .&#x2F;start-dfs.sh  jps后可以看到进程,</span><br><span class="line">root用户看到的就是5235 -- process information unavailable,</span><br><span class="line">ps -ef| grep 5235 看的到是hadoop用户的这个进程还在,</span><br><span class="line">那这个状态就是假死,因为进程还在,所以说root用户是看不到hadoop启动的jps进程,</span><br><span class="line">只有root用户启动hdfs才能看到jps下的三个进程,</span><br><span class="line"></span><br><span class="line">root 使用jps只有两种情况：</span><br><span class="line"></span><br><span class="line">第一种: 查看正常信息</span><br><span class="line">第二种: - process information unavailable</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/06/24.Centos%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%95%B4%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="pearfl">
-      <meta itemprop="description" content="热爱从不降温">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="叶梨子的小窝">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/06/24.Centos%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%95%B4%E7%90%86/" class="post-title-link" itemprop="url">CentOS最常用命令及快捷键整理</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-02-06 00:27:31 / 修改时间：00:39:49" itemprop="dateCreated datePublished" datetime="2020-02-06T00:27:31+08:00">2020-02-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9A%8F%E7%AC%94%E5%88%86%E4%BA%AB/" itemprop="url" rel="index">
-                    <span itemprop="name">随笔分享</span>
-                  </a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="文件和目录"><a href="#文件和目录" class="headerlink" title="文件和目录"></a>文件和目录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># cd &#x2F;home					进入 &#39;&#x2F;home&#39; 目录</span><br><span class="line"># cd ..						返回上一级目录</span><br><span class="line"># cd ..&#x2F;..					返回上两级目录</span><br><span class="line"># cd -						返回上次所在目录</span><br><span class="line"># cp file1 file2			将file1复制为file2</span><br><span class="line"># cp -a dir1 dir2			复制一个目录</span><br><span class="line"># cp -a &#x2F;tmp&#x2F;dir1 .			复制一个目录到当前工作目录（.代表当前目录）</span><br><span class="line"># ls						查看目录中的文件</span><br><span class="line"># ls -a						显示隐藏文件</span><br><span class="line"># ls -l						显示详细信息</span><br><span class="line"># ls -lrt					按时间显示文件（l表示详细列表，r表示反向排序，t表示按时间排序）</span><br><span class="line"># pwd						显示工作路径</span><br><span class="line"># mkdir dir1				创建 &#39;dir1&#39; 目录</span><br><span class="line"># mkdir dir1 dir2			同时创建两个目录</span><br><span class="line"># mkdir -p &#x2F;tmp&#x2F;dir1&#x2F;dir2	创建一个目录树</span><br><span class="line"># mv dir1 dir2				移动&#x2F;重命名一个目录</span><br><span class="line"># rm -f file1				删除 &#39;file1&#39;</span><br><span class="line"># rm -rf dir1				删除 &#39;dir1&#39; 目录及其子目录内容</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="查看文件内容"><a href="#查看文件内容" class="headerlink" title="查看文件内容"></a>查看文件内容</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># cat file1					从第一个字节开始正向查看文件的内容</span><br><span class="line"># head -2 file1				查看一个文件的前两行</span><br><span class="line"># more file1				查看一个长文件的内容</span><br><span class="line"># tac file1					从最后一行开始反向查看一个文件的内容</span><br><span class="line"># tail -3 file1				查看一个文件的最后三行</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="文本处理"><a href="#文本处理" class="headerlink" title="文本处理"></a>文本处理</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># grep str &#x2F;tmp&#x2F;test		在文件 &#39;&#x2F;tmp&#x2F;test&#39; 中查找 &quot;str&quot;</span><br><span class="line"># grep ^str &#x2F;tmp&#x2F;test		在文件 &#39;&#x2F;tmp&#x2F;test&#39; 中查找以 &quot;str&quot; 开始的行</span><br><span class="line"># grep [0-9] &#x2F;tmp&#x2F;test		查找 &#39;&#x2F;tmp&#x2F;test&#39; 文件中所有包含数字的行</span><br><span class="line"># grep str -r &#x2F;tmp&#x2F;*		在目录 &#39;&#x2F;tmp&#39; 及其子目录中查找 &quot;str&quot;</span><br><span class="line"># diff file1 file2			找出两个文件的不同处</span><br><span class="line"># sdiff file1 file2			以对比的方式显示两个文件的不同</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># find &#x2F; -name file1				从 &#39;&#x2F;&#39; 开始进入根文件系统查找文件和目录</span><br><span class="line"># find &#x2F; -user user1				查找属于用户 &#39;user1&#39; 的文件和目录</span><br><span class="line"># find &#x2F;home&#x2F;user1 -name \*.bin		在目录 &#39;&#x2F; home&#x2F;user1&#39; 中查找以 &#39;.bin&#39; 结尾的文件</span><br><span class="line"># find &#x2F;usr&#x2F;bin -type f -atime +100	查找在过去100天内未被使用过的执行文件</span><br><span class="line"># find &#x2F;usr&#x2F;bin -type f -mtime -10	查找在10天内被创建或者修改过的文件</span><br><span class="line"># locate \*.ps						寻找以 &#39;.ps&#39; 结尾的文件，先运行 &#39;updatedb&#39; 命令</span><br><span class="line"># find -name &#39;*.[ch]&#39; | xargs grep -E &#39;expr&#39;	在当前目录及其子目录所有.c和.h文件中查找 &#39;expr&#39;</span><br><span class="line"># find -type f -print0 | xargs -r0 grep -F &#39;expr&#39;	在当前目录及其子目录的常规文件中查找 &#39;expr&#39;</span><br><span class="line"># find -maxdepth 1 -type f | xargs grep -F &#39;expr&#39;	在当前目录中查找 &#39;expr&#39;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="压缩和解压"><a href="#压缩和解压" class="headerlink" title="压缩和解压"></a>压缩和解压</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># bzip2 file1							压缩 file1</span><br><span class="line"># bunzip2 file1.bz2						解压 file1.bz2</span><br><span class="line"># gzip file1							压缩 file1</span><br><span class="line"># gzip -9 file1							最大程度压缩 file1</span><br><span class="line"># gunzip file1.gz						解压 file1.gz</span><br><span class="line"># tar -cvf archive.tar file1			把file1打包成 archive.tar</span><br><span class="line">（-c: 建立压缩档案；-v: 显示所有过程；-f: 使用档案名字，是必须的，是最后一个参数）</span><br><span class="line"># tar -cvf archive.tar file1 dir1		把 file1，dir1 打包成 archive.tar</span><br><span class="line"># tar -tf archive.tar					显示一个包中的内容</span><br><span class="line"># tar -xvf archive.tar					释放一个包</span><br><span class="line"># tar -xvf archive.tar -C &#x2F;tmp			把压缩包释放到 &#x2F;tmp目录下</span><br><span class="line"># zip file1.zip file1					创建一个zip格式的压缩包</span><br><span class="line"># zip -r file1.zip file1 dir1			把文件和目录压缩成一个zip格式的压缩包</span><br><span class="line"># unzip file1.zip						解压一个zip格式的压缩包到当前目录</span><br><span class="line"># unzip test.zip -d &#x2F;tmp&#x2F;				解压一个zip格式的压缩包到 &#x2F;tmp 目录</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="yum工具"><a href="#yum工具" class="headerlink" title="yum工具"></a>yum工具</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># yum -y install [package]				下载并安装一个rpm包</span><br><span class="line"># yum localinstall [package.rpm]		安装一个rpm包，使用你自己的软件仓库解决所有依赖关系</span><br><span class="line"># yum -y update							更新当前系统中安装的所有rpm包</span><br><span class="line"># yum update [package]					更新一个rpm包</span><br><span class="line"># yum remove [package]					删除一个rpm包</span><br><span class="line"># yum list								列出当前系统中安装的所有包</span><br><span class="line"># yum search [package]					在rpm仓库中搜寻软件包</span><br><span class="line"># yum clean [package]					清除缓存目录（&#x2F;var&#x2F;cache&#x2F;yum）下的软件包</span><br><span class="line"># yum clean headers						删除所有头文件</span><br><span class="line"># yum clean all							删除所有缓存的包和头文件</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># ifconfig eth0										显示一个以太网卡的配置</span><br><span class="line"># ifconfig eth0 192.168.1.1 netmask 255.255.255.0	配置网卡的IP地址</span><br><span class="line"># ifdown eth0										禁用 &#39;eth0&#39; 网络设备</span><br><span class="line"># ifup eth0											启用 &#39;eth0&#39; 网络设备</span><br><span class="line"># iwconfig eth1										显示一个无线网卡的配置</span><br><span class="line"># iwlist scan										显示无线网络</span><br><span class="line"># ip addr show										显示网卡的IP地址</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># su -						切换到root权限（与su有区别）</span><br><span class="line"># shutdown -h now			关机</span><br><span class="line"># shutdown -r now			重启</span><br><span class="line"># top						罗列使用CPU资源最多的linux任务 （输入q退出）</span><br><span class="line"># pstree					以树状图显示程序</span><br><span class="line"># man ping					查看参考手册（例如ping 命令）</span><br><span class="line"># passwd					修改密码</span><br><span class="line"># df -h						显示磁盘的使用情况</span><br><span class="line"># cal -3					显示前一个月，当前月以及下一个月的月历</span><br><span class="line"># cal 10 1988				显示指定月，年的月历</span><br><span class="line"># date --date &#39;1970-01-01 UTC 1427888888 seconds&#39;	把一相对于1970-01-01 00:00的秒数转换成时间</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1070,7 +1036,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">40</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1083,7 +1049,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1134,12 +1100,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">77k</span>
+    <span title="站点总字数">79k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:09</span>
+    <span title="站点阅读时长">2:12</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
