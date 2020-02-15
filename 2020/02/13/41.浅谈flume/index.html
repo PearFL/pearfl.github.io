@@ -54,7 +54,7 @@
 <meta property="og:description" content="flume官方文档：http:&#x2F;&#x2F;flume.apache.org&#x2F; flume编译安装和配置先配置好maven环境（参考之前的博文），解压flume-ng-1.6.0-cdh5.16.2-src.tar.gz并进入解压路径 1# tar -zxvf flume-ng-1.6.0-cdh5.16.2-src.tar.gz  编译： 1mvn clean compile validate -Denf">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-02-13T07:22:22.000Z">
-<meta property="article:modified_time" content="2020-02-13T16:52:23.764Z">
+<meta property="article:modified_time" content="2020-02-15T02:51:48.462Z">
 <meta property="article:author" content="pearfl">
 <meta property="article:tag" content="flume">
 <meta name="twitter:card" content="summary">
@@ -243,7 +243,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-14 00:52:23" itemprop="dateModified" datetime="2020-02-14T00:52:23+08:00">2020-02-14</time>
+                <time title="修改时间：2020-02-15 10:51:48" itemprop="dateModified" datetime="2020-02-15T10:51:48+08:00">2020-02-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -263,14 +263,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.2k</span>
+              <span>4.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>7 分钟</span>
             </span>
 
         </div>
@@ -293,12 +293,14 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;modules&gt;</span><br><span class="line">   &lt;module&gt;flume-hdfs-sink&lt;&#x2F;module&gt;</span><br><span class="line">   &lt;module&gt;flume-irc-sink&lt;&#x2F;module&gt;</span><br><span class="line">   &lt;module&gt;flume-ng-hbase-sink&lt;&#x2F;module&gt;</span><br><span class="line">   &lt;module&gt;flume-ng-elasticsearch-sink&lt;&#x2F;module&gt;</span><br><span class="line">   &lt;!--&lt;module&gt;flume-ng-morphline-solr-sink&lt;&#x2F;module&gt; --&gt;</span><br><span class="line">   &lt;module&gt;flume-ng-kafka-sink&lt;&#x2F;module&gt;</span><br><span class="line"> &lt;&#x2F;modules&gt;</span><br></pre></td></tr></table></figure>
 
 <p>在.bash_profile里配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export FLUME_HOME&#x3D;&#x2F;root&#x2F;app&#x2F;flume-ng-1.6.0-cdh5.16.2</span><br><span class="line">export PATH&#x3D;$FLUME_HOME&#x2F;bin:$PATH</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export FLUME_HOME&#x3D;&#x2F;home&#x2F;pearfl&#x2F;app&#x2F;apache-flume-1.6.0-cdh5.16.2-bin</span><br><span class="line">export PATH&#x3D;$FLUME_HOME&#x2F;bin:$PATH</span><br></pre></td></tr></table></figure>
 
 <p>conf目录下的flume-env.sh需要配置jdk路径</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME&#x3D;&#x2F;root&#x2F;app&#x2F;jdk1.8.0_231</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME&#x3D;&#x2F;home&#x2F;pearfl&#x2F;app&#x2F;jdk1.8.0_231</span><br></pre></td></tr></table></figure>
 
 
+
+<a id="more"></a>
 
 <h2 id="flume核心组件"><a href="#flume核心组件" class="headerlink" title="flume核心组件"></a>flume核心组件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Source	从哪收集</span><br><span class="line">	avro	序列化</span><br><span class="line">	exec	命令行</span><br><span class="line">	spooling	目录</span><br><span class="line">	taildir	******</span><br><span class="line">	kafka</span><br><span class="line"></span><br><span class="line">Channel	数据存哪里</span><br><span class="line">	memory</span><br><span class="line">	kafka</span><br><span class="line">	file</span><br><span class="line">	</span><br><span class="line">Sink	数据输出到哪里</span><br><span class="line">	hdfs	Hadoop</span><br><span class="line">	logger	控制台</span><br><span class="line">	avro	</span><br><span class="line">	kafka</span><br></pre></td></tr></table></figure>
 
@@ -314,6 +316,32 @@
 
 <p>启动命令</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># flume-ng agent --name a1 --conf $FLUME_HOME&#x2F;conf --conf-file $FLUME_HOME&#x2F;script&#x2F;example.conf -Dflume.root.logger&#x3D;INFO,console</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Event:	Flume数据传输的基本单元</span><br><span class="line">event	&#x3D;&#x3D;&gt;	flume	&#x3D;&#x3D;&gt;	dst</span><br><span class="line">	header	可选的</span><br><span class="line">		k-v</span><br><span class="line">	body	byte	array</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="flume进一步理解"><a href="#flume进一步理解" class="headerlink" title="flume进一步理解"></a>flume进一步理解</h2><p>追踪日志不断增加的内容，并且输出到hdfs中（单文件）</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">a1.sources = r1</span><br><span class="line">a1.sinks = k1</span><br><span class="line">a1.channels = c1</span><br><span class="line"></span><br><span class="line">a1.sources.r1.type = exec</span><br><span class="line">a1.sources.r1.command = tail -F /home/pearfl/data/flume/data.log</span><br><span class="line">a1.sources.r1.shell = /bin/sh -c</span><br><span class="line"></span><br><span class="line">a1.sinks.k1.type = hdfs</span><br><span class="line">a1.sinks.k1.hdfs.path = hdfs://hadoop000:8020/ruozedata/flume/tail</span><br><span class="line">a1.sinks.k1.batchSize = 10</span><br><span class="line">a1.sinks.k1.fileType = DataStream</span><br><span class="line">a1.sinks.k1.writeFormat = Text</span><br><span class="line"></span><br><span class="line">a1.channels.c1.type = memory</span><br><span class="line"></span><br><span class="line">a1.sources.r1.channels = c1</span><br><span class="line">a1.sinks.k1.channel = c1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># flume-ng agent --name a1 --conf $FLUME_HOME&#x2F;conf --conf-file $FLUME_HOME&#x2F;script&#x2F;flume-exec-hdfs.conf -Dflume.root.logger&#x3D;INFO,console</span><br></pre></td></tr></table></figure>
+
+
+
+<p>目录</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">a1.sources = r1</span><br><span class="line">a1.sinks = k1</span><br><span class="line">a1.channels = c1</span><br><span class="line"></span><br><span class="line">a1.sources.r1.type = spooldir</span><br><span class="line">a1.sources.r1.spoolDir = /home/pearfl/data/flume/spool/</span><br><span class="line"></span><br><span class="line">a1.sinks.k1.type = hdfs</span><br><span class="line">a1.sinks.k1.hdfs.path = hdfs://hadoop000:8020/ruozedata/flume/spool/%Y%m%d%H%M</span><br><span class="line">a1.sinks.k1.batchSize = 10</span><br><span class="line">a1.sinks.k1.fileType = DataStream</span><br><span class="line">a1.sinks.k1.writeFormat = Text</span><br><span class="line">a1.sinks.k1.filePrefix = bigdata-</span><br><span class="line">a1.sinks.k1.useLocalTimeStamp = true</span><br><span class="line"></span><br><span class="line">a1.channels.c1.type = memory</span><br><span class="line"></span><br><span class="line">a1.sources.r1.channels = c1</span><br><span class="line">a1.sinks.k1.channel = c1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># flume-ng agent --name a1 --conf $FLUME_HOME&#x2F;conf --conf-file $FLUME_HOME&#x2F;script&#x2F;flume-spool-hdfs.conf -Dflume.root.logger&#x3D;INFO,console</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="生产上常用tairdir"><a href="#生产上常用tairdir" class="headerlink" title="生产上常用tairdir"></a>生产上常用tairdir</h2><p>文档：<a href="http://flume.apache.org/releases/content/1.9.0/FlumeUserGuide.html#taildir-source" target="_blank" rel="noopener">http://flume.apache.org/releases/content/1.9.0/FlumeUserGuide.html#taildir-source</a></p>
+<p>TAIRDIR<br>    offset<br>    不仅仅可以支持到file，也可以支持的directory</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">a1.sources = r1</span><br><span class="line">a1.sinks = k1</span><br><span class="line">a1.channels = c1</span><br><span class="line"></span><br><span class="line">a1.sources.r1.type = TAILDIR</span><br><span class="line">a1.sources.r1.filegroups = f1 f2</span><br><span class="line">a1.sources.r1.positionFile = /home/pearfl/data/flume/taildir_position.json</span><br><span class="line">a1.sources.r1.filegroups.f1 = /home/pearfl/data/flume/taildir/test1/example.log</span><br><span class="line">a1.sources.r1.headers.f1.headerKey1 = value1</span><br><span class="line">a1.sources.r1.filegroups.f2 = /home/pearfl/data/flume/taildir/test2/.*log.*</span><br><span class="line">a1.sources.r1.headers.f2.headerKey1 = value2</span><br><span class="line">a1.sources.r1.headers.f2.headerKey2 = value2-2</span><br><span class="line"></span><br><span class="line">a1.channels.c1.type = memory</span><br><span class="line"></span><br><span class="line">a1.sinks.k1.type = logger</span><br><span class="line"></span><br><span class="line">a1.sources.r1.channels = c1</span><br><span class="line">a1.sinks.k1.channel = c1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># flume-ng agent --name a1 --conf $FLUME_HOME&#x2F;conf --conf-file $FLUME_HOME&#x2F;script&#x2F;flume-taildir-logger.conf -Dflume.root.logger&#x3D;INFO,console</span><br></pre></td></tr></table></figure>
 
 
     </div>
@@ -396,7 +424,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#flume编译安装和配置"><span class="nav-number">1.</span> <span class="nav-text">flume编译安装和配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flume核心组件"><span class="nav-number">2.</span> <span class="nav-text">flume核心组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flume简单配置文件"><span class="nav-number">3.</span> <span class="nav-text">flume简单配置文件</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#flume编译安装和配置"><span class="nav-number">1.</span> <span class="nav-text">flume编译安装和配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flume核心组件"><span class="nav-number">2.</span> <span class="nav-text">flume核心组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flume简单配置文件"><span class="nav-number">3.</span> <span class="nav-text">flume简单配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flume进一步理解"><span class="nav-number">4.</span> <span class="nav-text">flume进一步理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生产上常用tairdir"><span class="nav-number">5.</span> <span class="nav-text">生产上常用tairdir</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -476,12 +504,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">82k</span>
+    <span title="站点总字数">84k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:16</span>
+    <span title="站点阅读时长">2:20</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
