@@ -64,6 +64,21 @@
 
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># flume-ng agent --name a1 --conf $FLUME_HOME&#x2F;conf --conf-file $FLUME_HOME&#x2F;script&#x2F;flume-taildir-logger.conf -Dflume.root.logger&#x3D;INFO,console</span><br></pre></td></tr></table></figure>
 
+
+
+<h2 id="Flume远程实时采集Windows产生的log4j产生的数据"><a href="#Flume远程实时采集Windows产生的log4j产生的数据" class="headerlink" title="Flume远程实时采集Windows产生的log4j产生的数据"></a>Flume远程实时采集Windows产生的log4j产生的数据</h2><p>IDEA上的pom.xml添加</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!-- flume采集 --&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.flume.flume-ng-clients&lt;&#x2F;groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;flume-ng-log4jappender&lt;&#x2F;artifactId&gt;</span><br><span class="line">      &lt;version&gt;1.6.0&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>IDEA上的log4j.properties</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">log4j.rootLogger&#x3D;INFO,stdout,flume</span><br><span class="line">log4j.appender.stdout&#x3D;org.apache.log4j.ConsoleAppender</span><br><span class="line">log4j.appender.stdout.target&#x3D;System.out</span><br><span class="line">log4j.appender.stdout.layout&#x3D;org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.stdout.layout.ConversionPattern&#x3D;%d&#123;yyyy-MM-dd HH:mm:ss,SSS&#125; [%t] [%c] [%p] - %m%n</span><br><span class="line"></span><br><span class="line">log4j.appender.flume &#x3D; org.apache.flume.clients.log4jappender.Log4jAppender</span><br><span class="line">log4j.appender.flume.Hostname &#x3D; hadoop000</span><br><span class="line">log4j.appender.flume.Port &#x3D; 41414</span><br><span class="line">log4j.appender.flume.UnsafeMode &#x3D; true</span><br><span class="line">log4j.appender.flume.layout&#x3D;org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.flume.layout.ConversionPattern&#x3D;%d&#123;yyyy-MM-dd HH:mm:ss,SSS&#125; [%t] [%c] [%p] - %m%n</span><br></pre></td></tr></table></figure>
+
+
+
+<p>streaming.conf</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">a1.sources = r1</span><br><span class="line">a1.sinks = k1</span><br><span class="line">a1.channels = c1</span><br><span class="line"><span class="comment"># 配置监控文件</span></span><br><span class="line">a1.sources.r1.type = avro</span><br><span class="line">a1.sources.r1.bind=0.0.0.0</span><br><span class="line">a1.sources.r1.port=44444</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置sink</span></span><br><span class="line"><span class="comment">#a1.sinks.k1.type =logger</span></span><br><span class="line"></span><br><span class="line">a1.sinks.k1.type = file_roll</span><br><span class="line">a1.sinks.k1.sink.directory =/home/pearfl/tmp/stream</span><br><span class="line">a1.sinks.k1.sink.rollInterval=300</span><br><span class="line">a1.sinks.k1.sink.batchSize=100</span><br><span class="line">a1.sinks.k1.sink.serializer=TEXT</span><br><span class="line">a1.sinks.k1.sink.serializer.appendNewline = false</span><br><span class="line"></span><br><span class="line"><span class="comment">#-------------</span></span><br><span class="line"><span class="comment"># 配置channel</span></span><br><span class="line">a1.channels.c1.type = memory</span><br><span class="line"><span class="comment"># 将三者串联</span></span><br><span class="line">a1.sources.r1.channels = c1</span><br><span class="line">a1.sinks.k1.channel = c1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># flume-ng agent --name a1 --conf $FLUME_HOME&#x2F;conf --conf-file $FLUME_HOME&#x2F;script&#x2F;streaming.conf -Dflume.root.logger&#x3D;INFO,console</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>大数据</category>
@@ -205,6 +220,22 @@
 
 
 <p>非常的简单哟</p>
+]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>scala</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>scala之val与var</title>
+    <url>/2020/02/10/42.scala%E4%B9%8Bval%E4%B8%8Evar/</url>
+    <content><![CDATA[<p><strong>val vs var</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">val:值</span><br><span class="line">	final</span><br><span class="line">	val 值名称:类型 &#x3D; xxx</span><br><span class="line">var:变量</span><br><span class="line">	var 值名称:类型 &#x3D; xxx</span><br></pre></td></tr></table></figure>
+
+<p>其实简单的来说，就是一个可变，一个不可变</p>
+<p>如果不需要变化，就使用val，能用val就不用var =3=</p>
 ]]></content>
       <categories>
         <category>大数据</category>
