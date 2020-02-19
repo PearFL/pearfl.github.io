@@ -241,7 +241,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-19 09:46:09" itemprop="dateModified" datetime="2020-02-19T09:46:09+08:00">2020-02-19</time>
+                <time title="修改时间：2020-02-19 10:08:46" itemprop="dateModified" datetime="2020-02-19T10:08:46+08:00">2020-02-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -283,28 +283,6 @@
           <p><strong>flume官方文档：</strong><a href="http://flume.apache.org/" target="_blank" rel="noopener">http://flume.apache.org/</a></p>
 <p><img src="/images/41/41_1.png" alt="41_1"></p>
 <p>从系统架构图上来看，用户只要产生行为，那么日志就会在Nginx服务器中保存，所以我们现在要做的就是把数据从Nginx服务器中使用Flume采集到HDFS上</p>
-<h2 id="flume怎么用？"><a href="#flume怎么用？" class="headerlink" title="flume怎么用？"></a>flume怎么用？</h2><p><strong>flume</strong></p>
-<p>Flume就是一个针对日志数据进行采集和汇总的一个框架</p>
-<p>Flume的进程叫做Agent，每个Agent中有Srouce、Channel？Sink</p>
-<p>Flume从使用层面来讲就是写配置文件，其实就是配置我们的Agent，只要学会从官网查配置就行了</p>
-<p><strong>Agent</strong></p>
-<p>Source中的常用方式有 avro、exec、spooling、taildir、kafka</p>
-<p>Channel中的常用方式有 memory、kafka、file</p>
-<p>Sink中的常用方式有 hdfs、logger、avro、kafka</p>
-<h2 id="flume编译安装和配置"><a href="#flume编译安装和配置" class="headerlink" title="flume编译安装和配置"></a>flume编译安装和配置</h2><p>先配置好maven环境（参考之前的博文），解压flume-ng-1.6.0-cdh5.16.2-src.tar.gz并进入解压路径</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># tar -zxvf flume-ng-1.6.0-cdh5.16.2-src.tar.gz</span><br></pre></td></tr></table></figure>
-
-<p>编译：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean compile validate -Denforcer.skip&#x3D;true</span><br></pre></td></tr></table></figure>
-
-<p>提示：flume-ng-morphline-solr-sink我们用不到，可以直接注释掉，在flume-ng-sinks下的pom中找到并注释</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;modules&gt;</span><br><span class="line">   &lt;module&gt;flume-hdfs-sink&lt;&#x2F;module&gt;</span><br><span class="line">   &lt;module&gt;flume-irc-sink&lt;&#x2F;module&gt;</span><br><span class="line">   &lt;module&gt;flume-ng-hbase-sink&lt;&#x2F;module&gt;</span><br><span class="line">   &lt;module&gt;flume-ng-elasticsearch-sink&lt;&#x2F;module&gt;</span><br><span class="line">   &lt;!--&lt;module&gt;flume-ng-morphline-solr-sink&lt;&#x2F;module&gt; --&gt;</span><br><span class="line">   &lt;module&gt;flume-ng-kafka-sink&lt;&#x2F;module&gt;</span><br><span class="line"> &lt;&#x2F;modules&gt;</span><br></pre></td></tr></table></figure>
-
-<p>在.bash_profile里配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export FLUME_HOME&#x3D;&#x2F;home&#x2F;pearfl&#x2F;app&#x2F;apache-flume-1.6.0-cdh5.16.2-bin</span><br><span class="line">export PATH&#x3D;$FLUME_HOME&#x2F;bin:$PATH</span><br></pre></td></tr></table></figure>
-
-<p>conf目录下的flume-env.sh需要配置jdk路径</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME&#x3D;&#x2F;home&#x2F;pearfl&#x2F;app&#x2F;jdk1.8.0_231</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/02/13/41.%E6%B5%85%E8%B0%88flume/#more" rel="contents">
@@ -354,10 +332,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-02-12 15:33:14 / 修改时间：23:44:07" itemprop="dateCreated datePublished" datetime="2020-02-12T15:33:14+08:00">2020-02-12</time>
+              <time title="创建时间：2020-02-12 15:33:14" itemprop="dateCreated datePublished" datetime="2020-02-12T15:33:14+08:00">2020-02-12</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-19 10:08:58" itemprop="dateModified" datetime="2020-02-19T10:08:58+08:00">2020-02-19</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -407,18 +391,14 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(filter(<span class="keyword">lambda</span> x: len(x) % <span class="number">2</span> == <span class="number">1</span>, [‘a’, ‘b’, ‘cd’, ‘efg’, ‘hig’, ‘klmn’, ‘opqr’]))</span><br><span class="line">[‘a’, ‘b’, ‘efg’, ‘hig’]</span><br></pre></td></tr></table></figure>
 
 <p>这里我们用 <code>list()</code> 将迭代器转换为列表。</p>
-<p><code>map()</code> 用于对可迭代对象中每一个元素逐一作处理。用法如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map(处理函数, 可迭代对象)</span><br></pre></td></tr></table></figure>
-
-<p><code>map()</code>依次对<code>可迭代对象</code>中的每个元素调用<code>处理函数</code>，最终返回一个包含所有被处理过后的元素的迭代器。</p>
-<p>显然这里的<code>处理函数</code>也可以用 lambda 表达式来创建。</p>
-<p>例如，将<code>[&#39;a&#39;, &#39;b&#39;, &#39;cd&#39;, &#39;efg&#39;, &#39;hig&#39;, &#39;klmn&#39;, &#39;opqr&#39;]</code>全部转换为大写。可以这样来写：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map(<span class="keyword">lambda</span> x: x.upper(), [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'cd'</span>, <span class="string">'efg'</span>, <span class="string">'hig'</span>, <span class="string">'klmn'</span>, <span class="string">'opqr'</span>])</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(map(<span class="keyword">lambda</span> x: x.upper(), [‘a’, ‘b’, ‘cd’, ‘efg’, ‘hig’, ‘klmn’, ‘opqr’]))</span><br><span class="line">[‘A’, ‘B’, ‘CD’, ‘EFG’, ‘HIG’, ‘KLMN’, ‘OPQR’]</span><br></pre></td></tr></table></figure>
-
-<p>这里我们用 <code>list()</code> 将迭代器转换为列表</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/02/12/40.python%E7%9A%84map()%E5%92%8C%20filter()/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 

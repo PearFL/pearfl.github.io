@@ -46,16 +46,16 @@
   };
 </script>
 
-  <meta name="description" content="flume官方文档：http:&#x2F;&#x2F;flume.apache.org&#x2F;  从系统架构图上来看，用户只要产生行为，那么日志就会在Nginx服务器中保存，所以我们现在要做的就是把数据从Nginx服务器中使用Flume采集到HDFS上 flume怎么用？flume Flume就是一个针对日志数据进行采集和汇总的一个框架 Flume的进程叫做Agent，每个Agent中有Srouce、Channel？Sin">
+  <meta name="description" content="flume官方文档：http:&#x2F;&#x2F;flume.apache.org&#x2F;  从系统架构图上来看，用户只要产生行为，那么日志就会在Nginx服务器中保存，所以我们现在要做的就是把数据从Nginx服务器中使用Flume采集到HDFS上">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅谈flume的基础使用">
 <meta property="og:url" content="http://yoursite.com/2020/02/13/41.%E6%B5%85%E8%B0%88flume/index.html">
 <meta property="og:site_name" content="叶梨子的小窝">
-<meta property="og:description" content="flume官方文档：http:&#x2F;&#x2F;flume.apache.org&#x2F;  从系统架构图上来看，用户只要产生行为，那么日志就会在Nginx服务器中保存，所以我们现在要做的就是把数据从Nginx服务器中使用Flume采集到HDFS上 flume怎么用？flume Flume就是一个针对日志数据进行采集和汇总的一个框架 Flume的进程叫做Agent，每个Agent中有Srouce、Channel？Sin">
+<meta property="og:description" content="flume官方文档：http:&#x2F;&#x2F;flume.apache.org&#x2F;  从系统架构图上来看，用户只要产生行为，那么日志就会在Nginx服务器中保存，所以我们现在要做的就是把数据从Nginx服务器中使用Flume采集到HDFS上">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/images/41/41_1.png">
 <meta property="article:published_time" content="2020-02-13T07:22:22.000Z">
-<meta property="article:modified_time" content="2020-02-19T01:46:09.983Z">
+<meta property="article:modified_time" content="2020-02-19T02:08:46.001Z">
 <meta property="article:author" content="pearfl">
 <meta property="article:tag" content="flume">
 <meta name="twitter:card" content="summary">
@@ -245,7 +245,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-19 09:46:09" itemprop="dateModified" datetime="2020-02-19T09:46:09+08:00">2020-02-19</time>
+                <time title="修改时间：2020-02-19 10:08:46" itemprop="dateModified" datetime="2020-02-19T10:08:46+08:00">2020-02-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -287,6 +287,8 @@
         <p><strong>flume官方文档：</strong><a href="http://flume.apache.org/" target="_blank" rel="noopener">http://flume.apache.org/</a></p>
 <p><img src="/images/41/41_1.png" alt="41_1"></p>
 <p>从系统架构图上来看，用户只要产生行为，那么日志就会在Nginx服务器中保存，所以我们现在要做的就是把数据从Nginx服务器中使用Flume采集到HDFS上</p>
+<a id="more"></a>
+
 <h2 id="flume怎么用？"><a href="#flume怎么用？" class="headerlink" title="flume怎么用？"></a>flume怎么用？</h2><p><strong>flume</strong></p>
 <p>Flume就是一个针对日志数据进行采集和汇总的一个框架</p>
 <p>Flume的进程叫做Agent，每个Agent中有Srouce、Channel？Sink</p>
@@ -312,7 +314,7 @@
 
 
 
-<a id="more"></a>
+<!--more-->
 
 <h2 id="flume核心组件"><a href="#flume核心组件" class="headerlink" title="flume核心组件"></a>flume核心组件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Source	从哪收集</span><br><span class="line">	avro	序列化</span><br><span class="line">	exec	命令行</span><br><span class="line">	spooling	目录</span><br><span class="line">	taildir	******</span><br><span class="line">	kafka</span><br><span class="line"></span><br><span class="line">Channel	数据存哪里</span><br><span class="line">	memory</span><br><span class="line">	kafka</span><br><span class="line">	file</span><br><span class="line">	</span><br><span class="line">Sink	数据输出到哪里</span><br><span class="line">	hdfs	Hadoop</span><br><span class="line">	logger	控制台</span><br><span class="line">	avro	</span><br><span class="line">	kafka</span><br></pre></td></tr></table></figure>
 
