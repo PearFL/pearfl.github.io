@@ -4,6 +4,16 @@
     <title>浅谈flume的基础使用</title>
     <url>/2020/02/13/41.%E6%B5%85%E8%B0%88flume/</url>
     <content><![CDATA[<p><strong>flume官方文档：</strong><a href="http://flume.apache.org/" target="_blank" rel="noopener">http://flume.apache.org/</a></p>
+<p><img src="/images/41/41_1.png" alt="41_1"></p>
+<p>从系统架构图上来看，用户只要产生行为，那么日志就会在Nginx服务器中保存，所以我们现在要做的就是把数据从Nginx服务器中使用Flume采集到HDFS上</p>
+<h2 id="flume怎么用？"><a href="#flume怎么用？" class="headerlink" title="flume怎么用？"></a>flume怎么用？</h2><p><strong>flume</strong></p>
+<p>Flume就是一个针对日志数据进行采集和汇总的一个框架</p>
+<p>Flume的进程叫做Agent，每个Agent中有Srouce、Channel？Sink</p>
+<p>Flume从使用层面来讲就是写配置文件，其实就是配置我们的Agent，只要学会从官网查配置就行了</p>
+<p><strong>Agent</strong></p>
+<p>Source中的常用方式有 avro、exec、spooling、taildir、kafka</p>
+<p>Channel中的常用方式有 memory、kafka、file</p>
+<p>Sink中的常用方式有 hdfs、logger、avro、kafka</p>
 <h2 id="flume编译安装和配置"><a href="#flume编译安装和配置" class="headerlink" title="flume编译安装和配置"></a>flume编译安装和配置</h2><p>先配置好maven环境（参考之前的博文），解压flume-ng-1.6.0-cdh5.16.2-src.tar.gz并进入解压路径</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># tar -zxvf flume-ng-1.6.0-cdh5.16.2-src.tar.gz</span><br></pre></td></tr></table></figure>
 
@@ -64,8 +74,8 @@
 
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># flume-ng agent --name a1 --conf $FLUME_HOME&#x2F;conf --conf-file $FLUME_HOME&#x2F;script&#x2F;flume-taildir-logger.conf -Dflume.root.logger&#x3D;INFO,console</span><br></pre></td></tr></table></figure>
 
-
-
+<p>其中<code>taildir_position.json</code>文件是用来记录文件读取offset的位置，方便下次继续从offset位置读取</p>
+<p>注意<code>taildir_position.json</code>文件不能存在上级目录，不然会报错</p>
 <h2 id="Flume远程实时采集Windows产生的log4j产生的数据（控制台输出）"><a href="#Flume远程实时采集Windows产生的log4j产生的数据（控制台输出）" class="headerlink" title="Flume远程实时采集Windows产生的log4j产生的数据（控制台输出）"></a>Flume远程实时采集Windows产生的log4j产生的数据（控制台输出）</h2><p>IDEA上的pom.xml添加</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!-- flume采集 --&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.flume.flume-ng-clients&lt;&#x2F;groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;flume-ng-log4jappender&lt;&#x2F;artifactId&gt;</span><br><span class="line">      &lt;version&gt;1.6.0&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
 
@@ -85,6 +95,14 @@
 
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># flume-ng agent --name a1 --conf $FLUME_HOME&#x2F;conf --conf-file $FLUME_HOME&#x2F;script&#x2F;hdfs-stream.conf -Dflume.root.logger&#x3D;INFO,console</span><br></pre></td></tr></table></figure>
 
+
+
+<h2 id="解决Flume采集数据时生成大量小文件的问题"><a href="#解决Flume采集数据时生成大量小文件的问题" class="headerlink" title="解决Flume采集数据时生成大量小文件的问题"></a>解决Flume采集数据时生成大量小文件的问题</h2><p>在使用Flume采集数据时，由于默认参数的影响会生产大量小文件，我们先看默认参数</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hdfs.rollInterval	30	滚动当前文件之前要等待的秒数</span><br><span class="line">hdfs.rollSize	1024	触发滚动当前文件的大小，单位bytes(B)</span><br><span class="line">hdfs.rollCount	10		触发滚动当前文件的events数量</span><br></pre></td></tr></table></figure>
+
+<p>我们看到默认生成文件有三个条件，每30秒、每1M、每10个events，这样的配置会生成大量的小文件，所以我们要对这三个文件进行修改</p>
+<p>最终生成的文件必须综合时间、文件大小、event数量来决定，时间太长或者文件太大都不利于最终生成的文件。该时间还需要配合<code>hdfs.path</code>参数指定的生成文件时间。</p>
+<p>注意<code>sink.type</code>如果是<code>memory</code>模式，注意文件的大小，防止内存不足，太大可以设置<code>sink.type = file</code></p>
 ]]></content>
       <categories>
         <category>大数据</category>
@@ -458,31 +476,6 @@
       </categories>
   </entry>
   <entry>
-    <title>maven安装</title>
-    <url>/2020/02/09/31.maven%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<p>官网下载链接：<a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">http://maven.apache.org/download.cgi</a></p>
-<p>下载后我放置在服务器用户根目录的software文件夹下，现在我们解压到app下面</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># tar -zxvf apache-maven-3.6.3-bin.tar.gz -C ~&#x2F;app&#x2F;</span><br></pre></td></tr></table></figure>
-
-<p>在app文件夹下，开始操作</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">进入maven文件夹</span><br><span class="line"># cd apache-maven-3.6.3&#x2F;</span><br><span class="line">pwd获取当前的路径</span><br><span class="line"># vi ~&#x2F;.bash_profile</span><br><span class="line">export MAVEN_HOME&#x3D;&#x2F;root&#x2F;app&#x2F;apache-maven-3.6.3</span><br><span class="line">export PATH&#x3D;$MAVEN_HOME&#x2F;bin:$PATH</span><br><span class="line"># source ~&#x2F;.bash_profile</span><br><span class="line"></span><br><span class="line">可以通过mvn -v检查是否生效</span><br></pre></td></tr></table></figure>
-
-
-
-<p>完成后，conf内有些数据建议更改一下</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># cd conf</span><br><span class="line"># vi settings.xml</span><br><span class="line">  &lt;!-- localRepository</span><br><span class="line">   | The path to the local repository maven will use to store artifacts.</span><br><span class="line">   |</span><br><span class="line">   | Default: $&#123;user.home&#125;&#x2F;.m2&#x2F;repository</span><br><span class="line">  &lt;localRepository&gt;&#x2F;path&#x2F;to&#x2F;local&#x2F;repo&lt;&#x2F;localRepository&gt;</span><br><span class="line">  --&gt;</span><br><span class="line">  &lt;localRepository&gt;&#x2F;root&#x2F;maven_repos&#x2F;&lt;&#x2F;localRepository&gt;</span><br></pre></td></tr></table></figure>
-
-<p>/root/maven_repos/ 位置存放你下载的包，这个根据个人需求修改</p>
-]]></content>
-      <categories>
-        <category>随笔分享</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>maven</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>linux上的maven安装</title>
     <url>/2020/02/09/32.linux%E4%B8%8A%E7%9A%84maven%E5%AE%89%E8%A3%85/</url>
     <content><![CDATA[<p>官网下载链接：<a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">http://maven.apache.org/download.cgi</a></p>
@@ -505,6 +498,31 @@
       <tags>
         <tag>linux</tag>
         <tag>maven</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ETL简述</title>
+    <url>/2020/02/09/31.ETL%E7%AE%80%E8%BF%B0/</url>
+    <content><![CDATA[<p><img src="/images/31/31_1.png" alt="31_1"></p>
+<h2 id="为什么要进行ETL"><a href="#为什么要进行ETL" class="headerlink" title="为什么要进行ETL"></a>为什么要进行ETL</h2><p>我们使用Flume采集数据到HDFS，从系统架构图来看现在要进行数据的ETL操作，ETL进程对数据进行规范化、验证、清洗，并最终装载进入数据仓库</p>
+<h2 id="什么是ETL"><a href="#什么是ETL" class="headerlink" title="什么是ETL"></a>什么是ETL</h2><p>ETL 即 Extract Transform Load的首字母 ==&gt; 抽取、转换、加载</p>
+<h2 id="ETL该怎么做"><a href="#ETL该怎么做" class="headerlink" title="ETL该怎么做"></a>ETL该怎么做</h2><p>数据采集到HDFS上指定的目录下，通过MR写入数据，进行ETL操作，并写出到指定的目录下，ETL操作包括定义数据字段的序列化类，把时间解析出年月日，把URL解析为http、domain和path、对异常值进行处理(try/catch)，使用计数器。</p>
+<h2 id="ETL在服务器上运行需要解决的问题"><a href="#ETL在服务器上运行需要解决的问题" class="headerlink" title="ETL在服务器上运行需要解决的问题"></a>ETL在服务器上运行需要解决的问题</h2><p>在本地测试好代码后，上传Jar包到服务器上，跑HDFS上的数据</p>
+<p>首先创建三个文件夹lib、data、script放ETL相关的文件，运行脚本的shell文件就在script目录下</p>
+<p>由于我们把ETL打的瘦包，所以很多数据需要的依赖Jar包得不到，还有解析库的数据库也需要上传到本地文件下</p>
+<p>思路是:</p>
+<ol>
+<li>把解析库放到项目的resources目录下</li>
+<li>把需要的依赖上传到lib目录下</li>
+<li>在<code>~/.bash_profile</code>文件下导入LIBJARS路径用来指向lib目录下的依赖</li>
+</ol>
+]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>hadoop</tag>
+        <tag>ETL</tag>
       </tags>
   </entry>
   <entry>
@@ -987,20 +1005,47 @@
   <entry>
     <title>数据倾斜解决方案</title>
     <url>/2020/02/04/22.%E6%95%B0%E6%8D%AE%E5%80%BE%E6%96%9C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
-    <content><![CDATA[<p>同key分发到同一个reduce去执行==&gt;skew</p>
-<p>数据倾斜解决方案：打散再处理</p>
-<p>假设原task要处理9000w的数据量，我们通过随机数打散为100份</p>
-<p>==&gt; 原来都在一个reducetask中取处理的数据，被我们打散后变为9000w / 100</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">chain:</span><br><span class="line">	第一个mr：key加随机数打散</span><br><span class="line">	data_8 100</span><br><span class="line">	data_1 200</span><br><span class="line">	data_2 300</span><br><span class="line">	data_4 200</span><br><span class="line">	第二个mr：第一个mr加的随机数去掉</span><br><span class="line">	data 100</span><br><span class="line">	data 200</span><br><span class="line">	data 300</span><br><span class="line">	data 200</span><br><span class="line">	</span><br><span class="line">	在第二个mr中的reduce来做最终的聚合操作</span><br><span class="line">	ruoze 800</span><br></pre></td></tr></table></figure>
-
-<p>Hadoop不怕数据量大，就怕数据倾斜hhhhhhhhhhhhh（跑不动）</p>
-<p>以统计某人的数字之和为例</p>
-<p>数据</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mxh 	102</span><br><span class="line">mxh 	1042</span><br><span class="line">pearfl 	102222</span><br><span class="line">pearfl 	1000</span><br></pre></td></tr></table></figure>
-
-
-
-<p>第一个mr</p>
+    <content><![CDATA[<h2 id="数据倾斜"><a href="#数据倾斜" class="headerlink" title="数据倾斜"></a>数据倾斜</h2><p>1.数据倾斜怎么造成的</p>
+<p>mapreduce计算是将map相同的key丢到reduce，在reduce中进行聚合操作,在map和reduce中间有个shuffle操作，shuffle会将map阶段相同的key划分到reduce阶段中的一个reduce中去，数据倾斜就是数据的key 的分化严重不均，造成一部分数据很多，一部分数据很少的局面。</p>
+<p>2.数据倾斜产生的问题</p>
+<ul>
+<li>有一个或多个reduce卡住</li>
+<li>各种container报错OOM</li>
+<li>读写的数据量极大，至少远远超过其它正常的reduce</li>
+<li>伴随着数据倾斜，会出现任务被kill等各种诡异的表现。</li>
+</ul>
+<p>3.原因和解决方法</p>
+<p>原因：</p>
+<ul>
+<li>单个值有大量记录(1.内存的限制存在，2.可能会对集群其他任务的运行产生不稳定的影响)</li>
+<li>唯一值较多(单个唯一值的记录数占用内存不会超过分配给reduce的内存)</li>
+</ul>
+<p>解决办法:</p>
+<ul>
+<li><p>增加reduce个数</p>
+</li>
+<li><p>使用自定义partitioner</p>
+</li>
+<li><p>增加reduce 的jvm内存（效果不好）</p>
+</li>
+<li><p>map 阶段将造成倾斜的key 先分成多组加随机数并且在reduce阶段去除随机数</p>
+</li>
+<li><p>从业务和数据上解决数据倾斜</p>
+<p>我们通过设计的角度尝试解决它</p>
+<ul>
+<li>数据预处理，过滤掉异常值</li>
+<li>将数据打散让它的并行度变大，再汇集</li>
+</ul>
+</li>
+</ul>
+<p>平台的优化方法</p>
+<ul>
+<li>join 操作中，使用 map join 在 map 端就先进行 join ，免得到reduce 时卡住</li>
+<li>能先进行 group 操作的时候先进行 group 操作，把 key 先进行一次 reduce,之后再进行 count 或者 distinct count 操作</li>
+<li>设置map端输出、中间结果压缩</li>
+</ul>
+<h2 id="MRchain解决数据倾斜"><a href="#MRchain解决数据倾斜" class="headerlink" title="MRchain解决数据倾斜"></a>MRchain解决数据倾斜</h2><p>核心思想: 第一个mapredue把具有数据倾斜特性的数据加盐(随机数)，进行聚合；第二个mapreduce把第一个mapreduce的加盐结果进行去盐，再聚合，问题是两个MR IO高。</p>
+<p>mr</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChainFirstDriver</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        String input = <span class="string">"data/chain/data.txt"</span>;</span><br><span class="line">        String output = <span class="string">"data/chain/first"</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1:获取job对象</span></span><br><span class="line">        Configuration configuration = <span class="keyword">new</span> Configuration();</span><br><span class="line">        Job job = Job.getInstance(configuration);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//删除已存在目录</span></span><br><span class="line">        FileUtils.deleteOutput(configuration,output);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2：本job对应执行的主类</span></span><br><span class="line">        job.setJarByClass(ChainFirstDriver<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3）设置Mapper和Reducer</span></span><br><span class="line">        job.setMapperClass(MyMapper<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        job.setReducerClass(MyReducer<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">        job.setNumReduceTasks(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4）设置Mapper阶段输出数据的类型</span></span><br><span class="line">        job.setMapOutputKeyClass(Text<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        job.setMapOutputValueClass(IntWritable<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 5）设置Reducer阶段输出数据的类型</span></span><br><span class="line">        job.setOutputKeyClass(Text<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        job.setOutputValueClass(IntWritable<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 6）设置输入和输出路径</span></span><br><span class="line">        FileInputFormat.setInputPaths(job, <span class="keyword">new</span> Path(input));</span><br><span class="line">        FileOutputFormat.setOutputPath(job, <span class="keyword">new</span> Path(output));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 7）提交作业</span></span><br><span class="line">        <span class="keyword">boolean</span> result = job.waitForCompletion(<span class="keyword">true</span>);</span><br><span class="line">        System.exit(result ? <span class="number">0</span> : <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyMapper</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>,<span class="title">Text</span>,<span class="title">Text</span>,<span class="title">IntWritable</span>&gt;</span>&#123;</span><br><span class="line">        Random random = <span class="keyword">new</span> Random();</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(LongWritable key,Text values,Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">            String[] splits = values.toString().split(<span class="string">"\t"</span>);</span><br><span class="line">            <span class="keyword">int</span> r = random.nextInt(<span class="number">10</span>) + <span class="number">1</span>;</span><br><span class="line">            context.write(<span class="keyword">new</span> Text(splits[<span class="number">0</span>].trim() + <span class="string">"_"</span> + r), <span class="keyword">new</span> IntWritable(Integer.parseInt(splits[<span class="number">1</span>])));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyReducer</span> <span class="keyword">extends</span> <span class="title">Reducer</span>&lt;<span class="title">Text</span>, <span class="title">IntWritable</span>,<span class="title">Text</span>,<span class="title">IntWritable</span>&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(Text key,Iterable&lt;IntWritable&gt;values,Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">            <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(IntWritable value:values)&#123;</span><br><span class="line">                sum+=value.get();</span><br><span class="line">            &#125;</span><br><span class="line">            context.write(key,<span class="keyword">new</span> IntWritable(sum));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 

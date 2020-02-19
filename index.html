@@ -241,7 +241,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-18 22:50:37" itemprop="dateModified" datetime="2020-02-18T22:50:37+08:00">2020-02-18</time>
+                <time title="修改时间：2020-02-19 09:46:09" itemprop="dateModified" datetime="2020-02-19T09:46:09+08:00">2020-02-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -261,14 +261,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>6.8k</span>
+              <span>7.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>11 分钟</span>
+              <span>13 分钟</span>
             </span>
 
         </div>
@@ -281,6 +281,16 @@
 
       
           <p><strong>flume官方文档：</strong><a href="http://flume.apache.org/" target="_blank" rel="noopener">http://flume.apache.org/</a></p>
+<p><img src="/images/41/41_1.png" alt="41_1"></p>
+<p>从系统架构图上来看，用户只要产生行为，那么日志就会在Nginx服务器中保存，所以我们现在要做的就是把数据从Nginx服务器中使用Flume采集到HDFS上</p>
+<h2 id="flume怎么用？"><a href="#flume怎么用？" class="headerlink" title="flume怎么用？"></a>flume怎么用？</h2><p><strong>flume</strong></p>
+<p>Flume就是一个针对日志数据进行采集和汇总的一个框架</p>
+<p>Flume的进程叫做Agent，每个Agent中有Srouce、Channel？Sink</p>
+<p>Flume从使用层面来讲就是写配置文件，其实就是配置我们的Agent，只要学会从官网查配置就行了</p>
+<p><strong>Agent</strong></p>
+<p>Source中的常用方式有 avro、exec、spooling、taildir、kafka</p>
+<p>Channel中的常用方式有 memory、kafka、file</p>
+<p>Sink中的常用方式有 hdfs、logger、avro、kafka</p>
 <h2 id="flume编译安装和配置"><a href="#flume编译安装和配置" class="headerlink" title="flume编译安装和配置"></a>flume编译安装和配置</h2><p>先配置好maven环境（参考之前的博文），解压flume-ng-1.6.0-cdh5.16.2-src.tar.gz并进入解压路径</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># tar -zxvf flume-ng-1.6.0-cdh5.16.2-src.tar.gz</span><br></pre></td></tr></table></figure>
 
@@ -841,7 +851,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -895,12 +905,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">93k</span>
+    <span title="站点总字数">94k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:34</span>
+    <span title="站点阅读时长">2:36</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>

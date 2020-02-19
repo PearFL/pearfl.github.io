@@ -46,18 +46,20 @@
   };
 </script>
 
-  <meta name="description" content="flume官方文档：http:&#x2F;&#x2F;flume.apache.org&#x2F; flume编译安装和配置先配置好maven环境（参考之前的博文），解压flume-ng-1.6.0-cdh5.16.2-src.tar.gz并进入解压路径 1# tar -zxvf flume-ng-1.6.0-cdh5.16.2-src.tar.gz  编译： 1mvn clean compile validate -Denf">
+  <meta name="description" content="flume官方文档：http:&#x2F;&#x2F;flume.apache.org&#x2F;  从系统架构图上来看，用户只要产生行为，那么日志就会在Nginx服务器中保存，所以我们现在要做的就是把数据从Nginx服务器中使用Flume采集到HDFS上 flume怎么用？flume Flume就是一个针对日志数据进行采集和汇总的一个框架 Flume的进程叫做Agent，每个Agent中有Srouce、Channel？Sin">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅谈flume的基础使用">
 <meta property="og:url" content="http://yoursite.com/2020/02/13/41.%E6%B5%85%E8%B0%88flume/index.html">
 <meta property="og:site_name" content="叶梨子的小窝">
-<meta property="og:description" content="flume官方文档：http:&#x2F;&#x2F;flume.apache.org&#x2F; flume编译安装和配置先配置好maven环境（参考之前的博文），解压flume-ng-1.6.0-cdh5.16.2-src.tar.gz并进入解压路径 1# tar -zxvf flume-ng-1.6.0-cdh5.16.2-src.tar.gz  编译： 1mvn clean compile validate -Denf">
+<meta property="og:description" content="flume官方文档：http:&#x2F;&#x2F;flume.apache.org&#x2F;  从系统架构图上来看，用户只要产生行为，那么日志就会在Nginx服务器中保存，所以我们现在要做的就是把数据从Nginx服务器中使用Flume采集到HDFS上 flume怎么用？flume Flume就是一个针对日志数据进行采集和汇总的一个框架 Flume的进程叫做Agent，每个Agent中有Srouce、Channel？Sin">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/images/41/41_1.png">
 <meta property="article:published_time" content="2020-02-13T07:22:22.000Z">
-<meta property="article:modified_time" content="2020-02-18T14:50:37.645Z">
+<meta property="article:modified_time" content="2020-02-19T01:46:09.983Z">
 <meta property="article:author" content="pearfl">
 <meta property="article:tag" content="flume">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/41/41_1.png">
 
 <link rel="canonical" href="http://yoursite.com/2020/02/13/41.%E6%B5%85%E8%B0%88flume/">
 
@@ -243,7 +245,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-18 22:50:37" itemprop="dateModified" datetime="2020-02-18T22:50:37+08:00">2020-02-18</time>
+                <time title="修改时间：2020-02-19 09:46:09" itemprop="dateModified" datetime="2020-02-19T09:46:09+08:00">2020-02-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -263,14 +265,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>6.8k</span>
+              <span>7.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>11 分钟</span>
+              <span>13 分钟</span>
             </span>
 
         </div>
@@ -283,6 +285,16 @@
 
       
         <p><strong>flume官方文档：</strong><a href="http://flume.apache.org/" target="_blank" rel="noopener">http://flume.apache.org/</a></p>
+<p><img src="/images/41/41_1.png" alt="41_1"></p>
+<p>从系统架构图上来看，用户只要产生行为，那么日志就会在Nginx服务器中保存，所以我们现在要做的就是把数据从Nginx服务器中使用Flume采集到HDFS上</p>
+<h2 id="flume怎么用？"><a href="#flume怎么用？" class="headerlink" title="flume怎么用？"></a>flume怎么用？</h2><p><strong>flume</strong></p>
+<p>Flume就是一个针对日志数据进行采集和汇总的一个框架</p>
+<p>Flume的进程叫做Agent，每个Agent中有Srouce、Channel？Sink</p>
+<p>Flume从使用层面来讲就是写配置文件，其实就是配置我们的Agent，只要学会从官网查配置就行了</p>
+<p><strong>Agent</strong></p>
+<p>Source中的常用方式有 avro、exec、spooling、taildir、kafka</p>
+<p>Channel中的常用方式有 memory、kafka、file</p>
+<p>Sink中的常用方式有 hdfs、logger、avro、kafka</p>
 <h2 id="flume编译安装和配置"><a href="#flume编译安装和配置" class="headerlink" title="flume编译安装和配置"></a>flume编译安装和配置</h2><p>先配置好maven环境（参考之前的博文），解压flume-ng-1.6.0-cdh5.16.2-src.tar.gz并进入解压路径</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># tar -zxvf flume-ng-1.6.0-cdh5.16.2-src.tar.gz</span><br></pre></td></tr></table></figure>
 
@@ -343,8 +355,8 @@
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># flume-ng agent --name a1 --conf $FLUME_HOME&#x2F;conf --conf-file $FLUME_HOME&#x2F;script&#x2F;flume-taildir-logger.conf -Dflume.root.logger&#x3D;INFO,console</span><br></pre></td></tr></table></figure>
 
-
-
+<p>其中<code>taildir_position.json</code>文件是用来记录文件读取offset的位置，方便下次继续从offset位置读取</p>
+<p>注意<code>taildir_position.json</code>文件不能存在上级目录，不然会报错</p>
 <h2 id="Flume远程实时采集Windows产生的log4j产生的数据（控制台输出）"><a href="#Flume远程实时采集Windows产生的log4j产生的数据（控制台输出）" class="headerlink" title="Flume远程实时采集Windows产生的log4j产生的数据（控制台输出）"></a>Flume远程实时采集Windows产生的log4j产生的数据（控制台输出）</h2><p>IDEA上的pom.xml添加</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- flume采集 --&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.flume.flume-ng-clients&lt;&#x2F;groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;flume-ng-log4jappender&lt;&#x2F;artifactId&gt;</span><br><span class="line">      &lt;version&gt;1.6.0&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
 
@@ -364,6 +376,14 @@
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># flume-ng agent --name a1 --conf $FLUME_HOME&#x2F;conf --conf-file $FLUME_HOME&#x2F;script&#x2F;hdfs-stream.conf -Dflume.root.logger&#x3D;INFO,console</span><br></pre></td></tr></table></figure>
 
+
+
+<h2 id="解决Flume采集数据时生成大量小文件的问题"><a href="#解决Flume采集数据时生成大量小文件的问题" class="headerlink" title="解决Flume采集数据时生成大量小文件的问题"></a>解决Flume采集数据时生成大量小文件的问题</h2><p>在使用Flume采集数据时，由于默认参数的影响会生产大量小文件，我们先看默认参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hdfs.rollInterval	30	滚动当前文件之前要等待的秒数</span><br><span class="line">hdfs.rollSize	1024	触发滚动当前文件的大小，单位bytes(B)</span><br><span class="line">hdfs.rollCount	10		触发滚动当前文件的events数量</span><br></pre></td></tr></table></figure>
+
+<p>我们看到默认生成文件有三个条件，每30秒、每1M、每10个events，这样的配置会生成大量的小文件，所以我们要对这三个文件进行修改</p>
+<p>最终生成的文件必须综合时间、文件大小、event数量来决定，时间太长或者文件太大都不利于最终生成的文件。该时间还需要配合<code>hdfs.path</code>参数指定的生成文件时间。</p>
+<p>注意<code>sink.type</code>如果是<code>memory</code>模式，注意文件的大小，防止内存不足，太大可以设置<code>sink.type = file</code></p>
 
     </div>
 
@@ -445,7 +465,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#flume编译安装和配置"><span class="nav-number">1.</span> <span class="nav-text">flume编译安装和配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flume核心组件"><span class="nav-number">2.</span> <span class="nav-text">flume核心组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flume简单配置文件"><span class="nav-number">3.</span> <span class="nav-text">flume简单配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flume进一步理解"><span class="nav-number">4.</span> <span class="nav-text">flume进一步理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生产上常用tairdir"><span class="nav-number">5.</span> <span class="nav-text">生产上常用tairdir</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flume远程实时采集Windows产生的log4j产生的数据（控制台输出）"><span class="nav-number">6.</span> <span class="nav-text">Flume远程实时采集Windows产生的log4j产生的数据（控制台输出）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flume远程实时采集Windows产生的log4j产生的数据（控制台输出存入hdfs）"><span class="nav-number">7.</span> <span class="nav-text">Flume远程实时采集Windows产生的log4j产生的数据（控制台输出存入hdfs）</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#flume怎么用？"><span class="nav-number">1.</span> <span class="nav-text">flume怎么用？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flume编译安装和配置"><span class="nav-number">2.</span> <span class="nav-text">flume编译安装和配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flume核心组件"><span class="nav-number">3.</span> <span class="nav-text">flume核心组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flume简单配置文件"><span class="nav-number">4.</span> <span class="nav-text">flume简单配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flume进一步理解"><span class="nav-number">5.</span> <span class="nav-text">flume进一步理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生产上常用tairdir"><span class="nav-number">6.</span> <span class="nav-text">生产上常用tairdir</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flume远程实时采集Windows产生的log4j产生的数据（控制台输出）"><span class="nav-number">7.</span> <span class="nav-text">Flume远程实时采集Windows产生的log4j产生的数据（控制台输出）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flume远程实时采集Windows产生的log4j产生的数据（控制台输出存入hdfs）"><span class="nav-number">8.</span> <span class="nav-text">Flume远程实时采集Windows产生的log4j产生的数据（控制台输出存入hdfs）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决Flume采集数据时生成大量小文件的问题"><span class="nav-number">9.</span> <span class="nav-text">解决Flume采集数据时生成大量小文件的问题</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -474,7 +494,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -528,12 +548,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">93k</span>
+    <span title="站点总字数">94k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:34</span>
+    <span title="站点阅读时长">2:36</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
