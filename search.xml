@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>hadoop jar跑mr作业的坑</title>
+    <url>/2020/02/19/43.hadoop%20jar%E8%B7%91mr%E4%BD%9C%E4%B8%9A%E7%9A%84%E5%9D%91/</url>
+    <content><![CDATA[<h2 id="1-Driver需要extends-Configured-implements-Tool"><a href="#1-Driver需要extends-Configured-implements-Tool" class="headerlink" title="1.Driver需要extends Configured implements Tool"></a>1.Driver需要extends Configured implements Tool</h2><p>如果你不调用run方法跑Driver，那么服务器上是绝对跑不出来的</p>
+<h2 id="2-Too-many-open-files问题"><a href="#2-Too-many-open-files问题" class="headerlink" title="2.Too many open files问题"></a>2.Too many open files问题</h2><p>Linux中所有的事物或资源都是以文件的形式存在，比如消息、共享内存、连接等，句柄可以理解为指向这些文件的指针。</p>
+<p>对于这些句柄，Linux是有数量限制的，单个进程默认可以打开的句柄数上限</p>
+<p>我们可以通过修改句柄数来解决这个问题</p>
+]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>hadoop</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>scala之val与var</title>
+    <url>/2020/02/16/42.scala%E4%B9%8Bval%E4%B8%8Evar/</url>
+    <content><![CDATA[<p><strong>val vs var</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">val:值</span><br><span class="line">	final</span><br><span class="line">	val 值名称:类型 &#x3D; xxx</span><br><span class="line">var:变量</span><br><span class="line">	var 值名称:类型 &#x3D; xxx</span><br></pre></td></tr></table></figure>
+
+<p>其实简单的来说，就是一个可变，一个不可变</p>
+<p>如果不需要变化，就使用val，能用val就不用var =3=</p>
+]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>scala</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>浅谈flume的基础使用</title>
     <url>/2020/02/13/41.%E6%B5%85%E8%B0%88flume/</url>
     <content><![CDATA[<p><strong>flume官方文档：</strong><a href="http://flume.apache.org/" target="_blank" rel="noopener">http://flume.apache.org/</a></p>
@@ -254,37 +285,6 @@
       </categories>
       <tags>
         <tag>scala</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>scala之val与var</title>
-    <url>/2020/02/10/42.scala%E4%B9%8Bval%E4%B8%8Evar/</url>
-    <content><![CDATA[<p><strong>val vs var</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">val:值</span><br><span class="line">	final</span><br><span class="line">	val 值名称:类型 &#x3D; xxx</span><br><span class="line">var:变量</span><br><span class="line">	var 值名称:类型 &#x3D; xxx</span><br></pre></td></tr></table></figure>
-
-<p>其实简单的来说，就是一个可变，一个不可变</p>
-<p>如果不需要变化，就使用val，能用val就不用var =3=</p>
-]]></content>
-      <categories>
-        <category>大数据</category>
-      </categories>
-      <tags>
-        <tag>scala</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>hadoop jar跑mr作业的坑</title>
-    <url>/2020/02/10/43.hadoop%20jar%E8%B7%91mr%E4%BD%9C%E4%B8%9A%E7%9A%84%E5%9D%91/</url>
-    <content><![CDATA[<h2 id="1-Driver需要extends-Configured-implements-Tool"><a href="#1-Driver需要extends-Configured-implements-Tool" class="headerlink" title="1.Driver需要extends Configured implements Tool"></a>1.Driver需要extends Configured implements Tool</h2><p>如果你不调用run方法跑Driver，那么服务器上是绝对跑不出来的</p>
-<h2 id="2-Too-many-open-files问题"><a href="#2-Too-many-open-files问题" class="headerlink" title="2.Too many open files问题"></a>2.Too many open files问题</h2><p>Linux中所有的事物或资源都是以文件的形式存在，比如消息、共享内存、连接等，句柄可以理解为指向这些文件的指针。</p>
-<p>对于这些句柄，Linux是有数量限制的，单个进程默认可以打开的句柄数上限</p>
-<p>我们可以通过修改句柄数来解决这个问题</p>
-]]></content>
-      <categories>
-        <category>大数据</category>
-      </categories>
-      <tags>
-        <tag>hadoop</tag>
       </tags>
   </entry>
   <entry>

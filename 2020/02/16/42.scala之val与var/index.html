@@ -46,20 +46,20 @@
   };
 </script>
 
-  <meta name="description" content="1.Driver需要extends Configured implements Tool如果你不调用run方法跑Driver，那么服务器上是绝对跑不出来的 2.Too many open files问题Linux中所有的事物或资源都是以文件的形式存在，比如消息、共享内存、连接等，句柄可以理解为指向这些文件的指针。 对于这些句柄，Linux是有数量限制的，单个进程默认可以打开的句柄数上限 我们可以通">
+  <meta name="description" content="val vs var 12345val:值	final	val 值名称:类型 &#x3D; xxxvar:变量	var 值名称:类型 &#x3D; xxx  其实简单的来说，就是一个可变，一个不可变 如果不需要变化，就使用val，能用val就不用var &#x3D;3&#x3D;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hadoop jar跑mr作业的坑">
-<meta property="og:url" content="http://yoursite.com/2020/02/10/43.hadoop%20jar%E8%B7%91mr%E4%BD%9C%E4%B8%9A%E7%9A%84%E5%9D%91/index.html">
+<meta property="og:title" content="scala之val与var">
+<meta property="og:url" content="http://yoursite.com/2020/02/16/42.scala%E4%B9%8Bval%E4%B8%8Evar/index.html">
 <meta property="og:site_name" content="叶梨子的小窝">
-<meta property="og:description" content="1.Driver需要extends Configured implements Tool如果你不调用run方法跑Driver，那么服务器上是绝对跑不出来的 2.Too many open files问题Linux中所有的事物或资源都是以文件的形式存在，比如消息、共享内存、连接等，句柄可以理解为指向这些文件的指针。 对于这些句柄，Linux是有数量限制的，单个进程默认可以打开的句柄数上限 我们可以通">
+<meta property="og:description" content="val vs var 12345val:值	final	val 值名称:类型 &#x3D; xxxvar:变量	var 值名称:类型 &#x3D; xxx  其实简单的来说，就是一个可变，一个不可变 如果不需要变化，就使用val，能用val就不用var &#x3D;3&#x3D;">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-02-10T15:54:15.000Z">
-<meta property="article:modified_time" content="2020-02-19T02:06:59.653Z">
+<meta property="article:published_time" content="2020-02-16T13:22:25.000Z">
+<meta property="article:modified_time" content="2020-02-19T02:10:23.203Z">
 <meta property="article:author" content="pearfl">
-<meta property="article:tag" content="hadoop">
+<meta property="article:tag" content="scala">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2020/02/10/43.hadoop%20jar%E8%B7%91mr%E4%BD%9C%E4%B8%9A%E7%9A%84%E5%9D%91/">
+<link rel="canonical" href="http://yoursite.com/2020/02/16/42.scala%E4%B9%8Bval%E4%B8%8Evar/">
 
 
 <script id="page-configurations">
@@ -71,7 +71,7 @@
   };
 </script>
 
-  <title>hadoop jar跑mr作业的坑 | 叶梨子的小窝</title>
+  <title>scala之val与var | 叶梨子的小窝</title>
   
 
 
@@ -213,7 +213,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/10/43.hadoop%20jar%E8%B7%91mr%E4%BD%9C%E4%B8%9A%E7%9A%84%E5%9D%91/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/16/42.scala%E4%B9%8Bval%E4%B8%8Evar/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -226,7 +226,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          hadoop jar跑mr作业的坑
+          scala之val与var
         </h1>
 
         <div class="post-meta">
@@ -236,14 +236,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-02-10 23:54:15" itemprop="dateCreated datePublished" datetime="2020-02-10T23:54:15+08:00">2020-02-10</time>
+              <time title="创建时间：2020-02-16 21:22:25" itemprop="dateCreated datePublished" datetime="2020-02-16T21:22:25+08:00">2020-02-16</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-19 10:06:59" itemprop="dateModified" datetime="2020-02-19T10:06:59+08:00">2020-02-19</time>
+                <time title="修改时间：2020-02-19 10:10:23" itemprop="dateModified" datetime="2020-02-19T10:10:23+08:00">2020-02-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -263,7 +263,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>204</span>
+              <span>114</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -282,10 +282,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="1-Driver需要extends-Configured-implements-Tool"><a href="#1-Driver需要extends-Configured-implements-Tool" class="headerlink" title="1.Driver需要extends Configured implements Tool"></a>1.Driver需要extends Configured implements Tool</h2><p>如果你不调用run方法跑Driver，那么服务器上是绝对跑不出来的</p>
-<h2 id="2-Too-many-open-files问题"><a href="#2-Too-many-open-files问题" class="headerlink" title="2.Too many open files问题"></a>2.Too many open files问题</h2><p>Linux中所有的事物或资源都是以文件的形式存在，比如消息、共享内存、连接等，句柄可以理解为指向这些文件的指针。</p>
-<p>对于这些句柄，Linux是有数量限制的，单个进程默认可以打开的句柄数上限</p>
-<p>我们可以通过修改句柄数来解决这个问题</p>
+        <p><strong>val vs var</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val:值</span><br><span class="line">	final</span><br><span class="line">	val 值名称:类型 &#x3D; xxx</span><br><span class="line">var:变量</span><br><span class="line">	var 值名称:类型 &#x3D; xxx</span><br></pre></td></tr></table></figure>
+
+<p>其实简单的来说，就是一个可变，一个不可变</p>
+<p>如果不需要变化，就使用val，能用val就不用var =3=</p>
 
     </div>
 
@@ -295,7 +296,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/hadoop/" rel="tag"># hadoop</a>
+              <a href="/tags/scala/" rel="tag"># scala</a>
           </div>
 
         
@@ -304,12 +305,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/02/10/36.%E5%BD%BB%E5%BA%95%E6%98%8E%E7%99%BDJava%E7%9A%84%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92%20-%20%E5%89%AF%E6%9C%AC/" rel="prev" title="彻底明白Java的值传递和引用传递">
-      <i class="fa fa-chevron-left"></i> 彻底明白Java的值传递和引用传递
+    <a href="/2020/02/13/41.%E6%B5%85%E8%B0%88flume/" rel="prev" title="浅谈flume的基础使用">
+      <i class="fa fa-chevron-left"></i> 浅谈flume的基础使用
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/02/10/42.scala%E4%B9%8Bval%E4%B8%8Evar/" rel="next" title="scala之val与var">
-      scala之val与var <i class="fa fa-chevron-right"></i>
+    <a href="/2020/02/19/43.hadoop%20jar%E8%B7%91mr%E4%BD%9C%E4%B8%9A%E7%9A%84%E5%9D%91/" rel="next" title="hadoop jar跑mr作业的坑">
+      hadoop jar跑mr作业的坑 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -370,7 +371,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Driver需要extends-Configured-implements-Tool"><span class="nav-number">1.</span> <span class="nav-text">1.Driver需要extends Configured implements Tool</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Too-many-open-files问题"><span class="nav-number">2.</span> <span class="nav-text">2.Too many open files问题</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
