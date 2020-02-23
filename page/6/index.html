@@ -210,6 +210,348 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/02/19.Python%E7%9A%84%E5%88%97%E8%A1%A8%E3%80%81%E5%85%83%E7%A5%96%E3%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="pearfl">
+      <meta itemprop="description" content="热爱从不降温">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="叶梨子的小窝">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/02/19.Python%E7%9A%84%E5%88%97%E8%A1%A8%E3%80%81%E5%85%83%E7%A5%96%E3%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-title-link" itemprop="url">Python的列表、元组、字符串</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-02 18:38:22" itemprop="dateCreated datePublished" datetime="2020-02-02T18:38:22+08:00">2020-02-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-07 12:00:19" itemprop="dateModified" datetime="2020-02-07T12:00:19+08:00">2020-02-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9A%8F%E7%AC%94%E5%88%86%E4%BA%AB/" itemprop="url" rel="index">
+                    <span itemprop="name">随笔分享</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>12 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><p>列表是用于存放若干元素的<strong>有序序列</strong>。列表使用方括号（<code>[]</code>）来表示，其中的元素写入方括号中，多个元素时用逗号分隔，如 <code>[1, &#39;go&#39;, [0.1, 0.2]]</code>。它的元素可以是任意数据类型，甚至也可以是个列表。</p>
+<p>元素之间有顺序关系，每个元素都有自己的位置，每个位置从 0 开始依次标号，这个表示位置的数字叫作<strong>索引</strong>。</p>
+<p>列表被创建之后，我们可以对它做很多操作，包括添加元素，删除元素，修改元素，查找元素等。</p>
+<h3 id="创建列表"><a href="#创建列表" class="headerlink" title="创建列表"></a>创建列表</h3><p>1.创建空的列表</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">列表 = []</span><br><span class="line"></span><br><span class="line">items = []</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.创建包含元素的列表</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">列表 = [元素<span class="number">1</span>, 元素<span class="number">2</span>, ..., 元素N]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>items = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="列表元素的获取"><a href="#列表元素的获取" class="headerlink" title="列表元素的获取"></a>列表元素的获取</h3><p>1.通过索引获取元素</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">元素 = 列表[索引]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters[<span class="number">2</span>]</span><br><span class="line">’c’</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.通过元素获取索引</p>
+<p>这种方式和上面相反，首先在列表中寻找元素，然后返回元素对应的索引</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">索引 = 列表.index(元素)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = [‘a’, ‘b’, ‘c’]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters.index(‘c’)</span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>3.查看元素是否存在于列表中</p>
+<p>要想查看元素是否存在于列表中，需要借助 Python 的关键字 <code>in</code>，使用如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">布尔值 = 元素 <span class="keyword">in</span> 列表</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = [‘a’, ‘b’, ‘c’]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>‘a’ <span class="keyword">in</span> letters</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>‘z’ <span class="keyword">in</span> letters</span><br><span class="line"><span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>4.统计元素在列表中的个数</p>
+<p>统计元素在列表中的个数，或者说是元素在列表中出现的次数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">个数 = 列表.count(元素)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">7</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers.count(<span class="number">5</span>)</span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="列表元素的添加"><a href="#列表元素的添加" class="headerlink" title="列表元素的添加"></a>列表元素的添加</h3><p>我们可以很灵活地向列表添加元素，如以追加的形式向列表末尾添加一个元素；以插入的形式向列表的任意位置插入元素；或者将一个列表中的所有元素批量的添加到另一个列表中。</p>
+<p>1.向列表末尾追加元素</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">列表.append(元素)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = [‘a’, ‘b’]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters.append(‘c’)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters</span><br><span class="line">[‘a’, ‘b’, ‘c’]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.向列表的任意位置插入元素</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">列表.insert(索引, 元素)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = [‘a’, ‘b’]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters.insert(<span class="number">0</span>, ‘c’)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters</span><br><span class="line">[‘c’, ‘a’, ‘b’]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters.insert(<span class="number">2</span>, ‘d’)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters</span><br><span class="line">[‘c’, ‘a’, ‘d’, ‘b’]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>3.列表末尾追加另一个列表的所有元素</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">列表.extend(另一列表)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = [‘a’, ‘b’]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters.extend([‘c’, ‘d’, ‘e’])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters</span><br><span class="line">[‘a’, ‘b’, ‘c’, ‘d’, ‘e’]</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="列表元素的删除"><a href="#列表元素的删除" class="headerlink" title="列表元素的删除"></a>列表元素的删除</h3><p>1.按索引删除元素</p>
+<p><strong>pop(索引)</strong> 会将索引对应的元素从列表中删除，同时返回这个元素。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">元素 = 列表.pop(索引)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = [‘a’, ‘b’, ‘c’]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters.pop(<span class="number">0</span>)</span><br><span class="line">’a’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters</span><br><span class="line">[‘b’, ‘c’]</span><br></pre></td></tr></table></figure>
+
+<p>也可以不传递索引，这样的话默认删除并返回最后一个元素</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = [‘a’, ‘b’, ‘c’]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters.pop()</span><br><span class="line">’c’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters</span><br><span class="line">[‘a’, ‘b’]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.按索引删除元素（<code>del</code> 方法)</p>
+<p>删除一个列表元素也可以使用 Python 中的 <code>del</code> 关键字，如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">del</span> 列表[索引]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = [‘a’, ‘b’, ‘c’]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">del</span> letters[<span class="number">0</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters</span><br><span class="line">[‘b’, ‘c’]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>3.直接删除元素</p>
+<p>直接删除元素时，Python 会先在列表中遍历该元素，然后将匹配到的第一个元素删除</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">列表.remove(元素)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = [‘a’, ‘b’, ‘c’]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters.remove(‘b’)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters</span><br><span class="line">[‘a’, ‘c’]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>4.清空所有元素</p>
+<p>清空所有元素即是把列表元素全部删除，最后仅为列表仅为 <code>[]</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">列表.clear()</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = [‘a’, ‘b’, ‘c’]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters.clear()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters</span><br><span class="line">[]</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="列表元素的修改"><a href="#列表元素的修改" class="headerlink" title="列表元素的修改"></a>列表元素的修改</h3><p>1.通过赋值修改列表元素</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">列表[索引] = 新元素</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = [‘a’, ‘b’, ‘c’]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters[<span class="number">2</span>] = <span class="string">'d’</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; letters</span></span><br><span class="line"><span class="string">[‘a’, ‘b’, ‘d’]</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.反转整个列表</p>
+<p>反转整个列表会将所有的元素倒序排列</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">列表.reverse()</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = [‘a’, ‘b’, ‘c’]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters.reverse()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters</span><br><span class="line">[‘c’, ‘b’, ‘a’]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>3.列表元素排序</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">列表.sort()</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers = [<span class="number">2</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">3</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers.sort()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">7</span>]</span><br></pre></td></tr></table></figure>
+
+<p>也可以通过指定 <code>sort</code> 方法的 <code>reverse</code> 参数来倒序排列</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">列表.sort(reverse=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers = [<span class="number">2</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">3</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers.sort(reverse=<span class="literal">True</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers</span><br><span class="line">[<span class="number">7</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h2><p>元组和列表非常相似，也是用于存放元素的有序序列。它用的圆括号（<code>()</code>）表示，元素写入圆括号中，多个元素时用逗号分隔，如 <code>(1, 2, 3)</code>。</p>
+<p>元组同样具有索引，索引使用方式与列表一致。其元素同样可以是任意类型。</p>
+<p>看起来元组就是披着圆括号外衣的列表嘛！有什么区别？</p>
+<p>元组创建完成后，便不能向其中添加元素，也不能修改和删除其中的任何一个元素。所以它与列表相比，只能查找元素，也就是说只具备读的功能，不具备写的功能。元组的这一特性叫作<strong>不可变（性）</strong>（Immutable），而列表是<strong>可变的</strong>（Mutable）。</p>
+<h3 id="创建元组"><a href="#创建元组" class="headerlink" title="创建元组"></a>创建元组</h3><p>1.创建空的元组</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">元组 = ()</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>items = ()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>items</span><br><span class="line">()</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.创建包含多个元素的元组</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">元组 = (元素<span class="number">1</span>, 元素<span class="number">2</span>, ..., 元素N)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>items = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>items</span><br><span class="line">(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>3.创建只包含一个元素的元组</p>
+<p>只包含一个元素的情况需要单独说明一下，因为它的形式与直觉不相符。</p>
+<p>创建只包含一个元素的元组，需要在唯一的那个元素后面<strong>加上逗号</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">元组 = (元素,)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>items = (<span class="number">1</span>,)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>items</span><br><span class="line">(<span class="number">1</span>,)</span><br></pre></td></tr></table></figure>
+
+<p>这是因为，如果括号中只有一个元素，那么 Python 会将这个括号当作优先级符号进行处理（像数学中的那样），而不是当作元组</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>items = (<span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>items</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(items)</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> ‘<span class="title">int</span>’&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="元组元素的获取"><a href="#元组元素的获取" class="headerlink" title="元组元素的获取"></a>元组元素的获取</h3><p>1.通过索引获取元素</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">元素 = 元组[索引]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = (‘a’, ‘b’, ‘c’)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters[<span class="number">2</span>]</span><br><span class="line">’c’</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.通过元素获取索引</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">索引 = 元组.index(元素)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = (‘a’, ‘b’, ‘c’)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters.index(‘c’)</span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>3.查看元素是否存在于元组中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">布尔值 = 元素 <span class="keyword">in</span> 元组</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = (‘a’, ‘b’, ‘c’)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>‘a’ <span class="keyword">in</span> letters</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>‘z’ <span class="keyword">in</span> letters</span><br><span class="line"><span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>4.统计元素在元组中出现的个数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">个数 = 元组.count(元素)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">7</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers.count(<span class="number">5</span>)</span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="元组和列表的差别"><a href="#元组和列表的差别" class="headerlink" title="元组和列表的差别"></a>元组和列表的差别</h2><p>我们可以看到，元组所具有的操作在使用方式上与和列表非常相似，甚至在一定程度上可以将元组看作是列表的精简版，但它们之间也有明显的差别。</p>
+<ul>
+<li>元组是不可变的（Immutable），列表是可变的（Mutable），元组在被创建之后，就不能添加、删除和修改元素，而列表可以</li>
+<li>一般情况下元组的性能在略高于列表</li>
+</ul>
+<p>我们在什么时候用列表，什么时候用元组？</p>
+<p>列表还是元组，通常性能不是从它们中做选择的主要考虑因素，因为它们之间的性能差异不是很大。我们的选择通常围绕着可变和不可变的特性进行，当我们需要添加元素或修改元素时，使用列表；当我们希望所有元素在创建之后便不再改变，可使用元组。</p>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>字符串是 Python 中用来存放字符序列的数据类型，其中的元素只能是字符。字符串使用单引号或双引号来表示，如 <code>&#39;pick&#39;</code>，<code>&quot;cherry&quot;</code>，通常我们首先使用单引号。</p>
+<p>字符串是有序序列，可以使用索引来获取其中某个位置的元素。它是不可变的，被创建之后其中的元素（也就是字符）不能被修改和删除。</p>
+<h3 id="创建字符串"><a href="#创建字符串" class="headerlink" title="创建字符串"></a>创建字符串</h3><p>1.创建空字符串（即不包含字符的字符串）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">字符串 = <span class="string">''</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = <span class="string">''</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string</span><br><span class="line">’’</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.创建包含元素的字符串</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">字符串 = <span class="string">'若干字符'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = <span class="string">'happy’</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; string</span></span><br><span class="line"><span class="string">’happy’</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="字符的获取"><a href="#字符的获取" class="headerlink" title="字符的获取"></a>字符的获取</h3><ol>
+<li>通过索引获取字符<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">字符 = 字符串[索引]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = ‘happy’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string[<span class="number">2</span>]</span><br><span class="line">’p’</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<p>2.通过子串获取索引</p>
+<p>所谓子串就是从字符串中截取下来的一部分，可以是一个字符，一部分字符、全部字符、或空字符串，如 <code>&#39;a&#39;</code>、<code>&#39;ppy&#39;</code>、<code>&#39;happy&#39;</code>、<code>&#39;&#39;</code> 都是 ‘happy’ 的子串。查找子串时，返回的是子串的第一个字符的索引</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">索引 = 字符串.index(字符)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = ‘happy’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string.index(‘p’)</span><br><span class="line"><span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = ‘happy’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string.index(‘app’)</span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>当字符或子串不存在时，<code>index</code> 方法将抛出 <code>ValueError</code> 错误。</p>
+<p>也可采用字符串的 <code>find</code> 方法来查找子串，使用方式与 <code>index</code> 一致，不同点在于 <code>find</code> 方法未找到子串时返回数字 <code>-1</code>，而不抛异常。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = ‘happy’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string.find(‘app’)</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string.find(‘z’)</span><br><span class="line"><span class="number">-1</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>3.查看字符是否存在于字符串中</p>
+<p>查看字符是否存在于字符串中，需要借助 Python 的关键字 <code>in</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">布尔值 = 字符 <span class="keyword">in</span> 字符串</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = ‘happy’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>‘a’ <span class="keyword">in</span> string</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>‘z’ <span class="keyword">in</span> string</span><br><span class="line"><span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>4.统计字符在字符串中的个数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">个数 = 字符串.count(字符)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = ‘happy’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string.count(‘p’)</span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="字符串的处理"><a href="#字符串的处理" class="headerlink" title="字符串的处理"></a>字符串的处理</h3><p>字符串自带的方法非常多，除了上面介绍的几个之外还有四十多个，这是因为字符处理是编程时的一项高频工作。Python 将这些字符处理相关的功能以方法的形式集成在字符串里。这里列举几个常见的方法</p>
+<p>1.startswith：判断字符串是否以某个子串开头，返回布尔值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = ‘happy’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string.startswith(‘ha’)</span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.endswith：判断字符串是否以某个子串结尾，返回布尔值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = ‘happy’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string.endswith(‘y’)</span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>3.replace：将字符串的子串用一个另一个字符串替换，返回一个新的字符串</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = ‘happy’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string.replace(‘y’, ‘iness’)</span><br><span class="line">’happiness’</span><br></pre></td></tr></table></figure>
+
+
+
+<p>4.strip：去除字符串前后的空白符号，如空格、换行符、制表符，返回一个新的字符串</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = ’ \t happy \n’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string.strip()</span><br><span class="line">’happy’</span><br></pre></td></tr></table></figure>
+
+
+
+<p>5.split：将字符串用某个子串分隔开，分隔后的各个部分放入列表中，并返回这个列表</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = ‘I am happy’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string.split(’ <span class="string">')</span></span><br><span class="line"><span class="string">[‘I’, ‘am’, ‘happy’]</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>6.join：将一个序列中的元素用某个字符（串）拼接，组成一个大的字符串，并返回这个字符串</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>words = [‘I’, ‘am’, ‘happy’]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>’ <span class="string">'.join(words)</span></span><br><span class="line"><span class="string">’I am happy’</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>7.upper：将字符串转化为大写字母形式，返回一个新的字符串</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = ‘happy’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string.upper()</span><br><span class="line">’HAPPY’</span><br></pre></td></tr></table></figure>
+
+
+
+<p>8.lower：将字符串转化为小写字母形式，返回一个新的字符串</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = ‘HAPPY’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string.lower()</span><br><span class="line">’happy’</span><br></pre></td></tr></table></figure>
+
+<p>注意上面的这些字符处理功能，对字符串作处理后都是返回一个新的字符串，而不会直接修改原有的字符串。为什么呢？<strong>字符串不可变呀！</strong></p>
+<h2 id="列表、元组、字符串的通用操作"><a href="#列表、元组、字符串的通用操作" class="headerlink" title="列表、元组、字符串的通用操作"></a>列表、元组、字符串的通用操作</h2><p>我们把列表、元组、字符串统称为<strong>序列</strong></p>
+<p>1.使用 <code>len()</code> 函数获取序列长度</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = (‘a’, ‘b’)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(letters)</span><br><span class="line"><span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = ‘abcd’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(letters)</span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.获取序列中的一个子序列</p>
+<p>获取序列中的子序列可以使用<strong>切片</strong>，以 <code>[起始索引:结束索引]</code> 表示。切片其实代表一个索引区间，这个区间是一个<strong>左开右闭区间</strong>，该区间内的所有元素作为子序列被返回。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers[<span class="number">0</span>:<span class="number">2</span>]</span><br><span class="line">(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers[<span class="number">2</span>:<span class="number">4</span>]</span><br><span class="line">(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = ‘abcd’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters[<span class="number">1</span>:<span class="number">5</span>]</span><br><span class="line">’bcd’</span><br></pre></td></tr></table></figure>
+
+
+
+<p>3.使用 <code>+</code> 符号来拼接两个序列</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters_1 = (‘a’, ‘b’)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters_2 = (‘c’, ‘d’, ‘e’)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters_1 + letters_2</span><br><span class="line">(‘a’, ‘b’, ‘c’, ‘d’, ‘e’)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters_1 = ‘ab’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters_2 = ‘cde’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters_1 + letters_2</span><br><span class="line">’abcde’</span><br></pre></td></tr></table></figure>
+
+
+
+<p>4.使用 <code>*</code> 符号来重复序列中的元素</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = (‘a’, ‘b’)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters * <span class="number">3</span></span><br><span class="line">(‘a’, ‘b’, ‘a’, ‘b’, ‘a’, ‘b’)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters = ‘abcd’</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>letters * <span class="number">2</span></span><br><span class="line">’abcdabcd’</span><br></pre></td></tr></table></figure>
+
+<p>注意上面的操作结果都是返回一个新的序列，不会对修改序列的内部元素</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>列表、元组、字符串都是有序序列，都可以使用索引。</p>
+<p>列表和元组中可以存放任意数据类型的元素，而字符串中只能存放字符。</p>
+<p>列表是可变的，而元组和字符串是不可变的。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/18.hexo%20d%E9%83%A8%E7%BD%B2%E5%90%8E%E9%9C%80%E8%A6%81%E5%9C%A8github%E4%B8%8A%E9%87%8D%E6%96%B0%E4%BF%9D%E5%AD%98%E5%9F%9F%E5%90%8D%E7%9A%84%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -436,7 +778,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-22 17:30:50" itemprop="dateModified" datetime="2020-02-22T17:30:50+08:00">2020-02-22</time>
+                <time title="修改时间：2020-02-22 18:17:04" itemprop="dateModified" datetime="2020-02-22T18:17:04+08:00">2020-02-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -456,14 +798,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.9k</span>
+              <span>2.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -490,7 +832,7 @@
 
 <p>若hadoop没有配置进环境变量，需要再hive-env.sh内配置HADOOP_HOME</p>
 <p>配置hive-site.xml</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;?xml-stylesheet type&#x3D;&quot;text&#x2F;xsl&quot; href&#x3D;&quot;configuration.xsl&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;javax.jdo.option.ConnectionURL&lt;&#x2F;name&gt;</span><br><span class="line">  &lt;value&gt;jdbc:mysql:&#x2F;&#x2F;hadoop000:3306&#x2F;hadoop_hive?createDatabaseIfNotExist&#x3D;true&lt;&#x2F;value&gt;</span><br><span class="line">&lt;&#x2F;property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;&#x2F;name&gt;</span><br><span class="line">  &lt;value&gt;com.mysql.jdbc.Driver&lt;&#x2F;value&gt;</span><br><span class="line">&lt;&#x2F;property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;javax.jdo.option.ConnectionUserName&lt;&#x2F;name&gt;</span><br><span class="line">  &lt;value&gt;hadoop&lt;&#x2F;value&gt;</span><br><span class="line">&lt;&#x2F;property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;javax.jdo.option.ConnectionPassword&lt;&#x2F;name&gt;</span><br><span class="line">  &lt;value&gt;hadoop&lt;&#x2F;value&gt;</span><br><span class="line">&lt;&#x2F;property&gt;</span><br><span class="line">&lt;&#x2F;configuration&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;?xml-stylesheet type&#x3D;&quot;text&#x2F;xsl&quot; href&#x3D;&quot;configuration.xsl&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;javax.jdo.option.ConnectionURL&lt;&#x2F;name&gt;</span><br><span class="line">  &lt;value&gt;jdbc:mysql:&#x2F;&#x2F;hadoop000:3306&#x2F;hadoop_hive?createDatabaseIfNotExist&#x3D;true&lt;&#x2F;value&gt;</span><br><span class="line">&lt;&#x2F;property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;&#x2F;name&gt;</span><br><span class="line">  &lt;value&gt;com.mysql.jdbc.Driver&lt;&#x2F;value&gt;</span><br><span class="line">&lt;&#x2F;property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;javax.jdo.option.ConnectionUserName&lt;&#x2F;name&gt;</span><br><span class="line">  &lt;value&gt;hadoop&lt;&#x2F;value&gt;</span><br><span class="line">&lt;&#x2F;property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;javax.jdo.option.ConnectionPassword&lt;&#x2F;name&gt;</span><br><span class="line">  &lt;value&gt;hadoop&lt;&#x2F;value&gt;</span><br><span class="line">&lt;&#x2F;property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;hive.cli.print.current.db&lt;&#x2F;name&gt;</span><br><span class="line">  &lt;value&gt;true&lt;&#x2F;value&gt;</span><br><span class="line">&lt;&#x2F;property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;hive.cli.print.header&lt;&#x2F;name&gt;</span><br><span class="line">  &lt;value&gt;true&lt;&#x2F;value&gt;</span><br><span class="line">&lt;&#x2F;property&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;configuration&gt;</span><br></pre></td></tr></table></figure>
 
 <p>javax.jdo.option.ConnectionUserName对应mysql中的账号</p>
 <p>javax.jdo.option.ConnectionPassword对应mysql中的密码</p>
@@ -612,149 +954,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/26/14.%E6%9C%80%E7%9F%AD%E8%B7%AF%E7%AE%97%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="pearfl">
-      <meta itemprop="description" content="热爱从不降温">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="叶梨子的小窝">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/26/14.%E6%9C%80%E7%9F%AD%E8%B7%AF%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">最短路径算法</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-01-26 16:55:23" itemprop="dateCreated datePublished" datetime="2020-01-26T16:55:23+08:00">2020-01-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-29 15:29:48" itemprop="dateModified" datetime="2020-01-29T15:29:48+08:00">2020-01-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index">
-                    <span itemprop="name">算法与数据结构</span>
-                  </a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>6.9k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>11 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="最短路径算法"><a href="#最短路径算法" class="headerlink" title="最短路径算法"></a>最短路径算法</h2><h3 id="1-Dijkstra-算法"><a href="#1-Dijkstra-算法" class="headerlink" title="1.$Dijkstra$算法"></a>1.$Dijkstra$算法</h3><p>解决单源最短路径问题常用 Dijkstra 算法，用于计算一个顶点到其他所有顶点的最短路径。Dijkstra 算法的主要特点是以起点为中心，逐层向外扩展（这一点类似于 bfs，但是不同的是，bfs 每次扩展一个层，但是 Dijkstra 每次只会扩展一个点），每次都会取一个最近点继续扩展，直到取完所有点为止。 </p>
-<p>注意：Dijkstra 算法要求图中不能出现负权边。</p>
-<h4 id="①、-Dijkstra-算法流程"><a href="#①、-Dijkstra-算法流程" class="headerlink" title="①、$Dijkstra$算法流程"></a>①、$Dijkstra$算法流程</h4><p>我们定义带权图$ G $所有顶点的集合为$ V$，接着我们再定义已确定从源点出发的最短路径的顶点集合为$ U$，初始集合 $U $为空，记从源点$ s $出发到每个顶点$ v $的距离为 $dist_v $，初始 $dist_s$=0。接着执行以下操作： </p>
-<ol>
-<li><p>从 $V−U $中找出一个距离源点最近的顶点$v$，将$v$加入集合$ U$。</p>
-</li>
-<li><p>并用 $dist_v$和顶点 $v $连出的边来更新和 $v $相邻的、不在集合 $U$中的顶点的 $dist$，这一步称为松弛操作。  </p>
-</li>
-<li><p>重复步骤 1 和 2，直到 $V=U$或找不出一个从$ s$ 出发有路径到达的顶点，算法结束。  </p>
-</li>
-</ol>
-<p>如果最后 $V \neq U$，说明有顶点无法从源点到达；否则每个$ dist_i$表示从 $s$ 出发到顶点$ i $的最短距离。  </p>
-<p>Dijkstra 算法的时间复杂度为$ \mathcal{O}(V^2)$，其中 $V$ 表示顶点的数量。</p>
-<p>Dijkstra 是解决无负边权的图的单源最短路问题，经常使用邻接表存储。</p>
-<p>不优化的时间复杂度是 $O(V^2 + E)$</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1e3</span> + <span class="number">9</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> M = <span class="number">1e4</span> + <span class="number">9</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> inf = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">edge</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> v, w, fail;</span><br><span class="line">    edge() &#123;&#125;</span><br><span class="line">    edge(<span class="keyword">int</span> _v, <span class="keyword">int</span> _w, <span class="keyword">int</span> _fail) &#123;</span><br><span class="line">        v = _v;</span><br><span class="line">        w = _w;</span><br><span class="line">        fail = _fail;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; e[M &lt;&lt; <span class="number">1</span>];</span><br><span class="line"><span class="keyword">int</span> head[N], len;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(head, <span class="number">-1</span>, <span class="keyword">sizeof</span>(head));</span><br><span class="line">    len = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> v, <span class="keyword">int</span> w)</span> </span>&#123;</span><br><span class="line">    e[len] = edge(v, w, head[u]);</span><br><span class="line">    head[u] = len++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add2</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> v, <span class="keyword">int</span> w)</span> </span>&#123;</span><br><span class="line">    add(u, v, w);</span><br><span class="line">    add(v, u, w);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> n, m;</span><br><span class="line"><span class="keyword">int</span> dis[N];</span><br><span class="line"><span class="keyword">bool</span> vis[N];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dijkstra</span><span class="params">(<span class="keyword">int</span> u)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(vis, <span class="literal">false</span>, <span class="keyword">sizeof</span>(vis));</span><br><span class="line">    <span class="built_in">memset</span>(dis, <span class="number">0x3f</span>, <span class="keyword">sizeof</span>(dis));</span><br><span class="line">    dis[u] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        <span class="keyword">int</span> mi = inf;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; ++j) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!vis[j] &amp;&amp; dis[j] &lt; mi) &#123;</span><br><span class="line">                mi = dis[u = j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (mi == inf) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        vis[u] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = head[u]; ~j; j = e[j].fail) &#123;</span><br><span class="line">            <span class="keyword">int</span> v = e[j].v;</span><br><span class="line">            <span class="keyword">int</span> w = e[j].w;</span><br><span class="line">            <span class="keyword">if</span> (!vis[v] &amp;&amp; dis[v] &gt; dis[u] + w) &#123;</span><br><span class="line">                dis[v] = dis[u] + w;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    init();</span><br><span class="line">    <span class="keyword">int</span> u, v, w;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="keyword">while</span> (m--) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; u &gt;&gt; v &gt;&gt; w;</span><br><span class="line">        add2(u, v, w);</span><br><span class="line">    &#125;</span><br><span class="line">    dijkstra(<span class="number">1</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; dis[n] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="②、基于小根堆优化的-Dijkstra-算法"><a href="#②、基于小根堆优化的-Dijkstra-算法" class="headerlink" title="②、基于小根堆优化的$Dijkstra$算法"></a>②、基于小根堆优化的$Dijkstra$算法</h4><p>用一个set来维护点的集合，这样的时间复杂度就优化到了 $\mathcal{O}((V+E)\log V)$，对于稀疏图的优化效果非常好</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX_N = <span class="number">10000</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX_M = <span class="number">100000</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> inf = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">edge</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> v, w, next;</span><br><span class="line">&#125; e[MAX_M];</span><br><span class="line"><span class="keyword">int</span> p[MAX_N], eid, n;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mapinit</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(p, <span class="number">-1</span>, <span class="keyword">sizeof</span>(p));</span><br><span class="line">    eid = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> v, <span class="keyword">int</span> w)</span> </span>&#123;  <span class="comment">// 插入带权有向边</span></span><br><span class="line">    e[eid].v = v;</span><br><span class="line">    e[eid].w = w;</span><br><span class="line">    e[eid].next = p[u];</span><br><span class="line">    p[u] = eid++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert2</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> v, <span class="keyword">int</span> w)</span> </span>&#123;  <span class="comment">// 插入带权双向边</span></span><br><span class="line">    insert(u, v, w);</span><br><span class="line">    insert(v, u, w);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; PII;</span><br><span class="line"><span class="built_in">set</span>&lt;PII, less&lt;PII&gt; &gt; min_heap;</span><br><span class="line"><span class="keyword">int</span> dist[MAX_N];  <span class="comment">// 存储单源最短路的结果</span></span><br><span class="line"><span class="keyword">bool</span> vst[MAX_N];  <span class="comment">// 标记每个顶点是否在集合 U 中</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">dijkstra</span><span class="params">(<span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 初始化 dist、小根堆和集合 U</span></span><br><span class="line">    <span class="built_in">memset</span>(vst, <span class="number">0</span>, <span class="keyword">sizeof</span>(vst));</span><br><span class="line">    <span class="built_in">memset</span>(dist, <span class="number">0x3f</span>, <span class="keyword">sizeof</span>(dist));</span><br><span class="line">    min_heap.insert(make_pair(<span class="number">0</span>, s));</span><br><span class="line">    dist[s] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span> (min_heap.<span class="built_in">size</span>() == <span class="number">0</span>) &#123;  <span class="comment">// 如果小根堆中没有可用顶点，说明有顶点无法从源点到达，算法结束</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 获取堆顶元素，并将堆顶元素从堆中删除</span></span><br><span class="line">        <span class="built_in">set</span>&lt;PII, less&lt;PII&gt; &gt;::iterator iter = min_heap.<span class="built_in">begin</span>();</span><br><span class="line">        <span class="keyword">int</span> v = iter-&gt;second;</span><br><span class="line">        min_heap.erase(*iter);</span><br><span class="line">        vst[v] = <span class="literal">true</span>;</span><br><span class="line">        <span class="comment">// 进行和普通 dijkstra 算法类似的松弛操作</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = p[v]; j != <span class="number">-1</span>; j = e[j].next) &#123;</span><br><span class="line">            <span class="keyword">int</span> x = e[j].v;</span><br><span class="line">            <span class="keyword">if</span> (!vst[x] &amp;&amp; dist[v] + e[j].w &lt; dist[x]) &#123;</span><br><span class="line">                <span class="comment">// 先将对应的 pair 从堆中删除，再将更新后的 pair 插入堆</span></span><br><span class="line">                min_heap.erase(make_pair(dist[x], x));</span><br><span class="line">                dist[x] = dist[v] + e[j].w;</span><br><span class="line">                min_heap.insert(make_pair(dist[x], x));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;  <span class="comment">// 存储单源最短路的结果</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="③、基于优先队列优化的-Dijkstra-算法"><a href="#③、基于优先队列优化的-Dijkstra-算法" class="headerlink" title="③、基于优先队列优化的$Dijkstra$算法"></a>③、基于优先队列优化的$Dijkstra$算法</h4><p>我们在 $node $节点里面记录对应的点的最短路，然后每次更新一个点的最短路后都把这个点压入到优先队列里面（不管之前有没有被压入到队列里面），这样就一定能够保证优先队列对的性质不会改变</p>
-<p>这个代码的时间复杂度实际上会比用真正的堆要慢一点，因为有的点可能会入队多次，但是每一条边最多导致一次入队，所以这个算法的时间复杂度为 $\mathcal{O}(E\log E)$。其中$ E $为边的数量。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX_N = <span class="number">10000</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX_M = <span class="number">100000</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> inf = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">edge</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> v, w, next;</span><br><span class="line">&#125; e[MAX_M];</span><br><span class="line"><span class="keyword">int</span> p[MAX_N], eid, n;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mapinit</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(p, <span class="number">-1</span>, <span class="keyword">sizeof</span>(p));</span><br><span class="line">    eid = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> v, <span class="keyword">int</span> w)</span> </span>&#123;  <span class="comment">// 插入带权有向边</span></span><br><span class="line">    e[eid].v = v;</span><br><span class="line">    e[eid].w = w;</span><br><span class="line">    e[eid].next = p[u];</span><br><span class="line">    p[u] = eid++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert2</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> v, <span class="keyword">int</span> w)</span> </span>&#123;  <span class="comment">// 插入带权双向边</span></span><br><span class="line">    insert(u, v, w);</span><br><span class="line">    insert(v, u, w);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> dist[MAX_N];  <span class="comment">// 存储单源最短路的结果</span></span><br><span class="line"><span class="keyword">bool</span> vst[MAX_N];  <span class="comment">// 标记每个顶点是否在集合 U 中</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> u;</span><br><span class="line">  <span class="keyword">int</span> dist;</span><br><span class="line">    node(<span class="keyword">int</span> _u, <span class="keyword">int</span> _dist) : u(_u), dist(_dist) &#123;&#125;</span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> node &amp;x) <span class="keyword">const</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> dist &gt; x.dist;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;; <span class="comment">// 记录点的结构体</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">dijkstra</span><span class="params">(<span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 初始化 dist、小根堆和集合 U</span></span><br><span class="line">    <span class="built_in">memset</span>(vst, <span class="number">0</span>, <span class="keyword">sizeof</span>(vst));</span><br><span class="line">    <span class="built_in">memset</span>(dist, <span class="number">0x3f</span>, <span class="keyword">sizeof</span>(dist));</span><br><span class="line">    priority_queue&lt;node&gt; min_heap;</span><br><span class="line">    dist[s] = <span class="number">0</span>;</span><br><span class="line">    min_heap.push(node(s, <span class="number">0</span>));</span><br><span class="line">    <span class="keyword">while</span> (!min_heap.empty())</span><br><span class="line">        <span class="comment">// 获取堆顶元素，并将堆顶元素从堆中删除</span></span><br><span class="line">        <span class="keyword">int</span> v = min_heap.top().u;</span><br><span class="line">        min_heap.pop();</span><br><span class="line">        <span class="keyword">if</span> (vst[v]) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        vst[v] = <span class="literal">true</span>;</span><br><span class="line">        <span class="comment">// 进行和普通 dijkstra 算法类似的松弛操作</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = p[v]; j != <span class="number">-1</span>; j = e[j].next) &#123;</span><br><span class="line">            <span class="keyword">int</span> x = e[j].v;</span><br><span class="line">            <span class="keyword">if</span> (!vst[x] &amp;&amp; dist[v] + e[j].w &lt; dist[x]) &#123;</span><br><span class="line">                dist[x] = dist[v] + e[j].w;</span><br><span class="line">                min_heap.push(node(x, dist[x]));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="2-SPFA-算法"><a href="#2-SPFA-算法" class="headerlink" title="2.$SPFA$算法"></a>2.$SPFA$算法</h3><p>SPFA（Shortest Path Faster Algorithm）算法是单源最短路径的一种算法，通常被认为是 Bellman-ford 算法的队列优化，在代码形式上接近于宽度优先搜索 BFS，是一个在实践中非常高效的单源最短路算法。</p>
-<h4 id="①、-SPFA-算法流程"><a href="#①、-SPFA-算法流程" class="headerlink" title="①、$SPFA$算法流程"></a>①、$SPFA$算法流程</h4><p>在 $SPFA$ 算法中，使用 $d_i$表示从源点到顶点$i$的最短路，额外用一个队列来保存即将进行拓展的顶点列表，并用 $inq_i$来标识顶点$i$是不是在队列中。</p>
-<p>1.初始队列中仅包含源点，且源点 $s$ 的 $d_s=0$。</p>
-<p>2.取出队列头顶点 $u$，扫描从顶点 $u$ 出发的每条边，设每条边的另一端为 $v$，边$&lt;u,v&gt;$ 权值为 $w$，若 $d_u+w&lt;d_v$，则 </p>
-<ul>
-<li><p>将 $d_v$修改为 $d_u+w$</p>
-</li>
-<li><p>若 $v$ 不在队列中，则 </p>
-</li>
-<li><p>将 $v $入队 </p>
-</li>
-</ul>
-<p>3.重复步骤 2 直到队列为空 </p>
-<p>最终$ d$ 数组就是从源点出发到每个顶点的最短路距离。如果一个顶点从没有入队，则说明没有从源点到该顶点的路径。</p>
-<p>$SPFA$ 的空间复杂度为$ \mathcal{O}(V)$。如果顶点的平均入队次数为 $k$，则 $SPFA $的时间复杂度为 $\mathcal{O}(kE)$O，对于较为随机的稀疏图，根据经验 $k$ 一般不超过 4。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1e3</span> + <span class="number">9</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> M = <span class="number">1e4</span> + <span class="number">9</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">edge</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> v, w, fail;</span><br><span class="line">    edge()&#123;&#125;</span><br><span class="line">    edge(<span class="keyword">int</span> _v, <span class="keyword">int</span> _w, <span class="keyword">int</span> _fail)&#123;</span><br><span class="line">        v = _v;</span><br><span class="line">        w = _w;</span><br><span class="line">        fail = _fail;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;e[M &lt;&lt; <span class="number">1</span>];</span><br><span class="line"><span class="keyword">int</span> head[N], len;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(head, <span class="number">-1</span>, <span class="keyword">sizeof</span>(head));</span><br><span class="line">    len = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> v, <span class="keyword">int</span> w)</span></span>&#123;</span><br><span class="line">    e[len] = edge(v, w, head[u]);</span><br><span class="line">    head[u] = len++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add2</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> v, <span class="keyword">int</span> w)</span></span>&#123;</span><br><span class="line">    add(u, v, w);</span><br><span class="line">    add(v, u, w);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, m;</span><br><span class="line"><span class="keyword">int</span> dis[N];</span><br><span class="line"><span class="keyword">bool</span> vis[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">spfa</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(vis, <span class="literal">false</span>, <span class="keyword">sizeof</span>(vis));</span><br><span class="line">    vis[u] = <span class="literal">true</span>;</span><br><span class="line">    <span class="built_in">memset</span>(dis, <span class="number">0x3f</span>, <span class="keyword">sizeof</span>(dis));</span><br><span class="line">    dis[u] = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">    q.push(u);</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">        u = q.front();</span><br><span class="line">        q.pop();</span><br><span class="line">        vis[u] = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = head[u];~j;j = e[j].fail)&#123;</span><br><span class="line">            <span class="keyword">int</span> v = e[j].v;</span><br><span class="line">            <span class="keyword">int</span> w = e[j].w;</span><br><span class="line">            <span class="keyword">if</span>(dis[v] &gt; dis[u] + w)&#123;</span><br><span class="line">                dis[v] = dis[u] + w;</span><br><span class="line">                <span class="keyword">if</span>(!vis[v])&#123;</span><br><span class="line">                    q.push(v);</span><br><span class="line">                    vis[v] = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    init();</span><br><span class="line">    <span class="keyword">int</span> u, v, w;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    <span class="keyword">while</span>(m--)&#123;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;u&gt;&gt;v&gt;&gt;w;</span><br><span class="line">        add2(u, v, w);</span><br><span class="line">    &#125;</span><br><span class="line">    spfa(<span class="number">1</span>);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;dis[n]&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="②、-SPFA-判断负环"><a href="#②、-SPFA-判断负环" class="headerlink" title="②、$SPFA$判断负环"></a>②、$SPFA$判断负环</h4><p>$Dijkstra$不能处理有负权的图，而 $SPFA$ 可以处理任意不含负环（负环是指总边权和为负数的环）的图的最短路，并能判断图中是否存在负环</p>
-<p>但是 $SPFA $可以用来判断负环，在进行 $SPFA $时，用一个数组 $cnt_i$来标记每个顶点入队次数。如果一个顶点入队次数 $cnt_i$大于顶点总数 n，则表示该图中包含负环。一般情况下，$SPFA$ 判负环都只用在有向图上，因为在无向图上，一条负边权的边就是一个负环了</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">memset</span>(in, <span class="number">0</span>, <span class="keyword">sizeof</span> in);</span><br><span class="line">in[u] = <span class="number">1</span>;</span><br><span class="line"><span class="comment">// 修改入队部分的操作</span></span><br><span class="line"><span class="keyword">if</span>(!vis[v])&#123;</span><br><span class="line">    q.push(v);</span><br><span class="line">    vis[v] = <span class="literal">true</span>;</span><br><span class="line">    ++in[v];</span><br><span class="line">    <span class="keyword">if</span>(in[v] &gt; n)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="3、-floyd-多源最短路算法"><a href="#3、-floyd-多源最短路算法" class="headerlink" title="3、$floyd$多源最短路算法"></a>3、$floyd$多源最短路算法</h3><p>$∀1≤k≤n,dp [i] [j] = min（dp[i] [j]，dp[i][k]+ dp [k][j]）$</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> g[N][N];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">floyd</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">1</span>; k &lt;= n; ++k) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; ++j) &#123;</span><br><span class="line">                g[i][j] = <span class="built_in">min</span>(g[i][j], g[i][k] + g[k][j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -827,7 +1026,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -894,12 +1093,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">94k</span>
+    <span title="站点总字数">95k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:36</span>
+    <span title="站点阅读时长">2:38</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
