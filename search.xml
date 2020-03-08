@@ -114,8 +114,12 @@
 
 
 
-<h2 id="补充问题"><a href="#补充问题" class="headerlink" title="补充问题"></a>补充问题</h2><p>database if locked问题要如何处理？</p>
+<h2 id="补充问题"><a href="#补充问题" class="headerlink" title="补充问题"></a>补充问题</h2><p>1.database if locked问题要如何处理？</p>
 <p>答：默认底层sqlite3，我们可以配置hue访问mysql</p>
+<p>2.Cannot access: /. Note: you are a Hue admin but not a HDFS superuser, “hdfs” or part of HDFS supergroup, “supergroup”.</p>
+<p>答：hue.ini配置文件中</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">server_user&#x3D;root</span><br><span class="line">server_group&#x3D;root</span><br><span class="line">default_user&#x3D;root</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>大数据</category>
