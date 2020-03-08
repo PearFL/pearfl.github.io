@@ -15,7 +15,13 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;home&#x2F;pearfl&#x2F;app&#x2F;zookeeper-3.4.5-cdh5.16.2&#x2F;conf</span><br><span class="line">cp zoo_sample.cfg zoo.cfg</span><br><span class="line">vim zoo.cfg</span><br><span class="line"></span><br><span class="line">dataDir&#x3D;&#x2F;home&#x2F;pearfl&#x2F;app&#x2F;tmp&#x2F;zookeeper0000(配置)</span><br></pre></td></tr></table></figure>
 
 <p>修改临时目录，zookeeper0000会自动创建的</p>
-<p>3.</p>
+<p>3.开启单机zookeeper</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">zkServer.sh</span><br></pre></td></tr></table></figure>
+
+
+
+
+
 ]]></content>
       <categories>
         <category>大数据</category>
@@ -52,7 +58,7 @@
 
 
 <h2 id="Hue-编译"><a href="#Hue-编译" class="headerlink" title="Hue 编译"></a>Hue 编译</h2><p>1.安装系统包</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum install ant asciidoc cyrus-sasl-devel cyrus-sasl-gssapi gcc gcc-c++ krb5-devel libtidy libxml2-devel libxslt-devel openldap-devel python-devel sqlite-devel openssl-devel mysql-devel gmp-devel</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum install ant asciidoc cyrus-sasl-devel cyrus-sasl-gssapi cyrus-sasl-plain gcc gcc-c++ krb5-devel libffi-devel libxml2-devel libxslt-devel make  mysql mysql-devel openldap-devel python-devel sqlite-devel gmp-devel</span><br></pre></td></tr></table></figure>
 
 <p>2.编译Hue</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tar zxf hue-3.9.0-cdh5.16.2.tar.gz -C ~&#x2F;app&#x2F;</span><br><span class="line">cd ~&#x2F;app&#x2F;hue-3.9.0-cdh5.16.2</span><br><span class="line">make apps</span><br></pre></td></tr></table></figure>
@@ -60,7 +66,35 @@
 <p>当出现类似下面文本时，说明编译成功</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1426 static files copied to &#39;&#x2F;home&#x2F;pearfl&#x2F;app&#x2F;hue-3.9.0-cdh5.16.2&#x2F;build&#x2F;static&#39;, 1426 post-processed.</span><br><span class="line">make[1]: Leaving directory &#96;&#x2F;home&#x2F;pearfl&#x2F;app&#x2F;hue-3.9.0-cdh5.16.2&#x2F;apps&#39;</span><br></pre></td></tr></table></figure>
 
-<p>3.</p>
+
+
+<h2 id="Hue配置"><a href="#Hue配置" class="headerlink" title="Hue配置"></a>Hue配置</h2><p>配置文件地址：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$HUE_HOME&#x2F;desktop&#x2F;conf&#x2F;hue.ini</span><br><span class="line"></span><br><span class="line">[desktop]</span><br><span class="line">	secret_key&#x3D;23dsafksl;fkp2(随便写，做hash的)</span><br><span class="line">	http_host&#x3D;hadoop000(跑的机器)</span><br><span class="line">	http_port&#x3D;38888(8888容易被挖矿，修改)</span><br><span class="line">	time_zone&#x3D;Asia&#x2F;Shanghai(时区)</span><br><span class="line"></span><br><span class="line">启动HUE</span><br><span class="line">	build&#x2F;env&#x2F;bin&#x2F;supervisor</span><br></pre></td></tr></table></figure>
+
+
+
+<p>1.HUE整合HDFS</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">core-site.xml</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;hadoop.proxyuser.hadoop.hosts&lt;&#x2F;name&gt;</span><br><span class="line">	&lt;value&gt;*&lt;&#x2F;value&gt;</span><br><span class="line">&lt;&#x2F;property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;hadoop.proxyuser.hadoop.groups&lt;&#x2F;name&gt;</span><br><span class="line">	&lt;value&gt;*&lt;&#x2F;value&gt;</span><br><span class="line">&lt;&#x2F;property&gt;</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">hdfs-site.xml</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;dfs.webhdfs.enabled&lt;&#x2F;name&gt;</span><br><span class="line">  &lt;value&gt;true&lt;&#x2F;value&gt;</span><br><span class="line">&lt;&#x2F;property&gt;</span><br><span class="line"></span><br><span class="line">修改完Hadoop相关的配置之后，肯定需要重启才生效</span><br><span class="line"></span><br><span class="line">hue.ini内修改</span><br><span class="line">[hadoop]</span><br><span class="line">	fs_defaultfs&#x3D;hdfs:&#x2F;&#x2F;hadoop000:8020</span><br><span class="line">	webhdfs_url&#x3D;http:&#x2F;&#x2F;hadoop000:50070&#x2F;webhdfs&#x2F;v1</span><br><span class="line">	hadoop_conf_dir&#x3D;$HADOOP_HOME&#x2F;etc&#x2F;conf(HADOOP_HOME自己写pwd的那个显示)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.HUE整合MR/YARN</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">你需要启动mr-jobhistory-daemon.sh</span><br><span class="line">	mapred-site.xml</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">		&lt;name&gt;mapreduce.jobhistory.address&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;value&gt;hadoop000:10020&lt;&#x2F;value&gt;</span><br><span class="line">	&lt;&#x2F;property&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">		&lt;name&gt;mapreduce.jobhistory.webapp.address&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;value&gt;hadoop000:19888&lt;&#x2F;value&gt;</span><br><span class="line">	&lt;&#x2F;property&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">		&lt;name&gt;mapreduce.jobhistory.done-dir&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;value&gt;&#x2F;history&#x2F;done&lt;&#x2F;value&gt;</span><br><span class="line">	&lt;&#x2F;property&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">		&lt;name&gt;mapreduce.jobhistory.intermediate-done-dir&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;value&gt;&#x2F;history&#x2F;done_intermediate&lt;&#x2F;value&gt;</span><br><span class="line">	&lt;&#x2F;property&gt;</span><br><span class="line">	</span><br><span class="line">	mr-jobhistory-daemon.sh start historyserver</span><br><span class="line">		jps进程: JobHistoryServer</span><br><span class="line">	</span><br><span class="line">	[yarn_clusters]</span><br><span class="line">	resourcemanager_host&#x3D;hadoop000</span><br><span class="line">	resourcemanager_port&#x3D;8032</span><br><span class="line">	resourcemanager_api_url&#x3D;http:&#x2F;&#x2F;hadoop000:8088</span><br><span class="line">	proxy_api_url&#x3D;http:&#x2F;&#x2F;hadoop000:8088</span><br><span class="line">	history_server_api_url&#x3D;http:&#x2F;&#x2F;hadoop000:19888</span><br><span class="line">	</span><br><span class="line">1.记得yarn已经配置过基础配置了，不然无法启动</span><br><span class="line">2.hue界面的超级用户名字需要和提交到yarn的用户名字相同</span><br></pre></td></tr></table></figure>
+
+
+
+<p>3.HUE整合MySQL</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[librdbms]</span><br><span class="line">	打开mysql注释</span><br><span class="line">	nice_name&#x3D;&quot;pearflDB&quot;</span><br><span class="line">	name&#x3D;demo_hive</span><br><span class="line">	engine&#x3D;mysql</span><br><span class="line">	host&#x3D;hadoop000</span><br><span class="line">	port&#x3D;3306</span><br><span class="line">	user&#x3D;root</span><br><span class="line">	password&#x3D;password</span><br></pre></td></tr></table></figure>
+
+
+
+<p>4.HUE整合Hive</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">一定要先启动hiveserver2</span><br><span class="line">	hiveserver2 1&gt;&#x2F;dev&#x2F;null 2&gt;&amp;1 &amp;</span><br><span class="line"></span><br><span class="line">	[beeswax]</span><br><span class="line">	hive_server_host&#x3D;hadoop000</span><br><span class="line">	hive_server_port&#x3D;10000</span><br><span class="line">	hive_conf_dir&#x3D;$HIVE_HOME&#x2F;conf</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="补充问题"><a href="#补充问题" class="headerlink" title="补充问题"></a>补充问题</h2><p>database if locked问题要如何处理？</p>
+<p>答：默认底层sqlite3，我们可以配置hue访问mysql</p>
 ]]></content>
       <categories>
         <category>大数据</category>
