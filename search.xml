@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>kdevtmpfsi,kinsing挖矿病毒清理</title>
+    <url>/2020/03/08/48.kdevtmpfsi,kinsing%E6%8C%96%E7%9F%BF%E7%97%85%E6%AF%92%E6%B8%85%E7%90%86/</url>
+    <content><![CDATA[<p>1.top命令  找到挖矿程序(kdevtmpfsi)进程号 CUP 占用100%</p>
+<p>ps -ef |grep kdevtmpfsi</p>
+<p>ps -ef |grep kinsing</p>
+<p>直接kill -9 (PID) 把这个线程干掉了 过一阵子又回来了，crontab也需要修改</p>
+<p>2.一般情况下你第一反应只能找到kdevtmpfsi，kinsing怎么找到的？</p>
+<p>pstree -a</p>
+<p>(如果没有下载， yum -y install psmisc)</p>
+<p>3.到的并kill线程和它的守护线程</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ps -aux | grep kinsing</span><br><span class="line">ps -aux | grep kdevtmpfsi</span><br><span class="line">kill  -9   23437</span><br><span class="line">kill  -9   18534</span><br><span class="line">cd  &#x2F;tmp</span><br><span class="line">ls</span><br><span class="line">rm -rf kdevtmpfsi </span><br><span class="line">rm -rf &#x2F;var&#x2F;tmp&#x2F;kinsing  记得这个守护进程的文件也要删掉，找不到的话，也可以用这个命令</span><br><span class="line">find &#x2F; -name kdevtmpfsi</span><br><span class="line">find &#x2F; -name kinsing</span><br><span class="line"></span><br><span class="line">5.查找可疑定时任务</span><br><span class="line">crontab -l</span><br><span class="line">crontab -e删掉不可靠的定时任务</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>解决病毒</category>
+      </categories>
+      <tags>
+        <tag>kdevtmpfsi</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>zookeeper配置</title>
     <url>/2020/03/06/47.zookeeper%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<p>本文zookeeper采用zookeeper-3.4.5-cdh5.16.2版本</p>
