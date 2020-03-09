@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="简述 grep 命令：筛选数据 sort 命令：为文件排序 wc 命令：文件的统计 uniq 命令：删除文件中的重复内容 cut 命令：剪切文件的一部分内容">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux数据处理">
+<meta property="og:url" content="http://yoursite.com/2020/03/09/35.linux%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/index.html">
+<meta property="og:site_name" content="叶梨子的小窝">
+<meta property="og:description" content="简述 grep 命令：筛选数据 sort 命令：为文件排序 wc 命令：文件的统计 uniq 命令：删除文件中的重复内容 cut 命令：剪切文件的一部分内容">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-09T03:56:22.000Z">
+<meta property="article:modified_time" content="2020-03-09T04:14:56.203Z">
+<meta property="article:author" content="pearfl">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/09/35.linux%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>linux数据处理 | 叶梨子的小窝</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband">
+    <a href="https://github.com/PearFL" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    </div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">叶梨子的小窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">记录自己的成长</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/09/35.linux%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="pearfl">
+      <meta itemprop="description" content="热爱从不降温">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="叶梨子的小窝">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          linux数据处理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-09 11:56:22 / 修改时间：12:14:56" itemprop="dateCreated datePublished" datetime="2020-03-09T11:56:22+08:00">2020-03-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h2><ol>
+<li>grep 命令：筛选数据</li>
+<li>sort 命令：为文件排序</li>
+<li>wc 命令：文件的统计</li>
+<li>uniq 命令：删除文件中的重复内容</li>
+<li>cut 命令：剪切文件的一部分内容</li>
+</ol>
+<a id="more"></a>
+
+
+
+<h2 id="1-grep-命令：筛选数据"><a href="#1-grep-命令：筛选数据" class="headerlink" title="1. grep 命令：筛选数据"></a>1. grep 命令：筛选数据</h2><p>grep 是 Globally search a Regular Expression and Print 的缩写，意思是“全局搜索一个正则表达式，并且打印”。</p>
+<p>grep 命令的功能简单说来是在文件中查找关键字，并且显示关键字所在的行。</p>
+<p>grep 命令极为强大，也是 Linux 中使用最多的命令之一。它的强大之处在于它不仅可以实现简单的查找，而且可以配合 <a href="http://baike.baidu.com/view/94238.htm" target="_blank" rel="noopener">正则表达式</a> 来实现比较复杂的查找。</p>
+<h4 id="grep-的简单用法"><a href="#grep-的简单用法" class="headerlink" title="grep 的简单用法"></a>grep 的简单用法</h4><p>grep 的使用方法有很多种，我们一开始先学习最基本的用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep text file</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，上面就是 grep 命令的最基本用法。</p>
+<p>text 代表要搜索的文本，file 代表供搜索的文件。</p>
+<p>我们用实际的例子来学习：比如我要在用户的家目录的 .bashrc 文件中搜索 alias 这个文本，而且显示所有包含alias的行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep alias .bashrc</span><br></pre></td></tr></table></figure>
+
+<p>如果我们要用 grep 命令在一个文件中查找用空格隔开的文本，那么就要加上双引号，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep &quot;Hello World&quot; file2</span><br></pre></td></tr></table></figure>
+
+<p>如果我们要用 grep 命令在一个文件中查找用空格隔开的文本，那么就要加上双引号，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep &quot;Hello World&quot; file2</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="i-参数：忽略大小写"><a href="#i-参数：忽略大小写" class="headerlink" title="-i 参数：忽略大小写"></a>-i 参数：忽略大小写</h4><p>默认的情况下，grep 命令是区分大小写的，也就是说搜索的文本将严格按照大小写来搜索。比如我搜索的文本是 text，那么就不会搜出 Text，tExt，TEXT 等等文本。</p>
+<p>但是我们可以给 grep 加上 -i 参数，使得 grep 可以忽略大小写。i 是英语 ignore 的缩写，表示“忽略”。</p>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -i alias .bashrc</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="n-参数：显示行号"><a href="#n-参数：显示行号" class="headerlink" title="-n 参数：显示行号"></a>-n 参数：显示行号</h4><p>-n 参数的作用很简单，就是显示搜索到的文本所在的行号。n 是英语 number 的缩写，表示“数字，编号”。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -n alias .bashrc</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="v-参数：只显示文本不在的行"><a href="#v-参数：只显示文本不在的行" class="headerlink" title="-v 参数：只显示文本不在的行"></a>-v 参数：只显示文本不在的行</h4><p>-v 参数很有意思，v 是 invert 的缩写，表示“颠倒，倒置”。-v 参数的作用与正常 grep 的作用正好颠倒，就是只显示搜索的文本不在的那些行。</p>
+<h4 id="r-参数：在所有子目录和子文件中查找"><a href="#r-参数：在所有子目录和子文件中查找" class="headerlink" title="-r 参数：在所有子目录和子文件中查找"></a>-r 参数：在所有子目录和子文件中查找</h4><p>如果你不知道你要找的文本在哪个文件里，你可以用强大的 -r 参数。</p>
+<p>r 是英语 recursive 的缩写，表示“递归”。</p>
+<p>如果用了 -r 参数，那么 grep 命令使用时的最后一个参数（grep text file 这个模式中的 file）需要换成 directory，也就是必须是一个目录。因为 -r 参数是让 grep 命令能够在指定目录的所有子目录和子文件中查找文本。</p>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -r &quot;Hello World&quot; folder&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>表示在 folder 这个目录的所有子目录和子文件中查找 Hello World 这个文本。当然了，以上例子中，folder 后面的斜杠（/）不是必须的，这里只是为了清楚表明 folder 是一个目录。只要 folder 是一个目录，Linux 系统是不会搞错的。</p>
+<p>Linux 中还有一个 rgrep 的命令，它的作用相当于 grep -r 。</p>
+<h4 id="grep-的高级用法：配合正则表达式"><a href="#grep-的高级用法：配合正则表达式" class="headerlink" title="grep 的高级用法：配合正则表达式"></a>grep 的高级用法：配合正则表达式</h4><p>正则表达式使用单个字符串来描述、匹配一系列符合某个句法规则的字符串。</p>
+<p>grep 配合正则表达式就可以实现比较高级的搜索了。</p>
+<p>我们首先来看一眼以下的这个表格，表格中列出了最常用的一些正则表达式的字符以及其含义：</p>
+<table>
+<thead>
+<tr>
+<th align="left">特殊字符</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">.</td>
+<td align="left">匹配除 “\n” 之外的任何单个字符</td>
+</tr>
+<tr>
+<td align="left">^</td>
+<td align="left">行首（匹配输入字符串的开始位置）</td>
+</tr>
+<tr>
+<td align="left">$</td>
+<td align="left">行尾（匹配输入字符串的结束位置）</td>
+</tr>
+<tr>
+<td align="left">[]</td>
+<td align="left">在中括号中的任意一个字符</td>
+</tr>
+<tr>
+<td align="left">?</td>
+<td align="left">问号前面的元素出现零次或一次</td>
+</tr>
+<tr>
+<td align="left">*</td>
+<td align="left">星号前面的元素可能出现零次、一次或多次</td>
+</tr>
+<tr>
+<td align="left">+</td>
+<td align="left">加号前面的元素必须出现一次以上（包含一次）</td>
+</tr>
+<tr>
+<td align="left">|</td>
+<td align="left">逻辑或</td>
+</tr>
+<tr>
+<td align="left">()</td>
+<td align="left">表达式的分组（表示范围和优先度）</td>
+</tr>
+</tbody></table>
+<p>当然了，上表没有列出所有的正则表达式的字符。</p>
+<p>首先，为了让 grep 命令知道我们要使用正则表达式，须要加上 -E 参数（E 是 extended regular expression 的第一个字母，表示“扩展的正则表达式”）。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -E Alias .bashrc</span><br></pre></td></tr></table></figure>
+
+<p>当然了，Linux 也有一个命令 egrep，其效果等同 grep -E 。</p>
+<p>到此为止，没什么新鲜的。我们用正则表达式只是和之前的搜索类似。接下来，我们才真的要用到正则表达式的特殊字符了。</p>
+<p>首先来看这个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -E ^alias .bashrc</span><br></pre></td></tr></table></figure>
+
+<p>这个例子中，我们用到了 ^ 这个特殊符号，上面的表格里对于 ^ 已经做了说明：行首（匹配输入字符串的开始位置）。也就是说，^ 后面的字符须要出现在一行的开始。</p>
+<p>再来举几个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -E [Aa]lias .bashrc</span><br></pre></td></tr></table></figure>
+
+<p> [] 的作用，是将 [] 中的字符任取其一，因此 [Aa]lias 的意思就是既可以是 Alias，又可以是 alias。因此 grep 的搜索结果把包含 Alias 和 alias 的行都列出来了。</p>
+<p>再比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -E [0-4] .bashrc</span><br></pre></td></tr></table></figure>
+
+<p>用于搜索包含 0 至 4 的任一数字的行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -E [a-zA-Z] .bashrc</span><br></pre></td></tr></table></figure>
+
+<p>用于搜索包含在 a 至 z 之间的任意字母或者 A 至 Z 之间的任意字母的行。</p>
+<p>其他正则表达式还有很多例子。就不一一列举了。</p>
+<h2 id="2-sort-命令：为文件排序"><a href="#2-sort-命令：为文件排序" class="headerlink" title="2. sort 命令：为文件排序"></a>2. sort 命令：为文件排序</h2><p>我们用 sort 命令来举个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sort name.txt</span><br></pre></td></tr></table></figure>
+
+<p>sort 命令将 name.txt 文件中的行按照首字母的英文字典顺序进行了排列。</p>
+<p>sort 命令并不区分大小写，小写字母开头的 jude 还是排在 John 之后。</p>
+<h4 id="o-参数：将排序后的内容写入新文件"><a href="#o-参数：将排序后的内容写入新文件" class="headerlink" title="-o 参数：将排序后的内容写入新文件"></a>-o 参数：将排序后的内容写入新文件</h4><p>如果你打开 name.txt 文件，你会发现，经过了 sort 命令的“洗礼”，name.txt 中的内容还是维持原来的顺序。</p>
+<p>单独使用 sort 命令是不会真正改变文件内容的，只是把排序结果显示在终端上。</p>
+<p>那我们要存储排序结果到新的文件怎么办呢？可以用 -o 参数。</p>
+<p>o 是 output 的首字母，表示“输出”，就是将排序结果输出到文件中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sort -o name_sorted.txt name.txt</span><br></pre></td></tr></table></figure>
+
+<p>name.txt 经过 sort 命令排序之后的内容被储存在了新的文件 name_sorted.txt 中，而 name.txt 的内容是不变的。</p>
+<h4 id="r-参数：倒序排列"><a href="#r-参数：倒序排列" class="headerlink" title="-r 参数：倒序排列"></a>-r 参数：倒序排列</h4><p>-r 参数中的 r 是 reverse 的缩写，是“相反”的意思，与普通的仅用 sort 命令正好相反。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sort -r name.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="R-参数：随机排序"><a href="#R-参数：随机排序" class="headerlink" title="-R 参数：随机排序"></a>-R 参数：随机排序</h4><p>R 是英语 random 的首字母，表示“随机的，任意的”。</p>
+<p>-R 参数比较“无厘头”，因为它会让 sort 命令的排序变为随机，就是任意排序，也许每次都不一样。</p>
+<p>但在有些时候，-R 参数还是很有用的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sort -R name.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="n-参数：对数字排序"><a href="#n-参数：对数字排序" class="headerlink" title="-n 参数：对数字排序"></a>-n 参数：对数字排序</h4><p>对数字的排序有点特殊。默认仅用 sort 命令的时候，是不区分字符是否是数字的，会把这些数字看成字符串，按照 1-9 的顺序来排序。例如 138 会排在 25 前面，因为 1 排在 2 的前面。</p>
+<p>那如果我们要 sort 命令识别整个数字，比如按照整个数值的大小顺序来说，25 应该排在 138 前面，那该怎么办呢？</p>
+<p>就可以请出我们的 -n 参数了。n 是 number 的缩写。是英语“数字”的意思。-n 参数用于对数字进行排序，按从小到大排序。</p>
+<p>为了演示，我们再用文本编辑器来创建一个文件，就叫 number.txt 好了。</p>
+<p>里面随便填一些数字，每行一个：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">12</span><br><span class="line">9</span><br><span class="line">216</span><br><span class="line">28</span><br><span class="line">174</span><br><span class="line">35</span><br><span class="line">68</span><br></pre></td></tr></table></figure>
+
+<p>然后用 sort 不加 -n 参数和加上 -n 参数分别测试：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">12</span><br><span class="line">174</span><br><span class="line">216</span><br><span class="line">28</span><br><span class="line">35</span><br><span class="line">68</span><br><span class="line">9</span><br><span class="line">---------------------------分割线</span><br><span class="line">9</span><br><span class="line">12</span><br><span class="line">28</span><br><span class="line">35</span><br><span class="line">68</span><br><span class="line">174</span><br><span class="line">216</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，不加 -n 参数时，sort 就会把这些数字看成字符串，按字符依次来排序，按照 1-9 的顺序。</p>
+<p>加上 -n 参数，就会把各行的数字看成一个整体，按照大小从小到大来排序了。</p>
+<h2 id="3-wc-命令：文件的统计"><a href="#3-wc-命令：文件的统计" class="headerlink" title="3. wc 命令：文件的统计"></a>3. wc 命令：文件的统计</h2><p>wc 是 word count 的缩写</p>
+<p>wc 命令看起来是用来统计单词数目的，但其实 wc 的功能不仅止于此。wc 命令还可以用来统计行数，字符数，字节数等。</p>
+<p>跟前面的命令一样，wc 命令的用法也是后接文件名。wc 命令很有用，应该会成为你常用的命令之一。</p>
+<p>如果不加选项参数，那么 wc 命令的返回值会有些特殊，有点晦涩难懂。</p>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wc name.txt</span><br></pre></td></tr></table></figure>
+
+<p>可以看到返回值是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">9 9 50 name.txt</span><br></pre></td></tr></table></figure>
+
+<p>最后的 name.txt 只是表示文件名，不需考虑。</p>
+<p>那么这三个数字：9，9，和 50 分别表示什么呢？</p>
+<p>这三个数字，按顺序，分别表示：</p>
+<ul>
+<li>行数（newline counts）：newline 是英语“换行、换行符”的意思。统计行数其实就是统计换行符的数目。</li>
+<li>单词数（word counts）</li>
+<li>字节数（byte counts）：byte 是英语“字节”的意思，等于 8 个二进制位（bit）。</li>
+</ul>
+<p>可以用 man wc 查看 wc 的命令手册得知：</p>
+<p>wc 的命令描述是“print newline, word, and byte counts for each file”，翻成中文就是“对每个文件，打印其行数，单词数和字节数”。</p>
+<p>因为我们之前创建 name.txt 时，每一行只有一个单词（英语名字），所以这里统计的行数和单词数都是 9。</p>
+<p>50 代表字节数。我数了一下，name.txt 里的 9 个英语单词一共包含 41 个英语字母（也就是 41 个英语字符），占用 41 个字节。再加上每行结尾的换行符（Linux 中换行符是 ‘\n’），共有 9 个换行符，占用 9 个字节。41 + 9 = 50，正好是 50 个字节。</p>
+<p>我们稍微讲一下字符和字节的一些联系和区别：</p>
+<ul>
+<li>字节（Byte 或 Octet）是计量单位，表示数据量多少，是计算机存储容量的计量单位。一个字节等于 8 位（Bit，比特位，是计算机最小的存储单位。就是 0 或 1 这样的二进制位）。</li>
+<li>字符（Character）是计算机中使用的文字和符号，比如 “a”、“B”、“7”、“&amp;”、“%”等。不同语言有不同的字符，一般我们中国人接触比较多的是英语和中文的字符。</li>
+</ul>
+<p>字符在不同的编码中所占字节数是不一样的。字符的编码和标准有不少，这里我们就不深入展开了，大家可以看这个链接来深入了解：<a href="https://baike.baidu.com/item/字符集" target="_blank" rel="noopener">字符集</a> 。</p>
+<h4 id="l-参数：统计行数"><a href="#l-参数：统计行数" class="headerlink" title="-l 参数：统计行数"></a>-l 参数：统计行数</h4><p>为了只统计行数，我们可以加上 -l 参数。l 是 line 的缩写，表示“行”。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wc -l name.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="w-参数：统计单词数"><a href="#w-参数：统计单词数" class="headerlink" title="-w 参数：统计单词数"></a>-w 参数：统计单词数</h4><p>w 是word 的缩写，表示“单词”。因此 -w 参数用于统计单词。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wc -w name.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="c-参数：统计字节数"><a href="#c-参数：统计字节数" class="headerlink" title="-c 参数：统计字节数"></a>-c 参数：统计字节数</h4><p>不知道为什么是 c，因为 byte 或者 octet（都表示“字节”）的首字母都不是 c 啊。也许 c 是 character（英语“字符”的意思）的缩写吧。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wc -c name.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="m-参数：统计字符数"><a href="#m-参数：统计字符数" class="headerlink" title="-m 参数：统计字符数"></a>-m 参数：统计字符数</h4><p>不知道为什么是 m，因为 character（英语“字符”）的首字母不是 m ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wc -m name.txt</span><br></pre></td></tr></table></figure>
+
+
+
+<p>为了加深理解，我们来测试一下。创建一个只包含中文字符的文本文件，可以起名叫 chinese.txt（chinese 是“中文”的意思）。在里面写入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">你好吗</span><br><span class="line">我很好</span><br></pre></td></tr></table></figure>
+
+<p>这 6 个汉字。</p>
+<p>我们用 wc 命令来统计一下 chinese.txt 的字节数和字符数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wc -c chinese.txt</span><br><span class="line">wc -m chinese.txt</span><br></pre></td></tr></table></figure>
+
+<p>chinese.txt 包含的字节数是 20，字符数是 8</p>
+<p>其实这是因为使用的是 Unicode 标准 的 UTF-8 编码方式。中文字符占 3 个字节，一共有 6 个中文字符，6 * 3 = 18，再加上 2 个换行符占 2 个字节，18 + 2 = 20。</p>
+<p>字符数则是 6 + 2 = 8 个</p>
+<p>我们可以用 file 命令来确定文件的类型，运行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">file chinese.txt</span><br><span class="line">file name.txt</span><br></pre></td></tr></table></figure>
+
+<p>chinese.txt 的编码是 UTF-8 Unicode，name.txt 的编码是 ASCII</p>
+<h2 id="4-uniq-命令：删除文件中的重复内容"><a href="#4-uniq-命令：删除文件中的重复内容" class="headerlink" title="4. uniq 命令：删除文件中的重复内容"></a>4. uniq 命令：删除文件中的重复内容</h2><p>有时候，文件中包含重复的行，我们想要将重复的内容删除，</p>
+<p>这时，uniq 命令就显得很有用了。</p>
+<p>uniq 是英语 unique 的缩写，表示“独一无二的”。</p>
+<p>为了演示，我们创建一个文件 repeat.txt（repeat 是英语“重复”的意思），里面写入如下排序好的内容（因为 uniq 命令有点“呆”，只能将连续的重复行变为一行）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Albert</span><br><span class="line">China</span><br><span class="line">France</span><br><span class="line">France</span><br><span class="line">France</span><br><span class="line">John</span><br><span class="line">Matthew</span><br><span class="line">Matthew</span><br><span class="line">patrick</span><br><span class="line">Steve</span><br><span class="line">Vincent</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，有三个 France 连在一起，两个 Matthew 连在一起。</p>
+<p>我们用 uniq 命令来处理看看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uniq repeat.txt</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，三个连续的 France 只剩下一个了，两个连续的 Matthew 也只剩一个了。</p>
+<p>和 sort 命令类似，uniq 命令并不会改变原文件的内容，只会把处理后的内容显示出来。</p>
+<p>如果想将处理后的内容储存到一个新文件中，可以使用如下的方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uniq repeat.txt unique.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="c-参数：统计重复的行数"><a href="#c-参数：统计重复的行数" class="headerlink" title="-c 参数：统计重复的行数"></a>-c 参数：统计重复的行数</h4><p>-c 参数用于显示重复的行数，如果是独一无二的行，那么数目就是 1。c 是 count 的缩写，表示“统计，计数”。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uniq -c repeat.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="d-参数：只显示重复行的值"><a href="#d-参数：只显示重复行的值" class="headerlink" title="-d 参数：只显示重复行的值"></a>-d 参数：只显示重复行的值</h4><p>-d 参数只显示重复的行的值。d 是 duplicated 的缩写，表示“重复的”。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uniq -d repeat.txt</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="5-cut-命令：剪切文件的一部分内容"><a href="#5-cut-命令：剪切文件的一部分内容" class="headerlink" title="5. cut 命令：剪切文件的一部分内容"></a>5. cut 命令：剪切文件的一部分内容</h2><p>cut 是英语“剪切”的意思。大家平时肯定有剪切文本内容的经历吧，一般剪切之后还会把剪切的内容粘贴到某处。</p>
+<p>cut 命令用于对文件的每一行进行剪切处理。</p>
+<h4 id="c-参数：根据字符数来剪切"><a href="#c-参数：根据字符数来剪切" class="headerlink" title="-c 参数：根据字符数来剪切"></a>-c 参数：根据字符数来剪切</h4><p>c 是 character 的缩写，表示“字符”。</p>
+<p>比如，我们要 name.txt 的每一行只保留第 2 至第 4 个字符。可以这样做：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cut -c 2-4 name.txt</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h5><ol>
+<li>grep 命令应该算是在文件中查找关键字最常用的工具了。</li>
+<li>grep 命令可以通过正则表达式来查找。一开始正则表达式会比较难记，但是功能很强大。我们可以调用 egrep 命令，其等价于 grep -E。</li>
+<li>sort 命令用于为文件中的行按字母顺序排序。使用 -n 参数可以按照数字顺序排序。</li>
+<li>wc 命令可以统计文件中行数，单词数或者字节数。</li>
+<li>uniq 命令可以用于删除文件中重复的内容。</li>
+<li>cut 命令用于剪切文件的一部分内容。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/09/49.sqoop%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/" rel="prev" title="sqoop安装及配置">
+      <i class="fa fa-chevron-left"></i> sqoop安装及配置
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/09/50.screen%E5%90%8E%E5%8F%B0%E6%93%8D%E4%BD%9C/" rel="next" title="screen后台操作">
+      screen后台操作 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简述"><span class="nav-number">1.</span> <span class="nav-text">简述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-grep-命令：筛选数据"><span class="nav-number">2.</span> <span class="nav-text">1. grep 命令：筛选数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#grep-的简单用法"><span class="nav-number">2.0.1.</span> <span class="nav-text">grep 的简单用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#i-参数：忽略大小写"><span class="nav-number">2.0.2.</span> <span class="nav-text">-i 参数：忽略大小写</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#n-参数：显示行号"><span class="nav-number">2.0.3.</span> <span class="nav-text">-n 参数：显示行号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#v-参数：只显示文本不在的行"><span class="nav-number">2.0.4.</span> <span class="nav-text">-v 参数：只显示文本不在的行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#r-参数：在所有子目录和子文件中查找"><span class="nav-number">2.0.5.</span> <span class="nav-text">-r 参数：在所有子目录和子文件中查找</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#grep-的高级用法：配合正则表达式"><span class="nav-number">2.0.6.</span> <span class="nav-text">grep 的高级用法：配合正则表达式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-sort-命令：为文件排序"><span class="nav-number">3.</span> <span class="nav-text">2. sort 命令：为文件排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#o-参数：将排序后的内容写入新文件"><span class="nav-number">3.0.1.</span> <span class="nav-text">-o 参数：将排序后的内容写入新文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#r-参数：倒序排列"><span class="nav-number">3.0.2.</span> <span class="nav-text">-r 参数：倒序排列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#R-参数：随机排序"><span class="nav-number">3.0.3.</span> <span class="nav-text">-R 参数：随机排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#n-参数：对数字排序"><span class="nav-number">3.0.4.</span> <span class="nav-text">-n 参数：对数字排序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-wc-命令：文件的统计"><span class="nav-number">4.</span> <span class="nav-text">3. wc 命令：文件的统计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#l-参数：统计行数"><span class="nav-number">4.0.1.</span> <span class="nav-text">-l 参数：统计行数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#w-参数：统计单词数"><span class="nav-number">4.0.2.</span> <span class="nav-text">-w 参数：统计单词数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#c-参数：统计字节数"><span class="nav-number">4.0.3.</span> <span class="nav-text">-c 参数：统计字节数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#m-参数：统计字符数"><span class="nav-number">4.0.4.</span> <span class="nav-text">-m 参数：统计字符数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-uniq-命令：删除文件中的重复内容"><span class="nav-number">5.</span> <span class="nav-text">4. uniq 命令：删除文件中的重复内容</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#c-参数：统计重复的行数"><span class="nav-number">5.0.1.</span> <span class="nav-text">-c 参数：统计重复的行数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#d-参数：只显示重复行的值"><span class="nav-number">5.0.2.</span> <span class="nav-text">-d 参数：只显示重复行的值</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-cut-命令：剪切文件的一部分内容"><span class="nav-number">6.</span> <span class="nav-text">5. cut 命令：剪切文件的一部分内容</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#c-参数：根据字符数来剪切"><span class="nav-number">6.0.1.</span> <span class="nav-text">-c 参数：根据字符数来剪切</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#小结"><span class="nav-number">6.0.1.1.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="pearfl"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">pearfl</p>
+  <div class="site-description" itemprop="description">热爱从不降温</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cpuhalt.cn/" title="https:&#x2F;&#x2F;www.cpuhalt.cn" rel="noopener" target="_blank">苏文进大老板の博客</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.sunyongfei.cn/" title="https:&#x2F;&#x2F;www.sunyongfei.cn&#x2F;" rel="noopener" target="_blank">孙永飞の博客</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://exv123.github.io/" title="https:&#x2F;&#x2F;exv123.github.io&#x2F;" rel="noopener" target="_blank">阿豆の博客</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://yerias.github.io/" title="https:&#x2F;&#x2F;yerias.github.io" rel="noopener" target="_blank">班长の博客</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">pearfl</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">108k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
