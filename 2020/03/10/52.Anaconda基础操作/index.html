@@ -46,21 +46,21 @@
   };
 </script>
 
-  <meta name="description" content="1.创建用户1CREATE USER &#39;username&#39;@&#39;host&#39; IDENTIFIED BY &#39;password&#39;;  username：你将创建的用户名host：指定该用户在哪个主机上可以登陆，如果是本地用户可用localhost，如果想让该用户可以从任意远程主机登陆，可以使用通配符%password：该用户的登陆密码，密码可以为空，如果为">
+  <meta name="description" content="1.添加清华仓库 12conda config --add channels https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;pkgs&#x2F;free&#x2F;conda config --set show_channel_urls yes    2.升级当前版本的conda 1conda update co">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL创建用户与授权">
-<meta property="og:url" content="http://yoursite.com/2020/01/24/13.MySQL%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E4%B8%8E%E6%8E%88%E6%9D%83/index.html">
+<meta property="og:title" content="Anaconda基础操作">
+<meta property="og:url" content="http://yoursite.com/2020/03/10/52.Anaconda%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/index.html">
 <meta property="og:site_name" content="叶梨子的小窝">
-<meta property="og:description" content="1.创建用户1CREATE USER &#39;username&#39;@&#39;host&#39; IDENTIFIED BY &#39;password&#39;;  username：你将创建的用户名host：指定该用户在哪个主机上可以登陆，如果是本地用户可用localhost，如果想让该用户可以从任意远程主机登陆，可以使用通配符%password：该用户的登陆密码，密码可以为空，如果为">
+<meta property="og:description" content="1.添加清华仓库 12conda config --add channels https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;pkgs&#x2F;free&#x2F;conda config --set show_channel_urls yes    2.升级当前版本的conda 1conda update co">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-01-24T01:08:20.000Z">
-<meta property="article:modified_time" content="2020-02-14T11:01:14.987Z">
+<meta property="article:published_time" content="2020-03-10T08:34:22.000Z">
+<meta property="article:modified_time" content="2020-03-10T08:34:43.039Z">
 <meta property="article:author" content="pearfl">
-<meta property="article:tag" content="linux">
-<meta property="article:tag" content="mysql">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="Anaconda">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2020/01/24/13.MySQL%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E4%B8%8E%E6%8E%88%E6%9D%83/">
+<link rel="canonical" href="http://yoursite.com/2020/03/10/52.Anaconda%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">
 
 
 <script id="page-configurations">
@@ -72,7 +72,7 @@
   };
 </script>
 
-  <title>MySQL创建用户与授权 | 叶梨子的小窝</title>
+  <title>Anaconda基础操作 | 叶梨子的小窝</title>
   
 
 
@@ -214,7 +214,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/24/13.MySQL%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E4%B8%8E%E6%8E%88%E6%9D%83/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/10/52.Anaconda%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -227,7 +227,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          MySQL创建用户与授权
+          Anaconda基础操作
         </h1>
 
         <div class="post-meta">
@@ -236,16 +236,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-01-24 09:08:20" itemprop="dateCreated datePublished" datetime="2020-01-24T09:08:20+08:00">2020-01-24</time>
+              <time title="创建时间：2020-03-10 16:34:22 / 修改时间：16:34:43" itemprop="dateCreated datePublished" datetime="2020-03-10T16:34:22+08:00">2020-03-10</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-14 19:01:14" itemprop="dateModified" datetime="2020-02-14T19:01:14+08:00">2020-02-14</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -264,14 +258,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.7k</span>
+              <span>443</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -283,45 +277,30 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="1-创建用户"><a href="#1-创建用户" class="headerlink" title="1.创建用户"></a>1.创建用户</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER &#39;username&#39;@&#39;host&#39; IDENTIFIED BY &#39;password&#39;;</span><br></pre></td></tr></table></figure>
-
-<p>username：你将创建的用户名<br>host：指定该用户在哪个主机上可以登陆，如果是本地用户可用localhost，如果想让该用户可以从任意远程主机登陆，可以使用通配符%<br>password：该用户的登陆密码，密码可以为空，如果为空则该用户可以不需要密码登陆服务器</p>
-<p>例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER &#39;dog&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;123456&#39;;</span><br><span class="line">CREATE USER &#39;pig&#39;@&#39;192.168.1.101_&#39; IDENDIFIED BY &#39;123456&#39;;</span><br><span class="line">CREATE USER &#39;pig&#39;@&#39;%&#39; IDENTIFIED BY &#39;123456&#39;;</span><br><span class="line">CREATE USER &#39;pig&#39;@&#39;%&#39; IDENTIFIED BY &#39;&#39;;</span><br><span class="line">CREATE USER &#39;pig&#39;@&#39;%&#39;;</span><br></pre></td></tr></table></figure>
+        <p>1.添加清华仓库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda config --add channels https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;pkgs&#x2F;free&#x2F;</span><br><span class="line">conda config --set show_channel_urls yes</span><br></pre></td></tr></table></figure>
 
 
 
-
-
-<h2 id="2-授权"><a href="#2-授权" class="headerlink" title="2.授权"></a>2.授权</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRANT privileges ON databasename.tablename TO &#39;username&#39;@&#39;host&#39;</span><br></pre></td></tr></table></figure>
-
-<p>privileges：用户的操作权限，如SELECT，INSERT，UPDATE等，如果要授予所的权限则使用ALL<br>databasename：数据库名<br>tablename：表名，如果要授予该用户对所有数据库和表的相应操作权限则可用<em>表示，如</em>.*</p>
-<p>用以上命令授权的用户不能给其它用户授权，如果想让该用户可以授权，用以下命令:<br>GRANT privileges ON databasename.tablename TO ‘username’@’host’ WITH GRANT OPTION;</p>
-<p>例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GRANT SELECT, INSERT ON test.user TO &#39;pig&#39;@&#39;%&#39;;</span><br><span class="line">GRANT ALL ON *.* TO &#39;pig&#39;@&#39;%&#39;;</span><br><span class="line">GRANT ALL ON maindataplus.* TO &#39;pig&#39;@&#39;%&#39;;</span><br></pre></td></tr></table></figure>
+<p>2.升级当前版本的conda</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda update conda</span><br></pre></td></tr></table></figure>
 
 
 
-<h2 id="3-设置与更改用户密码"><a href="#3-设置与更改用户密码" class="headerlink" title="3.设置与更改用户密码"></a>3.设置与更改用户密码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET PASSWORD FOR &#39;username&#39;@&#39;host&#39; &#x3D; PASSWORD(&#39;newpassword&#39;);</span><br></pre></td></tr></table></figure>
-
-<p>如果是当前登陆用户用:<br>SET PASSWORD = PASSWORD(“newpassword”);</p>
-<p>例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET PASSWORD FOR &#39;pig&#39;@&#39;%&#39; &#x3D; PASSWORD(&quot;123456&quot;);</span><br></pre></td></tr></table></figure>
+<p>3.创建并激活一个环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">conda create --name snowflake</span><br><span class="line"></span><br><span class="line">Linux，OS X: source activate snowflakes</span><br><span class="line">Windows：activate snowflake&#96;</span><br></pre></td></tr></table></figure>
 
 
 
-<h2 id="4-撤销用户权限"><a href="#4-撤销用户权限" class="headerlink" title="4.撤销用户权限"></a>4.撤销用户权限</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REVOKE privilege ON databasename.tablename FROM &#39;username&#39;@&#39;host&#39;;</span><br></pre></td></tr></table></figure>
-
-<p>privilege, databasename, tablename：同授权部分</p>
-<p>假如你在给用户‘pig’@’%’授权的时候是这样的（或类似的）：GRANT SELECT ON test.user TO ‘pig’@’%’，则在使用REVOKE SELECT ON <em>.</em> FROM ‘pig’@’%’;命令并不能撤销该用户对test数据库中user表的SELECT 操作。</p>
-<p>相反，如果授权使用的是GRANT SELECT ON <em>.</em> TO ‘pig’@’%’;则REVOKE SELECT ON test.user FROM ‘pig’@’%’;命令也不能撤销该用户对test数据库中user表的Select权限。</p>
-<p>具体信息可以用命令SHOW GRANTS FOR ‘pig’@’%’; 查看。</p>
-<p>例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REVOKE SELECT ON *.* FROM &#39;pig&#39;@&#39;%&#39;;</span><br></pre></td></tr></table></figure>
+<p>4.切换到另一个环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Linux，OS X: source activate snowflakes</span><br><span class="line">Windows：activate snowflakes</span><br><span class="line"></span><br><span class="line">Linux，OS X: source deactivate</span><br><span class="line">Windows: deactivate</span><br></pre></td></tr></table></figure>
 
 
 
-<h2 id="5-删除用户"><a href="#5-删除用户" class="headerlink" title="5.删除用户"></a>5.删除用户</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP USER &#39;username&#39;@&#39;host&#39;;</span><br></pre></td></tr></table></figure>
+<p>5.删除环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda remove -n flowers --all</span><br></pre></td></tr></table></figure>
+
+
     </div>
 
     
@@ -330,8 +309,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/linux/" rel="tag"># linux</a>
-              <a href="/tags/mysql/" rel="tag"># mysql</a>
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/Anaconda/" rel="tag"># Anaconda</a>
           </div>
 
         
@@ -340,13 +319,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/01/23/12.CentOS7%E4%BD%BF%E7%94%A8firewalld%E6%89%93%E5%BC%80%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99%E4%B8%8E%E7%AB%AF%E5%8F%A3/" rel="prev" title="CentOS7使用firewalld打开关闭防火墙与端口">
-      <i class="fa fa-chevron-left"></i> CentOS7使用firewalld打开关闭防火墙与端口
+    <a href="/2020/03/10/51.%E6%B5%81%E4%B8%8E%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91/" rel="prev" title="流与输出重定向">
+      <i class="fa fa-chevron-left"></i> 流与输出重定向
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/01/26/14.%E6%9C%80%E7%9F%AD%E8%B7%AF%E7%AE%97%E6%B3%95/" rel="next" title="最短路径算法">
-      最短路径算法 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -406,7 +382,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-创建用户"><span class="nav-number">1.</span> <span class="nav-text">1.创建用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-授权"><span class="nav-number">2.</span> <span class="nav-text">2.授权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-设置与更改用户密码"><span class="nav-number">3.</span> <span class="nav-text">3.设置与更改用户密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-撤销用户权限"><span class="nav-number">4.</span> <span class="nav-text">4.撤销用户权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-删除用户"><span class="nav-number">5.</span> <span class="nav-text">5.删除用户</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

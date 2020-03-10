@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Anaconda基础操作</title>
+    <url>/2020/03/10/52.Anaconda%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<p>1.添加清华仓库</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">conda config --add channels https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;pkgs&#x2F;free&#x2F;</span><br><span class="line">conda config --set show_channel_urls yes</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.升级当前版本的conda</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">conda update conda</span><br></pre></td></tr></table></figure>
+
+
+
+<p>3.创建并激活一个环境</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">conda create --name snowflake</span><br><span class="line"></span><br><span class="line">Linux，OS X: source activate snowflakes</span><br><span class="line">Windows：activate snowflake&#96;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>4.切换到另一个环境</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Linux，OS X: source activate snowflakes</span><br><span class="line">Windows：activate snowflakes</span><br><span class="line"></span><br><span class="line">Linux，OS X: source deactivate</span><br><span class="line">Windows: deactivate</span><br></pre></td></tr></table></figure>
+
+
+
+<p>5.删除环境</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">conda remove -n flowers --all</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>随笔分享</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>Anaconda</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>流与输出重定向</title>
     <url>/2020/03/10/51.%E6%B5%81%E4%B8%8E%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91/</url>
     <content><![CDATA[]]></content>
@@ -859,7 +894,8 @@
   <entry>
     <title>Spark编译安装</title>
     <url>/2020/02/11/38.Spark%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>1.JDK:Spark 2.2.0及以上版本只支持JDK1.8</p>
+    <content><![CDATA[<p>官方文档：<a href="http://spark.apache.org/docs/latest/building-spark.html" target="_blank" rel="noopener">http://spark.apache.org/docs/latest/building-spark.html</a></p>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>1.JDK:Spark 2.2.0及以上版本只支持JDK1.8</p>
 <p>2.Maven：3.6.3</p>
 <ol>
 <li><p>设置maven环境变量时，需设置maven内存：</p>
