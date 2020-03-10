@@ -1,14 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>screen后台操作</title>
-    <url>/2020/03/09/50.screen%E5%90%8E%E5%8F%B0%E6%93%8D%E4%BD%9C/</url>
+    <title>流与输出重定向</title>
+    <url>/2020/03/10/51.%E6%B5%81%E4%B8%8E%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91/</url>
     <content><![CDATA[]]></content>
       <categories>
         <category>linux</category>
       </categories>
       <tags>
+        <tag>重定向</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>nohub与前台后台操作</title>
+    <url>/2020/03/10/50.nohub%E4%B8%8E%E5%89%8D%E5%8F%B0%E5%90%8E%E5%8F%B0%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h2 id="1-amp-符号和-nohup-命令：后台运行进程"><a href="#1-amp-符号和-nohup-命令：后台运行进程" class="headerlink" title="1. &amp; 符号和 nohup 命令：后台运行进程"></a>1. &amp; 符号和 nohup 命令：后台运行进程</h2><p>我们到目前为止用终端做的事情都是目所能及的，也就是说：我们运行的命令都是在前台可见的。</p>
+<p>这样的一个好处是我们可以看到命令运行的过程，有什么问题可以及时发现。但是也有缺陷，例如有的命令运行耗时良久，我们又不想无所事事，怎么办呢？难道我开一个终端专门执行一个耗时命令，然后为了能做其他事情，我再启动一个终端，那也很不方便。</p>
+<p>事实上，我们可以在同一个终端中同时运行好几个命令。怎么做呢？就需要用到后台进程的概念。</p>
+<a id="more"></a>
+
+<h4 id="前台进程和后台进程"><a href="#前台进程和后台进程" class="headerlink" title="前台进程和后台进程"></a>前台进程和后台进程</h4><p>默认情况下，用户创建的进程都是前台进程。前台进程从键盘读取数据，并把处理结果输出到显示器。</p>
+<p>我们可以看到前台进程的运行过程。例如，使用 ls 命令来遍历当前目录下的文件。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ls</span><br></pre></td></tr></table></figure>
+
+<p>这个程序就运行在前台，它会直接把结果输出到显示器。如果 ls 命令需要数据（实际上不需要），那么它会等待用户从键盘输入。</p>
+<p>当程序运行在前台时，由于命令提示符（$）还未出现，用户不能输入其他命令；即使程序需要运行很长时间，也必须等待程序运行结束才能输入其他命令。</p>
+<p>后台进程与键盘没有必然的关系。当然，后台进程也可能会等待键盘输入。</p>
+<p>后台进程的优点是不必等待程序运行结束就可以输入其他命令。</p>
+<p>那么怎么使一个进程（程序的实例）运行在后台呢？</p>
+<h4 id="amp-符号：在后台运行进程"><a href="#amp-符号：在后台运行进程" class="headerlink" title="&amp; 符号：在后台运行进程"></a>&amp; 符号：在后台运行进程</h4><p>前面说过，让一个进程在后台运行有几种方法。</p>
+<p>我们带大家来学习第一种，很简单：就是在你要运行的命令最后加上 &amp; 这个符号。</p>
+<p>我们可以用熟悉的 cp 命令做例子。例如，我运行 cp 命令来拷贝文件：emacs 的软件包。当然了，你可以用其他文件来测试。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp emacs-26.2.tar.gz emacs-26.2-copy.tar.gz &amp;</span><br></pre></td></tr></table></figure>
+
+<p>命令最后加了 &amp; 符号，运行时此进程就成为了后台进程。终端输出了一些信息：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[1] 2051</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>[1] ：这是此终端的后台进程的标号。因为这是第一个后台进程，所以标号为 1。</p>
+</li>
+<li><p>2051 ：这是进程号（PID），如果你想要结束这个后台进程，你可以用 kill 命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">kill 2051</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>我们虽然看不到这个拷贝进程的“所作所为”，但它确实在后台默默进行着文件的拷贝。</p>
+<p>可以看到，终端显示了：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[1]+  Done    cp emacs-26.2.tar.gz emacs-26.2-copy.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>Done 是英语“完成的”的意思，表示这个后台进程的任务已经完成了。</p>
+<h4 id="nohup-命令：使进程与终端分离"><a href="#nohup-命令：使进程与终端分离" class="headerlink" title="nohup 命令：使进程与终端分离"></a>nohup 命令：使进程与终端分离</h4><p>&amp; 符号虽然常用，但却有一个不可忽视的缺点：后台进程与终端相关联。一旦终端关闭或者用户登出，进程就自动结束。</p>
+<p>如果我们想让进程在以上情况下仍然继续在后台运行，那么我们须要用到 nohup 命令。</p>
+<p>当用户注销（logout）或者网络断开时，终端会收到 HUP（是 hangup 的缩写，英语“挂断”的意思）信号从而关闭其所有子进程；终端被关闭时也会关闭其子进程。</p>
+<p>我们可以用 nohup 命令使命令不受 HUP 信号影响。</p>
+<p>我们用 man 来看一下 nohup 命令的解释：</p>
+<p>nohup 命令的简单描述如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">run a command immune to hangups, with output to a non-tty</span><br></pre></td></tr></table></figure>
+
+<p>翻译出来大致就是：“使得运行的命令不受 hangup 信号影响，而且输出会存放到一个非 tty 中”。</p>
+<p>nohup 命令的用法很简单：在 nohup 命令之后接要运行的命令。例如，我们可以用 nohup 配合 cp 命令来实现文件的拷贝（这次拷贝的是 node.js 的源码。当然了，你可以用其他文件来测试）：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nohup cp node-v10.15.3.tar.gz node-v10.15.3-copy.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>可以看到这次的输出信息是：“ignoring input and appending output to nohup.out”。</p>
+<p>大致意思是：“忽略输入，把输出追加到 nohup.out 文件中”。</p>
+<p>使用 nohup 命令后，输出会被默认地追加写入到一个叫 nohup.out 的文件里。</p>
+<p>现在，我们的进程已经不受终端关闭或者用户断开连接的影响了，会一直运行。当然了，用 kill 命令还是可以结束此进程的。要获知进程号，可以用我们之前学过的 ps 命令配合 grep 来查找。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ps -ax | grep command</span><br></pre></td></tr></table></figure>
+
+<p>上面命令里的 command 指代 nohup 后面跟着的命令。</p>
+<p>nohup 命令相当有用。想象以下场景：</p>
+<blockquote>
+<p>我登录远程服务器，然后运行了一个耗时命令，或者一个需要一直运行的命令，例如一个游戏的服务器程序。这时假如我掉线了，或者我不小心用 exit 命令退出了登录。那么这个耗时命令也会中止运行。那就很麻烦了。而且，如果这个程序本应该一直运行很久的，我也不可能一直保持登录状态等它结束啊。<br>我家里还有老婆孩子呢，不能不去做饭啊，我要下班… 开个小玩笑。</p>
+</blockquote>
+<p>幸好，nohup 命令解决了这样的难题。</p>
+<p>一般我们也会把 nohup 和 &amp; 一起使用，例如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nohup cp node-v10.15.3.tar.gz node-v10.15.3-copy.tar.gz &amp;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-Ctrl-Z，jobs，bg-和-fg-命令：控制进程的前后台切换"><a href="#2-Ctrl-Z，jobs，bg-和-fg-命令：控制进程的前后台切换" class="headerlink" title="2. Ctrl + Z，jobs，bg 和 fg 命令：控制进程的前后台切换"></a>2. Ctrl + Z，jobs，bg 和 fg 命令：控制进程的前后台切换</h2><p>我们来考虑一种情况：假如你要将进程转到后台运行，但是执行命令时忘记了在最后加上 &amp; 符号。</p>
+<p>如何再使此进程转为后台进程呢？有几种方法。我们一一来学习。</p>
+<h4 id="Ctrl-Z：转到后台，并暂停运行"><a href="#Ctrl-Z：转到后台，并暂停运行" class="headerlink" title="Ctrl + Z：转到后台，并暂停运行"></a>Ctrl + Z：转到后台，并暂停运行</h4><p>我们用 top 命令来演示。运行：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">top</span><br></pre></td></tr></table></figure>
+
+<p>因为 top 命令的作用是实时地显示各种系统信息和进程列表。这时，我们按下 Ctrl + Z 这个组合键</p>
+<p>可以看到终端显示了：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[1]+ Stopped top</span><br></pre></td></tr></table></figure>
+
+<p>这行信息。</p>
+<p>stopped 是英语“停止的”的意思，我们又看到 [1] 这个熟悉的信息，表示这是此终端第一个后台进程。</p>
+<p>所以表示 top 命令被放到了后台，此进程还是驻留在内存中，但是被暂停运行了。这个时候命令提示符又出现了，我们可以做其他事情了。</p>
+<h4 id="bg-命令：使进程转到后台"><a href="#bg-命令：使进程转到后台" class="headerlink" title="bg 命令：使进程转到后台"></a>bg 命令：使进程转到后台</h4><p>经过上面的 Ctrl + Z 操作，我们可怜的 top 进程已经被“打入冷宫”（转入后台，并且被暂停运行了）。</p>
+<blockquote>
+<p>但是皇后不甘心啊：“臣妾虽然做不到，但即使在冷宫中，我也要工于心计、运筹帷幄，以期早日打败甄嬛。”</p>
+</blockquote>
+<p>那怎么办呢？可以运行 bg 命令。</p>
+<p>就是很简单地输入 bg，然后回车。bg 是英语 background 的缩写，表示“后台”。</p>
+<p>bg 命令的作用是将命令转入后台运行。假如命令已经在后台，并且暂停着，那么 bg 命令会将其状态改为运行。</p>
+<p>不加任何参数，bg 命令会默认作用于最近的一个后台进程，也就是刚才被 Ctrl + Z 暂停的 top 进程。如果后面加 %1，%2 这样的参数（不带 %，直接 1，2 这样也可以），则是作用于指定标号的进程。因为进程转入后台之后，会显示它在当前终端下的后台进程编号。例如目前 top 进程转入了后台，它的进程编号是 1（可以由 [1]+ 推断）。依次类推，bg %2 就是作用于编号为 2 的后台进程。</p>
+<p>补充一些知识：</p>
+<blockquote>
+<p>Linux 中，进程有 5 种状态：</p>
+<ol>
+<li>运行 (正在运行或在运行队列中等待)</li>
+<li>中断 (休眠中, 受阻, 在等待某个条件的形成或接受到信号)</li>
+<li>不可中断 (收到信号不唤醒和不可运行, 进程必须等待直到有中断发生)</li>
+<li>僵死 (进程已终止, 但进程描述符存在, 直到父进程使用 wait4() 系统调用后释放)</li>
+<li>停止 (进程收到 SIGSTOP, SIGSTP, SIGTIN, SIGTOU 信号后停止运行)</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>ps 命令标识进程的 5 种状态码如下：</p>
+<ol>
+<li>D 不可中断 uninterruptible sleep (usually IO)</li>
+<li>R 运行 runnable (on run queue)</li>
+<li>S 中断 sleeping</li>
+<li>T 停止 traced or stopped</li>
+<li>Z 僵死 a defunct (“zombie”) process</li>
+</ol>
+</blockquote>
+<h4 id="jobs-命令：显示后台进程状态"><a href="#jobs-命令：显示后台进程状态" class="headerlink" title="jobs 命令：显示后台进程状态"></a>jobs 命令：显示后台进程状态</h4><p>这个命令很强大，毕竟和乔布斯乔老爷子（乔布斯的英文就是 jobs，全名是 Steve Jobs。job 是英语“工作”的意思，jobs 是复数形式）一样名字么。</p>
+<p>jobs 命令的作用是显示当前终端里的后台进程状态。虽然我们可以用 ps 命令来查看进程状态，但是 ps 命令输出的进程列表太长了。</p>
+<p>jobs 命令的输出共分三列，我们逐列来说明：</p>
+<ol>
+<li>显示后台进程标号：比如上例中 top 进程的标号是 1，grep 进程的标号是 2，如果还有其他后台进程，那么就会有 [3]，[4]等等。这个标号和 PID（进程号）是不一样的。这个标号只是显示当前终端下的后台进程的一个编号；</li>
+<li>显示后台进程状态：比如 Stopped 是“停止的”的意思，Running 是“运行的”的意思。还有其他状态；</li>
+<li>命令本身。</li>
+</ol>
+<h4 id="fg-命令：使进程转到前台"><a href="#fg-命令：使进程转到前台" class="headerlink" title="fg 命令：使进程转到前台"></a>fg 命令：使进程转到前台</h4><p>fg 是英语 foreground 的意思，表示“前台”。</p>
+<p>与 bg 命令相反，fg 命令的作用是：使进程转为前台运行。</p>
+<p>用法也很简单，和 bg 一样，如果不加参数，那么 fg 命令作用于最近的一个后台进程；如果加参数，如 %2，那么表示作用于本终端中第二个后台进程。</p>
+<p><img src="http://img1.sycdn.imooc.com/5d27ed94000124f610581196.png" alt="图片描述"></p>
+<p>解释一下上图：</p>
+<ol>
+<li>如果我们运行一个程序，默认情况下，它会成为一个前台运行的进程。我们可以按组合键 Ctrl + C 来销毁此进程。</li>
+<li>我们也可以使此进程在后台运行。假如运行程序时就用 &amp; 放在命令最后，那么进程就会在后台运行。</li>
+<li>假如在进程运行起来后，按 Ctrl + Z，则进程会转到后台，并且停止。此时如果运行 bg 命令，则进程重新运行，并继续在后台。</li>
+<li>fg 命令可以使进程转到前台，并且运行。</li>
+</ol>
+<p>花点时间好好理解一下这个状态图。这个图很重要，几乎概括了后台前台进程切换的所有情况。</p>
+<h5 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h5><ol>
+<li>我们可以使程序在后台运行，成为后台进程。这样在当前终端中我们就可以做其他事了，而不必等待此进程运行结束。</li>
+<li>为了使一个程序在后台运行，可以在命令的最后加上 &amp; 这个符号。但是，如果你关闭终端或退出登录，此后台进程还是会结束。为了将后台进程与本终端分离，可以使用 nohup 命令，使得进程不再受终端关闭或用户登出的影响。</li>
+<li>如果你运行了一个前台进程，但是想要将其转为后台运行进程。你可以先用 Ctrl + Z 组合键将其转为后台暂停，然后运行 bg 命令使其在后台重新运行。如果你要将一个后台命令（不管它是后台运行还是后台暂停）重新转为前台运行，只要用 fg 命令就可以了。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
         <tag>screen</tag>
+        <tag>nohub</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python虚拟环境</title>
+    <url>/2020/03/09/45.python%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/</url>
+    <content><![CDATA[<h3 id="创建虚拟环境"><a href="#创建虚拟环境" class="headerlink" title="创建虚拟环境"></a>创建虚拟环境</h3><p>Python 3 中自带有虚拟环境模块，通过它即可创建虚拟环境，无需借助其它工具。</p>
+<p>创建虚拟环境使用命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python3 -m venv 虚拟环境名称</span><br></pre></td></tr></table></figure>
+
+<p>如：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python3 -m venv venv</span><br></pre></td></tr></table></figure>
+
+<p>此时将在当前目录中创建出 <code>venv</code> 目录，这即是虚拟环境目录，其中包含 Python 运行环境。</p>
+<h3 id="激活虚拟环境"><a href="#激活虚拟环境" class="headerlink" title="激活虚拟环境"></a>激活虚拟环境</h3><p>要使用虚拟环境首先需要激活它，激活后当前命令行所执行的 Python 代码都将运行于该虚拟环境中。</p>
+<p>Windows 操作系统中使用命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd venv\Scripts</span><br><span class="line">activate.bat</span><br></pre></td></tr></table></figure>
+
+<p>Linux 和 MacOS 中使用命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">source venv/bin/activate</span><br></pre></td></tr></table></figure>
+
+<p>上述命令执行过后，命令行的提示符前将显示 <code>(venv)</code>，如下：</p>
+<blockquote>
+<p>(venv) ➜</p>
+</blockquote>
+<p>这表示当前已处于虚拟环境中。此后在该命令行中所执行的所有 Python 代码都运行于该虚拟环境中。</p>
+<h3 id="退出虚拟环境"><a href="#退出虚拟环境" class="headerlink" title="退出虚拟环境"></a>退出虚拟环境</h3><p>当我们不要使用虚拟环境时，可以退出当前虚拟环境。</p>
+<p>Windows 操作系统中使用命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd venv\Scripts</span><br><span class="line">deactivate.bat</span><br></pre></td></tr></table></figure>
+
+<p>Linux 和 MacOS 中使用命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">deactivate</span><br></pre></td></tr></table></figure>
+
+<p>此后命令行的提示符将恢复回原本状态。</p>
+]]></content>
+      <categories>
+        <category>随笔分享</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -429,47 +608,6 @@
       </tags>
   </entry>
   <entry>
-    <title>pip源以及virtualenv基本操作</title>
-    <url>/2020/02/24/45.pip%E6%BA%90%E4%BB%A5%E5%8F%8Avirtualenv%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%20-%20%E5%89%AF%E6%9C%AC/</url>
-    <content><![CDATA[<h2 id="virtualenv基本操作（windows环境）"><a href="#virtualenv基本操作（windows环境）" class="headerlink" title="virtualenv基本操作（windows环境）"></a>virtualenv基本操作（windows环境）</h2><p>1、下载virtualenv</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install virtualenv</span><br></pre></td></tr></table></figure>
-
-<p>2、创建一个virtualenv工作目录</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mkdir myproject_env</span><br></pre></td></tr></table></figure>
-
-<p>3、穿件一个python项目</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">virtualenv venv</span><br></pre></td></tr></table></figure>
-
-<p>4、启动virtualenv中的venv项目</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd venv\Scripts&#96;&#96;activate</span><br></pre></td></tr></table></figure>
-
-<p>5、关闭virtualenv</p>
-<p>需要在venv\Scripts内</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">deactivate</span><br></pre></td></tr></table></figure>
-
-<h2 id="pip源修改"><a href="#pip源修改" class="headerlink" title="pip源修改"></a>pip源修改</h2><p>国内源：<br>新版ubuntu要求使用https源，要注意。</p>
-<p>清华：<a href="https://pypi.tuna.tsinghua.edu.cn/simple" target="_blank" rel="noopener">https://pypi.tuna.tsinghua.edu.cn/simple</a></p>
-<p>阿里云：<a href="http://mirrors.aliyun.com/pypi/simple/" target="_blank" rel="noopener">http://mirrors.aliyun.com/pypi/simple/</a></p>
-<p>中国科技大学 <a href="https://pypi.mirrors.ustc.edu.cn/simple/" target="_blank" rel="noopener">https://pypi.mirrors.ustc.edu.cn/simple/</a></p>
-<p>华中理工大学：<a href="http://pypi.hustunique.com/" target="_blank" rel="noopener">http://pypi.hustunique.com/</a></p>
-<p>山东理工大学：<a href="http://pypi.sdutlinux.org/" target="_blank" rel="noopener">http://pypi.sdutlinux.org/</a></p>
-<p>豆瓣：<a href="http://pypi.douban.com/simple/" target="_blank" rel="noopener">http://pypi.douban.com/simple/</a></p>
-<p>临时使用：<br>可以在使用pip的时候加参数-i <a href="https://pypi.tuna.tsinghua.edu.cn/simple" target="_blank" rel="noopener">https://pypi.tuna.tsinghua.edu.cn/simple</a></p>
-<p>例如：pip install -i <a href="https://pypi.tuna.tsinghua.edu.cn/simple" target="_blank" rel="noopener">https://pypi.tuna.tsinghua.edu.cn/simple</a> pyspider，这样就会从清华这边的镜像去安装pyspider库。</p>
-<p>永久修改，一劳永逸：<br>Linux下，修改 ~/.pip/pip.conf (没有就创建一个文件夹及文件。文件夹要加“.”，表示是隐藏文件夹)</p>
-<p>内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[global]</span><br><span class="line">index-url &#x3D; https:&#x2F;&#x2F;pypi.tuna.tsinghua.edu.cn&#x2F;simple</span><br><span class="line">[install]</span><br><span class="line">trusted-host&#x3D;mirrors.aliyun.com</span><br></pre></td></tr></table></figure>
-
-<p>windows下，直接在user目录中创建一个pip目录，如：C:\Users\xx\pip，新建文件pip.ini。内容同上。</p>
-]]></content>
-      <categories>
-        <category>随笔分享</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>linux上的一些快捷键</title>
     <url>/2020/02/23/44.linux%E4%B8%8A%E7%9A%84%E4%B8%80%E4%BA%9B%E5%BF%AB%E6%8D%B7%E9%94%AE/</url>
     <content><![CDATA[<p>列举一些经常使用的快捷键：</p>
@@ -786,7 +924,7 @@
   </entry>
   <entry>
     <title>彻底明白Java的值传递和引用传递</title>
-    <url>/2020/02/10/36.%E5%BD%BB%E5%BA%95%E6%98%8E%E7%99%BDJava%E7%9A%84%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92%20-%20%E5%89%AF%E6%9C%AC/</url>
+    <url>/2020/02/10/36.%E5%BD%BB%E5%BA%95%E6%98%8E%E7%99%BDJava%E7%9A%84%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/</url>
     <content><![CDATA[<p>原文链接：<a href="https://blog.csdn.net/bntx2jsqfehy7/article/details/83508006" target="_blank" rel="noopener">https://blog.csdn.net/bntx2jsqfehy7/article/details/83508006</a></p>
 <h2 id="一、形参与实参"><a href="#一、形参与实参" class="headerlink" title="一、形参与实参"></a>一、形参与实参</h2><ol>
 <li>形参：方法被调用时需要传递进来的参数，如：func(int a)中的a，它只有在func被调用期间a才有意义，也就是会被分配内存空间，在方法func执行完成后，a就会被销毁释放空间，也就是不存在了</li>
@@ -2292,7 +2430,7 @@
   </entry>
   <entry>
     <title>CentOS7使用firewalld打开关闭防火墙与端口</title>
-    <url>/2020/01/23/12.CentOS7%E4%BD%BF%E7%94%A8firewalld%E6%89%93%E5%BC%80%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99%E4%B8%8E%E7%AB%AF%E5%8F%A3%20-%20%E5%89%AF%E6%9C%AC/</url>
+    <url>/2020/01/23/12.CentOS7%E4%BD%BF%E7%94%A8firewalld%E6%89%93%E5%BC%80%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99%E4%B8%8E%E7%AB%AF%E5%8F%A3/</url>
     <content><![CDATA[<h2 id="CentOS7使用firewalld打开关闭防火墙与端口"><a href="#CentOS7使用firewalld打开关闭防火墙与端口" class="headerlink" title="CentOS7使用firewalld打开关闭防火墙与端口"></a>CentOS7使用firewalld打开关闭防火墙与端口</h2><p>1、firewalld的基本使用</p>
 <p>启动： systemctl start firewalld</p>
 <p>关闭： systemctl stop firewalld</p>
@@ -2333,27 +2471,9 @@
       </tags>
   </entry>
   <entry>
-    <title>pip源以及virtualenv基本操作</title>
-    <url>/2020/01/22/11.pip%E6%BA%90%E4%BB%A5%E5%8F%8Avirtualenv%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<h2 id="virtualenv基本操作（windows环境）"><a href="#virtualenv基本操作（windows环境）" class="headerlink" title="virtualenv基本操作（windows环境）"></a>virtualenv基本操作（windows环境）</h2><p>1、下载virtualenv</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install virtualenv</span><br></pre></td></tr></table></figure>
-
-<p>2、创建一个virtualenv工作目录</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mkdir myproject_env</span><br></pre></td></tr></table></figure>
-
-<p>3、穿件一个python项目</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">virtualenv venv</span><br></pre></td></tr></table></figure>
-
-<p>4、启动virtualenv中的venv项目</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd venv\Scripts&#96;&#96;activate</span><br></pre></td></tr></table></figure>
-
-<p>5、关闭virtualenv</p>
-<p>需要在venv\Scripts内</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">deactivate</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="pip源修改"><a href="#pip源修改" class="headerlink" title="pip源修改"></a>pip源修改</h2><p>国内源：<br>新版ubuntu要求使用https源，要注意。</p>
+    <title>pip源</title>
+    <url>/2020/01/22/11.pip%E6%BA%90/</url>
+    <content><![CDATA[<h2 id="pip源修改"><a href="#pip源修改" class="headerlink" title="pip源修改"></a>pip源修改</h2><p>国内源：<br>新版ubuntu要求使用https源，要注意。</p>
 <p>清华：<a href="https://pypi.tuna.tsinghua.edu.cn/simple" target="_blank" rel="noopener">https://pypi.tuna.tsinghua.edu.cn/simple</a></p>
 <p>阿里云：<a href="http://mirrors.aliyun.com/pypi/simple/" target="_blank" rel="noopener">http://mirrors.aliyun.com/pypi/simple/</a></p>
 <p>中国科技大学 <a href="https://pypi.mirrors.ustc.edu.cn/simple/" target="_blank" rel="noopener">https://pypi.mirrors.ustc.edu.cn/simple/</a></p>
