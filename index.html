@@ -339,10 +339,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-03-10 14:47:10 / 修改时间：14:47:23" itemprop="dateCreated datePublished" datetime="2020-03-10T14:47:10+08:00">2020-03-10</time>
+              <time title="创建时间：2020-03-10 14:47:10" itemprop="dateCreated datePublished" datetime="2020-03-10T14:47:10+08:00">2020-03-10</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-12 17:01:34" itemprop="dateModified" datetime="2020-03-12T17:01:34+08:00">2020-03-12</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -361,14 +367,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
+              <span>1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -380,7 +386,42 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <p>流就是读一点数据, 处理一点点数据</p>
+<p>重定向，是什么意思呢？简单来说，就是我们可以把本来要显示在终端的命令结果，输送到别的地方：到文件中或者作为其他命令的输入（命令的链接，或者叫命令管道）。</p>
+<ul>
+<li>&gt; ：重定向到文件中。如果文件已存在，则覆盖文件内容；文件不存在，则创建文件。</li>
+<li>&gt;&gt; ：重定向到文件末尾。如果文件不存在，则创建文件。</li>
+</ul>
+<p>&gt; 和 &gt;&gt; 符号只是将标准输出重定向到文件，并不能将标准错误输出重定向到文件。</p>
+<p>那么我们要重定向标准错误输出，该怎么办呢？</p>
+<p>我们就要用到 2&gt; 这个符号。是的，就是在 &gt; 这个符号左边紧挨着写一个 2。</p>
+<p>为什么是 2 呢？标准错误输出的文件描述符是 2，所以这里的 2 表示标准错误输出。如果没有 2，单独的 &gt; 符号就是重定向标准输出（文件描述符为 1）。</p>
+<p>我们补充一下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat not_exist_file.csv &gt; results.txt 2&gt; errors.log</span><br></pre></td></tr></table></figure>
+
+<p>这个命令里有两个重定向：</p>
+<ul>
+<li>&gt; results.txt ：将标准输出重定向到 results.txt 文件中；</li>
+<li>2&gt; errors.log ：将标准错误输出重定向到 errors.log 文件中。</li>
+</ul>
+<p>也就是说：</p>
+<ul>
+<li>假如 not_exist_file.csv 这个文件确实存在，将其内容写入 results.txt 文件中。</li>
+<li>假如 not_exist_file.csv 这个文件不存在，将错误信息写入 errors.log 文件中。</li>
+</ul>
+<h4 id="合并输出"><a href="#合并输出" class="headerlink" title="合并输出"></a>合并输出</h4><p>上面我们学习了如何将标准输出和标准错误输出分别重定向到不同文件。但是有的时候，我们比较“任性”，就想把标准输出和标准错误输出都重定向到同一个地方。怎么做呢？</p>
+<p>须要使用 2&gt;&amp;1 这个组合符号。</p>
+<p>看着怪怪的对吧？仅由四个字符组成。这个符号的作用是：将标准错误输出重定向到与标准输出相同的地方。</p>
+<p>我们用实例演示一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat not_exist_file.csv &gt; results.txt 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+<p>上面的命令的作用是：将 <code>cat not_exist_file.csv</code> 这个命令的所有输出（标准输出和标准错误输出）都重定向到 results.txt 文件中。</p>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><ul>
+<li>2&gt; ：将标准错误输出重定向到文件。如果文件已经存在，则覆盖文件内容；如果不存在，则创建文件。</li>
+<li>2&gt;&gt; ：将标准错误输出重定向到文件末尾。如果文件不存在，则创建文件。</li>
+<li>2&gt;&amp;1 ：将标准输出和标准错误输出重定向到同一个地方。</li>
+</ul>
+
       
     </div>
 
@@ -835,12 +876,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">112k</span>
+    <span title="站点总字数">113k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:06</span>
+    <span title="站点阅读时长">3:08</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
