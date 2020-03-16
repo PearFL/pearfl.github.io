@@ -46,15 +46,15 @@
   };
 </script>
 
-  <meta name="description" content="前置概念1.指定脚本要使用的 Shell1#!&#x2F;bin&#x2F;bash   上面这句代码中， &#x2F;bin&#x2F;bash 是 Bash 程序在大多数 Linux 系统中的存放路径，而最前面的 #! 被称作 Sha-bang，或者 Shebang。  在计算机科学中，Shebang（也称为 Hashbang ）是一个由井号和叹号构成的字符串 #! ，其出现在文本文档的第一行的前两个字符。在文档">
+  <meta name="description" content="前置概念指定脚本要使用的 Shell1#!&#x2F;bin&#x2F;bash   上面这句代码中， &#x2F;bin&#x2F;bash 是 Bash 程序在大多数 Linux 系统中的存放路径，而最前面的 #! 被称作 Sha-bang，或者 Shebang。  在计算机科学中，Shebang（也称为 Hashbang ）是一个由井号和叹号构成的字符串 #! ，其出现在文本文档的第一行的前两个字符。在文档中存">
 <meta property="og:type" content="article">
 <meta property="og:title" content="shell基础语法">
 <meta property="og:url" content="http://yoursite.com/2020/03/16/55.shell%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/index.html">
 <meta property="og:site_name" content="叶梨子的小窝">
-<meta property="og:description" content="前置概念1.指定脚本要使用的 Shell1#!&#x2F;bin&#x2F;bash   上面这句代码中， &#x2F;bin&#x2F;bash 是 Bash 程序在大多数 Linux 系统中的存放路径，而最前面的 #! 被称作 Sha-bang，或者 Shebang。  在计算机科学中，Shebang（也称为 Hashbang ）是一个由井号和叹号构成的字符串 #! ，其出现在文本文档的第一行的前两个字符。在文档">
+<meta property="og:description" content="前置概念指定脚本要使用的 Shell1#!&#x2F;bin&#x2F;bash   上面这句代码中， &#x2F;bin&#x2F;bash 是 Bash 程序在大多数 Linux 系统中的存放路径，而最前面的 #! 被称作 Sha-bang，或者 Shebang。  在计算机科学中，Shebang（也称为 Hashbang ）是一个由井号和叹号构成的字符串 #! ，其出现在文本文档的第一行的前两个字符。在文档中存">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-03-16T04:32:11.000Z">
-<meta property="article:modified_time" content="2020-03-16T06:32:07.633Z">
+<meta property="article:modified_time" content="2020-03-16T06:55:19.479Z">
 <meta property="article:author" content="pearfl">
 <meta property="article:tag" content="shell">
 <meta name="twitter:card" content="summary">
@@ -237,7 +237,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-03-16 12:32:11 / 修改时间：14:32:07" itemprop="dateCreated datePublished" datetime="2020-03-16T12:32:11+08:00">2020-03-16</time>
+              <time title="创建时间：2020-03-16 12:32:11 / 修改时间：14:55:19" itemprop="dateCreated datePublished" datetime="2020-03-16T12:32:11+08:00">2020-03-16</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -276,7 +276,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前置概念"><a href="#前置概念" class="headerlink" title="前置概念"></a>前置概念</h2><h4 id="1-指定脚本要使用的-Shell"><a href="#1-指定脚本要使用的-Shell" class="headerlink" title="1.指定脚本要使用的 Shell"></a>1.指定脚本要使用的 Shell</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br></pre></td></tr></table></figure>
+        <h1 id="前置概念"><a href="#前置概念" class="headerlink" title="前置概念"></a>前置概念</h1><h2 id="指定脚本要使用的-Shell"><a href="#指定脚本要使用的-Shell" class="headerlink" title="指定脚本要使用的 Shell"></a>指定脚本要使用的 Shell</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br></pre></td></tr></table></figure>
 
 
 <p>上面这句代码中， /bin/bash 是 Bash 程序在大多数 Linux 系统中的存放路径，而最前面的 #! 被称作 Sha-bang，或者 Shebang。</p>
@@ -285,17 +285,17 @@
 </blockquote>
 <a id="more"></a>
 
-<h4 id="2-给脚本文件添加可执行的权限"><a href="#2-给脚本文件添加可执行的权限" class="headerlink" title="2.给脚本文件添加可执行的权限"></a>2.给脚本文件添加可执行的权限</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x test.sh</span><br></pre></td></tr></table></figure>
+<h2 id="给脚本文件添加可执行的权限"><a href="#给脚本文件添加可执行的权限" class="headerlink" title="给脚本文件添加可执行的权限"></a>给脚本文件添加可执行的权限</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x test.sh</span><br></pre></td></tr></table></figure>
 
 
 
-<h4 id="3-以调试模式运行"><a href="#3-以调试模式运行" class="headerlink" title="3.以调试模式运行"></a>3.以调试模式运行</h4><p>随着我们渐渐深入 Shell 编程，你也许会写出很长的 Shell 脚本，代码一多很可能就会有 Bug。</p>
+<h2 id="以调试模式运行"><a href="#以调试模式运行" class="headerlink" title="以调试模式运行"></a>以调试模式运行</h2><p>随着我们渐渐深入 Shell 编程，你也许会写出很长的 Shell 脚本，代码一多很可能就会有 Bug。</p>
 <p>因此，我们需要学习如何调试一个脚本程序。用法如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -x test.sh</span><br></pre></td></tr></table></figure>
 
 <p>我们直接调用 Bash 这个 Shell 程序，并且给它一个参数 -x （表示以调试模式运行），后面再跟上要调试运行的脚本文件。</p>
-<h2 id="shell变量"><a href="#shell变量" class="headerlink" title="shell变量"></a>shell变量</h2><p><strong>定义变量的时候=左右不要加空格！</strong></p>
-<h3 id="1-引号"><a href="#1-引号" class="headerlink" title="1.引号"></a>1.引号</h3><p>我们可以用引号来界定包含空格的字符串。</p>
+<h1 id="shell变量"><a href="#shell变量" class="headerlink" title="shell变量"></a>shell变量</h1><p><strong>定义变量的时候=左右不要加空格！</strong></p>
+<h2 id="引号"><a href="#引号" class="headerlink" title="引号"></a>引号</h2><p>我们可以用引号来界定包含空格的字符串。</p>
 <p>引号一共有三种：</p>
 <table>
 <thead>
@@ -318,7 +318,7 @@
 </tr>
 </tbody></table>
 <p>根据引号类型不同，Bash 的处理方式也会不同。</p>
-<h4 id="单引号"><a href="#单引号" class="headerlink" title="单引号"></a>单引号</h4><p>我们从单引号开始学习吧。美式键盘中，单引号( ’ ) 位于 Enter 键（回车键）的左方。</p>
+<h3 id="单引号"><a href="#单引号" class="headerlink" title="单引号"></a>单引号</h3><p>我们从单引号开始学习吧。美式键盘中，单引号( ’ ) 位于 Enter 键（回车键）的左方。</p>
 <p>之前的例子里，我们也已经使用过单引号了。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line"></span><br><span class="line">message&#x3D;&#39;Hello World&#39;</span><br><span class="line">echo &#39;The message is $message&#39;</span><br></pre></td></tr></table></figure>
 
@@ -327,7 +327,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The message is $message</span><br></pre></td></tr></table></figure>
 
 <p>因为：单引号忽略被它括起来的所有特殊字符。</p>
-<h4 id="双引号"><a href="#双引号" class="headerlink" title="双引号"></a>双引号</h4><p>一般来说，要输入双引号，需要用 “Shift键 + 单引号的按键”。</p>
+<h3 id="双引号"><a href="#双引号" class="headerlink" title="双引号"></a>双引号</h3><p>一般来说，要输入双引号，需要用 “Shift键 + 单引号的按键”。</p>
 <p>不同于单引号忽略所有特殊字符，双引号忽略大多数特殊字符，但不包括：美元符号（ $ ）、反引号（ ` ）、反斜杠（ \ ），这 3 种特殊字符将不被忽略。 不忽略美元符号意味着 Shell 在双引号内部可进行变量名替换。</p>
 <p>例如：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line"></span><br><span class="line">message&#x3D;&#39;Hello World&#39;</span><br><span class="line">echo &quot;The message is $message&quot;</span><br></pre></td></tr></table></figure>
@@ -335,7 +335,7 @@
 <p>执行以上脚本，显示：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The message is Hello World</span><br></pre></td></tr></table></figure>
 
-<h4 id="反引号"><a href="#反引号" class="headerlink" title="反引号"></a>反引号</h4><p>反引号 ( ` ) 不太常用，位于键盘的 Tab 键的上方、数字键 1 的左方。</p>
+<h3 id="反引号"><a href="#反引号" class="headerlink" title="反引号"></a>反引号</h3><p>反引号 ( ` ) 不太常用，位于键盘的 Tab 键的上方、数字键 1 的左方。</p>
 <p>反引号要求 Shell 执行被它括起来的内容。 什么意思呢？我们来看一个例子你就懂了：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line"></span><br><span class="line">message&#x3D;&#96;pwd&#96;</span><br><span class="line">echo &quot;You are in the directory $message&quot;</span><br></pre></td></tr></table></figure>
 
@@ -344,11 +344,11 @@
 
 
 
-<h3 id="2-read-请求输入"><a href="#2-read-请求输入" class="headerlink" title="2.read : 请求输入"></a>2.read : 请求输入</h3><h4 id="p-：显示提示信息"><a href="#p-：显示提示信息" class="headerlink" title="-p ：显示提示信息"></a>-p ：显示提示信息</h4><p>目前来说，read 命令提供了 -p 参数，p 是 prompt 的首字母，表示“提示”。</p>
-<h4 id="n-：限制字符数目"><a href="#n-：限制字符数目" class="headerlink" title="-n ：限制字符数目"></a>-n ：限制字符数目</h4><p>用 -n 参数，我们可以限制用户输入的字符串的最大长度（字符数）。n 是 number 的首字母，是英语“数目”的意思。</p>
-<h4 id="t-：限制输入时间"><a href="#t-：限制输入时间" class="headerlink" title="-t ：限制输入时间"></a>-t ：限制输入时间</h4><p>用 -t 参数，我们可以限定用户的输入时间（以秒为单位），也就是说超过这个时间，就不读取输入了。t 是 time 的首字母，是英语“时间”的意思。</p>
+<h2 id="read-请求输入"><a href="#read-请求输入" class="headerlink" title="read : 请求输入"></a>read : 请求输入</h2><h3 id="p-：显示提示信息"><a href="#p-：显示提示信息" class="headerlink" title="-p ：显示提示信息"></a>-p ：显示提示信息</h3><p>目前来说，read 命令提供了 -p 参数，p 是 prompt 的首字母，表示“提示”。</p>
+<h3 id="n-：限制字符数目"><a href="#n-：限制字符数目" class="headerlink" title="-n ：限制字符数目"></a>-n ：限制字符数目</h3><p>用 -n 参数，我们可以限制用户输入的字符串的最大长度（字符数）。n 是 number 的首字母，是英语“数目”的意思。</p>
+<h3 id="t-：限制输入时间"><a href="#t-：限制输入时间" class="headerlink" title="-t ：限制输入时间"></a>-t ：限制输入时间</h3><p>用 -t 参数，我们可以限定用户的输入时间（以秒为单位），也就是说超过这个时间，就不读取输入了。t 是 time 的首字母，是英语“时间”的意思。</p>
 <h4 id="s-：隐藏输入内容"><a href="#s-：隐藏输入内容" class="headerlink" title="-s ：隐藏输入内容"></a>-s ：隐藏输入内容</h4><p>用 -s 参数，我们可以隐藏输入内容。一般用不到，但是如果你想要用户输入的是一个密码，那 -s 参数还是有用的。</p>
-<h3 id="3-数学运算"><a href="#3-数学运算" class="headerlink" title="3.数学运算"></a>3.数学运算</h3><p><strong>在 Bash 中，所有的变量都是字符串</strong></p>
+<h2 id="数学运算"><a href="#数学运算" class="headerlink" title="数学运算"></a>数学运算</h2><p><strong>在 Bash 中，所有的变量都是字符串</strong></p>
 <p><strong>let 命令可以用于赋值</strong></p>
 <p>可用的运算符是以下几种：</p>
 <table>
@@ -384,7 +384,7 @@
 </tr>
 </tbody></table>
 <p><strong>如果你要做带小数的运算，那么需要用到 bc 命令</strong></p>
-<h3 id="4-参数变量"><a href="#4-参数变量" class="headerlink" title="4.参数变量"></a>4.参数变量</h3><p>假设，我们可以这样调用我们的脚本文件：</p>
+<h2 id="参数变量"><a href="#参数变量" class="headerlink" title="参数变量"></a>参数变量</h2><p>假设，我们可以这样调用我们的脚本文件：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;variable.sh 参数1 参数2 参数3 ...</span><br></pre></td></tr></table></figure>
 
 <p>这些个 参数1，参数2，参数3 … 被称为“参数变量”。</p>
@@ -399,7 +399,7 @@
 <li><code>$2</code>：包含第二个参数。<br>…</li>
 <li><code>$8</code> ：包含第八个参数。<br>…<br>以此类推。</li>
 </ul>
-<h3 id="5-数组"><a href="#5-数组" class="headerlink" title="5.数组"></a>5.数组</h3><p>例子：</p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>例子：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array&#x3D;(&#39;value0&#39; &#39;value1&#39; &#39;value2&#39;)</span><br></pre></td></tr></table></figure>
 
 <p>上面的语句定义了一个数组变量，名叫 array（array 是英语“数组”的意思），其中包含三个值：value0，value1，value2。</p>
@@ -410,7 +410,7 @@
 <blockquote>
 <p>注意：和大多数编程语言一样，Shell 中的数组的下标（index）也基本是从 0 开始的，而不是从 1 开始。因此，第一个元素的编号（下标）就是 0，第二个元素的下标就是 1，以此类推。<br>不过，也不是所有 Shell 语言的数组下标都是从 0 开始，不少 Shell 语言（例如 Csh，Tcsh，Zsh，等等）的数组下标是从 1 开始的。</p>
 </blockquote>
-<h2 id="判断条件"><a href="#判断条件" class="headerlink" title="判断条件"></a>判断条件</h2><h3 id="1-if-最简单的条件"><a href="#1-if-最简单的条件" class="headerlink" title="1.if : 最简单的条件"></a>1.if : 最简单的条件</h3><p>if 条件语句的基本格式是这样的：</p>
+<h1 id="判断条件"><a href="#判断条件" class="headerlink" title="判断条件"></a>判断条件</h1><h2 id="if-最简单的条件"><a href="#if-最简单的条件" class="headerlink" title="if : 最简单的条件"></a>if : 最简单的条件</h2><p>if 条件语句的基本格式是这样的：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if [ 条件测试 ]</span><br><span class="line">then </span><br><span class="line">    做这个</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
 
 <p>fi 是 if 的反转写法，表示“if 语句结束”。then 是英语“那么”的意思。</p>
@@ -425,18 +425,18 @@
 <p>用这种写法时，在 if 条件判断和 then 之间要加一个分号。</p>
 </blockquote>
 <p><strong>需要注意在 Shell 语言中，“等于”是用一个等号（ = ）来表示的，这和大多数主流编程语言不同。</strong></p>
-<h4 id="else-否则"><a href="#else-否则" class="headerlink" title="else : 否则"></a>else : 否则</h4><p>既然有“如果”的条件判断，那么也会存在条件不成立的时候</p>
+<h3 id="else-否则"><a href="#else-否则" class="headerlink" title="else : 否则"></a>else : 否则</h3><p>既然有“如果”的条件判断，那么也会存在条件不成立的时候</p>
 <p>if 和 else 两者配合的逻辑是这样的：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if [ 条件测试 ]</span><br><span class="line">then</span><br><span class="line">    做这个</span><br><span class="line">else</span><br><span class="line">    做那个</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
 
 <p>也就是：如果“条件测试”为真，那么“做这个”被执行；否则，“做那个”被执行。</p>
-<h4 id="elif-否则，如果"><a href="#elif-否则，如果" class="headerlink" title="elif : 否则，如果"></a>elif : 否则，如果</h4><p>一般来说 if 和 else 已经能满足我们的大部分条件判断需要了，但有些时候，存在好几种情况。</p>
+<h3 id="elif-否则，如果"><a href="#elif-否则，如果" class="headerlink" title="elif : 否则，如果"></a>elif : 否则，如果</h3><p>一般来说 if 和 else 已经能满足我们的大部分条件判断需要了，但有些时候，存在好几种情况。</p>
 <p>光是 if 和 else 表示的两种对立的情况已经不足以满意要求了，因此我们再来一个关键字：elif 。</p>
 <p>elif 是 else if 的缩写，表示“否则 - 如果”。</p>
 <p>if， elif 和 else 三者配合的逻辑是这样的：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">if [ 条件测试 1 ]</span><br><span class="line">then</span><br><span class="line">    做事情 1</span><br><span class="line">elif [ 条件测试 2 ]</span><br><span class="line">then</span><br><span class="line">    做事情 2</span><br><span class="line">elif [ 条件测试 3 ]</span><br><span class="line">then</span><br><span class="line">    做事情 3</span><br><span class="line">else</span><br><span class="line">    做其他事情</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
 
-<h3 id="2-不同的测试类型"><a href="#2-不同的测试类型" class="headerlink" title="2.不同的测试类型"></a>2.不同的测试类型</h3><p>在 Bash 中我们可以做三种测试：</p>
+<h2 id="不同的测试类型"><a href="#不同的测试类型" class="headerlink" title="不同的测试类型"></a>不同的测试类型</h2><p>在 Bash 中我们可以做三种测试：</p>
 <ul>
 <li>测试字符串</li>
 <li>测试数字</li>
@@ -468,7 +468,7 @@
 <td align="left">字符串 string 是否不为空。n 是英语 not 的首字母，是英语“不”的意思。</td>
 </tr>
 </tbody></table>
-<h4 id="测试数字"><a href="#测试数字" class="headerlink" title="测试数字"></a>测试数字</h4><p>尽管 Shell 把所有变量都看成字符串，但是我们还是可以做数字的条件测试。记住以下表格：</p>
+<h3 id="测试数字"><a href="#测试数字" class="headerlink" title="测试数字"></a>测试数字</h3><p>尽管 Shell 把所有变量都看成字符串，但是我们还是可以做数字的条件测试。记住以下表格：</p>
 <table>
 <thead>
 <tr>
@@ -501,7 +501,7 @@
 <td align="left">数字 num1 是否大于或等于 num2。ge 是 greater or equal 的缩写，是英语“大于或等于”的意思。</td>
 </tr>
 </tbody></table>
-<h4 id="测试文件"><a href="#测试文件" class="headerlink" title="测试文件"></a>测试文件</h4><p>相比于主流编程语言，Shell 的一大优势就是可以非常方便地测试文件：文件存在吗？我们可以写入文件吗？这个文件比那个文件修改时间更早还是更晚？等等。</p>
+<h3 id="测试文件"><a href="#测试文件" class="headerlink" title="测试文件"></a>测试文件</h3><p>相比于主流编程语言，Shell 的一大优势就是可以非常方便地测试文件：文件存在吗？我们可以写入文件吗？这个文件比那个文件修改时间更早还是更晚？等等。</p>
 <p>下表非常丰富：</p>
 <table>
 <thead>
@@ -547,7 +547,7 @@
 <td align="left">文件 file1 是否比 file2 更旧。ot 是 older than 的缩写，表示“更旧的”。</td>
 </tr>
 </tbody></table>
-<h4 id="一次测试多个条件"><a href="#一次测试多个条件" class="headerlink" title="一次测试多个条件"></a>一次测试多个条件</h4><p>在一个条件测试中，我们可以同时测试多个条件。需要用到两种符号：</p>
+<h3 id="一次测试多个条件"><a href="#一次测试多个条件" class="headerlink" title="一次测试多个条件"></a>一次测试多个条件</h3><p>在一个条件测试中，我们可以同时测试多个条件。需要用到两种符号：</p>
 <table>
 <thead>
 <tr>
@@ -564,8 +564,8 @@
 <td align="left">两个竖线。表示“逻辑或”。此符号两端的条件只要有一个为真，整个条件测试就为真；只有两个都为假，整个条件测试才为假。</td>
 </tr>
 </tbody></table>
-<h4 id="反转测试"><a href="#反转测试" class="headerlink" title="反转测试"></a>反转测试</h4><p>我们可以用“否定”来反转测试条件，要用到感叹号（ <code>!</code> ）。</p>
-<h3 id="3-case-测试多个条件"><a href="#3-case-测试多个条件" class="headerlink" title="3.case : 测试多个条件"></a>3.case : 测试多个条件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line"></span><br><span class="line">case $1 in</span><br><span class="line">    &quot;Matthew&quot;)</span><br><span class="line">        echo &quot;Hello Matthew !&quot;</span><br><span class="line">        ;;</span><br><span class="line">    &quot;Mark&quot;)</span><br><span class="line">        echo &quot;Hello Mark !&quot;</span><br><span class="line">        ;;</span><br><span class="line">    &quot;Luke&quot;)</span><br><span class="line">        echo &quot;Hello Luke !&quot;</span><br><span class="line">        ;;</span><br><span class="line">    &quot;John&quot;)</span><br><span class="line">        echo &quot;Hello John !&quot;</span><br><span class="line">        ;;</span><br><span class="line">    *)</span><br><span class="line">        echo &quot;Sorry, I do not know you.&quot;</span><br><span class="line">        ;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
+<h3 id="反转测试"><a href="#反转测试" class="headerlink" title="反转测试"></a>反转测试</h3><p>我们可以用“否定”来反转测试条件，要用到感叹号（ <code>!</code> ）。</p>
+<h2 id="case-测试多个条件"><a href="#case-测试多个条件" class="headerlink" title="case : 测试多个条件"></a>case : 测试多个条件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line"></span><br><span class="line">case $1 in</span><br><span class="line">    &quot;Matthew&quot;)</span><br><span class="line">        echo &quot;Hello Matthew !&quot;</span><br><span class="line">        ;;</span><br><span class="line">    &quot;Mark&quot;)</span><br><span class="line">        echo &quot;Hello Mark !&quot;</span><br><span class="line">        ;;</span><br><span class="line">    &quot;Luke&quot;)</span><br><span class="line">        echo &quot;Hello Luke !&quot;</span><br><span class="line">        ;;</span><br><span class="line">    &quot;John&quot;)</span><br><span class="line">        echo &quot;Hello John !&quot;</span><br><span class="line">        ;;</span><br><span class="line">    *)</span><br><span class="line">        echo &quot;Sorry, I do not know you.&quot;</span><br><span class="line">        ;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
 
 <p>来分析一下上面的程序，因为有很多新的内容：</p>
 <ul>
@@ -575,13 +575,13 @@
 <li><code>*)</code> ：相当于 if 条件语句的 else，表示“否则”，就是“假如不等于上面任何一种情况”。</li>
 <li><code>esac</code> ：是 case 的反写，表示 case 语句的结束。</li>
 </ul>
-<h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><p>Shell 中，主要的循环语句有三种：</p>
+<h1 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h1><p>Shell 中，主要的循环语句有三种：</p>
 <ul>
 <li>while 循环</li>
 <li>until 循环</li>
 <li>for 循环</li>
 </ul>
-<h3 id="1-while-循环"><a href="#1-while-循环" class="headerlink" title="1.while 循环"></a>1.while 循环</h3><p>在 Shell 中，我们最常用的循环是 while 循环。</p>
+<h2 id="while-循环"><a href="#while-循环" class="headerlink" title="while 循环"></a>while 循环</h2><p>在 Shell 中，我们最常用的循环是 while 循环。</p>
 <p>while 循环的逻辑是这样的：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while [ 条件测试 ]</span><br><span class="line">do</span><br><span class="line">    做某些事</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
 
@@ -590,19 +590,19 @@
 
 
 
-<h3 id="2-until-循环"><a href="#2-until-循环" class="headerlink" title="2.until 循环"></a>2.until 循环</h3><p>与 while 这个关键字相反的有一个 until 关键字，until 在英语中是“到…为止，直到…时”的意思。</p>
+<h2 id="until-循环"><a href="#until-循环" class="headerlink" title="until 循环"></a>until 循环</h2><p>与 while 这个关键字相反的有一个 until 关键字，until 在英语中是“到…为止，直到…时”的意思。</p>
 <p>把while改成until就一样了</p>
-<h3 id="3-for-循环"><a href="#3-for-循环" class="headerlink" title="3. for 循环"></a>3. for 循环</h3><h4 id="遍历列表"><a href="#遍历列表" class="headerlink" title="遍历列表"></a>遍历列表</h4><p>for 循环可以遍历一个“取值列表”，基本的逻辑如下：</p>
+<h2 id="for-循环"><a href="#for-循环" class="headerlink" title="for 循环"></a>for 循环</h2><h3 id="遍历列表"><a href="#遍历列表" class="headerlink" title="遍历列表"></a>遍历列表</h3><p>for 循环可以遍历一个“取值列表”，基本的逻辑如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for 变量 in &#39;值1&#39; &#39;值2&#39; &#39;值3&#39; ... &#39;值n&#39;</span><br><span class="line">do</span><br><span class="line">    做某些事</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
 
-<h4 id="更常规的-for-循环"><a href="#更常规的-for-循环" class="headerlink" title="更常规的 for 循环"></a>更常规的 for 循环</h4><p>刚才我们看到的 for 循环，和主流编程语言中的语法略有不同，不过我们可以借助 seq 命令，来实现类似主流编程语言中的 for 循环的语法。</p>
+<h3 id="更常规的-for-循环"><a href="#更常规的-for-循环" class="headerlink" title="更常规的 for 循环"></a>更常规的 for 循环</h3><p>刚才我们看到的 for 循环，和主流编程语言中的语法略有不同，不过我们可以借助 seq 命令，来实现类似主流编程语言中的 for 循环的语法。</p>
 <p>seq 是 sequence 的缩写，是英语“序列”的意思。</p>
 <p>来写一个例子：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line"></span><br><span class="line">for i in &#96;seq 1 10&#96;</span><br><span class="line">do</span><br><span class="line">    echo $i</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
 
 
 
-<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h3 id="1-函数的定义"><a href="#1-函数的定义" class="headerlink" title="1.函数的定义"></a>1.函数的定义</h3><p>定义（或创建） Shell 函数是非常容易的。有两种方式：</p>
+<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><h2 id="函数的定义"><a href="#函数的定义" class="headerlink" title="函数的定义"></a>函数的定义</h2><p>定义（或创建） Shell 函数是非常容易的。有两种方式：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">函数名 () &#123;</span><br><span class="line">    函数体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>或：</p>
@@ -616,17 +616,17 @@
 <li><p>函数的完整定义必须置于函数的调用之前。</p>
 </li>
 </ul>
-<h3 id="2-传递参数"><a href="#2-传递参数" class="headerlink" title="2.传递参数"></a>2.传递参数</h3><p>在 Shell 函数中，我们给它传递参数的方式其实很像给 Shell 脚本传递命令行参数。我们把参数直接置于函数名字后面，然后就像我们之前 Shell 脚本的参数那样：<code>$1</code>，<code>$2</code>，<code>$3</code>等等</p>
+<h2 id="传递参数"><a href="#传递参数" class="headerlink" title="传递参数"></a>传递参数</h2><p>在 Shell 函数中，我们给它传递参数的方式其实很像给 Shell 脚本传递命令行参数。我们把参数直接置于函数名字后面，然后就像我们之前 Shell 脚本的参数那样：<code>$1</code>，<code>$2</code>，<code>$3</code>等等</p>
 <p>我们来看一个例子：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line"></span><br><span class="line">print_something () &#123;</span><br><span class="line">    echo Hello $1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">print_something Matthew</span><br><span class="line">print_something Mark</span><br><span class="line">print_something Luke</span><br><span class="line">print_something John</span><br></pre></td></tr></table></figure>
 
 
 
-<h3 id="3-返回值"><a href="#3-返回值" class="headerlink" title="3.返回值"></a>3.返回值</h3><p>Shell 的函数却没办法做到。但是 Shell 的函数可以返回一个状态，有点类似一个程序或命令退出时会有一个退出状态，表明是否成功。</p>
+<h2 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h2><p>Shell 的函数却没办法做到。但是 Shell 的函数可以返回一个状态，有点类似一个程序或命令退出时会有一个退出状态，表明是否成功。</p>
 <p>Shell 函数要返回状态，也用 return 这个关键字（ return 是英语“返回”的意思）。</p>
 <p>一般来说，返回状态 0 表示一切顺利；一个非零值表示有错误。</p>
 <p><strong>值得一提的是exit和return有很多有意思的相同点，但exit是系统级的比return更强大，return仅在函数中使用,exit可以在任何地方使用，有兴趣的可以了解其中的区别</strong></p>
-<h3 id="4-变量作用范围"><a href="#4-变量作用范围" class="headerlink" title="4.变量作用范围"></a>4.变量作用范围</h3><p>变量的作用范围意味着一个 Shell 脚本的哪些部分可以访问到这个变量。</p>
+<h2 id="变量作用范围"><a href="#变量作用范围" class="headerlink" title="变量作用范围"></a>变量作用范围</h2><p>变量的作用范围意味着一个 Shell 脚本的哪些部分可以访问到这个变量。</p>
 <p>默认来说，一个变量是“全局的”（global），意味着在脚本的任何地方都可以访问它。</p>
 <p>我们也可以创建局部（local）变量。当我们在函数中创建局部变量时，这个变量就只能在这个函数中被访问。</p>
 <p>要定义一个局部变量，我们只要在第一次给这个变量赋值时在变量名前加上关键字 local 即可（ local 是英语“本地的”的意思）。</p>
@@ -719,7 +719,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前置概念"><span class="nav-number">1.</span> <span class="nav-text">前置概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-指定脚本要使用的-Shell"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.指定脚本要使用的 Shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-给脚本文件添加可执行的权限"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.给脚本文件添加可执行的权限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-以调试模式运行"><span class="nav-number">1.0.3.</span> <span class="nav-text">3.以调试模式运行</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shell变量"><span class="nav-number">2.</span> <span class="nav-text">shell变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-引号"><span class="nav-number">2.1.</span> <span class="nav-text">1.引号</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单引号"><span class="nav-number">2.1.1.</span> <span class="nav-text">单引号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双引号"><span class="nav-number">2.1.2.</span> <span class="nav-text">双引号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反引号"><span class="nav-number">2.1.3.</span> <span class="nav-text">反引号</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-read-请求输入"><span class="nav-number">2.2.</span> <span class="nav-text">2.read : 请求输入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#p-：显示提示信息"><span class="nav-number">2.2.1.</span> <span class="nav-text">-p ：显示提示信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#n-：限制字符数目"><span class="nav-number">2.2.2.</span> <span class="nav-text">-n ：限制字符数目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#t-：限制输入时间"><span class="nav-number">2.2.3.</span> <span class="nav-text">-t ：限制输入时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#s-：隐藏输入内容"><span class="nav-number">2.2.4.</span> <span class="nav-text">-s ：隐藏输入内容</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-数学运算"><span class="nav-number">2.3.</span> <span class="nav-text">3.数学运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-参数变量"><span class="nav-number">2.4.</span> <span class="nav-text">4.参数变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-数组"><span class="nav-number">2.5.</span> <span class="nav-text">5.数组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断条件"><span class="nav-number">3.</span> <span class="nav-text">判断条件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-if-最简单的条件"><span class="nav-number">3.1.</span> <span class="nav-text">1.if : 最简单的条件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#else-否则"><span class="nav-number">3.1.1.</span> <span class="nav-text">else : 否则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#elif-否则，如果"><span class="nav-number">3.1.2.</span> <span class="nav-text">elif : 否则，如果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-不同的测试类型"><span class="nav-number">3.2.</span> <span class="nav-text">2.不同的测试类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#测试字符串"><span class="nav-number">3.2.1.</span> <span class="nav-text">测试字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试数字"><span class="nav-number">3.2.2.</span> <span class="nav-text">测试数字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试文件"><span class="nav-number">3.2.3.</span> <span class="nav-text">测试文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一次测试多个条件"><span class="nav-number">3.2.4.</span> <span class="nav-text">一次测试多个条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反转测试"><span class="nav-number">3.2.5.</span> <span class="nav-text">反转测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-case-测试多个条件"><span class="nav-number">3.3.</span> <span class="nav-text">3.case : 测试多个条件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环"><span class="nav-number">4.</span> <span class="nav-text">循环</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-while-循环"><span class="nav-number">4.1.</span> <span class="nav-text">1.while 循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-until-循环"><span class="nav-number">4.2.</span> <span class="nav-text">2.until 循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-for-循环"><span class="nav-number">4.3.</span> <span class="nav-text">3. for 循环</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#遍历列表"><span class="nav-number">4.3.1.</span> <span class="nav-text">遍历列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更常规的-for-循环"><span class="nav-number">4.3.2.</span> <span class="nav-text">更常规的 for 循环</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">5.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-函数的定义"><span class="nav-number">5.1.</span> <span class="nav-text">1.函数的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-传递参数"><span class="nav-number">5.2.</span> <span class="nav-text">2.传递参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-返回值"><span class="nav-number">5.3.</span> <span class="nav-text">3.返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-变量作用范围"><span class="nav-number">5.4.</span> <span class="nav-text">4.变量作用范围</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前置概念"><span class="nav-number">1.</span> <span class="nav-text">前置概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#指定脚本要使用的-Shell"><span class="nav-number">1.1.</span> <span class="nav-text">指定脚本要使用的 Shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#给脚本文件添加可执行的权限"><span class="nav-number">1.2.</span> <span class="nav-text">给脚本文件添加可执行的权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以调试模式运行"><span class="nav-number">1.3.</span> <span class="nav-text">以调试模式运行</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#shell变量"><span class="nav-number">2.</span> <span class="nav-text">shell变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#引号"><span class="nav-number">2.1.</span> <span class="nav-text">引号</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单引号"><span class="nav-number">2.1.1.</span> <span class="nav-text">单引号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双引号"><span class="nav-number">2.1.2.</span> <span class="nav-text">双引号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反引号"><span class="nav-number">2.1.3.</span> <span class="nav-text">反引号</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#read-请求输入"><span class="nav-number">2.2.</span> <span class="nav-text">read : 请求输入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#p-：显示提示信息"><span class="nav-number">2.2.1.</span> <span class="nav-text">-p ：显示提示信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#n-：限制字符数目"><span class="nav-number">2.2.2.</span> <span class="nav-text">-n ：限制字符数目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#t-：限制输入时间"><span class="nav-number">2.2.3.</span> <span class="nav-text">-t ：限制输入时间</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#s-：隐藏输入内容"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">-s ：隐藏输入内容</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数学运算"><span class="nav-number">2.3.</span> <span class="nav-text">数学运算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数变量"><span class="nav-number">2.4.</span> <span class="nav-text">参数变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组"><span class="nav-number">2.5.</span> <span class="nav-text">数组</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#判断条件"><span class="nav-number">3.</span> <span class="nav-text">判断条件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#if-最简单的条件"><span class="nav-number">3.1.</span> <span class="nav-text">if : 最简单的条件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#else-否则"><span class="nav-number">3.1.1.</span> <span class="nav-text">else : 否则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#elif-否则，如果"><span class="nav-number">3.1.2.</span> <span class="nav-text">elif : 否则，如果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不同的测试类型"><span class="nav-number">3.2.</span> <span class="nav-text">不同的测试类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#测试字符串"><span class="nav-number">3.2.0.1.</span> <span class="nav-text">测试字符串</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试数字"><span class="nav-number">3.2.1.</span> <span class="nav-text">测试数字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试文件"><span class="nav-number">3.2.2.</span> <span class="nav-text">测试文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一次测试多个条件"><span class="nav-number">3.2.3.</span> <span class="nav-text">一次测试多个条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反转测试"><span class="nav-number">3.2.4.</span> <span class="nav-text">反转测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#case-测试多个条件"><span class="nav-number">3.3.</span> <span class="nav-text">case : 测试多个条件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#循环"><span class="nav-number">4.</span> <span class="nav-text">循环</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#while-循环"><span class="nav-number">4.1.</span> <span class="nav-text">while 循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#until-循环"><span class="nav-number">4.2.</span> <span class="nav-text">until 循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for-循环"><span class="nav-number">4.3.</span> <span class="nav-text">for 循环</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历列表"><span class="nav-number">4.3.1.</span> <span class="nav-text">遍历列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更常规的-for-循环"><span class="nav-number">4.3.2.</span> <span class="nav-text">更常规的 for 循环</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数"><span class="nav-number">5.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数的定义"><span class="nav-number">5.1.</span> <span class="nav-text">函数的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传递参数"><span class="nav-number">5.2.</span> <span class="nav-text">传递参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#返回值"><span class="nav-number">5.3.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量作用范围"><span class="nav-number">5.4.</span> <span class="nav-text">变量作用范围</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
