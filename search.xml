@@ -1,6 +1,411 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>shell基础语法</title>
+    <url>/2020/03/16/55.shell%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/</url>
+    <content><![CDATA[<h2 id="前置概念"><a href="#前置概念" class="headerlink" title="前置概念"></a>前置概念</h2><h4 id="1-指定脚本要使用的-Shell"><a href="#1-指定脚本要使用的-Shell" class="headerlink" title="1.指定脚本要使用的 Shell"></a>1.指定脚本要使用的 Shell</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br></pre></td></tr></table></figure>
+
+
+<p>上面这句代码中， /bin/bash 是 Bash 程序在大多数 Linux 系统中的存放路径，而最前面的 #! 被称作 Sha-bang，或者 Shebang。</p>
+<blockquote>
+<p>在计算机科学中，Shebang（也称为 Hashbang ）是一个由井号和叹号构成的字符串 <code>#!</code> ，其出现在文本文档的第一行的前两个字符。<br>在文档中存在 Shebang 的情况下，类 Unix 操作系统的进程载入器会分析 Shebang 后的内容，将这些内容作为解释器指令，并调用该指令，并将载有 Shebang 的文档路径作为该解释器的参数。</p>
+</blockquote>
+<a id="more"></a>
+
+<h4 id="2-给脚本文件添加可执行的权限"><a href="#2-给脚本文件添加可执行的权限" class="headerlink" title="2.给脚本文件添加可执行的权限"></a>2.给脚本文件添加可执行的权限</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">chmod +x test.sh</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-以调试模式运行"><a href="#3-以调试模式运行" class="headerlink" title="3.以调试模式运行"></a>3.以调试模式运行</h4><p>随着我们渐渐深入 Shell 编程，你也许会写出很长的 Shell 脚本，代码一多很可能就会有 Bug。</p>
+<p>因此，我们需要学习如何调试一个脚本程序。用法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bash -x test.sh</span><br></pre></td></tr></table></figure>
+
+<p>我们直接调用 Bash 这个 Shell 程序，并且给它一个参数 -x （表示以调试模式运行），后面再跟上要调试运行的脚本文件。</p>
+<h2 id="shell变量"><a href="#shell变量" class="headerlink" title="shell变量"></a>shell变量</h2><p><strong>定义变量的时候=左右不要加空格！</strong></p>
+<h3 id="1-引号"><a href="#1-引号" class="headerlink" title="1.引号"></a>1.引号</h3><p>我们可以用引号来界定包含空格的字符串。</p>
+<p>引号一共有三种：</p>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">表示</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">单引号</td>
+<td align="left">’</td>
+</tr>
+<tr>
+<td align="left">双引号</td>
+<td align="left">“</td>
+</tr>
+<tr>
+<td align="left">反引号</td>
+<td align="left">`</td>
+</tr>
+</tbody></table>
+<p>根据引号类型不同，Bash 的处理方式也会不同。</p>
+<h4 id="单引号"><a href="#单引号" class="headerlink" title="单引号"></a>单引号</h4><p>我们从单引号开始学习吧。美式键盘中，单引号( ’ ) 位于 Enter 键（回车键）的左方。</p>
+<p>之前的例子里，我们也已经使用过单引号了。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line"></span><br><span class="line">message&#x3D;&#39;Hello World&#39;</span><br><span class="line">echo &#39;The message is $message&#39;</span><br></pre></td></tr></table></figure>
+
+<p>正如之前我们测试的一样，如果变量被包含在单引号里面，那么变量不会被解析，美元符号（ $ ）保持原样输出。</p>
+<p>显示：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">The message is $message</span><br></pre></td></tr></table></figure>
+
+<p>因为：单引号忽略被它括起来的所有特殊字符。</p>
+<h4 id="双引号"><a href="#双引号" class="headerlink" title="双引号"></a>双引号</h4><p>一般来说，要输入双引号，需要用 “Shift键 + 单引号的按键”。</p>
+<p>不同于单引号忽略所有特殊字符，双引号忽略大多数特殊字符，但不包括：美元符号（ $ ）、反引号（ ` ）、反斜杠（ \ ），这 3 种特殊字符将不被忽略。 不忽略美元符号意味着 Shell 在双引号内部可进行变量名替换。</p>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line"></span><br><span class="line">message&#x3D;&#39;Hello World&#39;</span><br><span class="line">echo &quot;The message is $message&quot;</span><br></pre></td></tr></table></figure>
+
+<p>执行以上脚本，显示：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">The message is Hello World</span><br></pre></td></tr></table></figure>
+
+<h4 id="反引号"><a href="#反引号" class="headerlink" title="反引号"></a>反引号</h4><p>反引号 ( ` ) 不太常用，位于键盘的 Tab 键的上方、数字键 1 的左方。</p>
+<p>反引号要求 Shell 执行被它括起来的内容。 什么意思呢？我们来看一个例子你就懂了：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line"></span><br><span class="line">message&#x3D;&#96;pwd&#96;</span><br><span class="line">echo &quot;You are in the directory $message&quot;</span><br></pre></td></tr></table></figure>
+
+<p>运行这个脚本，显示：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">You are in the directory &#x2F;home&#x2F;pearfl</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-read-请求输入"><a href="#2-read-请求输入" class="headerlink" title="2.read : 请求输入"></a>2.read : 请求输入</h3><h4 id="p-：显示提示信息"><a href="#p-：显示提示信息" class="headerlink" title="-p ：显示提示信息"></a>-p ：显示提示信息</h4><p>目前来说，read 命令提供了 -p 参数，p 是 prompt 的首字母，表示“提示”。</p>
+<h4 id="n-：限制字符数目"><a href="#n-：限制字符数目" class="headerlink" title="-n ：限制字符数目"></a>-n ：限制字符数目</h4><p>用 -n 参数，我们可以限制用户输入的字符串的最大长度（字符数）。n 是 number 的首字母，是英语“数目”的意思。</p>
+<h4 id="t-：限制输入时间"><a href="#t-：限制输入时间" class="headerlink" title="-t ：限制输入时间"></a>-t ：限制输入时间</h4><p>用 -t 参数，我们可以限定用户的输入时间（以秒为单位），也就是说超过这个时间，就不读取输入了。t 是 time 的首字母，是英语“时间”的意思。</p>
+<h4 id="s-：隐藏输入内容"><a href="#s-：隐藏输入内容" class="headerlink" title="-s ：隐藏输入内容"></a>-s ：隐藏输入内容</h4><p>用 -s 参数，我们可以隐藏输入内容。一般用不到，但是如果你想要用户输入的是一个密码，那 -s 参数还是有用的。</p>
+<h3 id="3-数学运算"><a href="#3-数学运算" class="headerlink" title="3.数学运算"></a>3.数学运算</h3><p><strong>在 Bash 中，所有的变量都是字符串</strong></p>
+<p><strong>let 命令可以用于赋值</strong></p>
+<p>可用的运算符是以下几种：</p>
+<table>
+<thead>
+<tr>
+<th align="left">运算</th>
+<th align="left">符号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">加法</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td align="left">减法</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">乘法</td>
+<td align="left">*</td>
+</tr>
+<tr>
+<td align="left">除法</td>
+<td align="left">/</td>
+</tr>
+<tr>
+<td align="left">幂（乘方）</td>
+<td align="left">**</td>
+</tr>
+<tr>
+<td align="left">余（整数除法的余数）</td>
+<td align="left">%</td>
+</tr>
+</tbody></table>
+<p><strong>如果你要做带小数的运算，那么需要用到 bc 命令</strong></p>
+<h3 id="4-参数变量"><a href="#4-参数变量" class="headerlink" title="4.参数变量"></a>4.参数变量</h3><p>假设，我们可以这样调用我们的脚本文件：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.&#x2F;variable.sh 参数1 参数2 参数3 ...</span><br></pre></td></tr></table></figure>
+
+<p>这些个 参数1，参数2，参数3 … 被称为“参数变量”。</p>
+<p>但问题是我们还不知道如何接收这些参数到我们的脚本中。</p>
+<blockquote>
+<p>其实不难，因为这些变量是被自动创建的。</p>
+</blockquote>
+<ul>
+<li><code>$#</code> ：包含参数的数目。</li>
+<li><code>$0</code> ：包含被运行的脚本的名称 （我们的示例中就是 variable.sh ）。</li>
+<li><code>$1</code>：包含第一个参数。</li>
+<li><code>$2</code>：包含第二个参数。<br>…</li>
+<li><code>$8</code> ：包含第八个参数。<br>…<br>以此类推。</li>
+</ul>
+<h3 id="5-数组"><a href="#5-数组" class="headerlink" title="5.数组"></a>5.数组</h3><p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">array&#x3D;(&#39;value0&#39; &#39;value1&#39; &#39;value2&#39;)</span><br></pre></td></tr></table></figure>
+
+<p>上面的语句定义了一个数组变量，名叫 array（array 是英语“数组”的意思），其中包含三个值：value0，value1，value2。</p>
+<p>如果要访问其中一个格子的内容，要用到这样的语法：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$&#123;array[2]&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上语句表示数组中编号为 2 的元素（在我们的情况就是 value2 ）。</p>
+<blockquote>
+<p>注意：和大多数编程语言一样，Shell 中的数组的下标（index）也基本是从 0 开始的，而不是从 1 开始。因此，第一个元素的编号（下标）就是 0，第二个元素的下标就是 1，以此类推。<br>不过，也不是所有 Shell 语言的数组下标都是从 0 开始，不少 Shell 语言（例如 Csh，Tcsh，Zsh，等等）的数组下标是从 1 开始的。</p>
+</blockquote>
+<h2 id="判断条件"><a href="#判断条件" class="headerlink" title="判断条件"></a>判断条件</h2><h3 id="1-if-最简单的条件"><a href="#1-if-最简单的条件" class="headerlink" title="1.if : 最简单的条件"></a>1.if : 最简单的条件</h3><p>if 条件语句的基本格式是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if [ 条件测试 ]</span><br><span class="line">then </span><br><span class="line">    做这个</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<p>fi 是 if 的反转写法，表示“if 语句结束”。then 是英语“那么”的意思。</p>
+<p>“做这个”只有在“条件测试”为真时，才会被执行。</p>
+<blockquote>
+<p>注意：方括号 <code>[]</code> 中的 <code>条件测试</code> 两边必须要空一格。不能写成 <code>[test]</code>，而要写成 <code>[ test ]</code>。</p>
+</blockquote>
+<p>当然了，if 语句的基本写法还有一种，那就是把 then 写在 <code>if [ 条件测试 ]</code> 后面，如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if [ 条件测试 ]; then</span><br><span class="line">    做这个</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>用这种写法时，在 if 条件判断和 then 之间要加一个分号。</p>
+</blockquote>
+<p><strong>需要注意在 Shell 语言中，“等于”是用一个等号（ = ）来表示的，这和大多数主流编程语言不同。</strong></p>
+<h4 id="else-否则"><a href="#else-否则" class="headerlink" title="else : 否则"></a>else : 否则</h4><p>既然有“如果”的条件判断，那么也会存在条件不成立的时候</p>
+<p>if 和 else 两者配合的逻辑是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if [ 条件测试 ]</span><br><span class="line">then</span><br><span class="line">    做这个</span><br><span class="line">else</span><br><span class="line">    做那个</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<p>也就是：如果“条件测试”为真，那么“做这个”被执行；否则，“做那个”被执行。</p>
+<h4 id="elif-否则，如果"><a href="#elif-否则，如果" class="headerlink" title="elif : 否则，如果"></a>elif : 否则，如果</h4><p>一般来说 if 和 else 已经能满足我们的大部分条件判断需要了，但有些时候，存在好几种情况。</p>
+<p>光是 if 和 else 表示的两种对立的情况已经不足以满意要求了，因此我们再来一个关键字：elif 。</p>
+<p>elif 是 else if 的缩写，表示“否则 - 如果”。</p>
+<p>if， elif 和 else 三者配合的逻辑是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if [ 条件测试 1 ]</span><br><span class="line">then</span><br><span class="line">    做事情 1</span><br><span class="line">elif [ 条件测试 2 ]</span><br><span class="line">then</span><br><span class="line">    做事情 2</span><br><span class="line">elif [ 条件测试 3 ]</span><br><span class="line">then</span><br><span class="line">    做事情 3</span><br><span class="line">else</span><br><span class="line">    做其他事情</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-不同的测试类型"><a href="#2-不同的测试类型" class="headerlink" title="2.不同的测试类型"></a>2.不同的测试类型</h3><p>在 Bash 中我们可以做三种测试：</p>
+<ul>
+<li>测试字符串</li>
+<li>测试数字</li>
+<li>测试文件</li>
+</ul>
+<h4 id="测试字符串"><a href="#测试字符串" class="headerlink" title="测试字符串"></a>测试字符串</h4><p>我们之前的课程已经说过：在 Shell 中，所有的变量都是字符串。</p>
+<p>因此，要做字符串的测试非常简单。记住以下表格：</p>
+<table>
+<thead>
+<tr>
+<th align="left">条件</th>
+<th align="left">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">$string1 = $string2</td>
+<td align="left">两个字符串是否相等。Shell 大小写敏感，因此 A 和 a 是不一样的。</td>
+</tr>
+<tr>
+<td align="left">$string1 != $string2</td>
+<td align="left">两个字符串是否不同。</td>
+</tr>
+<tr>
+<td align="left">-z $string</td>
+<td align="left">字符串 string 是否为空。z 是 zero 的首字母，是英语“零”的意思。</td>
+</tr>
+<tr>
+<td align="left">-n $string</td>
+<td align="left">字符串 string 是否不为空。n 是英语 not 的首字母，是英语“不”的意思。</td>
+</tr>
+</tbody></table>
+<h4 id="测试数字"><a href="#测试数字" class="headerlink" title="测试数字"></a>测试数字</h4><p>尽管 Shell 把所有变量都看成字符串，但是我们还是可以做数字的条件测试。记住以下表格：</p>
+<table>
+<thead>
+<tr>
+<th align="left">条件</th>
+<th align="left">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">$num1 -eq $num2</td>
+<td align="left">两个数字是否相等。和判断字符串所用的符号（ = ）不一样。eq 是 equal 的缩写，是英语“等于”的意思。</td>
+</tr>
+<tr>
+<td align="left">$num1 -ne $num2</td>
+<td align="left">两个数字是否不同。ne 是 not equal 的缩写，是英语“不等于”的意思。</td>
+</tr>
+<tr>
+<td align="left">$num1 -lt $num2</td>
+<td align="left">数字 num1 是否小于 num2。lt 是 lower than 的缩写，是英语“小于”的意思。</td>
+</tr>
+<tr>
+<td align="left">$num1 -le $num2</td>
+<td align="left">数字 num1 是否小于或等于 num2。le 是 lower or equal 的缩写，是英语“小于或等于”的意思。</td>
+</tr>
+<tr>
+<td align="left">$num1 -gt $num2</td>
+<td align="left">数字 num1 是否大于 num2。gt 是 greater than 的缩写，是英语“大于”的意思。</td>
+</tr>
+<tr>
+<td align="left">$num1 -ge $num2</td>
+<td align="left">数字 num1 是否大于或等于 num2。ge 是 greater or equal 的缩写，是英语“大于或等于”的意思。</td>
+</tr>
+</tbody></table>
+<h4 id="测试文件"><a href="#测试文件" class="headerlink" title="测试文件"></a>测试文件</h4><p>相比于主流编程语言，Shell 的一大优势就是可以非常方便地测试文件：文件存在吗？我们可以写入文件吗？这个文件比那个文件修改时间更早还是更晚？等等。</p>
+<p>下表非常丰富：</p>
+<table>
+<thead>
+<tr>
+<th align="left">条件</th>
+<th align="left">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">-e $file</td>
+<td align="left">文件是否存在。e 是 exist 的首字母，表示“存在”。</td>
+</tr>
+<tr>
+<td align="left">-d $file</td>
+<td align="left">文件是否是一个目录。因为 Linux 中一切都是文件，目录也是文件的一种。d 是 directory 的首字母，表示“目录”。</td>
+</tr>
+<tr>
+<td align="left">-f $file</td>
+<td align="left">文件是否是一个文件。f 是 file 的首字母，表示“文件”。</td>
+</tr>
+<tr>
+<td align="left">-L $file</td>
+<td align="left">文件是否是一个符号链接文件。L 是 link 的首字母，表示“链接”。</td>
+</tr>
+<tr>
+<td align="left">-r $file</td>
+<td align="left">文件是否可读。r 是 readable 的首字母，表示“可读的”。</td>
+</tr>
+<tr>
+<td align="left">-w $file</td>
+<td align="left">文件是否可写。w 是 writable 的首字母，表示“可写的”。</td>
+</tr>
+<tr>
+<td align="left">-x $file</td>
+<td align="left">文件是否可执行。x 是 executable 的首字母，表示“可执行的”。</td>
+</tr>
+<tr>
+<td align="left">$file1 -nt $file2</td>
+<td align="left">文件 file1 是否比 file2 更新。nt 是 newer than 的缩写，表示“更新的”。</td>
+</tr>
+<tr>
+<td align="left">$file1 -ot $file2</td>
+<td align="left">文件 file1 是否比 file2 更旧。ot 是 older than 的缩写，表示“更旧的”。</td>
+</tr>
+</tbody></table>
+<h4 id="一次测试多个条件"><a href="#一次测试多个条件" class="headerlink" title="一次测试多个条件"></a>一次测试多个条件</h4><p>在一个条件测试中，我们可以同时测试多个条件。需要用到两种符号：</p>
+<table>
+<thead>
+<tr>
+<th align="left">符号</th>
+<th align="left">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">&amp;&amp;</td>
+<td align="left">两个 &amp;。表示“逻辑与”。此符号两端的条件必须全为真，整个条件测试才为真；只要有一个不为真，整个条件测试为假。</td>
+</tr>
+<tr>
+<td align="left">II</td>
+<td align="left">两个竖线。表示“逻辑或”。此符号两端的条件只要有一个为真，整个条件测试就为真；只有两个都为假，整个条件测试才为假。</td>
+</tr>
+</tbody></table>
+<h4 id="反转测试"><a href="#反转测试" class="headerlink" title="反转测试"></a>反转测试</h4><p>我们可以用“否定”来反转测试条件，要用到感叹号（ <code>!</code> ）。</p>
+<h3 id="3-case-测试多个条件"><a href="#3-case-测试多个条件" class="headerlink" title="3.case : 测试多个条件"></a>3.case : 测试多个条件</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line"></span><br><span class="line">case $1 in</span><br><span class="line">    &quot;Matthew&quot;)</span><br><span class="line">        echo &quot;Hello Matthew !&quot;</span><br><span class="line">        ;;</span><br><span class="line">    &quot;Mark&quot;)</span><br><span class="line">        echo &quot;Hello Mark !&quot;</span><br><span class="line">        ;;</span><br><span class="line">    &quot;Luke&quot;)</span><br><span class="line">        echo &quot;Hello Luke !&quot;</span><br><span class="line">        ;;</span><br><span class="line">    &quot;John&quot;)</span><br><span class="line">        echo &quot;Hello John !&quot;</span><br><span class="line">        ;;</span><br><span class="line">    *)</span><br><span class="line">        echo &quot;Sorry, I do not know you.&quot;</span><br><span class="line">        ;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
+
+<p>来分析一下上面的程序，因为有很多新的内容：</p>
+<ul>
+<li><code>case $1 in</code> ：<code>$1</code> 表示我们要测试的变量是输入的第一个参数。in 是英语“在…之中”的意思。</li>
+<li><code>&quot;Matthew&quot;)</code> ：测试其中一个 case，也就是 <code>$1</code> 是否等于 <code>&quot;Matthew&quot;</code>。当然，我们也可以用星号来做通配符来匹配多个字符，例如 <code>&quot;M*&quot;)</code> 可以匹配所有以 M 开头的字符串。</li>
+<li><code>;;</code> ：类似于主流编程语言中的 <code>break;</code>，表示结束 case 的读取，程序跳转到 esac 后面执行。</li>
+<li><code>*)</code> ：相当于 if 条件语句的 else，表示“否则”，就是“假如不等于上面任何一种情况”。</li>
+<li><code>esac</code> ：是 case 的反写，表示 case 语句的结束。</li>
+</ul>
+<h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><p>Shell 中，主要的循环语句有三种：</p>
+<ul>
+<li>while 循环</li>
+<li>until 循环</li>
+<li>for 循环</li>
+</ul>
+<h3 id="1-while-循环"><a href="#1-while-循环" class="headerlink" title="1.while 循环"></a>1.while 循环</h3><p>在 Shell 中，我们最常用的循环是 while 循环。</p>
+<p>while 循环的逻辑是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">while [ 条件测试 ]</span><br><span class="line">do</span><br><span class="line">    做某些事</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<p>当然了，我们也可以像在 if 语句中那样，把关键字 do 放到与条件测试同一行上，但是之间要加分号，如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">while [ 条件测试 ]; do</span><br><span class="line">    做某些事</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-until-循环"><a href="#2-until-循环" class="headerlink" title="2.until 循环"></a>2.until 循环</h3><p>与 while 这个关键字相反的有一个 until 关键字，until 在英语中是“到…为止，直到…时”的意思。</p>
+<p>把while改成until就一样了</p>
+<h3 id="3-for-循环"><a href="#3-for-循环" class="headerlink" title="3. for 循环"></a>3. for 循环</h3><h4 id="遍历列表"><a href="#遍历列表" class="headerlink" title="遍历列表"></a>遍历列表</h4><p>for 循环可以遍历一个“取值列表”，基本的逻辑如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for 变量 in &#39;值1&#39; &#39;值2&#39; &#39;值3&#39; ... &#39;值n&#39;</span><br><span class="line">do</span><br><span class="line">    做某些事</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<h4 id="更常规的-for-循环"><a href="#更常规的-for-循环" class="headerlink" title="更常规的 for 循环"></a>更常规的 for 循环</h4><p>刚才我们看到的 for 循环，和主流编程语言中的语法略有不同，不过我们可以借助 seq 命令，来实现类似主流编程语言中的 for 循环的语法。</p>
+<p>seq 是 sequence 的缩写，是英语“序列”的意思。</p>
+<p>来写一个例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line"></span><br><span class="line">for i in &#96;seq 1 10&#96;</span><br><span class="line">do</span><br><span class="line">    echo $i</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h3 id="1-函数的定义"><a href="#1-函数的定义" class="headerlink" title="1.函数的定义"></a>1.函数的定义</h3><p>定义（或创建） Shell 函数是非常容易的。有两种方式：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">函数名 () &#123;</span><br><span class="line">    函数体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>或：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function 函数名 &#123;</span><br><span class="line">    函数体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>这两种方式都是可行的。看你个人喜好用哪一种方式。</p>
+</li>
+<li><p>函数名后面跟着的圆括号里不加任何参数：这一点与主流编程语言很不相同。C 语言，Java，C++ 等语言中，函数的圆括号中是可以放置参数的（也就是函数的一部分输入），但是 <strong>Shell 中的函数的圆括号里不能放置参数</strong>。</p>
+</li>
+<li><p>函数的完整定义必须置于函数的调用之前。</p>
+</li>
+</ul>
+<h3 id="2-传递参数"><a href="#2-传递参数" class="headerlink" title="2.传递参数"></a>2.传递参数</h3><p>在 Shell 函数中，我们给它传递参数的方式其实很像给 Shell 脚本传递命令行参数。我们把参数直接置于函数名字后面，然后就像我们之前 Shell 脚本的参数那样：<code>$1</code>，<code>$2</code>，<code>$3</code>等等</p>
+<p>我们来看一个例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line"></span><br><span class="line">print_something () &#123;</span><br><span class="line">    echo Hello $1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">print_something Matthew</span><br><span class="line">print_something Mark</span><br><span class="line">print_something Luke</span><br><span class="line">print_something John</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3-返回值"><a href="#3-返回值" class="headerlink" title="3.返回值"></a>3.返回值</h3><p>Shell 的函数却没办法做到。但是 Shell 的函数可以返回一个状态，有点类似一个程序或命令退出时会有一个退出状态，表明是否成功。</p>
+<p>Shell 函数要返回状态，也用 return 这个关键字（ return 是英语“返回”的意思）。</p>
+<p>一般来说，返回状态 0 表示一切顺利；一个非零值表示有错误。</p>
+<p><strong>值得一提的是exit和return有很多有意思的相同点，但exit是系统级的比return更强大，return仅在函数中使用,exit可以在任何地方使用，有兴趣的可以了解其中的区别</strong></p>
+<h3 id="4-变量作用范围"><a href="#4-变量作用范围" class="headerlink" title="4.变量作用范围"></a>4.变量作用范围</h3><p>变量的作用范围意味着一个 Shell 脚本的哪些部分可以访问到这个变量。</p>
+<p>默认来说，一个变量是“全局的”（global），意味着在脚本的任何地方都可以访问它。</p>
+<p>我们也可以创建局部（local）变量。当我们在函数中创建局部变量时，这个变量就只能在这个函数中被访问。</p>
+<p>要定义一个局部变量，我们只要在第一次给这个变量赋值时在变量名前加上关键字 local 即可（ local 是英语“本地的”的意思）。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line"></span><br><span class="line">local_global () &#123;</span><br><span class="line">    local var1&#x3D;&#39;local 1&#39;</span><br><span class="line">    echo Inside function: var1 is $var1 : var2 is $var2</span><br><span class="line">    var1&#x3D;&#39;changed again&#39;   # 这里的 var1 是函数中定义的局部变量</span><br><span class="line">    var2&#x3D;&#39;2 changed again&#39; # 这里的 var2 是函数外定义的全局变量</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>定义局部变量有一个好处，就是可以防止被脚本的其它地方的代码意外改变数值。</p>
+<blockquote>
+<p>在函数中，尽量用局部变量。只有实在不行才用全局变量，毕竟全局变量不太安全。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>shell</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>解决Maven新建工程卡顿问题</title>
+    <url>/2020/03/14/54.%E8%A7%A3%E5%86%B3Maven%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B%E5%8D%A1%E9%A1%BF%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>通过链接<a href="https://repo.maven.apache.org/maven2/archetype-catalog.xml下载" target="_blank" rel="noopener">https://repo.maven.apache.org/maven2/archetype-catalog.xml下载</a></p>
+<p>拷贝到</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">F:\software\maven_repository\</span><br></pre></td></tr></table></figure>
+
+<p>如果你没有修改默认路径的话，应该是</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">C:\Users\Administrator\.m2\repository\org\apache\maven\archetype\archetype-catalog\3.1.2</span><br></pre></td></tr></table></figure>
+
+<p>IDEA创建的时候添加参数命令<strong>archetypeCatalog=local</strong></p>
+<p>或者命令行然后在执行的命令后面加上增加参数<strong>-DarchetypeCatalog=local</strong>，变成读取本地文件即可。</p>
+<p>不想这么麻烦直接弄阿里云镜像也可以</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;mirror&gt;</span><br><span class="line">     &lt;id&gt;alimaven&lt;&#x2F;id&gt;</span><br><span class="line">     &lt;mirrorOf&gt;central&lt;&#x2F;mirrorOf&gt;</span><br><span class="line">     &lt;name&gt;aliyun maven&lt;&#x2F;name&gt;</span><br><span class="line">     &lt;url&gt;https:&#x2F;&#x2F;maven.aliyun.com&#x2F;repository&#x2F;central&lt;&#x2F;url&gt;</span><br><span class="line">   &lt;&#x2F;mirror&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<a id="more"></a>
+
+<p>私用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">D:\Programme\apache\apache-maven-3.6.3</span><br><span class="line"></span><br><span class="line">D:\Programme\apache\apache-maven-3.6.3\conf\settings.xml</span><br><span class="line"></span><br><span class="line">archetypeCatalog&#x3D;local</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>生产必知</category>
+      </categories>
+      <tags>
+        <tag>maven</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Nginx安装</title>
     <url>/2020/03/13/53.Nginx%E5%AE%89%E8%A3%85/</url>
     <content><![CDATA[<p>依赖安装</p>
@@ -107,146 +512,6 @@
       </categories>
       <tags>
         <tag>重定向</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>nohub与前台后台操作</title>
-    <url>/2020/03/10/50.nohub%E4%B8%8E%E5%89%8D%E5%8F%B0%E5%90%8E%E5%8F%B0%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<h2 id="1-amp-符号和-nohup-命令：后台运行进程"><a href="#1-amp-符号和-nohup-命令：后台运行进程" class="headerlink" title="1. &amp; 符号和 nohup 命令：后台运行进程"></a>1. &amp; 符号和 nohup 命令：后台运行进程</h2><p>我们到目前为止用终端做的事情都是目所能及的，也就是说：我们运行的命令都是在前台可见的。</p>
-<p>这样的一个好处是我们可以看到命令运行的过程，有什么问题可以及时发现。但是也有缺陷，例如有的命令运行耗时良久，我们又不想无所事事，怎么办呢？难道我开一个终端专门执行一个耗时命令，然后为了能做其他事情，我再启动一个终端，那也很不方便。</p>
-<p>事实上，我们可以在同一个终端中同时运行好几个命令。怎么做呢？就需要用到后台进程的概念。</p>
-<a id="more"></a>
-
-<h4 id="前台进程和后台进程"><a href="#前台进程和后台进程" class="headerlink" title="前台进程和后台进程"></a>前台进程和后台进程</h4><p>默认情况下，用户创建的进程都是前台进程。前台进程从键盘读取数据，并把处理结果输出到显示器。</p>
-<p>我们可以看到前台进程的运行过程。例如，使用 ls 命令来遍历当前目录下的文件。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ls</span><br></pre></td></tr></table></figure>
-
-<p>这个程序就运行在前台，它会直接把结果输出到显示器。如果 ls 命令需要数据（实际上不需要），那么它会等待用户从键盘输入。</p>
-<p>当程序运行在前台时，由于命令提示符（$）还未出现，用户不能输入其他命令；即使程序需要运行很长时间，也必须等待程序运行结束才能输入其他命令。</p>
-<p>后台进程与键盘没有必然的关系。当然，后台进程也可能会等待键盘输入。</p>
-<p>后台进程的优点是不必等待程序运行结束就可以输入其他命令。</p>
-<p>那么怎么使一个进程（程序的实例）运行在后台呢？</p>
-<h4 id="amp-符号：在后台运行进程"><a href="#amp-符号：在后台运行进程" class="headerlink" title="&amp; 符号：在后台运行进程"></a>&amp; 符号：在后台运行进程</h4><p>前面说过，让一个进程在后台运行有几种方法。</p>
-<p>我们带大家来学习第一种，很简单：就是在你要运行的命令最后加上 &amp; 这个符号。</p>
-<p>我们可以用熟悉的 cp 命令做例子。例如，我运行 cp 命令来拷贝文件：emacs 的软件包。当然了，你可以用其他文件来测试。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp emacs-26.2.tar.gz emacs-26.2-copy.tar.gz &amp;</span><br></pre></td></tr></table></figure>
-
-<p>命令最后加了 &amp; 符号，运行时此进程就成为了后台进程。终端输出了一些信息：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[1] 2051</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>[1] ：这是此终端的后台进程的标号。因为这是第一个后台进程，所以标号为 1。</p>
-</li>
-<li><p>2051 ：这是进程号（PID），如果你想要结束这个后台进程，你可以用 kill 命令：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">kill 2051</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>我们虽然看不到这个拷贝进程的“所作所为”，但它确实在后台默默进行着文件的拷贝。</p>
-<p>可以看到，终端显示了：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[1]+  Done    cp emacs-26.2.tar.gz emacs-26.2-copy.tar.gz</span><br></pre></td></tr></table></figure>
-
-<p>Done 是英语“完成的”的意思，表示这个后台进程的任务已经完成了。</p>
-<h4 id="nohup-命令：使进程与终端分离"><a href="#nohup-命令：使进程与终端分离" class="headerlink" title="nohup 命令：使进程与终端分离"></a>nohup 命令：使进程与终端分离</h4><p>&amp; 符号虽然常用，但却有一个不可忽视的缺点：后台进程与终端相关联。一旦终端关闭或者用户登出，进程就自动结束。</p>
-<p>如果我们想让进程在以上情况下仍然继续在后台运行，那么我们须要用到 nohup 命令。</p>
-<p>当用户注销（logout）或者网络断开时，终端会收到 HUP（是 hangup 的缩写，英语“挂断”的意思）信号从而关闭其所有子进程；终端被关闭时也会关闭其子进程。</p>
-<p>我们可以用 nohup 命令使命令不受 HUP 信号影响。</p>
-<p>我们用 man 来看一下 nohup 命令的解释：</p>
-<p>nohup 命令的简单描述如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">run a command immune to hangups, with output to a non-tty</span><br></pre></td></tr></table></figure>
-
-<p>翻译出来大致就是：“使得运行的命令不受 hangup 信号影响，而且输出会存放到一个非 tty 中”。</p>
-<p>nohup 命令的用法很简单：在 nohup 命令之后接要运行的命令。例如，我们可以用 nohup 配合 cp 命令来实现文件的拷贝（这次拷贝的是 node.js 的源码。当然了，你可以用其他文件来测试）：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nohup cp node-v10.15.3.tar.gz node-v10.15.3-copy.tar.gz</span><br></pre></td></tr></table></figure>
-
-<p>可以看到这次的输出信息是：“ignoring input and appending output to nohup.out”。</p>
-<p>大致意思是：“忽略输入，把输出追加到 nohup.out 文件中”。</p>
-<p>使用 nohup 命令后，输出会被默认地追加写入到一个叫 nohup.out 的文件里。</p>
-<p>现在，我们的进程已经不受终端关闭或者用户断开连接的影响了，会一直运行。当然了，用 kill 命令还是可以结束此进程的。要获知进程号，可以用我们之前学过的 ps 命令配合 grep 来查找。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ps -ax | grep command</span><br></pre></td></tr></table></figure>
-
-<p>上面命令里的 command 指代 nohup 后面跟着的命令。</p>
-<p>nohup 命令相当有用。想象以下场景：</p>
-<blockquote>
-<p>我登录远程服务器，然后运行了一个耗时命令，或者一个需要一直运行的命令，例如一个游戏的服务器程序。这时假如我掉线了，或者我不小心用 exit 命令退出了登录。那么这个耗时命令也会中止运行。那就很麻烦了。而且，如果这个程序本应该一直运行很久的，我也不可能一直保持登录状态等它结束啊。<br>我家里还有老婆孩子呢，不能不去做饭啊，我要下班… 开个小玩笑。</p>
-</blockquote>
-<p>幸好，nohup 命令解决了这样的难题。</p>
-<p>一般我们也会把 nohup 和 &amp; 一起使用，例如：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nohup cp node-v10.15.3.tar.gz node-v10.15.3-copy.tar.gz &amp;</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-Ctrl-Z，jobs，bg-和-fg-命令：控制进程的前后台切换"><a href="#2-Ctrl-Z，jobs，bg-和-fg-命令：控制进程的前后台切换" class="headerlink" title="2. Ctrl + Z，jobs，bg 和 fg 命令：控制进程的前后台切换"></a>2. Ctrl + Z，jobs，bg 和 fg 命令：控制进程的前后台切换</h2><p>我们来考虑一种情况：假如你要将进程转到后台运行，但是执行命令时忘记了在最后加上 &amp; 符号。</p>
-<p>如何再使此进程转为后台进程呢？有几种方法。我们一一来学习。</p>
-<h4 id="Ctrl-Z：转到后台，并暂停运行"><a href="#Ctrl-Z：转到后台，并暂停运行" class="headerlink" title="Ctrl + Z：转到后台，并暂停运行"></a>Ctrl + Z：转到后台，并暂停运行</h4><p>我们用 top 命令来演示。运行：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">top</span><br></pre></td></tr></table></figure>
-
-<p>因为 top 命令的作用是实时地显示各种系统信息和进程列表。这时，我们按下 Ctrl + Z 这个组合键</p>
-<p>可以看到终端显示了：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[1]+ Stopped top</span><br></pre></td></tr></table></figure>
-
-<p>这行信息。</p>
-<p>stopped 是英语“停止的”的意思，我们又看到 [1] 这个熟悉的信息，表示这是此终端第一个后台进程。</p>
-<p>所以表示 top 命令被放到了后台，此进程还是驻留在内存中，但是被暂停运行了。这个时候命令提示符又出现了，我们可以做其他事情了。</p>
-<h4 id="bg-命令：使进程转到后台"><a href="#bg-命令：使进程转到后台" class="headerlink" title="bg 命令：使进程转到后台"></a>bg 命令：使进程转到后台</h4><p>经过上面的 Ctrl + Z 操作，我们可怜的 top 进程已经被“打入冷宫”（转入后台，并且被暂停运行了）。</p>
-<blockquote>
-<p>但是皇后不甘心啊：“臣妾虽然做不到，但即使在冷宫中，我也要工于心计、运筹帷幄，以期早日打败甄嬛。”</p>
-</blockquote>
-<p>那怎么办呢？可以运行 bg 命令。</p>
-<p>就是很简单地输入 bg，然后回车。bg 是英语 background 的缩写，表示“后台”。</p>
-<p>bg 命令的作用是将命令转入后台运行。假如命令已经在后台，并且暂停着，那么 bg 命令会将其状态改为运行。</p>
-<p>不加任何参数，bg 命令会默认作用于最近的一个后台进程，也就是刚才被 Ctrl + Z 暂停的 top 进程。如果后面加 %1，%2 这样的参数（不带 %，直接 1，2 这样也可以），则是作用于指定标号的进程。因为进程转入后台之后，会显示它在当前终端下的后台进程编号。例如目前 top 进程转入了后台，它的进程编号是 1（可以由 [1]+ 推断）。依次类推，bg %2 就是作用于编号为 2 的后台进程。</p>
-<p>补充一些知识：</p>
-<blockquote>
-<p>Linux 中，进程有 5 种状态：</p>
-<ol>
-<li>运行 (正在运行或在运行队列中等待)</li>
-<li>中断 (休眠中, 受阻, 在等待某个条件的形成或接受到信号)</li>
-<li>不可中断 (收到信号不唤醒和不可运行, 进程必须等待直到有中断发生)</li>
-<li>僵死 (进程已终止, 但进程描述符存在, 直到父进程使用 wait4() 系统调用后释放)</li>
-<li>停止 (进程收到 SIGSTOP, SIGSTP, SIGTIN, SIGTOU 信号后停止运行)</li>
-</ol>
-</blockquote>
-<blockquote>
-<p>ps 命令标识进程的 5 种状态码如下：</p>
-<ol>
-<li>D 不可中断 uninterruptible sleep (usually IO)</li>
-<li>R 运行 runnable (on run queue)</li>
-<li>S 中断 sleeping</li>
-<li>T 停止 traced or stopped</li>
-<li>Z 僵死 a defunct (“zombie”) process</li>
-</ol>
-</blockquote>
-<h4 id="jobs-命令：显示后台进程状态"><a href="#jobs-命令：显示后台进程状态" class="headerlink" title="jobs 命令：显示后台进程状态"></a>jobs 命令：显示后台进程状态</h4><p>这个命令很强大，毕竟和乔布斯乔老爷子（乔布斯的英文就是 jobs，全名是 Steve Jobs。job 是英语“工作”的意思，jobs 是复数形式）一样名字么。</p>
-<p>jobs 命令的作用是显示当前终端里的后台进程状态。虽然我们可以用 ps 命令来查看进程状态，但是 ps 命令输出的进程列表太长了。</p>
-<p>jobs 命令的输出共分三列，我们逐列来说明：</p>
-<ol>
-<li>显示后台进程标号：比如上例中 top 进程的标号是 1，grep 进程的标号是 2，如果还有其他后台进程，那么就会有 [3]，[4]等等。这个标号和 PID（进程号）是不一样的。这个标号只是显示当前终端下的后台进程的一个编号；</li>
-<li>显示后台进程状态：比如 Stopped 是“停止的”的意思，Running 是“运行的”的意思。还有其他状态；</li>
-<li>命令本身。</li>
-</ol>
-<h4 id="fg-命令：使进程转到前台"><a href="#fg-命令：使进程转到前台" class="headerlink" title="fg 命令：使进程转到前台"></a>fg 命令：使进程转到前台</h4><p>fg 是英语 foreground 的意思，表示“前台”。</p>
-<p>与 bg 命令相反，fg 命令的作用是：使进程转为前台运行。</p>
-<p>用法也很简单，和 bg 一样，如果不加参数，那么 fg 命令作用于最近的一个后台进程；如果加参数，如 %2，那么表示作用于本终端中第二个后台进程。</p>
-<p><img src="http://img1.sycdn.imooc.com/5d27ed94000124f610581196.png" alt="图片描述"></p>
-<p>解释一下上图：</p>
-<ol>
-<li>如果我们运行一个程序，默认情况下，它会成为一个前台运行的进程。我们可以按组合键 Ctrl + C 来销毁此进程。</li>
-<li>我们也可以使此进程在后台运行。假如运行程序时就用 &amp; 放在命令最后，那么进程就会在后台运行。</li>
-<li>假如在进程运行起来后，按 Ctrl + Z，则进程会转到后台，并且停止。此时如果运行 bg 命令，则进程重新运行，并继续在后台。</li>
-<li>fg 命令可以使进程转到前台，并且运行。</li>
-</ol>
-<p>花点时间好好理解一下这个状态图。这个图很重要，几乎概括了后台前台进程切换的所有情况。</p>
-<h5 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h5><ol>
-<li>我们可以使程序在后台运行，成为后台进程。这样在当前终端中我们就可以做其他事了，而不必等待此进程运行结束。</li>
-<li>为了使一个程序在后台运行，可以在命令的最后加上 &amp; 这个符号。但是，如果你关闭终端或退出登录，此后台进程还是会结束。为了将后台进程与本终端分离，可以使用 nohup 命令，使得进程不再受终端关闭或用户登出的影响。</li>
-<li>如果你运行了一个前台进程，但是想要将其转为后台运行进程。你可以先用 Ctrl + Z 组合键将其转为后台暂停，然后运行 bg 命令使其在后台重新运行。如果你要将一个后台命令（不管它是后台运行还是后台暂停）重新转为前台运行，只要用 fg 命令就可以了。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>screen</tag>
-        <tag>nohub</tag>
       </tags>
   </entry>
   <entry>
