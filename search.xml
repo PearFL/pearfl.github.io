@@ -1004,7 +1004,7 @@
 <p>5.测试是否与mysql连通</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sqoop list-databases --connect jdbc:mysql:&#x2F;&#x2F;hadoop000:3306&#x2F; --username root --password xxxxxx</span><br></pre></td></tr></table></figure>
 
-
+<a id="more"></a>
 
 <h2 id="导数据模板"><a href="#导数据模板" class="headerlink" title="导数据模板"></a>导数据模板</h2><h3 id="mysql-gt-hdfs"><a href="#mysql-gt-hdfs" class="headerlink" title="mysql-&gt;hdfs"></a>mysql-&gt;hdfs</h3><p>(1).全部导入</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sqoop import \</span><br><span class="line">--connect jdbc:mysql:&#x2F;&#x2F;hadoop000:3306&#x2F;database \</span><br><span class="line">--username root \</span><br><span class="line">--password xxxxxx \</span><br><span class="line">--table staff \</span><br><span class="line">--target-dir &#x2F;user&#x2F;database \</span><br><span class="line">--delete-target-dir \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--fields-terminated-by &quot;\t&quot;</span><br></pre></td></tr></table></figure>
