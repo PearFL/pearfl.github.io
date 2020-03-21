@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Scala隐式转换</title>
+    <url>/2020/03/21/58.Scala%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>scala</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>机器学习之梯度下降法</title>
     <url>/2020/03/17/56.%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95/</url>
     <content><![CDATA[<h1 id="梯度下降法（Gradient-Descent）"><a href="#梯度下降法（Gradient-Descent）" class="headerlink" title="梯度下降法（Gradient Descent）"></a>梯度下降法（Gradient Descent）</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>梯度下降法本身不是一个机器学习算法，它是一种基于搜索的最优化方法</p>
@@ -12,6 +23,85 @@
       </categories>
       <tags>
         <tag>梯度下降法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hadoop HA部署</title>
+    <url>/2020/03/17/57.Hadoop%20HA%E9%83%A8%E7%BD%B2/</url>
+    <content><![CDATA[<h1 id="集群搭建"><a href="#集群搭建" class="headerlink" title="集群搭建"></a>集群搭建</h1><h2 id="服务器创建-购买"><a href="#服务器创建-购买" class="headerlink" title="服务器创建/购买"></a>服务器创建/购买</h2><p>本博文采用阿里云ECS云服务器创建实例</p>
+<p>当然，虚拟机创建3个实例也是没有问题的</p>
+<p>3台服务器的配置均为2核8G，40G磁盘</p>
+<a id="more"></a>
+
+<h2 id="安装阶段"><a href="#安装阶段" class="headerlink" title="安装阶段"></a>安装阶段</h2><p>创建文件夹，下载依赖，上传安装包</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum install -y lrzsz</span><br><span class="line">useradd hadoop</span><br><span class="line">su - hadoop</span><br><span class="line">mkdir app software log data tmp</span><br><span class="line"></span><br><span class="line">回到root用户</span><br><span class="line">rz</span><br><span class="line">(上传)通过rz上传hadoop,jdk和zookeeper安装包,再通过scp经过内网传给另外2台机器</span><br><span class="line">scp * 172.16.135.139:&#x2F;home&#x2F;hadoop&#x2F;software</span><br><span class="line">scp * 172.16.135.140:&#x2F;home&#x2F;hadoop&#x2F;software</span><br></pre></td></tr></table></figure>
+
+<p>配置hosts文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">172.16.135.140	ruozedata001  </span><br><span class="line">172.16.135.139	ruozedata002</span><br><span class="line">172.16.135.138	ruozedata003</span><br><span class="line"></span><br><span class="line">echo &quot;172.16.135.140   ruozedata001&quot; &gt;&gt; &#x2F;etc&#x2F;hosts</span><br><span class="line">echo &quot;172.16.135.139   ruozedata002&quot; &gt;&gt; &#x2F;etc&#x2F;hosts</span><br><span class="line">echo &quot;172.16.135.138   ruozedata003&quot; &gt;&gt; &#x2F;etc&#x2F;hosts</span><br></pre></td></tr></table></figure>
+
+
+
+<p>配置ssh互相信任关系</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(切换到hadoop用户下)</span><br><span class="line"># 三台机器都在hadoop下执行ssh-keygen，之后一直选择回车</span><br><span class="line"># 进入hadoop家目录下的.ssh</span><br><span class="line">ssh-keygen</span><br><span class="line">cat ~&#x2F;.ssh&#x2F;id_rsa.pub &gt;&gt; ~&#x2F;.ssh&#x2F;authorized_keys</span><br><span class="line">chmod 0600 ~&#x2F;.ssh&#x2F;authorized_keys</span><br><span class="line"># 拷贝~&#x2F;.ssh&#x2F;authorized_keys到一起</span><br><span class="line">cat ~&#x2F;.ssh&#x2F;authorized_keys</span><br><span class="line"># 3个ssh-rsa弄一起</span><br></pre></td></tr></table></figure>
+
+
+
+<p>验证互相信任关系(三台机器都要做)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh ruozedata001 date</span><br><span class="line">ssh ruozedata002 date</span><br><span class="line">ssh ruozedata003 date</span><br></pre></td></tr></table></figure>
+
+
+
+<p>jdk安装</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># jdk</span><br><span class="line"># 目录必须: &#x2F;usr&#x2F;java&#x2F;</span><br><span class="line">mkdir &#x2F;usr&#x2F;java</span><br><span class="line">mv jdk-8u45-linux-x64.gz &#x2F;usr&#x2F;java&#x2F;</span><br><span class="line">cd &#x2F;usr&#x2F;java</span><br><span class="line">tar -zxvf jdk-8u45-linux-x64.gz</span><br><span class="line">chown -R root:root &#x2F;usr&#x2F;java&#x2F;*</span><br><span class="line"></span><br><span class="line"># 环境变量</span><br><span class="line">vi &#x2F;etc&#x2F;profile</span><br><span class="line"></span><br><span class="line">export JAVA_HOME&#x3D;&#x2F;usr&#x2F;java&#x2F;jdk1.8.0_45</span><br><span class="line">export PATH&#x3D;$&#123;JAVA_HOME&#125;&#x2F;bin:$PATH</span><br><span class="line"></span><br><span class="line">source &#x2F;etc&#x2F;profile</span><br></pre></td></tr></table></figure>
+
+
+
+<p>zookeeper安装</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tar -zxvf zookeeper-3.4.5-cdh5.16.2.tar.gz -C ..&#x2F;app&#x2F;</span><br><span class="line">ln -s zookeeper-3.4.5-cdh5.16.2 zookeeper</span><br><span class="line"></span><br><span class="line">cd zookeeper&#x2F;conf</span><br><span class="line">cp zoo_sample.cfg zoo.cfg</span><br><span class="line">vi zoo.cfg</span><br><span class="line">----下面是zoo.cfg内修改的数据</span><br><span class="line">dataDir&#x3D;&#x2F;home&#x2F;hadoop&#x2F;data&#x2F;zookeeper</span><br><span class="line"></span><br><span class="line">server.1&#x3D;ruozedata001:2888:3888</span><br><span class="line">server.2&#x3D;ruozedata002:2888:3888</span><br><span class="line">server.3&#x3D;ruozedata003:2888:3888</span><br><span class="line">----</span><br><span class="line"></span><br><span class="line">mkdir -p &#x2F;home&#x2F;hadoop&#x2F;data&#x2F;zookeeper</span><br><span class="line">cd &#x2F;home&#x2F;hadoop&#x2F;data&#x2F;zookeeper</span><br><span class="line"></span><br><span class="line"># 分别把1、2、3配置到三台机器里</span><br><span class="line">echo 1 &gt; myid</span><br><span class="line">echo 2 &gt; myid</span><br><span class="line">echo 3 &gt; myid</span><br><span class="line"></span><br><span class="line">export ZOOKEEPER_HOME&#x3D;&#x2F;home&#x2F;hadoop&#x2F;app&#x2F;zookeeper</span><br><span class="line">export PATH&#x3D;$ZOOKEEPER_HOME&#x2F;bin:$PATH</span><br></pre></td></tr></table></figure>
+
+
+
+<p>hadoop安装</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tar -zxvf hadoop-2.6.0-cdh5.16.2.tar.gz -C ..&#x2F;app&#x2F;</span><br><span class="line">ls -s hadoop-2.6.0-cdh5.16.2 hadoop</span><br><span class="line"></span><br><span class="line">export HADOOP_HOME&#x3D;&#x2F;home&#x2F;hadoop&#x2F;app&#x2F;hadoop</span><br><span class="line">export PATH&#x3D;$HADOOP_HOME&#x2F;bin:$HADOOP_HOME&#x2F;sbin:$PATH</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="配置阶段"><a href="#配置阶段" class="headerlink" title="配置阶段"></a>配置阶段</h2><p>core-site.xml配置介绍</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fs.trash.interval #回收站机制</span><br><span class="line">fs.trash.checkpoint.interval #垃圾回收站的检查间隔</span><br></pre></td></tr></table></figure>
+
+<p><strong>windows上传文件的格式会有坑！</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">windows上传到linux会有格式问题，隐藏了window的换行等编码</span><br><span class="line">yum install -y dos2unix</span><br><span class="line">file slaves</span><br><span class="line">转换格式</span><br><span class="line">dos2unix slaves</span><br></pre></td></tr></table></figure>
+
+
+
+<p>hadoop-env.sh</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export JAVA_HOME&#x3D;&#x2F;usr&#x2F;java&#x2F;jdk1.8.0_45</span><br></pre></td></tr></table></figure>
+
+
+
+<p>启动hadoop（hdfs+yarn）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 格式化前先启动journalnode</span><br><span class="line">.&#x2F;hadoop-daemon.sh start journalnode</span><br><span class="line"># 进行格式化</span><br><span class="line"># 选择第一台机器</span><br><span class="line">bin&#x2F;hadoop namenode -format</span><br><span class="line"></span><br><span class="line"># 格式化完成后</span><br><span class="line"># 同步到第二台HA</span><br><span class="line">scp -r &#x2F;home&#x2F;hadoop&#x2F;data&#x2F;dfs&#x2F;name ruozedata002:&#x2F;home&#x2F;hadoop&#x2F;data&#x2F;dfs</span><br><span class="line"></span><br><span class="line"># 初始化ZKFC（在第一个节点上做）</span><br><span class="line">bin&#x2F;hdfs zkfc -formatZK</span><br><span class="line"></span><br><span class="line"># 之后第一个节点上启动</span><br><span class="line">sbin&#x2F;start-dfs.sh</span><br><span class="line"></span><br><span class="line"># 如果某个进程挂了，单独启动一个进程</span><br><span class="line">hadoop-daemon.sh start namenode</span><br><span class="line">hadoop-daemon.sh start datanode</span><br><span class="line">hadoop-daemon.sh start journalnode</span><br><span class="line">hadoop-daemon.sh start zkfc</span><br><span class="line"></span><br><span class="line"># 第一台机器启动Yarn框架</span><br><span class="line">.&#x2F;start-yarn.sh</span><br><span class="line"></span><br><span class="line"># 第二台机器需要手动启动</span><br><span class="line">yarn-daemon.sh start resourcemanager</span><br><span class="line"></span><br><span class="line"># 启动jobhistory（端口在19888）</span><br><span class="line">mr-jobhistory-daemon.sh start historyserver</span><br></pre></td></tr></table></figure>
+
+
+
+<p>查看web界面，需要在阿里云上第一台机器配置安全组允许任意机器访问</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">8080的yarn资源页面，主节点可以打开，从节点需要在后面加上&#x2F;cluster&#x2F;cluster才行</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="补充知识点"><a href="#补充知识点" class="headerlink" title="补充知识点"></a>补充知识点</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">从节点（Standby节点）任何事情都不能干</span><br><span class="line"></span><br><span class="line">手动杀掉active的namenode，从节点变为主节点</span><br><span class="line">之后通过hadoop-daemon.sh start namenode重新启动</span><br><span class="line"></span><br><span class="line">脑裂的概念：同时出现两个active或者两个standby</span><br><span class="line">Haadmin</span><br><span class="line"></span><br><span class="line">hdfs haadmin -getServiceState nn1 查看service状态（active  or  standby）</span><br><span class="line">hdfs haadmin -checkHealth nn1   查看健康</span><br><span class="line"></span><br><span class="line">hdfs haadmin  -transitionToActive  nn1 --forceactive  强制变为Active引发脑裂，不过系统不给你执行</span><br><span class="line"></span><br><span class="line">hdfs haadmin -failover nn2 nn1   nn2的active转给nn1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">hdfs getconf -confKey   可以获得配置文件的value值  </span><br><span class="line">例如：</span><br><span class="line">hdfs getconf -confKey dfs.nameservices   </span><br><span class="line">ruozeclusterg8</span><br><span class="line">hdfs getconf -confKey dfs.ha.namenodes.ruozeclusterg8</span><br><span class="line">nn1,nn2</span><br><span class="line">hdfs haadmin -getServiceState nn1</span><br><span class="line">hdfs getconf -confKey dfs.namenode.rpc-address.ruozeclusterg8.nn1</span><br><span class="line">ruozedata001:8020</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>hadoop</tag>
+        <tag>HA</tag>
       </tags>
   </entry>
   <entry>
