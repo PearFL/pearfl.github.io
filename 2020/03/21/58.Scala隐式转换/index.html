@@ -46,15 +46,15 @@
   };
 </script>
 
-  <meta name="description" content="参考文档：https:&#x2F;&#x2F;docs.scala-lang.org&#x2F;zh-cn&#x2F;tour&#x2F;implicit-conversions.html 隐式参数隐式转换函数可以在不修改源代码的情况下，给类动态添加功能 1implicit def x2y(普通的X):牛逼的Y &#x3D; new 牛逼的Y(…)    隐式对象隐式类">
+  <meta name="description" content="参考文档之一：https:&#x2F;&#x2F;docs.scala-lang.org&#x2F;zh-cn&#x2F;tour&#x2F;implicit-conversions.html 隐式转换的前提1.不存在二义性 2.隐式操作不能嵌套 隐式参数当在程序中，同时有 隐式参数，默认值，传值时 编译器的优先级为 传值 &gt; 隐式参数 &gt; 默认值 在隐式参数匹配时，不能有二义性 如果三个（隐式参数，默认值，传值）一个都没有，就会报错">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Scala隐式转换">
 <meta property="og:url" content="http://yoursite.com/2020/03/21/58.Scala%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2/index.html">
 <meta property="og:site_name" content="叶梨子的小窝">
-<meta property="og:description" content="参考文档：https:&#x2F;&#x2F;docs.scala-lang.org&#x2F;zh-cn&#x2F;tour&#x2F;implicit-conversions.html 隐式参数隐式转换函数可以在不修改源代码的情况下，给类动态添加功能 1implicit def x2y(普通的X):牛逼的Y &#x3D; new 牛逼的Y(…)    隐式对象隐式类">
+<meta property="og:description" content="参考文档之一：https:&#x2F;&#x2F;docs.scala-lang.org&#x2F;zh-cn&#x2F;tour&#x2F;implicit-conversions.html 隐式转换的前提1.不存在二义性 2.隐式操作不能嵌套 隐式参数当在程序中，同时有 隐式参数，默认值，传值时 编译器的优先级为 传值 &gt; 隐式参数 &gt; 默认值 在隐式参数匹配时，不能有二义性 如果三个（隐式参数，默认值，传值）一个都没有，就会报错">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-03-21T08:42:17.000Z">
-<meta property="article:modified_time" content="2020-03-22T09:08:03.656Z">
+<meta property="article:modified_time" content="2020-03-22T16:06:43.002Z">
 <meta property="article:author" content="pearfl">
 <meta property="article:tag" content="scala">
 <meta name="twitter:card" content="summary">
@@ -243,7 +243,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-22 17:08:03" itemprop="dateModified" datetime="2020-03-22T17:08:03+08:00">2020-03-22</time>
+                <time title="修改时间：2020-03-23 00:06:43" itemprop="dateModified" datetime="2020-03-23T00:06:43+08:00">2020-03-23</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -263,7 +263,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>150</span>
+              <span>639</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -282,13 +282,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>参考文档：<a href="https://docs.scala-lang.org/zh-cn/tour/implicit-conversions.html" target="_blank" rel="noopener">https://docs.scala-lang.org/zh-cn/tour/implicit-conversions.html</a></p>
-<h2 id="隐式参数"><a href="#隐式参数" class="headerlink" title="隐式参数"></a>隐式参数</h2><h2 id="隐式转换函数"><a href="#隐式转换函数" class="headerlink" title="隐式转换函数"></a>隐式转换函数</h2><p>可以在不修改源代码的情况下，给类动态添加功能</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">implicit def x2y(普通的X):牛逼的Y &#x3D; new 牛逼的Y(…)</span><br></pre></td></tr></table></figure>
+        <p>参考文档之一：<a href="https://docs.scala-lang.org/zh-cn/tour/implicit-conversions.html" target="_blank" rel="noopener">https://docs.scala-lang.org/zh-cn/tour/implicit-conversions.html</a></p>
+<h2 id="隐式转换的前提"><a href="#隐式转换的前提" class="headerlink" title="隐式转换的前提"></a>隐式转换的前提</h2><p>1.不存在二义性</p>
+<p>2.隐式操作不能嵌套</p>
+<h2 id="隐式参数"><a href="#隐式参数" class="headerlink" title="隐式参数"></a>隐式参数</h2><p>当在程序中，同时有 隐式参数，默认值，传值时</p>
+<p>编译器的优先级为 传值 &gt; 隐式参数 &gt; 默认值</p>
+<p>在隐式参数匹配时，不能有二义性</p>
+<p>如果三个（隐式参数，默认值，传值）一个都没有，就会报错</p>
+<h2 id="隐式转换函数"><a href="#隐式转换函数" class="headerlink" title="隐式转换函数"></a>隐式转换函数</h2><p>可以在不修改源代码的情况下，给类动态添加功能</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">implicit</span> <span class="function"><span class="keyword">def</span> <span class="title">x2y</span></span>(普通的<span class="type">X</span>):牛逼的<span class="type">Y</span> = <span class="keyword">new</span> 牛逼的<span class="type">Y</span>(…)</span><br><span class="line"></span><br><span class="line">eg:</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Man</span>(<span class="params">val name: <span class="type">String</span></span>)</span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">Superman</span>(<span class="params">val name: <span class="type">String</span></span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">emitLaser</span> </span>= println(<span class="string">"emit a laster!"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">implicit</span> <span class="function"><span class="keyword">def</span> <span class="title">man2superman</span></span>(man: <span class="type">Man</span>): <span class="type">Superman</span> = <span class="keyword">new</span> <span class="type">Superman</span>(man.name)</span><br><span class="line"><span class="keyword">val</span> leo = <span class="keyword">new</span> <span class="type">Man</span>(<span class="string">"leo"</span>)</span><br><span class="line"></span><br><span class="line">leo.emitLaser</span><br></pre></td></tr></table></figure>
 
 
 
-<h2 id="隐式对象"><a href="#隐式对象" class="headerlink" title="隐式对象"></a>隐式对象</h2><h2 id="隐式类"><a href="#隐式类" class="headerlink" title="隐式类"></a>隐式类</h2>
+<h2 id="隐式类"><a href="#隐式类" class="headerlink" title="隐式类"></a>隐式类</h2><p>1.所带的构造参数，有且只能有一个</p>
+<p>2.隐式类必须被定义在“类”或“伴生对象”或“包对象”里，即隐式类不能是顶级的</p>
+<p>3.隐式类不能是case class</p>
+<p>4.作用域内不能有与之相同名称的标识符</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">implicit</span> <span class="class"><span class="keyword">class</span> <span class="title">Caculator</span>(<span class="params">x: <span class="type">Int</span></span>) </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span></span>(a: <span class="type">Int</span>) = a + x</span><br><span class="line">&#125;</span><br><span class="line">println(<span class="number">2.</span>add(<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
+
+
+
+
     </div>
 
     
@@ -310,7 +324,7 @@
       <i class="fa fa-chevron-left"></i> Hadoop HA部署
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/03/22/%EF%BC%8159.spark-core%E7%AE%97%E5%AD%90/" rel="next" title="spark-core算子">
+    <a href="/2020/03/22/59.spark%E7%AE%97%E5%AD%90/" rel="next" title="spark-core算子">
       spark-core算子 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -372,7 +386,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#隐式参数"><span class="nav-number">1.</span> <span class="nav-text">隐式参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隐式转换函数"><span class="nav-number">2.</span> <span class="nav-text">隐式转换函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隐式对象"><span class="nav-number">3.</span> <span class="nav-text">隐式对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隐式类"><span class="nav-number">4.</span> <span class="nav-text">隐式类</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#隐式转换的前提"><span class="nav-number">1.</span> <span class="nav-text">隐式转换的前提</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隐式参数"><span class="nav-number">2.</span> <span class="nav-text">隐式参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隐式转换函数"><span class="nav-number">3.</span> <span class="nav-text">隐式转换函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隐式类"><span class="nav-number">4.</span> <span class="nav-text">隐式类</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -460,7 +474,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:33</span>
+    <span title="站点阅读时长">3:34</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
