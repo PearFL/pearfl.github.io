@@ -210,6 +210,214 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/21/58.Scala%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="pearfl">
+      <meta itemprop="description" content="热爱从不降温">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="叶梨子的小窝">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/21/58.Scala%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2/" class="post-title-link" itemprop="url">Scala隐式转换</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-21 16:42:17" itemprop="dateCreated datePublished" datetime="2020-03-21T16:42:17+08:00">2020-03-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-23 00:06:43" itemprop="dateModified" datetime="2020-03-23T00:06:43+08:00">2020-03-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>639</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>参考文档之一：<a href="https://docs.scala-lang.org/zh-cn/tour/implicit-conversions.html" target="_blank" rel="noopener">https://docs.scala-lang.org/zh-cn/tour/implicit-conversions.html</a></p>
+<h2 id="隐式转换的前提"><a href="#隐式转换的前提" class="headerlink" title="隐式转换的前提"></a>隐式转换的前提</h2><p>1.不存在二义性</p>
+<p>2.隐式操作不能嵌套</p>
+<h2 id="隐式参数"><a href="#隐式参数" class="headerlink" title="隐式参数"></a>隐式参数</h2><p>当在程序中，同时有 隐式参数，默认值，传值时</p>
+<p>编译器的优先级为 传值 &gt; 隐式参数 &gt; 默认值</p>
+<p>在隐式参数匹配时，不能有二义性</p>
+<p>如果三个（隐式参数，默认值，传值）一个都没有，就会报错</p>
+<h2 id="隐式转换函数"><a href="#隐式转换函数" class="headerlink" title="隐式转换函数"></a>隐式转换函数</h2><p>可以在不修改源代码的情况下，给类动态添加功能</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">implicit</span> <span class="function"><span class="keyword">def</span> <span class="title">x2y</span></span>(普通的<span class="type">X</span>):牛逼的<span class="type">Y</span> = <span class="keyword">new</span> 牛逼的<span class="type">Y</span>(…)</span><br><span class="line"></span><br><span class="line">eg:</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Man</span>(<span class="params">val name: <span class="type">String</span></span>)</span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">Superman</span>(<span class="params">val name: <span class="type">String</span></span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">emitLaser</span> </span>= println(<span class="string">"emit a laster!"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">implicit</span> <span class="function"><span class="keyword">def</span> <span class="title">man2superman</span></span>(man: <span class="type">Man</span>): <span class="type">Superman</span> = <span class="keyword">new</span> <span class="type">Superman</span>(man.name)</span><br><span class="line"><span class="keyword">val</span> leo = <span class="keyword">new</span> <span class="type">Man</span>(<span class="string">"leo"</span>)</span><br><span class="line"></span><br><span class="line">leo.emitLaser</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="隐式类"><a href="#隐式类" class="headerlink" title="隐式类"></a>隐式类</h2><p>1.所带的构造参数，有且只能有一个</p>
+<p>2.隐式类必须被定义在“类”或“伴生对象”或“包对象”里，即隐式类不能是顶级的</p>
+<p>3.隐式类不能是case class</p>
+<p>4.作用域内不能有与之相同名称的标识符</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">implicit</span> <span class="class"><span class="keyword">class</span> <span class="title">Caculator</span>(<span class="params">x: <span class="type">Int</span></span>) </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span></span>(a: <span class="type">Int</span>) = a + x</span><br><span class="line">&#125;</span><br><span class="line">println(<span class="number">2.</span>add(<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/17/57.Hadoop%20HA%E9%83%A8%E7%BD%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="pearfl">
+      <meta itemprop="description" content="热爱从不降温">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="叶梨子的小窝">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/17/57.Hadoop%20HA%E9%83%A8%E7%BD%B2/" class="post-title-link" itemprop="url">Hadoop HA部署</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-17 14:28:44" itemprop="dateCreated datePublished" datetime="2020-03-17T14:28:44+08:00">2020-03-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-21 16:41:43" itemprop="dateModified" datetime="2020-03-21T16:41:43+08:00">2020-03-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="集群搭建"><a href="#集群搭建" class="headerlink" title="集群搭建"></a>集群搭建</h1><h2 id="服务器创建-购买"><a href="#服务器创建-购买" class="headerlink" title="服务器创建/购买"></a>服务器创建/购买</h2><p>本博文采用阿里云ECS云服务器创建实例</p>
+<p>当然，虚拟机创建3个实例也是没有问题的</p>
+<p>3台服务器的配置均为2核8G，40G磁盘</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/17/57.Hadoop%20HA%E9%83%A8%E7%BD%B2/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/16/55.shell%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -504,241 +712,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/10/52.Anaconda%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="pearfl">
-      <meta itemprop="description" content="热爱从不降温">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="叶梨子的小窝">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/10/52.Anaconda%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">Anaconda基础操作</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-03-10 16:34:22 / 修改时间：16:34:43" itemprop="dateCreated datePublished" datetime="2020-03-10T16:34:22+08:00">2020-03-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9A%8F%E7%AC%94%E5%88%86%E4%BA%AB/" itemprop="url" rel="index">
-                    <span itemprop="name">随笔分享</span>
-                  </a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>443</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>1.添加清华仓库</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda config --add channels https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;pkgs&#x2F;free&#x2F;</span><br><span class="line">conda config --set show_channel_urls yes</span><br></pre></td></tr></table></figure>
-
-
-
-<p>2.升级当前版本的conda</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda update conda</span><br></pre></td></tr></table></figure>
-
-
-
-<p>3.创建并激活一个环境</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">conda create --name snowflake</span><br><span class="line"></span><br><span class="line">Linux，OS X: source activate snowflakes</span><br><span class="line">Windows：activate snowflake&#96;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>4.切换到另一个环境</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Linux，OS X: source activate snowflakes</span><br><span class="line">Windows：activate snowflakes</span><br><span class="line"></span><br><span class="line">Linux，OS X: source deactivate</span><br><span class="line">Windows: deactivate</span><br></pre></td></tr></table></figure>
-
-
-
-<p>5.删除环境</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda remove -n flowers --all</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/10/51.%E6%B5%81%E4%B8%8E%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="pearfl">
-      <meta itemprop="description" content="热爱从不降温">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="叶梨子的小窝">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/10/51.%E6%B5%81%E4%B8%8E%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91/" class="post-title-link" itemprop="url">流与输出重定向</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-10 14:47:10" itemprop="dateCreated datePublished" datetime="2020-03-10T14:47:10+08:00">2020-03-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-12 17:01:34" itemprop="dateModified" datetime="2020-03-12T17:01:34+08:00">2020-03-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>流就是读一点数据, 处理一点点数据</p>
-<p>重定向，是什么意思呢？简单来说，就是我们可以把本来要显示在终端的命令结果，输送到别的地方：到文件中或者作为其他命令的输入（命令的链接，或者叫命令管道）。</p>
-<ul>
-<li>&gt; ：重定向到文件中。如果文件已存在，则覆盖文件内容；文件不存在，则创建文件。</li>
-<li>&gt;&gt; ：重定向到文件末尾。如果文件不存在，则创建文件。</li>
-</ul>
-<p>&gt; 和 &gt;&gt; 符号只是将标准输出重定向到文件，并不能将标准错误输出重定向到文件。</p>
-<p>那么我们要重定向标准错误输出，该怎么办呢？</p>
-<p>我们就要用到 2&gt; 这个符号。是的，就是在 &gt; 这个符号左边紧挨着写一个 2。</p>
-<p>为什么是 2 呢？标准错误输出的文件描述符是 2，所以这里的 2 表示标准错误输出。如果没有 2，单独的 &gt; 符号就是重定向标准输出（文件描述符为 1）。</p>
-<p>我们补充一下命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat not_exist_file.csv &gt; results.txt 2&gt; errors.log</span><br></pre></td></tr></table></figure>
-
-<p>这个命令里有两个重定向：</p>
-<ul>
-<li>&gt; results.txt ：将标准输出重定向到 results.txt 文件中；</li>
-<li>2&gt; errors.log ：将标准错误输出重定向到 errors.log 文件中。</li>
-</ul>
-<p>也就是说：</p>
-<ul>
-<li>假如 not_exist_file.csv 这个文件确实存在，将其内容写入 results.txt 文件中。</li>
-<li>假如 not_exist_file.csv 这个文件不存在，将错误信息写入 errors.log 文件中。</li>
-</ul>
-<h4 id="合并输出"><a href="#合并输出" class="headerlink" title="合并输出"></a>合并输出</h4><p>上面我们学习了如何将标准输出和标准错误输出分别重定向到不同文件。但是有的时候，我们比较“任性”，就想把标准输出和标准错误输出都重定向到同一个地方。怎么做呢？</p>
-<p>须要使用 2&gt;&amp;1 这个组合符号。</p>
-<p>看着怪怪的对吧？仅由四个字符组成。这个符号的作用是：将标准错误输出重定向到与标准输出相同的地方。</p>
-<p>我们用实例演示一下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat not_exist_file.csv &gt; results.txt 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
-
-<p>上面的命令的作用是：将 <code>cat not_exist_file.csv</code> 这个命令的所有输出（标准输出和标准错误输出）都重定向到 results.txt 文件中。</p>
-<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><ul>
-<li>2&gt; ：将标准错误输出重定向到文件。如果文件已经存在，则覆盖文件内容；如果不存在，则创建文件。</li>
-<li>2&gt;&gt; ：将标准错误输出重定向到文件末尾。如果文件不存在，则创建文件。</li>
-<li>2&gt;&amp;1 ：将标准输出和标准错误输出重定向到同一个地方。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -806,7 +784,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-count">62</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -819,7 +797,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -873,12 +851,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">141k</span>
+    <span title="站点总字数">143k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:55</span>
+    <span title="站点阅读时长">3:59</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
