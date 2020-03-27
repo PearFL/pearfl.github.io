@@ -54,7 +54,7 @@
 <meta property="og:description" content="压缩简介为什么要使用压缩？1.通过压缩我们可以减少hdfs上数据所占用的空间 2.减少HDFS读写数据量 3.提升网络传输效率 使用压缩的场景input 分布式处理引擎 output 常见压缩格式 GZIP BZIP2 LZO SNAPPY">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-03-26T10:58:22.000Z">
-<meta property="article:modified_time" content="2020-03-26T12:06:25.565Z">
+<meta property="article:modified_time" content="2020-03-27T03:04:50.145Z">
 <meta property="article:author" content="pearfl">
 <meta property="article:tag" content="hadoop">
 <meta name="twitter:card" content="summary">
@@ -235,10 +235,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-03-26 18:58:22 / 修改时间：20:06:25" itemprop="dateCreated datePublished" datetime="2020-03-26T18:58:22+08:00">2020-03-26</time>
+              <time title="创建时间：2020-03-26 18:58:22" itemprop="dateCreated datePublished" datetime="2020-03-26T18:58:22+08:00">2020-03-26</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-27 11:04:50" itemprop="dateModified" datetime="2020-03-27T11:04:50+08:00">2020-03-27</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -257,14 +263,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.6k</span>
+              <span>2.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>5 分钟</span>
             </span>
 
         </div>
@@ -292,6 +298,78 @@
 
 
 
+<h1 id="压缩格式的优点和缺点"><a href="#压缩格式的优点和缺点" class="headerlink" title="压缩格式的优点和缺点"></a>压缩格式的优点和缺点</h1><p>1 gzip压缩</p>
+<p>优点：压缩率比较高，而且压缩/解压速度也比较快；hadoop本身支持，在应用中处理gzip格式的文件就和直接处理文本一样；有hadoop native库；大部分linux系统都自带gzip命令，使用方便。</p>
+<p>缺点：不支持split。</p>
+<p>应用场景：当每个文件压缩之后在130M以内的（1个块大小内），都可以考虑用gzip压缩格式。譬如说一天或者一个小时的日志压缩成一个gzip 文件，运行mapreduce程序的时候通过多个gzip文件达到并发。hive程序，streaming程序，和java写的mapreduce程序完 全和文本处理一样，压缩之后原来的程序不需要做任何修改。</p>
+<p>2 lzo压缩</p>
+<p>优点：压缩/解压速度也比较快，合理的压缩率；支持split，是hadoop中最流行的压缩格式；支持hadoop native库；可以在linux系统下安装lzop命令，使用方便。</p>
+<p>缺点：压缩率比gzip要低一些；hadoop本身不支持，需要安装；在应用中对lzo格式的文件需要做一些特殊处理（为了支持split需要建索引，还需要指定inputformat为lzo格式）。</p>
+<p>应用场景：一个很大的文本文件，压缩之后还大于200M以上的可以考虑，而且单个文件越大，lzo优点越越明显。</p>
+<p>3 snappy压缩</p>
+<p>优点：高速压缩速度和合理的压缩率；支持hadoop native库。</p>
+<p>缺点：不支持split；压缩率比gzip要低；hadoop本身不支持，需要安装；linux系统下没有对应的命令。</p>
+<p>应用场景：当mapreduce作业的map输出的数据比较大的时候，作为map到reduce的中间数据的压缩格式；或者作为一个mapreduce作业的输出和另外一个mapreduce作业的输入。</p>
+<p>4 bzip2压缩</p>
+<p>优点：支持split；具有很高的压缩率，比gzip压缩率都高；hadoop本身支持，但不支持native；在linux系统下自带bzip2命令，使用方便。</p>
+<p>缺点：压缩/解压速度慢；不支持native。</p>
+<p>应用场景：适合对速度要求不高，但需要较高的压缩率的时候，可以作为mapreduce作业的输出格式；或者输出之后的数据比较大，处理之后的数据 需要压缩存档减少磁盘空间并且以后数据用得比较少的情况；或者对单个很大的文本文件想压缩减少存储空间，同时又需要支持split，而且兼容之前的应用程 序（即应用程序不需要修改）的情况。</p>
+<p>最后用一个表格比较上述4种压缩格式的特征（优缺点）：</p>
+<p>4种压缩格式的特征的比较</p>
+<table>
+<thead>
+<tr>
+<th align="left">压缩格式</th>
+<th align="left">split</th>
+<th align="left">native</th>
+<th align="left">压缩率</th>
+<th align="left">速度</th>
+<th align="left">是否hadoop自带</th>
+<th align="left">linux命令</th>
+<th align="left">换成压缩格式后，原来的应用程序是否要修改</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">gzip</td>
+<td align="left">否</td>
+<td align="left">是</td>
+<td align="left">很高</td>
+<td align="left">比较快</td>
+<td align="left">是，直接使用</td>
+<td align="left">有</td>
+<td align="left">和文本处理一样，不需要修改</td>
+</tr>
+<tr>
+<td align="left">lzo</td>
+<td align="left">是</td>
+<td align="left">是</td>
+<td align="left">比较高</td>
+<td align="left">很快</td>
+<td align="left">否，需要安装</td>
+<td align="left">有</td>
+<td align="left">需要建索引，还需要指定输入格式</td>
+</tr>
+<tr>
+<td align="left">snappy</td>
+<td align="left">否</td>
+<td align="left">是</td>
+<td align="left">比较高</td>
+<td align="left">很快</td>
+<td align="left">否，需要安装</td>
+<td align="left">没有</td>
+<td align="left">和文本处理一样，不需要修改</td>
+</tr>
+<tr>
+<td align="left">bzip2</td>
+<td align="left">是</td>
+<td align="left">否</td>
+<td align="left">最高</td>
+<td align="left">慢</td>
+<td align="left">是，直接使用</td>
+<td align="left">有</td>
+<td align="left">和文本处理一样，不需要修改</td>
+</tr>
+</tbody></table>
 <h1 id="压缩与解压编码"><a href="#压缩与解压编码" class="headerlink" title="压缩与解压编码"></a>压缩与解压编码</h1><h2 id="压缩"><a href="#压缩" class="headerlink" title="压缩"></a>压缩</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> filename 待压缩的文件</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> method 采用什么压缩格式</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 1) 通过输入流读入</span></span><br><span class="line"><span class="comment">     * 2) 通过输出流写出</span></span><br><span class="line"><span class="comment">     * 3) 使用IOUtils.copyBytes</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">compress</span><span class="params">(String filename, String method)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="keyword">new</span> File(filename));</span><br><span class="line"></span><br><span class="line">        Class&lt;?&gt; codec = Class.forName(method);</span><br><span class="line">        CompressionCodec compressionCodec = (CompressionCodec) ReflectionUtils.newInstance(codec, <span class="keyword">new</span> Configuration());</span><br><span class="line">        FileOutputStream fos =<span class="keyword">new</span> FileOutputStream(<span class="keyword">new</span> File(filename + compressionCodec.getDefaultExtension()));</span><br><span class="line">        CompressionOutputStream cos = compressionCodec.createOutputStream(fos);</span><br><span class="line">        IOUtils.copyBytes(fis, cos, <span class="number">1024</span>*<span class="number">1024</span>*<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">        cos.close();</span><br><span class="line">        fis.close();</span><br><span class="line">        fos.close();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
 
@@ -385,7 +463,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#压缩简介"><span class="nav-number">1.</span> <span class="nav-text">压缩简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要使用压缩？"><span class="nav-number">1.1.</span> <span class="nav-text">为什么要使用压缩？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用压缩的场景"><span class="nav-number">1.2.</span> <span class="nav-text">使用压缩的场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见压缩格式"><span class="nav-number">1.3.</span> <span class="nav-text">常见压缩格式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#压缩与解压编码"><span class="nav-number">2.</span> <span class="nav-text">压缩与解压编码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#压缩"><span class="nav-number">2.1.</span> <span class="nav-text">压缩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解压"><span class="nav-number">2.2.</span> <span class="nav-text">解压</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MR中直接配置"><span class="nav-number">3.</span> <span class="nav-text">MR中直接配置</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#压缩简介"><span class="nav-number">1.</span> <span class="nav-text">压缩简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要使用压缩？"><span class="nav-number">1.1.</span> <span class="nav-text">为什么要使用压缩？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用压缩的场景"><span class="nav-number">1.2.</span> <span class="nav-text">使用压缩的场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见压缩格式"><span class="nav-number">1.3.</span> <span class="nav-text">常见压缩格式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#压缩格式的优点和缺点"><span class="nav-number">2.</span> <span class="nav-text">压缩格式的优点和缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#压缩与解压编码"><span class="nav-number">3.</span> <span class="nav-text">压缩与解压编码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#压缩"><span class="nav-number">3.1.</span> <span class="nav-text">压缩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解压"><span class="nav-number">3.2.</span> <span class="nav-text">解压</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MR中直接配置"><span class="nav-number">4.</span> <span class="nav-text">MR中直接配置</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -468,12 +546,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">145k</span>
+    <span title="站点总字数">146k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:01</span>
+    <span title="站点阅读时长">4:03</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
