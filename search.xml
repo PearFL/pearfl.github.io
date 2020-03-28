@@ -1,6 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>spark累加器与广播变量</title>
+    <url>/2020/03/28/66.spark%E7%B4%AF%E5%8A%A0%E5%99%A8%E4%B8%8E%E5%B9%BF%E6%92%AD%E5%8F%98%E9%87%8F/</url>
+    <content><![CDATA[<p>Spark三大数据结构</p>
+<ul>
+<li>RDD：分布式数据集</li>
+<li>广播变量：分布式只读共享变量</li>
+<li>累加器：分布式只写共享变量</li>
+</ul>
+]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>spark</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>scala用maven打包无class问题</title>
+    <url>/2020/03/27/65.scala%E7%94%A8maven%E6%89%93%E5%8C%85%E6%97%A0class%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>官方文档：<a href="https://davidb.github.io/scala-maven-plugin/index.html" target="_blank" rel="noopener">https://davidb.github.io/scala-maven-plugin/index.html</a></p>
+<p>scala编译的时候，jar包里没有生成相关的class，原因是需要配置插件，详细内容都可以在官方文档中找</p>
+<a id="more"></a>
+
+<p>如果急用可以把下面代码拷进你的pom.xml中</p>
+<p>主pom.xml</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;net.alchim31.maven&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;scala-maven-plugin&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;4.3.1&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;plugin&gt;</span><br></pre></td></tr></table></figure>
+
+<p>子pom.xml</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">        &lt;plugins&gt;</span><br><span class="line">            &lt;plugin&gt;</span><br><span class="line">                &lt;groupId&gt;net.alchim31.maven&lt;&#x2F;groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;scala-maven-plugin&lt;&#x2F;artifactId&gt;</span><br><span class="line">                &lt;executions&gt;</span><br><span class="line">                    &lt;execution&gt;</span><br><span class="line">                        &lt;id&gt;scala-compile&lt;&#x2F;id&gt;</span><br><span class="line">                        &lt;goals&gt;</span><br><span class="line">                            &lt;goal&gt;compile&lt;&#x2F;goal&gt;</span><br><span class="line">                        &lt;&#x2F;goals&gt;</span><br><span class="line">                        &lt;configuration&gt;</span><br><span class="line">                            &lt;!--includes是一个数组，包含要编译的code--&gt;</span><br><span class="line">                            &lt;includes&gt;</span><br><span class="line">                                &lt;include&gt;**&#x2F;*.scala&lt;&#x2F;include&gt;</span><br><span class="line">                            &lt;&#x2F;includes&gt;</span><br><span class="line">                        &lt;&#x2F;configuration&gt;</span><br><span class="line">                    &lt;&#x2F;execution&gt;</span><br><span class="line">                    &lt;execution&gt;</span><br><span class="line">                        &lt;id&gt;scala-test-compile&lt;&#x2F;id&gt;</span><br><span class="line">                        &lt;goals&gt;</span><br><span class="line">                            &lt;goal&gt;testCompile&lt;&#x2F;goal&gt;</span><br><span class="line">                        &lt;&#x2F;goals&gt;</span><br><span class="line">                    &lt;&#x2F;execution&gt;</span><br><span class="line">                &lt;&#x2F;executions&gt;</span><br><span class="line">            &lt;&#x2F;plugin&gt;</span><br><span class="line">        &lt;&#x2F;plugins&gt;</span><br><span class="line">    &lt;&#x2F;build&gt;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>maven</tag>
+        <tag>scala</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>spark优化之依赖包传入spark.yarn.archive的使用</title>
+    <url>/2020/03/27/64.spark%E4%BC%98%E5%8C%96%E4%B9%8B%E4%BE%9D%E8%B5%96%E5%8C%85%E4%BC%A0%E5%85%A5spark.yarn.archive%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h1 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h1><p>启动Spark任务时，在没有配置<code>spark.yarn.archive</code>或者<code>spark.yarn.jars</code>时， 会看到不停地上传jar，非常耗时；使用<code>spark.yarn.archive</code>可以大大地减少任务的启动时间，整个处理过程如下。</p>
+<h1 id="spark-yarn-archive使用"><a href="#spark-yarn-archive使用" class="headerlink" title="spark.yarn.archive使用"></a>spark.yarn.archive使用</h1><p>1.在本地创建zip文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 在spark的jars目录下</span><br><span class="line">zip spark2.4.5.zip .&#x2F;*</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.上传至HDFS并更改权限</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hdfs dfs -mkdir &#x2F;tmp&#x2F;spark-archive</span><br><span class="line">hdfs dfs -put .&#x2F;spark2.4.5.zip &#x2F;tmp&#x2F;spark-archive&#x2F;</span><br><span class="line">hdfs dfs -chmod 775 &#x2F;tmp&#x2F;spark-archive&#x2F;spark2.4.5.zip</span><br></pre></td></tr></table></figure>
+
+
+
+<p>3.配置spark-default.conf</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">spark.yarn.archive  hdfs:&#x2F;&#x2F;hadoop000:8020&#x2F;tmp&#x2F;spark-archive&#x2F;spark2.4.5.zip</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>spark</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>java发送邮件</title>
     <url>/2020/03/27/63.java%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/</url>
     <content><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>采用SMTP</p>
