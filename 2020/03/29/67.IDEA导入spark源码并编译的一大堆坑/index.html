@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="IDEA：2019.3.3版本 spark：2.4.5 maven：3.6.3 scala：2.12.10 jdk：1.8 接下来让我们一起来进行惊险刺激的spark源码导入IDEA的冒险吧">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IDEA导入spark源码并编译的一大堆坑.md">
+<meta property="og:url" content="http://yoursite.com/2020/03/29/67.IDEA%E5%AF%BC%E5%85%A5spark%E6%BA%90%E7%A0%81%E5%B9%B6%E7%BC%96%E8%AF%91%E7%9A%84%E4%B8%80%E5%A4%A7%E5%A0%86%E5%9D%91/index.html">
+<meta property="og:site_name" content="叶梨子的小窝">
+<meta property="og:description" content="IDEA：2019.3.3版本 spark：2.4.5 maven：3.6.3 scala：2.12.10 jdk：1.8 接下来让我们一起来进行惊险刺激的spark源码导入IDEA的冒险吧">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/images/67/1.png">
+<meta property="og:image" content="http://yoursite.com/images/67/2.png">
+<meta property="og:image" content="http://yoursite.com/images/67/3.png">
+<meta property="og:image" content="http://yoursite.com/images/67/4.png">
+<meta property="og:image" content="http://yoursite.com/images/67/5.png">
+<meta property="article:published_time" content="2020-03-29T07:17:21.000Z">
+<meta property="article:modified_time" content="2020-03-29T07:40:55.231Z">
+<meta property="article:author" content="pearfl">
+<meta property="article:tag" content="spark">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/67/1.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/29/67.IDEA%E5%AF%BC%E5%85%A5spark%E6%BA%90%E7%A0%81%E5%B9%B6%E7%BC%96%E8%AF%91%E7%9A%84%E4%B8%80%E5%A4%A7%E5%A0%86%E5%9D%91/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>IDEA导入spark源码并编译的一大堆坑.md | 叶梨子的小窝</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband">
+    <a href="https://github.com/PearFL" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    </div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">叶梨子的小窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">记录自己的成长</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/29/67.IDEA%E5%AF%BC%E5%85%A5spark%E6%BA%90%E7%A0%81%E5%B9%B6%E7%BC%96%E8%AF%91%E7%9A%84%E4%B8%80%E5%A4%A7%E5%A0%86%E5%9D%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="pearfl">
+      <meta itemprop="description" content="热爱从不降温">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="叶梨子的小窝">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          IDEA导入spark源码并编译的一大堆坑.md
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-29 15:17:21 / 修改时间：15:40:55" itemprop="dateCreated datePublished" datetime="2020-03-29T15:17:21+08:00">2020-03-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>17k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>29 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>IDEA：2019.3.3版本</p>
+<p>spark：2.4.5</p>
+<p>maven：3.6.3</p>
+<p>scala：2.12.10</p>
+<p>jdk：1.8</p>
+<p>接下来让我们一起来进行惊险刺激的spark源码导入IDEA的冒险吧</p>
+<a id="more"></a>
+
+<h1 id="源码下载"><a href="#源码下载" class="headerlink" title="源码下载"></a>源码下载</h1><p>官方网站：<a href="http://spark.apache.org/" target="_blank" rel="noopener">http://spark.apache.org/</a></p>
+<p>github拉取同样也可以</p>
+<p>下载好后解压成文件夹，用IDEA将其导入，等待依赖下载完成</p>
+<h2 id="maven的settings-xml配置问题"><a href="#maven的settings-xml配置问题" class="headerlink" title="maven的settings.xml配置问题"></a>maven的settings.xml配置问题</h2><p>一定要改源，不然会下非常久</p>
+<p>这里给个样例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--</span><br><span class="line">Licensed to the Apache Software Foundation (ASF) under one</span><br><span class="line">or more contributor license agreements.  See the NOTICE file</span><br><span class="line">distributed with this work for additional information</span><br><span class="line">regarding copyright ownership.  The ASF licenses this file</span><br><span class="line">to you under the Apache License, Version 2.0 (the</span><br><span class="line">&quot;License&quot;); you may not use this file except in compliance</span><br><span class="line">with the License.  You may obtain a copy of the License at</span><br><span class="line"></span><br><span class="line">    http:&#x2F;&#x2F;www.apache.org&#x2F;licenses&#x2F;LICENSE-2.0</span><br><span class="line"></span><br><span class="line">Unless required by applicable law or agreed to in writing,</span><br><span class="line">software distributed under the License is distributed on an</span><br><span class="line">&quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY</span><br><span class="line">KIND, either express or implied.  See the License for the</span><br><span class="line">specific language governing permissions and limitations</span><br><span class="line">under the License.</span><br><span class="line">--&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--</span><br><span class="line"> | This is the configuration file for Maven. It can be specified at two levels:</span><br><span class="line"> |</span><br><span class="line"> |  1. User Level. This settings.xml file provides configuration for a single user,</span><br><span class="line"> |                 and is normally provided in $&#123;user.home&#125;&#x2F;.m2&#x2F;settings.xml.</span><br><span class="line"> |</span><br><span class="line"> |                 NOTE: This location can be overridden with the CLI option:</span><br><span class="line"> |</span><br><span class="line"> |                 -s &#x2F;path&#x2F;to&#x2F;user&#x2F;settings.xml</span><br><span class="line"> |</span><br><span class="line"> |  2. Global Level. This settings.xml file provides configuration for all Maven</span><br><span class="line"> |                 users on a machine (assuming they&#39;re all using the same Maven</span><br><span class="line"> |                 installation). It&#39;s normally provided in</span><br><span class="line"> |                 $&#123;maven.conf&#125;&#x2F;settings.xml.</span><br><span class="line"> |</span><br><span class="line"> |                 NOTE: This location can be overridden with the CLI option:</span><br><span class="line"> |</span><br><span class="line"> |                 -gs &#x2F;path&#x2F;to&#x2F;global&#x2F;settings.xml</span><br><span class="line"> |</span><br><span class="line"> | The sections in this sample file are intended to give you a running start at</span><br><span class="line"> | getting the most out of your Maven installation. Where appropriate, the default</span><br><span class="line"> | values (values used when the setting is not specified) are provided.</span><br><span class="line"> |</span><br><span class="line"> |--&gt;</span><br><span class="line">&lt;settings xmlns&#x3D;&quot;http:&#x2F;&#x2F;maven.apache.org&#x2F;SETTINGS&#x2F;1.0.0&quot;</span><br><span class="line">          xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;</span><br><span class="line">          xsi:schemaLocation&#x3D;&quot;http:&#x2F;&#x2F;maven.apache.org&#x2F;SETTINGS&#x2F;1.0.0 http:&#x2F;&#x2F;maven.apache.org&#x2F;xsd&#x2F;settings-1.0.0.xsd&quot;&gt;</span><br><span class="line">  &lt;!-- localRepository</span><br><span class="line">   | The path to the local repository maven will use to store artifacts.</span><br><span class="line">   |</span><br><span class="line">   | Default: $&#123;user.home&#125;&#x2F;.m2&#x2F;repository</span><br><span class="line">  &lt;localRepository&gt;&#x2F;path&#x2F;to&#x2F;local&#x2F;repo&lt;&#x2F;localRepository&gt;</span><br><span class="line">  --&gt;</span><br><span class="line">  &lt;localRepository&gt;F:\\software\\maven_repository&lt;&#x2F;localRepository&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- interactiveMode</span><br><span class="line">   | This will determine whether maven prompts you when it needs input. If set to false,</span><br><span class="line">   | maven will use a sensible default value, perhaps based on some other setting, for</span><br><span class="line">   | the parameter in question.</span><br><span class="line">   |</span><br><span class="line">   | Default: true</span><br><span class="line">  &lt;interactiveMode&gt;true&lt;&#x2F;interactiveMode&gt;</span><br><span class="line">  --&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- offline</span><br><span class="line">   | Determines whether maven should attempt to connect to the network when executing a build.</span><br><span class="line">   | This will have an effect on artifact downloads, artifact deployment, and others.</span><br><span class="line">   |</span><br><span class="line">   | Default: false</span><br><span class="line">  &lt;offline&gt;false&lt;&#x2F;offline&gt;</span><br><span class="line">  --&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- pluginGroups</span><br><span class="line">   | This is a list of additional group identifiers that will be searched when resolving plugins by their prefix, i.e.</span><br><span class="line">   | when invoking a command line like &quot;mvn prefix:goal&quot;. Maven will automatically add the group identifiers</span><br><span class="line">   | &quot;org.apache.maven.plugins&quot; and &quot;org.codehaus.mojo&quot; if these are not already contained in the list.</span><br><span class="line">   |--&gt;</span><br><span class="line">  &lt;pluginGroups&gt;</span><br><span class="line">    &lt;!-- pluginGroup</span><br><span class="line">     | Specifies a further group identifier to use for plugin lookup.</span><br><span class="line">    &lt;pluginGroup&gt;com.your.plugins&lt;&#x2F;pluginGroup&gt;</span><br><span class="line">    --&gt;</span><br><span class="line">  &lt;&#x2F;pluginGroups&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- proxies</span><br><span class="line">   | This is a list of proxies which can be used on this machine to connect to the network.</span><br><span class="line">   | Unless otherwise specified (by system property or command-line switch), the first proxy</span><br><span class="line">   | specification in this list marked as active will be used.</span><br><span class="line">   |--&gt;</span><br><span class="line">  &lt;proxies&gt;</span><br><span class="line">    &lt;!-- proxy</span><br><span class="line">     | Specification for one proxy, to be used in connecting to the network.</span><br><span class="line">     |</span><br><span class="line">    &lt;proxy&gt;</span><br><span class="line">      &lt;id&gt;optional&lt;&#x2F;id&gt;</span><br><span class="line">      &lt;active&gt;true&lt;&#x2F;active&gt;</span><br><span class="line">      &lt;protocol&gt;http&lt;&#x2F;protocol&gt;</span><br><span class="line">      &lt;username&gt;proxyuser&lt;&#x2F;username&gt;</span><br><span class="line">      &lt;password&gt;proxypass&lt;&#x2F;password&gt;</span><br><span class="line">      &lt;host&gt;proxy.host.net&lt;&#x2F;host&gt;</span><br><span class="line">      &lt;port&gt;80&lt;&#x2F;port&gt;</span><br><span class="line">      &lt;nonProxyHosts&gt;local.net|some.host.com&lt;&#x2F;nonProxyHosts&gt;</span><br><span class="line">    &lt;&#x2F;proxy&gt;</span><br><span class="line">    --&gt;</span><br><span class="line">  &lt;&#x2F;proxies&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- servers</span><br><span class="line">   | This is a list of authentication profiles, keyed by the server-id used within the system.</span><br><span class="line">   | Authentication profiles can be used whenever maven must make a connection to a remote server.</span><br><span class="line">   |--&gt;</span><br><span class="line">  &lt;servers&gt;</span><br><span class="line">    &lt;!-- server</span><br><span class="line">     | Specifies the authentication information to use when connecting to a particular server, identified by</span><br><span class="line">     | a unique name within the system (referred to by the &#39;id&#39; attribute below).</span><br><span class="line">     |</span><br><span class="line">     | NOTE: You should either specify username&#x2F;password OR privateKey&#x2F;passphrase, since these pairings are</span><br><span class="line">     |       used together.</span><br><span class="line">     |</span><br><span class="line">    &lt;server&gt;</span><br><span class="line">      &lt;id&gt;deploymentRepo&lt;&#x2F;id&gt;</span><br><span class="line">      &lt;username&gt;repouser&lt;&#x2F;username&gt;</span><br><span class="line">      &lt;password&gt;repopwd&lt;&#x2F;password&gt;</span><br><span class="line">    &lt;&#x2F;server&gt;</span><br><span class="line">    --&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- Another sample, using keys to authenticate.</span><br><span class="line">    &lt;server&gt;</span><br><span class="line">      &lt;id&gt;siteServer&lt;&#x2F;id&gt;</span><br><span class="line">      &lt;privateKey&gt;&#x2F;path&#x2F;to&#x2F;private&#x2F;key&lt;&#x2F;privateKey&gt;</span><br><span class="line">      &lt;passphrase&gt;optional; leave empty if not used.&lt;&#x2F;passphrase&gt;</span><br><span class="line">    &lt;&#x2F;server&gt;</span><br><span class="line">    --&gt;</span><br><span class="line">  &lt;&#x2F;servers&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- mirrors</span><br><span class="line">   | This is a list of mirrors to be used in downloading artifacts from remote repositories.</span><br><span class="line">   |</span><br><span class="line">   | It works like this: a POM may declare a repository to use in resolving certain artifacts.</span><br><span class="line">   | However, this repository may have problems with heavy traffic at times, so people have mirrored</span><br><span class="line">   | it to several places.</span><br><span class="line">   |</span><br><span class="line">   | That repository definition will have a unique id, so we can create a mirror reference for that</span><br><span class="line">   | repository, to be used as an alternate download site. The mirror site will be the preferred</span><br><span class="line">   | server for that repository.</span><br><span class="line">   |--&gt;</span><br><span class="line">  &lt;mirrors&gt;</span><br><span class="line">    &lt;!-- mirror</span><br><span class="line">     | Specifies a repository mirror site to use instead of a given repository. The repository that</span><br><span class="line">     | this mirror serves has an ID that matches the mirrorOf element of this mirror. IDs are used</span><br><span class="line">     | for inheritance and direct lookup purposes, and must be unique across the set of mirrors.</span><br><span class="line">     |</span><br><span class="line">    &lt;mirror&gt;</span><br><span class="line">      &lt;id&gt;mirrorId&lt;&#x2F;id&gt;</span><br><span class="line">      &lt;mirrorOf&gt;repositoryId&lt;&#x2F;mirrorOf&gt;</span><br><span class="line">      &lt;name&gt;Human Readable Name for this Mirror.&lt;&#x2F;name&gt;</span><br><span class="line">      &lt;url&gt;http:&#x2F;&#x2F;my.repository.com&#x2F;repo&#x2F;path&lt;&#x2F;url&gt;</span><br><span class="line">    &lt;&#x2F;mirror&gt;</span><br><span class="line">     --&gt;</span><br><span class="line">    &lt;!-- &lt;mirror&gt;</span><br><span class="line">      &lt;id&gt;alimaven&lt;&#x2F;id&gt;</span><br><span class="line">      &lt;mirrorOf&gt;central&lt;&#x2F;mirrorOf&gt;</span><br><span class="line">      &lt;name&gt;aliyun maven&lt;&#x2F;name&gt;</span><br><span class="line">      &lt;url&gt;https:&#x2F;&#x2F;maven.aliyun.com&#x2F;repository&#x2F;central&lt;&#x2F;url&gt;</span><br><span class="line">    &lt;&#x2F;mirror&gt; --&gt;</span><br><span class="line">    &lt;mirror&gt;</span><br><span class="line">      &lt;id&gt;nexus-aliyun&lt;&#x2F;id&gt;</span><br><span class="line">      &lt;name&gt;nexus-aliyun&lt;&#x2F;name&gt;</span><br><span class="line">      &lt;url&gt;http:&#x2F;&#x2F;maven.aliyun.com&#x2F;nexus&#x2F;content&#x2F;groups&#x2F;public&lt;&#x2F;url&gt;</span><br><span class="line">      &lt;mirrorOf&gt;central,!jeecg,!jee-snapshots&lt;&#x2F;mirrorOf&gt;</span><br><span class="line">      &lt;!--&lt;mirrorOf&gt;*,!jeecg,!jee-snapshots,!mapr-releases,!cloudera,!central-repo&lt;&#x2F;mirrorOf&gt;--&gt;</span><br><span class="line">    &lt;&#x2F;mirror&gt;</span><br><span class="line"></span><br><span class="line">    &lt;mirror&gt;</span><br><span class="line">      &lt;id&gt;mapr-public&lt;&#x2F;id&gt;</span><br><span class="line">      &lt;name&gt;mapr-releases&lt;&#x2F;name&gt;</span><br><span class="line">      &lt;url&gt;https:&#x2F;&#x2F;maven.aliyun.com&#x2F;repository&#x2F;mapr-public&lt;&#x2F;url&gt;</span><br><span class="line">      &lt;mirrorOf&gt;mapr-releases&lt;&#x2F;mirrorOf&gt;</span><br><span class="line">    &lt;&#x2F;mirror&gt;</span><br><span class="line"></span><br><span class="line">    &lt;mirror&gt;</span><br><span class="line">      &lt;id&gt;central-repo&lt;&#x2F;id&gt;</span><br><span class="line">      &lt;mirrorOf&gt;central-repo&lt;&#x2F;mirrorOf&gt;</span><br><span class="line">      &lt;name&gt;central-repo&lt;&#x2F;name&gt;</span><br><span class="line">      &lt;url&gt;https:&#x2F;&#x2F;repo1.maven.org&#x2F;maven2&#x2F;&lt;&#x2F;url&gt;</span><br><span class="line">    &lt;&#x2F;mirror&gt;</span><br><span class="line"></span><br><span class="line">    &lt;mirror&gt;</span><br><span class="line">      &lt;id&gt;cloudera&lt;&#x2F;id&gt;</span><br><span class="line">      &lt;mirrorOf&gt;cloudera&lt;&#x2F;mirrorOf&gt;</span><br><span class="line">      &lt;name&gt;cloudera-repo&lt;&#x2F;name&gt;</span><br><span class="line">      &lt;url&gt;https:&#x2F;&#x2F;repository.cloudera.com&#x2F;artifactory&#x2F;cloudera-repos&#x2F;&lt;&#x2F;url&gt;</span><br><span class="line">    &lt;&#x2F;mirror&gt;</span><br><span class="line">  &lt;&#x2F;mirrors&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- profiles</span><br><span class="line">   | This is a list of profiles which can be activated in a variety of ways, and which can modify</span><br><span class="line">   | the build process. Profiles provided in the settings.xml are intended to provide local machine-</span><br><span class="line">   | specific paths and repository locations which allow the build to work in the local environment.</span><br><span class="line">   |</span><br><span class="line">   | For example, if you have an integration testing plugin - like cactus - that needs to know where</span><br><span class="line">   | your Tomcat instance is installed, you can provide a variable here such that the variable is</span><br><span class="line">   | dereferenced during the build process to configure the cactus plugin.</span><br><span class="line">   |</span><br><span class="line">   | As noted above, profiles can be activated in a variety of ways. One way - the activeProfiles</span><br><span class="line">   | section of this document (settings.xml) - will be discussed later. Another way essentially</span><br><span class="line">   | relies on the detection of a system property, either matching a particular value for the property,</span><br><span class="line">   | or merely testing its existence. Profiles can also be activated by JDK version prefix, where a</span><br><span class="line">   | value of &#39;1.4&#39; might activate a profile when the build is executed on a JDK version of &#39;1.4.2_07&#39;.</span><br><span class="line">   | Finally, the list of active profiles can be specified directly from the command line.</span><br><span class="line">   |</span><br><span class="line">   | NOTE: For profiles defined in the settings.xml, you are restricted to specifying only artifact</span><br><span class="line">   |       repositories, plugin repositories, and free-form properties to be used as configuration</span><br><span class="line">   |       variables for plugins in the POM.</span><br><span class="line">   |</span><br><span class="line">   |--&gt;</span><br><span class="line">  &lt;profiles&gt;</span><br><span class="line">    &lt;!-- profile</span><br><span class="line">     | Specifies a set of introductions to the build process, to be activated using one or more of the</span><br><span class="line">     | mechanisms described above. For inheritance purposes, and to activate profiles via &lt;activatedProfiles&#x2F;&gt;</span><br><span class="line">     | or the command line, profiles have to have an ID that is unique.</span><br><span class="line">     |</span><br><span class="line">     | An encouraged best practice for profile identification is to use a consistent naming convention</span><br><span class="line">     | for profiles, such as &#39;env-dev&#39;, &#39;env-test&#39;, &#39;env-production&#39;, &#39;user-jdcasey&#39;, &#39;user-brett&#39;, etc.</span><br><span class="line">     | This will make it more intuitive to understand what the set of introduced profiles is attempting</span><br><span class="line">     | to accomplish, particularly when you only have a list of profile id&#39;s for debug.</span><br><span class="line">     |</span><br><span class="line">     | This profile example uses the JDK version to trigger activation, and provides a JDK-specific repo.</span><br><span class="line">    &lt;profile&gt;</span><br><span class="line">      &lt;id&gt;jdk-1.4&lt;&#x2F;id&gt;</span><br><span class="line"></span><br><span class="line">      &lt;activation&gt;</span><br><span class="line">        &lt;jdk&gt;1.4&lt;&#x2F;jdk&gt;</span><br><span class="line">      &lt;&#x2F;activation&gt;</span><br><span class="line"></span><br><span class="line">      &lt;repositories&gt;</span><br><span class="line">        &lt;repository&gt;</span><br><span class="line">          &lt;id&gt;jdk14&lt;&#x2F;id&gt;</span><br><span class="line">          &lt;name&gt;Repository for JDK 1.4 builds&lt;&#x2F;name&gt;</span><br><span class="line">          &lt;url&gt;http:&#x2F;&#x2F;www.myhost.com&#x2F;maven&#x2F;jdk14&lt;&#x2F;url&gt;</span><br><span class="line">          &lt;layout&gt;default&lt;&#x2F;layout&gt;</span><br><span class="line">          &lt;snapshotPolicy&gt;always&lt;&#x2F;snapshotPolicy&gt;</span><br><span class="line">        &lt;&#x2F;repository&gt;</span><br><span class="line">      &lt;&#x2F;repositories&gt;</span><br><span class="line">    &lt;&#x2F;profile&gt;</span><br><span class="line">    --&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--</span><br><span class="line">     | Here is another profile, activated by the system property &#39;target-env&#39; with a value of &#39;dev&#39;,</span><br><span class="line">     | which provides a specific path to the Tomcat instance. To use this, your plugin configuration</span><br><span class="line">     | might hypothetically look like:</span><br><span class="line">     |</span><br><span class="line">     | ...</span><br><span class="line">     | &lt;plugin&gt;</span><br><span class="line">     |   &lt;groupId&gt;org.myco.myplugins&lt;&#x2F;groupId&gt;</span><br><span class="line">     |   &lt;artifactId&gt;myplugin&lt;&#x2F;artifactId&gt;</span><br><span class="line">     |</span><br><span class="line">     |   &lt;configuration&gt;</span><br><span class="line">     |     &lt;tomcatLocation&gt;$&#123;tomcatPath&#125;&lt;&#x2F;tomcatLocation&gt;</span><br><span class="line">     |   &lt;&#x2F;configuration&gt;</span><br><span class="line">     | &lt;&#x2F;plugin&gt;</span><br><span class="line">     | ...</span><br><span class="line">     |</span><br><span class="line">     | NOTE: If you just wanted to inject this configuration whenever someone set &#39;target-env&#39; to</span><br><span class="line">     |       anything, you could just leave off the &lt;value&#x2F;&gt; inside the activation-property.</span><br><span class="line">     |</span><br><span class="line">    &lt;profile&gt;</span><br><span class="line">      &lt;id&gt;env-dev&lt;&#x2F;id&gt;</span><br><span class="line"></span><br><span class="line">      &lt;activation&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">          &lt;name&gt;target-env&lt;&#x2F;name&gt;</span><br><span class="line">          &lt;value&gt;dev&lt;&#x2F;value&gt;</span><br><span class="line">        &lt;&#x2F;property&gt;</span><br><span class="line">      &lt;&#x2F;activation&gt;</span><br><span class="line"></span><br><span class="line">      &lt;properties&gt;</span><br><span class="line">        &lt;tomcatPath&gt;&#x2F;path&#x2F;to&#x2F;tomcat&#x2F;instance&lt;&#x2F;tomcatPath&gt;</span><br><span class="line">      &lt;&#x2F;properties&gt;</span><br><span class="line">    &lt;&#x2F;profile&gt;</span><br><span class="line">    --&gt;</span><br><span class="line">&lt;profile&gt;</span><br><span class="line">      &lt;id&gt;central&lt;&#x2F;id&gt;</span><br><span class="line">      &lt;repositories&gt;</span><br><span class="line">        &lt;repository&gt;</span><br><span class="line">          &lt;id&gt;aliyun-nexus&lt;&#x2F;id&gt;</span><br><span class="line">          &lt;url&gt;http:&#x2F;&#x2F;maven.aliyun.com&#x2F;nexus&#x2F;content&#x2F;groups&#x2F;public&lt;&#x2F;url&gt;</span><br><span class="line">          &lt;releases&gt;</span><br><span class="line">            &lt;enabled&gt;true&lt;&#x2F;enabled&gt;</span><br><span class="line">          &lt;&#x2F;releases&gt;</span><br><span class="line">          &lt;snapshots&gt;</span><br><span class="line">            &lt;enabled&gt;false&lt;&#x2F;enabled&gt;</span><br><span class="line">          &lt;&#x2F;snapshots&gt;</span><br><span class="line">        &lt;&#x2F;repository&gt;</span><br><span class="line">      &lt;&#x2F;repositories&gt;</span><br><span class="line">      &lt;pluginRepositories&gt;</span><br><span class="line">        &lt;pluginRepository&gt;</span><br><span class="line">          &lt;id&gt;aliyun-nexus&lt;&#x2F;id&gt;</span><br><span class="line">          &lt;url&gt;http:&#x2F;&#x2F;maven.aliyun.com&#x2F;nexus&#x2F;content&#x2F;groups&#x2F;public&lt;&#x2F;url&gt;</span><br><span class="line">          &lt;releases&gt;</span><br><span class="line">            &lt;enabled&gt;true&lt;&#x2F;enabled&gt;</span><br><span class="line">          &lt;&#x2F;releases&gt;</span><br><span class="line">          &lt;snapshots&gt;</span><br><span class="line">            &lt;enabled&gt;false&lt;&#x2F;enabled&gt;</span><br><span class="line">          &lt;&#x2F;snapshots&gt;</span><br><span class="line">        &lt;&#x2F;pluginRepository&gt;</span><br><span class="line">      &lt;&#x2F;pluginRepositories&gt;</span><br><span class="line">    &lt;&#x2F;profile&gt;</span><br><span class="line"></span><br><span class="line">    &lt;profile&gt;</span><br><span class="line">      &lt;id&gt;mapr-releases&lt;&#x2F;id&gt;</span><br><span class="line">      &lt;repositories&gt;</span><br><span class="line">        &lt;repository&gt;</span><br><span class="line">          &lt;id&gt;mapr-releases&lt;&#x2F;id&gt;</span><br><span class="line">          &lt;url&gt;https:&#x2F;&#x2F;maven.aliyun.com&#x2F;repository&#x2F;mapr-public&lt;&#x2F;url&gt;</span><br><span class="line">          &lt;releases&gt;</span><br><span class="line">            &lt;enabled&gt;true&lt;&#x2F;enabled&gt;</span><br><span class="line">          &lt;&#x2F;releases&gt;</span><br><span class="line">          &lt;snapshots&gt;</span><br><span class="line">            &lt;enabled&gt;false&lt;&#x2F;enabled&gt;</span><br><span class="line">          &lt;&#x2F;snapshots&gt;</span><br><span class="line">        &lt;&#x2F;repository&gt;</span><br><span class="line">      &lt;&#x2F;repositories&gt;</span><br><span class="line">      &lt;pluginRepositories&gt;</span><br><span class="line">        &lt;pluginRepository&gt;</span><br><span class="line">          &lt;id&gt;mapr-releases&lt;&#x2F;id&gt;</span><br><span class="line">          &lt;url&gt;https:&#x2F;&#x2F;maven.aliyun.com&#x2F;repository&#x2F;mapr-public&lt;&#x2F;url&gt;</span><br><span class="line">          &lt;releases&gt;</span><br><span class="line">            &lt;enabled&gt;true&lt;&#x2F;enabled&gt;</span><br><span class="line">          &lt;&#x2F;releases&gt;</span><br><span class="line">          &lt;snapshots&gt;</span><br><span class="line">            &lt;enabled&gt;false&lt;&#x2F;enabled&gt;</span><br><span class="line">          &lt;&#x2F;snapshots&gt;</span><br><span class="line">        &lt;&#x2F;pluginRepository&gt;</span><br><span class="line">      &lt;&#x2F;pluginRepositories&gt;</span><br><span class="line">    &lt;&#x2F;profile&gt;</span><br><span class="line"></span><br><span class="line">    &lt;profile&gt;</span><br><span class="line">      &lt;id&gt;central-repo&lt;&#x2F;id&gt;</span><br><span class="line">      &lt;repositories&gt;</span><br><span class="line">        &lt;repository&gt;</span><br><span class="line">          &lt;id&gt;central-repo&lt;&#x2F;id&gt;</span><br><span class="line">          &lt;url&gt;https:&#x2F;&#x2F;repo1.maven.org&#x2F;maven2&#x2F;&lt;&#x2F;url&gt;</span><br><span class="line">          &lt;releases&gt;</span><br><span class="line">            &lt;enabled&gt;true&lt;&#x2F;enabled&gt;</span><br><span class="line">          &lt;&#x2F;releases&gt;</span><br><span class="line">          &lt;snapshots&gt;</span><br><span class="line">            &lt;enabled&gt;false&lt;&#x2F;enabled&gt;</span><br><span class="line">          &lt;&#x2F;snapshots&gt;</span><br><span class="line">        &lt;&#x2F;repository&gt;</span><br><span class="line">      &lt;&#x2F;repositories&gt;</span><br><span class="line">      &lt;pluginRepositories&gt;</span><br><span class="line">        &lt;pluginRepository&gt;</span><br><span class="line">          &lt;id&gt;central-repo&lt;&#x2F;id&gt;</span><br><span class="line">          &lt;url&gt;https:&#x2F;&#x2F;repo1.maven.org&#x2F;maven2&#x2F;&lt;&#x2F;url&gt;</span><br><span class="line">          &lt;releases&gt;</span><br><span class="line">            &lt;enabled&gt;true&lt;&#x2F;enabled&gt;</span><br><span class="line">          &lt;&#x2F;releases&gt;</span><br><span class="line">          &lt;snapshots&gt;</span><br><span class="line">            &lt;enabled&gt;false&lt;&#x2F;enabled&gt;</span><br><span class="line">          &lt;&#x2F;snapshots&gt;</span><br><span class="line">        &lt;&#x2F;pluginRepository&gt;</span><br><span class="line">      &lt;&#x2F;pluginRepositories&gt;</span><br><span class="line">    &lt;&#x2F;profile&gt;</span><br><span class="line"></span><br><span class="line">    &lt;profile&gt;</span><br><span class="line">      &lt;id&gt;cloudera&lt;&#x2F;id&gt;</span><br><span class="line">      &lt;repositories&gt;</span><br><span class="line">        &lt;repository&gt;</span><br><span class="line">          &lt;id&gt;cloudera-repo&lt;&#x2F;id&gt;</span><br><span class="line">          &lt;url&gt;https:&#x2F;&#x2F;repository.cloudera.com&#x2F;artifactory&#x2F;cloudera-repos&#x2F;&lt;&#x2F;url&gt;</span><br><span class="line">          &lt;releases&gt;</span><br><span class="line">            &lt;enabled&gt;true&lt;&#x2F;enabled&gt;</span><br><span class="line">          &lt;&#x2F;releases&gt;</span><br><span class="line">          &lt;snapshots&gt;</span><br><span class="line">            &lt;enabled&gt;false&lt;&#x2F;enabled&gt;</span><br><span class="line">          &lt;&#x2F;snapshots&gt;</span><br><span class="line">        &lt;&#x2F;repository&gt;</span><br><span class="line">      &lt;&#x2F;repositories&gt;</span><br><span class="line">      &lt;pluginRepositories&gt;</span><br><span class="line">        &lt;pluginRepository&gt;</span><br><span class="line">          &lt;id&gt;cloudera-repo&lt;&#x2F;id&gt;</span><br><span class="line">          &lt;url&gt;https:&#x2F;&#x2F;repository.cloudera.com&#x2F;artifactory&#x2F;cloudera-repos&#x2F;&lt;&#x2F;url&gt;</span><br><span class="line">          &lt;releases&gt;</span><br><span class="line">            &lt;enabled&gt;true&lt;&#x2F;enabled&gt;</span><br><span class="line">          &lt;&#x2F;releases&gt;</span><br><span class="line">          &lt;snapshots&gt;</span><br><span class="line">            &lt;enabled&gt;false&lt;&#x2F;enabled&gt;</span><br><span class="line">          &lt;&#x2F;snapshots&gt;</span><br><span class="line">        &lt;&#x2F;pluginRepository&gt;</span><br><span class="line">      &lt;&#x2F;pluginRepositories&gt;</span><br><span class="line">    &lt;&#x2F;profile&gt;</span><br><span class="line"></span><br><span class="line">  &lt;&#x2F;profiles&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- activeProfiles</span><br><span class="line">   | List of profiles that are active for all builds.</span><br><span class="line">   |</span><br><span class="line">  &lt;activeProfiles&gt;</span><br><span class="line">    &lt;activeProfile&gt;alwaysActiveProfile&lt;&#x2F;activeProfile&gt;</span><br><span class="line">    &lt;activeProfile&gt;anotherAlwaysActiveProfile&lt;&#x2F;activeProfile&gt;</span><br><span class="line">  &lt;&#x2F;activeProfiles&gt;</span><br><span class="line">  --&gt;</span><br><span class="line">  &lt;activeProfiles&gt;</span><br><span class="line">    &lt;activeProfile&gt;central&lt;&#x2F;activeProfile&gt;</span><br><span class="line">	&lt;!-- </span><br><span class="line">	&lt;activeProfile&gt;mapr-releases&lt;&#x2F;activeProfile&gt;</span><br><span class="line">	    &lt;activeProfile&gt;cloudera&lt;&#x2F;activeProfile&gt;</span><br><span class="line">		    &lt;activeProfile&gt;central-repo&lt;&#x2F;activeProfile&gt;</span><br><span class="line">&lt;activeProfile&gt;cloudera&lt;&#x2F;activeProfile&gt;</span><br><span class="line">	&lt;activeProfile&gt;central-repo&lt;&#x2F;activeProfile&gt;</span><br><span class="line"></span><br><span class="line">	--&gt;    </span><br><span class="line">  &lt;&#x2F;activeProfiles&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;settings&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="scala2-12修改问题"><a href="#scala2-12修改问题" class="headerlink" title="scala2.12修改问题"></a>scala2.12修改问题</h2><p>由于spark2.4.5默认的pom.xml汇总，scala是2.11版本的，所以我们需要修改，我们在spark的源码文件夹下，通过git bash输入命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;dev&#x2F;change-scala-version.sh 2.12</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="主pom-xml修改问题"><a href="#主pom-xml修改问题" class="headerlink" title="主pom.xml修改问题"></a>主pom.xml修改问题</h2><p>根据你的需要修改jdk，maven和scala的版本，如果不修改后面编译的时候可能会有问题</p>
+<h1 id="编译过程中的许多问题"><a href="#编译过程中的许多问题" class="headerlink" title="编译过程中的许多问题"></a>编译过程中的许多问题</h1><h2 id="SqlBaseParser报红出错"><a href="#SqlBaseParser报红出错" class="headerlink" title="SqlBaseParser报红出错"></a>SqlBaseParser报红出错</h2><p>点击右部maven的generate source and update forder按钮</p>
+<p><img src="/images/67/1.png" alt="1"></p>
+<h2 id="已经编译后，再想修改scala2-11变为2-12"><a href="#已经编译后，再想修改scala2-11变为2-12" class="headerlink" title="已经编译后，再想修改scala2.11变为2.12"></a>已经编译后，再想修改scala2.11变为2.12</h2><p>需要重新进行导入，不然显示无法更改</p>
+<h1 id="编码测试"><a href="#编码测试" class="headerlink" title="编码测试"></a>编码测试</h1><h2 id="pom-文件添加如下-profile-并激活依赖"><a href="#pom-文件添加如下-profile-并激活依赖" class="headerlink" title="pom 文件添加如下 profile ,并激活依赖"></a>pom 文件添加如下 profile ,并激活依赖</h2><pre><code>&lt;!-- idea provide 配置 --&gt;
+    &lt;profile&gt;
+      &lt;id&gt;add-dependencies-for-IDEA&lt;/id&gt;
+
+      &lt;activation&gt;
+        &lt;property&gt;
+          &lt;name&gt;idea.version&lt;/name&gt;
+        &lt;/property&gt;
+      &lt;/activation&gt;
+
+      &lt;dependencies&gt;
+        &lt;dependency&gt;
+          &lt;groupId&gt;com.google.guava&lt;/groupId&gt;
+          &lt;artifactId&gt;guava&lt;/artifactId&gt;
+          &lt;version&gt;14.0.1&lt;/version&gt;
+          &lt;scope&gt;compile&lt;/scope&gt;
+        &lt;/dependency&gt;
+      &lt;/dependencies&gt;
+    &lt;/profile&gt;</code></pre><p><img src="/images/67/2.png" alt="2"></p>
+<h2 id="源码目录需要执行命令"><a href="#源码目录需要执行命令" class="headerlink" title="源码目录需要执行命令"></a>源码目录需要执行命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;build&#x2F;spark-build-info &#x2F;d&#x2F;Projects&#x2F;IdeaProjects&#x2F;spark-2.4.5&#x2F;core&#x2F;target&#x2F;extra-resources spark-core_2.12</span><br><span class="line"></span><br><span class="line">其中 &#x2F;target&#x2F;extra-resources 必须这么写</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/67/3.png" alt="3"></p>
+<h2 id="测试的scala代码运行时记得勾选一个选项"><a href="#测试的scala代码运行时记得勾选一个选项" class="headerlink" title="测试的scala代码运行时记得勾选一个选项"></a>测试的scala代码运行时记得勾选一个选项</h2><p>勾选 include dependencies with “Provided” scope</p>
+<p><img src="/images/67/4.png" alt="4"></p>
+<h2 id="代码写完可能全部爆红"><a href="#代码写完可能全部爆红" class="headerlink" title="代码写完可能全部爆红"></a>代码写完可能全部爆红</h2><p>缺少监听，随便找一个其他文件拷贝监听</p>
+<p><img src="/images/67/5.png" alt="5"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/spark/" rel="tag"># spark</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/28/66.spark%E7%B4%AF%E5%8A%A0%E5%99%A8%E4%B8%8E%E5%B9%BF%E6%92%AD%E5%8F%98%E9%87%8F/" rel="prev" title="spark累加器与广播变量">
+      <i class="fa fa-chevron-left"></i> spark累加器与广播变量
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#源码下载"><span class="nav-number">1.</span> <span class="nav-text">源码下载</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#maven的settings-xml配置问题"><span class="nav-number">1.1.</span> <span class="nav-text">maven的settings.xml配置问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scala2-12修改问题"><span class="nav-number">1.2.</span> <span class="nav-text">scala2.12修改问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主pom-xml修改问题"><span class="nav-number">1.3.</span> <span class="nav-text">主pom.xml修改问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编译过程中的许多问题"><span class="nav-number">2.</span> <span class="nav-text">编译过程中的许多问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SqlBaseParser报红出错"><span class="nav-number">2.1.</span> <span class="nav-text">SqlBaseParser报红出错</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#已经编译后，再想修改scala2-11变为2-12"><span class="nav-number">2.2.</span> <span class="nav-text">已经编译后，再想修改scala2.11变为2.12</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编码测试"><span class="nav-number">3.</span> <span class="nav-text">编码测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#pom-文件添加如下-profile-并激活依赖"><span class="nav-number">3.1.</span> <span class="nav-text">pom 文件添加如下 profile ,并激活依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码目录需要执行命令"><span class="nav-number">3.2.</span> <span class="nav-text">源码目录需要执行命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试的scala代码运行时记得勾选一个选项"><span class="nav-number">3.3.</span> <span class="nav-text">测试的scala代码运行时记得勾选一个选项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码写完可能全部爆红"><span class="nav-number">3.4.</span> <span class="nav-text">代码写完可能全部爆红</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="pearfl"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">pearfl</p>
+  <div class="site-description" itemprop="description">热爱从不降温</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cpuhalt.cn/" title="https:&#x2F;&#x2F;www.cpuhalt.cn" rel="noopener" target="_blank">苏文进大老板の博客</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.sunyongfei.cn/" title="https:&#x2F;&#x2F;www.sunyongfei.cn&#x2F;" rel="noopener" target="_blank">孙永飞の博客</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://exv123.github.io/" title="https:&#x2F;&#x2F;exv123.github.io&#x2F;" rel="noopener" target="_blank">阿豆の博客</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://yerias.github.io/" title="https:&#x2F;&#x2F;yerias.github.io" rel="noopener" target="_blank">班长の博客</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">pearfl</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">165k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:35</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
