@@ -72,7 +72,10 @@
 <li>广播变量：分布式只读共享变量</li>
 <li>累加器：分布式只写共享变量</li>
 </ul>
-]]></content>
+<p>此博文主谈广播变量与累加器</p>
+<a id="more"></a>
+
+<h2 id="累加器"><a href="#累加器" class="headerlink" title="累加器"></a>累加器</h2>]]></content>
       <categories>
         <category>大数据</category>
       </categories>
