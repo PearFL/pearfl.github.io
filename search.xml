@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>spark各个版本特性</title>
+      <link href="/2020/04/03/68.spark%E5%90%84%E4%B8%AA%E7%89%88%E6%9C%AC%E7%89%B9%E6%80%A7/"/>
+      <url>/2020/04/03/68.spark%E5%90%84%E4%B8%AA%E7%89%88%E6%9C%AC%E7%89%B9%E6%80%A7/</url>
+      
+        <content type="html"><![CDATA[<h1 id="各个版本特性（官方文档）"><a href="#各个版本特性（官方文档）" class="headerlink" title="各个版本特性（官方文档）"></a>各个版本特性（官方文档）</h1><p><a href="https://spark.apache.org/releases/" target="_blank" rel="noopener">https://spark.apache.org/releases/</a><br><a href="https://spark.apache.org/news/index.html" target="_blank" rel="noopener">https://spark.apache.org/news/index.html</a></p><a id="more"></a><h2 id="Spark-0-6-x"><a href="#Spark-0-6-x" class="headerlink" title="Spark 0.6.x"></a>Spark 0.6.x</h2><ul><li>Standalone部署模式进行了简化</li></ul><h2 id="Spark-0-7"><a href="#Spark-0-7" class="headerlink" title="Spark 0.7"></a>Spark 0.7</h2><ul><li>Python API</li><li>增加Spark Streaming</li><li>支持maven build</li></ul><h2 id="Spark-0-8"><a href="#Spark-0-8" class="headerlink" title="Spark 0.8"></a>Spark 0.8</h2><ul><li>支持MLlib库</li><li>hadoop yarn正式支持</li></ul><h2 id="Spark-0-9"><a href="#Spark-0-9" class="headerlink" title="Spark 0.9"></a>Spark 0.9</h2><ul><li><p>用SparkConf类来配置SparkContext</p></li><li><p>spark streaming正式版发布</p></li><li><p>GraphX的测试版出现</p></li><li><p>mllib库升级，支持python</p></li><li><p>core升级</p></li></ul><h2 id="Spark-1-0"><a href="#Spark-1-0" class="headerlink" title="Spark 1.0"></a>Spark 1.0</h2><ul><li>提出spark-submit脚本和history-server</li><li>yarn安全模式整合</li><li>spark sql被提出</li><li>java8的支持</li></ul><h2 id="Spark-1-1"><a href="#Spark-1-1" class="headerlink" title="Spark 1.1"></a>Spark 1.1</h2><ul><li>spark增强了磁盘（非内存）的排序的速率</li></ul><h2 id="Spark-1-2"><a href="#Spark-1-2" class="headerlink" title="Spark 1.2"></a>Spark 1.2</h2><ul><li>shuffle大升级</li><li>Graphx正式版发布</li></ul><h2 id="Spark-1-3"><a href="#Spark-1-3" class="headerlink" title="Spark 1.3"></a>Spark 1.3</h2><ul><li>新增DataFrame API </li><li>Spark SQL正式脱离alpha版本</li></ul><h2 id="Spark-1-4"><a href="#Spark-1-4" class="headerlink" title="Spark 1.4"></a>Spark 1.4</h2><ul><li>正式引入SparkR</li><li>Spark Core为应用提供了REST API来获取各种信息</li></ul><h2 id="Spark-1-5"><a href="#Spark-1-5" class="headerlink" title="Spark 1.5"></a>Spark 1.5</h2><ul><li>Hive支持</li></ul><h2 id="Spark-1-6"><a href="#Spark-1-6" class="headerlink" title="Spark 1.6"></a>Spark 1.6</h2><ul><li>新增Dataset API</li></ul><h2 id="Spark-2-0"><a href="#Spark-2-0" class="headerlink" title="Spark 2.0"></a>Spark 2.0</h2><ul><li>用sparksession实现hivecontext和sqlcontext统一</li><li>合并dataframe和datasets</li></ul><h2 id="Spark-2-1"><a href="#Spark-2-1" class="headerlink" title="Spark 2.1"></a>Spark 2.1</h2><ul><li>提升ORC格式文件的读写性能</li></ul><h2 id="Spark-2-2"><a href="#Spark-2-2" class="headerlink" title="Spark 2.2"></a>Spark 2.2</h2><ul><li>Structured Streaming的生产环境支持已经就绪</li></ul><h2 id="Spark-2-3"><a href="#Spark-2-3" class="headerlink" title="Spark 2.3"></a>Spark 2.3</h2><ul><li>Structured Streaming 引入了低延迟的连续处理</li><li>支持 stream-to-stream joins</li></ul><h2 id="Spark-2-4"><a href="#Spark-2-4" class="headerlink" title="Spark 2.4"></a>Spark 2.4</h2><ul><li>Scala 2.12</li><li>添加了35个高阶函数</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 大数据 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> spark </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>IDEA导入spark源码并编译的一大堆坑.md</title>
       <link href="/2020/03/29/67.IDEA%E5%AF%BC%E5%85%A5spark%E6%BA%90%E7%A0%81%E5%B9%B6%E7%BC%96%E8%AF%91%E7%9A%84%E4%B8%80%E5%A4%A7%E5%A0%86%E5%9D%91/"/>
       <url>/2020/03/29/67.IDEA%E5%AF%BC%E5%85%A5spark%E6%BA%90%E7%A0%81%E5%B9%B6%E7%BC%96%E8%AF%91%E7%9A%84%E4%B8%80%E5%A4%A7%E5%A0%86%E5%9D%91/</url>
