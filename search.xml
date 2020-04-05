@@ -202,7 +202,28 @@
 <p>此博文主谈广播变量与累加器</p>
 <a id="more"></a>
 
-<h2 id="累加器"><a href="#累加器" class="headerlink" title="累加器"></a>累加器</h2>]]></content>
+<h2 id="累加器"><a href="#累加器" class="headerlink" title="累加器"></a>累加器</h2><h3 id="使用原则"><a href="#使用原则" class="headerlink" title="使用原则"></a>使用原则</h3><ul>
+<li>累加器在Driver端定义赋初始值，累加器只能在Driver端读取，在Excutor端更新</li>
+</ul>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p><img src="/images/66/1.png" alt="1"></p>
+<p>(1) 通过sparkContext.longAccumulator()或sparkContext.doubleAccumulator()来累积long或double类型的值来创建数字累加器</p>
+<pre><code>如scala方式：var accumulator=sc.longAccumulator(&quot;accumulator&quot;);</code></pre><p>(2) 在executor端通过accumulator.add(1)进行累加后并回传到driver</p>
+<p>(3) 最后在driver端通过accumulator.value来聚合每个executor回传的结果</p>
+<h2 id="广播变量"><a href="#广播变量" class="headerlink" title="广播变量"></a>广播变量</h2><h3 id="使用原则-1"><a href="#使用原则-1" class="headerlink" title="使用原则"></a>使用原则</h3><ul>
+<li>不能将RDD用做变量广播出去，RDD是不存储数据的，可以将RDD的结果广播出去。</li>
+<li>广播变量只能在Driver端定义，不能在Executor端定义，Executor端只能使用。</li>
+<li>广播变量的值只能在Driver端修改，在Executor端不能修改</li>
+</ul>
+<h3 id="使用方法-1"><a href="#使用方法-1" class="headerlink" title="使用方法"></a>使用方法</h3><p><img src="/images/66/2.png" alt="2"></p>
+<p>(1) 通过SparkContext.Broadcast[T] 创建一个变量v，并进行广播，广播变量以序列化形式缓存。</p>
+<pre><code>如scala方式：val broadCast = sc.broadcast(T) 对T进行广播，T可以是任何能被序列化的类型</code></pre><p>(2) 通过 broadCast.value 属性访问该对象的值，而不能直接访问T</p>
+<p>(3) 当要更新广播变量时候，通过broadCast.unpersist()方法清除广播变量，之后可重新广播</p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>1、不能将一个RDD使用广播变量广播出去，因为RDD是不存储数据的。<strong>可以将RDD的结果广播出去。</strong></p>
+<p>2、 广播变量只能在Driver端定义，<strong>不能在Executor端定义。</strong></p>
+<p>3、 在Driver端可以修改广播变量的值，<strong>在Executor端无法修改广播变量的值。</strong></p>
+<p>4、如果executor端用到了Driver的变量，如果<strong>不使用广播变量在Executor有多少task就有多少Driver端的变量副本。</strong></p>
+<p>5、如果Executor端用到了Driver的变量，如果<strong>使用广播变量在每个Executor中只有一份Driver端的变量副本。</strong></p>
+]]></content>
       <categories>
         <category>大数据</category>
       </categories>
