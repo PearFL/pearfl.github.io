@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>spark序列化</title>
+    <url>/2020/04/06/72.spark%E5%BA%8F%E5%88%97%E5%8C%96/</url>
+    <content><![CDATA[<p>官方文档：<a href="https://spark.apache.org/docs/latest/tuning.html" target="_blank" rel="noopener">https://spark.apache.org/docs/latest/tuning.html</a></p>
+<p>序列化在分布式应用的性能中扮演着重要的角色。格式化对象缓慢，或者消耗大量的字节格式化，会大大降低计算性能。通常这是在spark应用中第一件需要优化的事情。Spark的目标是在便利与性能中取得平衡，所以提供2种序列化的选择。</p>
+<a id="more"></a>
+
+<h2 id="Java-serialization"><a href="#Java-serialization" class="headerlink" title="Java serialization"></a>Java serialization</h2><p>在默认情况下，Spark会使用Java的ObjectOutputStream框架对对象进行序列化，并且可以与任何实现java.io.Serializable的类一起工作。您还可以通过扩展java.io.Externalizable来更紧密地控制序列化的性能。Java序列化是灵活的，但通常相当慢，并且会导致许多类的大型序列化格式。</p>
+<h2 id="Kryo-serialization"><a href="#Kryo-serialization" class="headerlink" title="Kryo serialization"></a>Kryo serialization</h2><p>Spark还可以使用Kryo库（版本4）来更快地序列化对象。Kryo比Java串行化（通常多达10倍）要快得多，也更紧凑，但是不支持所有可串行化类型，并且要求您提前注册您将在程序中使用的类，以获得最佳性能。</p>
+<p>您可以通过使用SparkConf初始化作业并调用conf.set（“ spark.serializer”，“ org.apache.spark.serializer.KryoSerializer”）来切换为使用Kryo。</p>
+<p>要向Kryo注册您自己的自定义类，请使用registerKryoClasses方法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">val conf &#x3D; new SparkConf().setMaster(...).setAppName(...)</span><br><span class="line">conf.registerKryoClasses(Array(classOf[MyClass1], classOf[MyClass2]))</span><br><span class="line">val sc &#x3D; new SparkContext(conf)</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>spark</tag>
+        <tag>序列化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hadoop本地运行的坑</title>
+    <url>/2020/04/06/71.hadoop%E6%9C%AC%E5%9C%B0%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9D%91/</url>
+    <content><![CDATA[<p>1.解决org.apache.hadoop.io.nativeio.NativeIO$Windows.access0(Ljava/lang/String;I)Z</p>
+<p>winutils.exe和hadoop.dll匹配对应的版本，放入bin下即可，不需要放c盘系统位置，反而会导致失败……</p>
+]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>hadoop</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hive行列转换</title>
     <url>/2020/04/05/70.hive%E8%A1%8C%E5%88%97%E8%BD%AC%E6%8D%A2/</url>
     <content><![CDATA[<h1 id="hive-行列转换"><a href="#hive-行列转换" class="headerlink" title="hive 行列转换"></a>hive 行列转换</h1><h2 id="列转行"><a href="#列转行" class="headerlink" title="列转行"></a>列转行</h2><p>使用函数：lateral view explode(split(column, ‘,’)) num</p>
@@ -2575,9 +2610,9 @@
       </categories>
   </entry>
   <entry>
-    <title>linux上的maven安装</title>
+    <title>maven安装</title>
     <url>/2020/02/09/32.linux%E4%B8%8A%E7%9A%84maven%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<p>官网下载链接：<a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">http://maven.apache.org/download.cgi</a></p>
+    <content><![CDATA[<h2 id="linux上安装maven"><a href="#linux上安装maven" class="headerlink" title="linux上安装maven"></a>linux上安装maven</h2><p>官网下载链接：<a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">http://maven.apache.org/download.cgi</a></p>
 <p>下载后我放置在服务器用户根目录的software文件夹下，现在我们解压到app下面</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># tar -zxvf apache-maven-3.6.3-bin.tar.gz -C ~&#x2F;app&#x2F;</span><br></pre></td></tr></table></figure>
 
@@ -2590,6 +2625,13 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># cd conf</span><br><span class="line"># vi settings.xml</span><br><span class="line">  &lt;!-- localRepository</span><br><span class="line">   | The path to the local repository maven will use to store artifacts.</span><br><span class="line">   |</span><br><span class="line">   | Default: $&#123;user.home&#125;&#x2F;.m2&#x2F;repository</span><br><span class="line">  &lt;localRepository&gt;&#x2F;path&#x2F;to&#x2F;local&#x2F;repo&lt;&#x2F;localRepository&gt;</span><br><span class="line">  --&gt;</span><br><span class="line">  &lt;localRepository&gt;&#x2F;home&#x2F;pearfl&#x2F;maven_repos&#x2F;&lt;&#x2F;localRepository&gt;</span><br></pre></td></tr></table></figure>
 
 <p>/root/maven_repos/ 位置存放你下载的包，这个根据个人需求修改</p>
+<h2 id="win下配置maven"><a href="#win下配置maven" class="headerlink" title="win下配置maven"></a>win下配置maven</h2><p>新建系统M2_HOME变量，并把安装maven路径拷贝上去</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">D:\Programme\apache\apache-maven-3.6.3</span><br></pre></td></tr></table></figure>
+
+<p>配置path变量</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">D:\Programme\apache\apache-maven-3.6.3\bin</span><br></pre></td></tr></table></figure>
+
+<p>测试maven环境是否配置成功，输入mvn -v</p>
 ]]></content>
       <categories>
         <category>随笔分享</category>
@@ -2622,6 +2664,31 @@
       <tags>
         <tag>hadoop</tag>
         <tag>ETL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>maven安装</title>
+    <url>/2020/02/09/32.maven%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<h2 id="linux上安装maven"><a href="#linux上安装maven" class="headerlink" title="linux上安装maven"></a>linux上安装maven</h2><p>官网下载链接：<a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">http://maven.apache.org/download.cgi</a></p>
+<p>下载后我放置在服务器用户根目录的software文件夹下，现在我们解压到app下面</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># tar -zxvf apache-maven-3.6.3-bin.tar.gz -C ~&#x2F;app&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>在app文件夹下，开始操作</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">进入maven文件夹</span><br><span class="line"># cd apache-maven-3.6.3&#x2F;</span><br><span class="line">pwd获取当前的路径</span><br><span class="line"># vi ~&#x2F;.bash_profile</span><br><span class="line">export MAVEN_HOME&#x3D;&#x2F;home&#x2F;pearfl&#x2F;app&#x2F;apache-maven-3.6.3</span><br><span class="line">export PATH&#x3D;$MAVEN_HOME&#x2F;bin:$PATH</span><br><span class="line"># source ~&#x2F;.bash_profile</span><br><span class="line"></span><br><span class="line">可以通过mvn -v检查是否生效</span><br></pre></td></tr></table></figure>
+
+
+
+<p>完成后，conf内有些数据建议更改一下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># cd conf</span><br><span class="line"># vi settings.xml</span><br><span class="line">  &lt;!-- localRepository</span><br><span class="line">   | The path to the local repository maven will use to store artifacts.</span><br><span class="line">   |</span><br><span class="line">   | Default: $&#123;user.home&#125;&#x2F;.m2&#x2F;repository</span><br><span class="line">  &lt;localRepository&gt;&#x2F;path&#x2F;to&#x2F;local&#x2F;repo&lt;&#x2F;localRepository&gt;</span><br><span class="line">  --&gt;</span><br><span class="line">  &lt;localRepository&gt;&#x2F;home&#x2F;pearfl&#x2F;maven_repos&#x2F;&lt;&#x2F;localRepository&gt;</span><br></pre></td></tr></table></figure>
+
+<p>/root/maven_repos/ 位置存放你下载的包，这个根据个人需求修改</p>
+<h2 id="win下配置maven"><a href="#win下配置maven" class="headerlink" title="win下配置maven"></a>win下配置maven</h2>]]></content>
+      <categories>
+        <category>随笔分享</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>maven</tag>
       </tags>
   </entry>
   <entry>
