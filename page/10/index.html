@@ -210,6 +210,108 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/09/32.maven%E5%AE%89%E8%A3%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="pearfl">
+      <meta itemprop="description" content="热爱从不降温">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="叶梨子的小窝">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/09/32.maven%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">maven安装</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-09 10:08:44" itemprop="dateCreated datePublished" datetime="2020-02-09T10:08:44+08:00">2020-02-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-05 18:02:25" itemprop="dateModified" datetime="2020-04-05T18:02:25+08:00">2020-04-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9A%8F%E7%AC%94%E5%88%86%E4%BA%AB/" itemprop="url" rel="index">
+                    <span itemprop="name">随笔分享</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>836</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="linux上安装maven"><a href="#linux上安装maven" class="headerlink" title="linux上安装maven"></a>linux上安装maven</h2><p>官网下载链接：<a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">http://maven.apache.org/download.cgi</a></p>
+<p>下载后我放置在服务器用户根目录的software文件夹下，现在我们解压到app下面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># tar -zxvf apache-maven-3.6.3-bin.tar.gz -C ~&#x2F;app&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>在app文件夹下，开始操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">进入maven文件夹</span><br><span class="line"># cd apache-maven-3.6.3&#x2F;</span><br><span class="line">pwd获取当前的路径</span><br><span class="line"># vi ~&#x2F;.bash_profile</span><br><span class="line">export MAVEN_HOME&#x3D;&#x2F;home&#x2F;pearfl&#x2F;app&#x2F;apache-maven-3.6.3</span><br><span class="line">export PATH&#x3D;$MAVEN_HOME&#x2F;bin:$PATH</span><br><span class="line"># source ~&#x2F;.bash_profile</span><br><span class="line"></span><br><span class="line">可以通过mvn -v检查是否生效</span><br></pre></td></tr></table></figure>
+
+
+
+<p>完成后，conf内有些数据建议更改一下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># cd conf</span><br><span class="line"># vi settings.xml</span><br><span class="line">  &lt;!-- localRepository</span><br><span class="line">   | The path to the local repository maven will use to store artifacts.</span><br><span class="line">   |</span><br><span class="line">   | Default: $&#123;user.home&#125;&#x2F;.m2&#x2F;repository</span><br><span class="line">  &lt;localRepository&gt;&#x2F;path&#x2F;to&#x2F;local&#x2F;repo&lt;&#x2F;localRepository&gt;</span><br><span class="line">  --&gt;</span><br><span class="line">  &lt;localRepository&gt;&#x2F;home&#x2F;pearfl&#x2F;maven_repos&#x2F;&lt;&#x2F;localRepository&gt;</span><br></pre></td></tr></table></figure>
+
+<p>/root/maven_repos/ 位置存放你下载的包，这个根据个人需求修改</p>
+<h2 id="win下配置maven"><a href="#win下配置maven" class="headerlink" title="win下配置maven"></a>win下配置maven</h2>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/09/30.leetcode-962%EF%BC%88%E5%8D%95%E8%B0%83%E6%A0%88%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -804,171 +906,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/06/%EF%BC%8126.leetcode-java%E5%9F%BA%E7%A1%80%E6%8A%80%E5%B7%A7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="pearfl">
-      <meta itemprop="description" content="热爱从不降温">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="叶梨子的小窝">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/06/%EF%BC%8126.leetcode-java%E5%9F%BA%E7%A1%80%E6%8A%80%E5%B7%A7/" class="post-title-link" itemprop="url">leetcode-java基础技巧</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-06 15:33:32" itemprop="dateCreated datePublished" datetime="2020-02-06T15:33:32+08:00">2020-02-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-09 12:35:55" itemprop="dateModified" datetime="2020-02-09T12:35:55+08:00">2020-02-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index">
-                    <span itemprop="name">算法与数据结构</span>
-                  </a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.7k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>之前打算法竞赛一直是用C+STL，包括牛客网上写题练习也是用这个方式来解决的，长期习惯了以后，开始对java刷题甚至产生了排斥……但鉴于java以后肯定是要常用的，因此必须矫正这个问题</p>
-<p>本篇博文讲述刷leetcode过程中采用java语言遇到的坑，明明一眼就知道该怎么写但不能用其他语言写出来就是不行啊！</p>
-<p>根据自己经验，有竞赛基础的建议直接从周赛题开始摸坑=3=（倒着刷）</p>
-<p>（本文长期更新）</p>
-<h2 id="1-String转int、long"><a href="#1-String转int、long" class="headerlink" title="1.String转int、long"></a>1.String转int、long</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="string">"123"</span></span><br><span class="line"><span class="keyword">int</span> n1 = Integer.parseInt(s);</span><br><span class="line"><span class="keyword">long</span> n2 = Long.parseLong(s);</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="2-StringBuffer"><a href="#2-StringBuffer" class="headerlink" title="2.StringBuffer"></a>2.StringBuffer</h2><p>StringBuffer类和String一样，也用来代表字符串，只是由于StringBuffer的内部实现方式和String不同，所以StringBuffer在进行字符串处理时，不生成新的对象，在内存使用上要优于String类。所以在实际使用时，如果经常需要对一个字符串进行修改，例如插入、删除等操作，使用StringBuffer要更加适合一些.</p>
-<p>StringBuffer与String有一个显著的区别：<strong>StringBuffer对象的每次修改都会改变对象自身</strong></p>
-<p>StringBuffer是线程安全的，所以在多线程程序中也可以很方便的进行使用，但是程序的执行效率相对来说就要稍微慢一些</p>
-<p>1.String转StringBuffer</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer s = <span class="keyword">new</span> StringBuffer(<span class="string">"abc"</span>);</span><br></pre></td></tr></table></figure>
-
-<p>2.append方法，将内容追加到StringBuffer末尾</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer s = <span class="keyword">new</span> StringBuffer(<span class="string">"abc"</span>);</span><br><span class="line">s.append(<span class="string">"efg"</span>);</span><br><span class="line">System.out.println(s.toString());</span><br></pre></td></tr></table></figure>
-
-<p>3.delete方法</p>
-<p>deleteCharAt(int index)<br>该方法的作用是删除指定位置的字符，然后将剩余的内容形成新的字符串。第一位为0<br>s.delete(int start,int end)<br>该方法的作用是删除指定区间以内的所有字符，包含start，不包含end索引值的区间。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer s = <span class="keyword">new</span> StringBuffer(<span class="string">"abc"</span>);</span><br><span class="line">s.append(<span class="string">"efg"</span>);</span><br><span class="line">s.deleteCharAt(<span class="number">2</span>);</span><br><span class="line">s.delete(<span class="number">0</span>,<span class="number">2</span>);</span><br><span class="line">System.out.println(s.toString());</span><br></pre></td></tr></table></figure>
-
-<p>4.insert方法</p>
-<p>StringBuffer insert(int offset, String str)<br>该方法的作用是在StringBuffer对象中插入内容，然后形成新的字符串</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer sb = <span class="keyword">new</span> StringBuffer(<span class="string">"TestString"</span>);</span><br><span class="line">sb.insert(<span class="number">4</span>,<span class="string">"hello"</span>);</span><br><span class="line">System.out.println(sb.toString());</span><br></pre></td></tr></table></figure>
-
-<p>5.reverse方法</p>
-<p>StringBuffer reverse()<br>该方法的作用是将StringBuffer对象中的内容反转，然后形成新的字符串</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer sb = <span class="keyword">new</span> StringBuffer(<span class="string">"TestString"</span>);</span><br><span class="line">sb.reverse();</span><br><span class="line">System.out.println(sb.toString());</span><br></pre></td></tr></table></figure>
-
-<p>6.setCharAt方法</p>
-<p>setCharAt(int index, char ch)<br>该方法的作用是修改对象中索引值为index位置的字符为新的字符ch</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer sb = <span class="keyword">new</span> StringBuffer(<span class="string">"bc"</span>);</span><br><span class="line">sb.setCharAt(<span class="number">1</span>,<span class="string">'D'</span>);</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="3-数组排序"><a href="#3-数组排序" class="headerlink" title="3.数组排序"></a>3.数组排序</h2><p>Arrays.Sort() 快排</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(arys[])</span><br><span class="line">Arrays.sort(arys[],int from,int to) &#x2F;&#x2F; 排序范围:from--&gt;to-1</span><br><span class="line">Arrays.sort(arys[],new MyComparator())</span><br><span class="line">Arrays.sort(arys[],int from,int to,new MyComparator())</span><br></pre></td></tr></table></figure>
-
-<p>Arrays.sort()方法可对任何实现compareble接口的对象数组排序, 像Integer,String这两种引用类型都实现了compareble接口，所以这两种类型的数组都可直接使用Arrays.sort()进行排序。</p>
-<p>1.数字排序</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] intArray = <span class="keyword">new</span> <span class="keyword">int</span>[] &#123; <span class="number">4</span>, <span class="number">1</span>, <span class="number">3</span>, -<span class="number">23</span> &#125;;</span><br><span class="line">Arrays.sort(intArray);</span><br><span class="line"></span><br><span class="line">输出： [-<span class="number">23</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br></pre></td></tr></table></figure>
-
-
-
-<p>2.字符串排序，先大写后小写 String[] strArray = new String[] { “z”, “a”, “C” };</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String[] strArray = <span class="keyword">new</span> String[] &#123; <span class="string">"z"</span>, <span class="string">"a"</span>, <span class="string">"C"</span> &#125;;</span><br><span class="line">Arrays.sort(strArray);</span><br><span class="line"></span><br><span class="line">输出： [C, a, z]</span><br></pre></td></tr></table></figure>
-
-
-
-<p>3.严格按字母表顺序排序，也就是忽略大小写排序 Case-insensitive sort</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(strArray, String.CASE_INSENSITIVE_ORDER);</span><br><span class="line"></span><br><span class="line">输出： [a, C, z]</span><br></pre></td></tr></table></figure>
-
-
-
-<p>4.反向排序,Reverse-order sort</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(strArray, Collections.reverseOrder());</span><br><span class="line"></span><br><span class="line">输出：[z, a, C]</span><br></pre></td></tr></table></figure>
-
-
-
-<p>5.忽略大小写反向排序 Case-insensitive reverse-order sort</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(strArray, String.CASE_INSENSITIVE_ORDER);</span><br><span class="line">Collections.reverse(Arrays.asList(strArray));</span><br><span class="line"></span><br><span class="line">输出： [z, C, a]</span><br></pre></td></tr></table></figure>
-
-
-
-<p>Collections.sort模板</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Collections.sort(list, <span class="keyword">new</span> Comparator&lt;String&gt;() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(String str1, String str2)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">　　　　　　* 升序排的话就是第一个参数.compareTo(第二个参数);</span></span><br><span class="line"><span class="comment">　　　　　　* 降序排的话就是第二个参数.compareTo(第一个参数);</span></span><br><span class="line"><span class="comment">　　　　　　*/</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 按首字母升序排</span></span><br><span class="line">        <span class="comment">// return str1.compareTo(str2);</span></span><br><span class="line">        <span class="comment">// 按第二个字母升序排</span></span><br><span class="line">        <span class="keyword">char</span> c1 = str1.charAt(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">char</span> c2 = str2.charAt(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> c1 - c2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1036,7 +978,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-count">76</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1103,12 +1045,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">175k</span>
+    <span title="站点总字数">177k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:51</span>
+    <span title="站点阅读时长">4:55</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>

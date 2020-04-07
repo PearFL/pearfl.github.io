@@ -1,6 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>hadoop压缩工具对比.md</title>
+    <url>/2020/04/07/75.hadoop%E5%8E%8B%E7%BC%A9%E5%B7%A5%E5%85%B7%E5%AF%B9%E6%AF%94/</url>
+    <content><![CDATA[<p>文件压缩主要有两个好处，一是减少了存储文件所占空间，另一个就是为数据传输提速。在hadoop大数据的背景下，这两点尤为重要，那么我现在就先来了解下hadoop中的文件压缩。</p>
+<a id="more"></a>
+
+<p>hadoop里支持很多种压缩格式，我们看一个表格：</p>
+<p><img src="images/75/1.png" alt="1"></p>
+<p>DEFLATE是同时使用了LZ77算法与哈夫曼编码（Huffman Coding）的一个无损数据压缩算法，源代码可以在zlib库中找到。gzip是以DEFLATE算法为基础扩展出来的一种算法。</p>
+<p>gzip在时间和空间上的取舍比较折中，bzip2压缩比gzip更有效，但是速度更慢。bzip2的解压速度比它的压缩速度要快。但是和其他压缩格式比又是最慢的，但是压缩效果明显是最好的。snappy和lz4的解压速度比lzo好很多。</p>
+<p> splittable表示压缩格式是否可以被分割，也就是说是否支持随即读。压缩数据是否能被mapreduce使用，压缩数据是否能被分割就很关键了。</p>
+<p>举个例子，一个未压缩的文件有1GB大小，hdfs默认的block大小是64MB,那么这个文件就会被分为16个block作为mapreduce的输入，每一个单独使用一个map任务。如果这个文件是已经使用gzip压缩的呢，如果分成16个块，每个块做成一个输入，显然是不合适的，因为gzip压缩流的随即读是不可能的。实际上，当mapreduce处理压缩格式的文件的时候它会认识到这是一个gzip的压缩文件，而gzip又不支持随即读，它就会把16个块分给一个map去处理，这里就会有很多非本地处理的map任务，整个过程耗费的时间就会相当长。</p>
+<p>lzo压缩格式也会是同样的问题，但是通过使用hadoop lzo库的索引工具以后，lzo就可以支持splittable。bzip2也是支持splittable的。</p>
+<p>那么如何选择压缩格式呢？这取决于文件的大小，你使用的压缩工具，下面是几条选择建议，效率由高到低排序：</p>
+<p>1.用一些包含了压缩并且支持splittable的文件格式，比如Sequence File，RCFile或者Avro文件，这些文件格式我们之后都会讲到。如果为了快速压缩可以使用lzo，lz4或者snappy压缩格式。</p>
+<p>2.使用提供splittable的压缩格式，比如，bzip2和索引后可以支持splittable的lzo。</p>
+<p>3.提前把文件分成几个块，每个块单独压缩，这样就无需考虑splittable的问题了</p>
+<p>4.不要压缩文件</p>
+<p>提示：以不支持splittable的压缩格式存储一个很大的数据文件是不合适的，非本地处理效率会非常之低。</p>
+<h2 id="四种常用压缩工具介绍"><a href="#四种常用压缩工具介绍" class="headerlink" title="四种常用压缩工具介绍"></a>四种常用压缩工具介绍</h2><p>1 gzip压缩</p>
+<p>优点：压缩率比较高，而且压缩/解压速度也比较快；hadoop本身支持，在应用中处理gzip格式的文件就和直接处理文本一样；有hadoop native库；大部分linux系统都自带gzip命令，使用方便。</p>
+<p>缺点：不支持split。</p>
+<p>应用场景：当每个文件压缩之后在130M以内的（1个块大小内），都可以考虑用gzip压缩格式。譬如说一天或者一个小时的日志压缩成一个gzip文件，运行mapreduce程序的时候通过多个gzip文件达到并发。hive程序，streaming程序，和java写的mapreduce程序完全和文本处理一样，压缩之后原来的程序不需要做任何修改。</p>
+<p>2 lzo压缩</p>
+<p>优点：压缩/解压速度也比较快，合理的压缩率；支持split，是hadoop中最流行的压缩格式；支持hadoop native库；可以在linux系统下安装lzop命令，使用方便。</p>
+<p>缺点：压缩率比gzip要低一些；hadoop本身不支持，需要安装；在应用中对lzo格式的文件需要做一些特殊处理（为了支持split需要建索引，还需要指定inputformat为lzo格式）。</p>
+<p>应用场景：一个很大的文本文件，压缩之后还大于200M以上的可以考虑，而且单个文件越大，lzo优点越明显。</p>
+<p>3 snappy压缩</p>
+<p>优点：高速压缩速度和合理的压缩率；支持hadoop native库。</p>
+<p>缺点：不支持split；压缩率比gzip要低；hadoop本身不支持，需要安装；linux系统下没有对应的命令。</p>
+<p>应用场景：当mapreduce作业的map输出的数据比较大的时候，作为map到reduce的中间数据的压缩格式；或者作为一个mapreduce作业的输出和另外一个mapreduce作业的输入。</p>
+<p>4 bzip2压缩</p>
+<p>优点：支持split；具有很高的压缩率，比gzip压缩率都高；hadoop本身支持，但不支持native；在linux系统下自带bzip2命令，使用方便。</p>
+<p>缺点：压缩/解压速度慢；不支持native。</p>
+<p>应用场景：适合对速度要求不高，但需要较高的压缩率的时候，可以作为mapreduce作业的输出格式；或者输出之后的数据比较大，处理之后的数据需要压缩存档减少磁盘空间并且以后数据用得比较少的情况；或者对单个很大的文本文件想压缩减少存储空间，同时又需要支持split，而且兼容之前的应用程序（即应用程序不需要修改）的情况。</p>
+<p>最后用一个表格比较上述4种压缩格式的特征（优缺点）：</p>
+<p><strong>4种压缩格式的特征的比较</strong></p>
+<table>
+<thead>
+<tr>
+<th>压缩格式</th>
+<th>split</th>
+<th>native</th>
+<th>压缩率</th>
+<th>速度</th>
+<th>是否hadoop自带</th>
+<th>linux命令</th>
+<th>换成压缩格式后，原来的应用程序是否要修改</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>gzip</td>
+<td>否</td>
+<td>是</td>
+<td>很高</td>
+<td>比较快</td>
+<td>是，直接使用</td>
+<td>有</td>
+<td>和文本处理一样，不需要修改</td>
+</tr>
+<tr>
+<td>lzo</td>
+<td>是</td>
+<td>是</td>
+<td>比较高</td>
+<td>很快</td>
+<td>否，需要安装</td>
+<td>有</td>
+<td>需要建索引，还需要指定输入格式</td>
+</tr>
+<tr>
+<td>snappy</td>
+<td>否</td>
+<td>是</td>
+<td>比较高</td>
+<td>很快</td>
+<td>否，需要安装</td>
+<td>没有</td>
+<td>和文本处理一样，不需要修改</td>
+</tr>
+<tr>
+<td>bzip2</td>
+<td>是</td>
+<td>否</td>
+<td>最高</td>
+<td>慢</td>
+<td>是，直接使用</td>
+<td>有</td>
+<td>和文本处理一样，不需要修改</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>hadoop</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hive文件存储格式及数据压缩</title>
     <url>/2020/04/07/74.hive%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F%E5%8F%8A%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9/</url>
     <content><![CDATA[<h2 id="一、存储格式行存储和列存储"><a href="#一、存储格式行存储和列存储" class="headerlink" title="一、存储格式行存储和列存储"></a>一、存储格式行存储和列存储</h2><ol>
