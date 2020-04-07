@@ -1,7 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>hadoop压缩工具对比.md</title>
+    <title>scala实现break和continue</title>
+    <url>/2020/04/07/76.scala%E5%AE%9E%E7%8E%B0break%E5%92%8Ccontinue/</url>
+    <content><![CDATA[<p>需要util.control.Breaks._类的辅助</p>
+<p>实现break与continue功能，都需要util.control.Breaks._类的辅助。不同的是，将整个循环的逻辑放在breakable方法中，在需要真正跳出循环的时候使用break方法，这样达到了跳出整个循环的目的。而continue功能是将breakable放在循环内，这样可以实现结束本次循环的目的而不是结束整个循环。</p>
+<a id="more"></a>
+
+<h2 id="break"><a href="#break" class="headerlink" title="break"></a>break</h2><figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">breaktest</span></span>() = &#123;</span><br><span class="line">    <span class="keyword">val</span> arr = <span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>)</span><br><span class="line">    breakable &#123;</span><br><span class="line">      arr.foreach &#123; x =&gt;</span><br><span class="line">        <span class="keyword">if</span> (x &gt; <span class="number">3</span>) <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span> println(x)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="continue"><a href="#continue" class="headerlink" title="continue"></a>continue</h2><figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">continuetest</span></span>() = &#123;</span><br><span class="line">    <span class="keyword">val</span> arr = <span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>)</span><br><span class="line">    arr.foreach &#123;</span><br><span class="line">      x =&gt; breakable &#123;</span><br><span class="line">        <span class="keyword">if</span>(x == <span class="number">4</span>) <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span> println(x)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>scala</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hadoop压缩工具对比</title>
     <url>/2020/04/07/75.hadoop%E5%8E%8B%E7%BC%A9%E5%B7%A5%E5%85%B7%E5%AF%B9%E6%AF%94/</url>
     <content><![CDATA[<p>文件压缩主要有两个好处，一是减少了存储文件所占空间，另一个就是为数据传输提速。在hadoop大数据的背景下，这两点尤为重要，那么我现在就先来了解下hadoop中的文件压缩。</p>
 <a id="more"></a>
