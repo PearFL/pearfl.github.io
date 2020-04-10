@@ -46,15 +46,15 @@
   };
 </script>
 
-  <meta name="description" content="hadoop Archive是一个高效地将小文件放入HDFS块中的文件存档文件格式，它能够将多个小文件打包成一个后缀为.har文件，这样减少namenode内存使用的同时，仍然允许对文件进行透明的访问。">
+  <meta name="description" content="官方文档：https:&#x2F;&#x2F;hadoop.apache.org&#x2F;docs&#x2F;current&#x2F;hadoop-archives&#x2F;HadoopArchives.html 概述hadoop Archive是一个高效地将小文件放入HDFS块中的文件存档文件格式，它能够将多个小文件打包成一个后缀为.har文件，这样减少namenode内存使用的同时，仍然允许对文件进行透明的访问。 Hadoop存档是特殊格式的存档">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hadoop之har">
 <meta property="og:url" content="http://yoursite.com/2020/04/08/77.hadoop%E4%B9%8Bhar/index.html">
 <meta property="og:site_name" content="叶梨子的小窝">
-<meta property="og:description" content="hadoop Archive是一个高效地将小文件放入HDFS块中的文件存档文件格式，它能够将多个小文件打包成一个后缀为.har文件，这样减少namenode内存使用的同时，仍然允许对文件进行透明的访问。">
+<meta property="og:description" content="官方文档：https:&#x2F;&#x2F;hadoop.apache.org&#x2F;docs&#x2F;current&#x2F;hadoop-archives&#x2F;HadoopArchives.html 概述hadoop Archive是一个高效地将小文件放入HDFS块中的文件存档文件格式，它能够将多个小文件打包成一个后缀为.har文件，这样减少namenode内存使用的同时，仍然允许对文件进行透明的访问。 Hadoop存档是特殊格式的存档">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-04-08T03:34:27.000Z">
-<meta property="article:modified_time" content="2020-04-08T03:35:16.521Z">
+<meta property="article:modified_time" content="2020-04-10T06:29:34.789Z">
 <meta property="article:author" content="pearfl">
 <meta property="article:tag" content="hadoop">
 <meta property="article:tag" content="har">
@@ -236,10 +236,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-04-08 11:34:27 / 修改时间：11:35:16" itemprop="dateCreated datePublished" datetime="2020-04-08T11:34:27+08:00">2020-04-08</time>
+              <time title="创建时间：2020-04-08 11:34:27" itemprop="dateCreated datePublished" datetime="2020-04-08T11:34:27+08:00">2020-04-08</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-10 14:29:34" itemprop="dateModified" datetime="2020-04-10T14:29:34+08:00">2020-04-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -258,7 +264,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>100</span>
+              <span>817</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -277,7 +283,24 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>hadoop Archive是一个高效地将小文件放入HDFS块中的文件存档文件格式，它能够将多个小文件打包成一个后缀为.har文件，这样减少namenode内存使用的同时，仍然允许对文件进行透明的访问。</p>
+        <p>官方文档：<a href="https://hadoop.apache.org/docs/current/hadoop-archives/HadoopArchives.html" target="_blank" rel="noopener">https://hadoop.apache.org/docs/current/hadoop-archives/HadoopArchives.html</a></p>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>hadoop Archive是一个高效地将小文件放入HDFS块中的文件存档文件格式，它能够将多个小文件打包成一个后缀为.har文件，这样减少namenode内存使用的同时，仍然允许对文件进行透明的访问。</p>
+<p>Hadoop存档是特殊格式的存档。 Hadoop归档文件映射到文件系统目录。 Hadoop归档文件始终具有* .har扩展名。 Hadoop存档目录包含元数据（以_index和_masterindex的形式）和数据（part- *）文件。 _index文件包含作为归档文件一部分的文件名以及这些文件内的位置。</p>
+<a id="more"></a>
+
+<h1 id="如何创建归档？"><a href="#如何创建归档？" class="headerlink" title="如何创建归档？"></a>如何创建归档？</h1><p>用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop archive -archiveName name -p &lt;parent&gt; [-r &lt;replication factor&gt;] &lt;src&gt;* &lt;dest&gt;</span><br></pre></td></tr></table></figure>
+
+<p>-archiveName是您要创建的档案的名称,例如foo.har。名称应带有* .har扩展名。 </p>
+<p>parent参数用于指定文件应归档到的相对路径。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-p &#x2F;foo&#x2F;bar a&#x2F;b&#x2F;c e&#x2F;f&#x2F;g</span><br></pre></td></tr></table></figure>
+
+<p>/foo/bar是父路径，而a/b/c,e/f/g是父路径的相对路径。</p>
+<p>-r表示所需的复制因子；如果未指定此可选参数，则将使用3的复制因子</p>
+<p>如果您只想归档一个目录/foo/bar，则可以使用以下例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop archive -archiveName zoo.har -p &#x2F;foo&#x2F;bar -r 3 &#x2F;outputdir</span><br></pre></td></tr></table></figure>
+
+<p>如果您指定在加密区域中的源文件，它们将被解密并写入存档。 如果har文件不在加密区域中，则它们将以明文（解密）形式存储。 如果har文件位于加密区域中，它们将以加密形式存储。</p>
 
     </div>
 
@@ -360,6 +383,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何创建归档？"><span class="nav-number">2.</span> <span class="nav-text">如何创建归档？</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -447,7 +471,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:56</span>
+    <span title="站点阅读时长">4:57</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
