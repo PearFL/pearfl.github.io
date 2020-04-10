@@ -210,6 +210,112 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/10/52.Anaconda%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="pearfl">
+      <meta itemprop="description" content="热爱从不降温">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="叶梨子的小窝">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/10/52.Anaconda%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">Anaconda基础操作</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-10 16:34:22 / 修改时间：16:34:43" itemprop="dateCreated datePublished" datetime="2020-03-10T16:34:22+08:00">2020-03-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9A%8F%E7%AC%94%E5%88%86%E4%BA%AB/" itemprop="url" rel="index">
+                    <span itemprop="name">随笔分享</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>443</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>1.添加清华仓库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda config --add channels https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;pkgs&#x2F;free&#x2F;</span><br><span class="line">conda config --set show_channel_urls yes</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.升级当前版本的conda</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda update conda</span><br></pre></td></tr></table></figure>
+
+
+
+<p>3.创建并激活一个环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">conda create --name snowflake</span><br><span class="line"></span><br><span class="line">Linux，OS X: source activate snowflakes</span><br><span class="line">Windows：activate snowflake&#96;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>4.切换到另一个环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Linux，OS X: source activate snowflakes</span><br><span class="line">Windows：activate snowflakes</span><br><span class="line"></span><br><span class="line">Linux，OS X: source deactivate</span><br><span class="line">Windows: deactivate</span><br></pre></td></tr></table></figure>
+
+
+
+<p>5.删除环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda remove -n flowers --all</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/10/51.%E6%B5%81%E4%B8%8E%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -637,125 +743,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/09/49.sqoop%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="pearfl">
-      <meta itemprop="description" content="热爱从不降温">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="叶梨子的小窝">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/09/49.sqoop%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">sqoop安装及配置</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-09 00:39:21" itemprop="dateCreated datePublished" datetime="2020-03-09T00:39:21+08:00">2020-03-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-17 22:50:24" itemprop="dateModified" datetime="2020-03-17T22:50:24+08:00">2020-03-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index">
-                    <span itemprop="name">大数据</span>
-                  </a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.8k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="sqoop安装"><a href="#sqoop安装" class="headerlink" title="sqoop安装"></a>sqoop安装</h2><p>下载地址：<a href="http://archive.cloudera.com/cdh5/cdh/5/sqoop-1.4.6-cdh5.16.2.tar.gz" target="_blank" rel="noopener">http://archive.cloudera.com/cdh5/cdh/5/sqoop-1.4.6-cdh5.16.2.tar.gz</a></p>
-<p>1.解压</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf sqoop-1.4.6-cdh5.16.2.tar.gz -C ~&#x2F;app&#x2F;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>2.配置系统环境变量</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export SQOOP_HOME&#x3D;&#x2F;home&#x2F;hadoop&#x2F;app&#x2F;sqoop-1.4.6-cdh5.16.2</span><br><span class="line">export PATH&#x3D;$SQOOP_HOME&#x2F;bin:$PATH</span><br></pre></td></tr></table></figure>
-
-
-
-<p>3.配置conf文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cp sqoop-env-template.sh sqoop-env.sh</span><br><span class="line">export HADOOP_COMMON_HOME&#x2F;home&#x2F;pearfl&#x2F;app&#x2F;hadoop-2.6.0-cdh5.16.2</span><br><span class="line">export HADOOP_MAPRED_HOME&#x2F;home&#x2F;pearfl&#x2F;app&#x2F;hadoop-2.6.0-cdh5.16.2</span><br><span class="line">export HIVE_HOME&#x2F;home&#x2F;pearfl&#x2F;app&#x2F;hive-1.1.0-cdh5.16.2</span><br></pre></td></tr></table></figure>
-
-
-
-<p>4.导入mysql的jar包</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp mysql-connector-java-5.1.47-bin.jar $SQOOP_HOME&#x2F;lib&#x2F;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>5.测试是否与mysql连通</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqoop list-databases --connect jdbc:mysql:&#x2F;&#x2F;hadoop000:3306&#x2F; --username root --password xxxxxx</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/09/49.sqoop%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -828,7 +815,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-count">78</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -841,7 +828,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-count">41</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

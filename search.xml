@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>hadoop之har</title>
+    <url>/2020/04/08/77.hadoop%E4%B9%8Bhar/</url>
+    <content><![CDATA[<p>hadoop Archive是一个高效地将小文件放入HDFS块中的文件存档文件格式，它能够将多个小文件打包成一个后缀为.har文件，这样减少namenode内存使用的同时，仍然允许对文件进行透明的访问。</p>
+]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>hadoop</tag>
+        <tag>har</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>scala实现break和continue</title>
     <url>/2020/04/07/76.scala%E5%AE%9E%E7%8E%B0break%E5%92%8Ccontinue/</url>
     <content><![CDATA[<p>需要util.control.Breaks._类的辅助</p>
@@ -256,7 +269,7 @@
 
 
 
-<p>ruozedata-spark-core-1.0.jar和ruozedata-spark-utils-1.0.jar</p>
+<p>data-spark-core-1.0.jar和data-spark-utils-1.0.jar</p>
 ]]></content>
       <categories>
         <category>大数据</category>
