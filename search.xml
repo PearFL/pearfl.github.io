@@ -73,6 +73,11 @@
 
 
 
+<p>上传压缩完成的lzo数据</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lzop test.txt</span><br><span class="line">hadoop fs -put test.txt.lzo &#x2F;wc&#x2F;text.txt.lzo</span><br></pre></td></tr></table></figure>
+
+
+
 <h2 id="无索引测试"><a href="#无索引测试" class="headerlink" title="无索引测试"></a>无索引测试</h2><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">hadoop</span> jar hadoop-mapreduce-examples-<span class="number">2</span>.<span class="number">6</span>.<span class="number">0</span>-cdh5.<span class="number">16</span>.<span class="number">2</span>.jar wordcount \</span><br><span class="line">	-Dmapreduce.map.output.compress=<span class="literal">true</span> \</span><br><span class="line">	-Dmapreduce.map.output.compress.codec=com.hadoop.compression.lzo.LzopCodec \</span><br><span class="line">	-Dmapreduce.output.fileoutputformat.compress=<span class="literal">true</span> \</span><br><span class="line">	-Dmapreduce.output.fileoutputformat.compress.codec=com.hadoop.compression.lzo.LzopCodec \</span><br><span class="line">	/wc/test.txt.lzo /wc/out</span><br><span class="line">	</span><br><span class="line"><span class="number">20</span>/<span class="number">04</span>/<span class="number">10</span> <span class="number">17</span>:<span class="number">39</span>:<span class="number">51</span> INFO mapreduce.JobSubmitter: number of splits:<span class="number">1</span></span><br></pre></td></tr></table></figure>
 
 
