@@ -46,15 +46,15 @@
   };
 </script>
 
-  <meta name="description" content="热爱从不降温">
+  <meta name="description" content="前置要求1.安装好hadoop 2.安装好jdk和maven(maven提前配置阿里云连接，不然慢死！) 3.安装前置库 1yum -y install  lzo-devel  zlib-devel  gcc autoconf automake libtool">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hadoop-lzo">
 <meta property="og:url" content="http://yoursite.com/2020/04/10/78.hadoop-lzo/index.html">
 <meta property="og:site_name" content="叶梨子的小窝">
-<meta property="og:description" content="热爱从不降温">
+<meta property="og:description" content="前置要求1.安装好hadoop 2.安装好jdk和maven(maven提前配置阿里云连接，不然慢死！) 3.安装前置库 1yum -y install  lzo-devel  zlib-devel  gcc autoconf automake libtool">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-04-10T15:43:15.000Z">
-<meta property="article:modified_time" content="2020-04-10T15:43:10.790Z">
+<meta property="article:modified_time" content="2020-04-11T06:42:19.062Z">
 <meta property="article:author" content="pearfl">
 <meta property="article:tag" content="hadoop">
 <meta property="article:tag" content="lzo">
@@ -236,10 +236,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-04-10 23:43:15 / 修改时间：23:43:10" itemprop="dateCreated datePublished" datetime="2020-04-10T23:43:15+08:00">2020-04-10</time>
+              <time title="创建时间：2020-04-10 23:43:15" itemprop="dateCreated datePublished" datetime="2020-04-10T23:43:15+08:00">2020-04-10</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-11 14:42:19" itemprop="dateModified" datetime="2020-04-11T14:42:19+08:00">2020-04-11</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -258,14 +264,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
+              <span>3.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>6 分钟</span>
             </span>
 
         </div>
@@ -277,7 +283,67 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h1 id="前置要求"><a href="#前置要求" class="headerlink" title="前置要求"></a>前置要求</h1><p>1.安装好hadoop</p>
+<p>2.安装好jdk和maven(maven提前配置阿里云连接，不然慢死！)</p>
+<p>3.安装前置库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install  lzo-devel  zlib-devel  gcc autoconf automake libtool</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+
+
+<h1 id="lzo使用流程"><a href="#lzo使用流程" class="headerlink" title="lzo使用流程"></a>lzo使用流程</h1><h2 id="下载及安装"><a href="#下载及安装" class="headerlink" title="下载及安装"></a>下载及安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 下载</span><br><span class="line">wget http:&#x2F;&#x2F;www.oberhumer.com&#x2F;opensource&#x2F;lzo&#x2F;download&#x2F;lzo-2.10.tar.gz</span><br><span class="line"></span><br><span class="line"># 解压</span><br><span class="line">tar -zxvf lzo-2.10.tar.gz</span><br><span class="line">cd lzo-2.10</span><br><span class="line"></span><br><span class="line"># 配置前缀</span><br><span class="line">.&#x2F;configure -prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;hadoop&#x2F;lzo&#x2F;</span><br><span class="line"></span><br><span class="line"># 安装</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="编译hadoop-lzo源码"><a href="#编译hadoop-lzo源码" class="headerlink" title="编译hadoop-lzo源码"></a>编译hadoop-lzo源码</h2><p>下载hadoop-lzo的源码，下载地址：<a href="https://github.com/twitter/hadoop-lzo/archive/master.zip" target="_blank" rel="noopener">https://github.com/twitter/hadoop-lzo/archive/master.zip</a><br>解压之后，修改pom.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;hadoop.current.version&gt;2.6.0-cdh5.16.2&lt;&#x2F;hadoop.current.version&gt;</span><br></pre></td></tr></table></figure>
+
+<p>注意！cdh版本需要配置加下面的仓库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;repository&gt;</span><br><span class="line">      &lt;id&gt;cloudera&lt;&#x2F;id&gt;</span><br><span class="line">      &lt;url&gt;https:&#x2F;&#x2F;repository.cloudera.com&#x2F;artifactory&#x2F;cloudera-repos&#x2F;&lt;&#x2F;url&gt;</span><br><span class="line">    &lt;&#x2F;repository&gt;</span><br><span class="line"></span><br><span class="line">    &lt;repository&gt;</span><br><span class="line">      &lt;id&gt;aliyun&lt;&#x2F;id&gt;</span><br><span class="line">      &lt;url&gt;http:&#x2F;&#x2F;maven.aliyun.com&#x2F;nexus&#x2F;content&#x2F;groups&#x2F;public&lt;&#x2F;url&gt;</span><br><span class="line">    &lt;&#x2F;repository&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>声明两个临时环境变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export C_INCLUDE_PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;hadoop&#x2F;lzo&#x2F;include</span><br><span class="line">export LIBRARY_PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;hadoop&#x2F;lzo&#x2F;lib</span><br></pre></td></tr></table></figure>
+
+
+
+<p>进入hadoop-lzo-master，执行maven编译命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn package -Dmaven.test.skip&#x3D;true</span><br></pre></td></tr></table></figure>
+
+
+<p>进入target，hadoop-lzo-0.4.21-SNAPSHOT.jar 即编译成功的hadoop-lzo组件</p>
+<p><strong>编译好的文件改名hadoop-lzo-0.4.20.jar 放入到 $HADOOP_HOME/share/hadoop/common/下面然后进行分发</strong></p>
+<h2 id="hadoop配置文件"><a href="#hadoop配置文件" class="headerlink" title="hadoop配置文件"></a>hadoop配置文件</h2><p>添加下面内容</p>
+<p>core-site.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;io.compression.codecs&lt;&#x2F;name&gt;</span><br><span class="line">&lt;value&gt;</span><br><span class="line">org.apache.hadoop.io.compress.GzipCodec,</span><br><span class="line">org.apache.hadoop.io.compress.DefaultCodec,</span><br><span class="line">org.apache.hadoop.io.compress.BZip2Codec,</span><br><span class="line">org.apache.hadoop.io.compress.SnappyCodec,</span><br><span class="line">com.hadoop.compression.lzo.LzoCodec,</span><br><span class="line">com.hadoop.compression.lzo.LzopCodec</span><br><span class="line">&lt;&#x2F;value&gt;</span><br><span class="line">&lt;&#x2F;property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;io.compression.codec.lzo.class&lt;&#x2F;name&gt;</span><br><span class="line">    &lt;value&gt;com.hadoop.compression.lzo.LzoCodec&lt;&#x2F;value&gt;</span><br><span class="line">&lt;&#x2F;property&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>mapred-site.mxl</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;mapreduce.map.output.compress&lt;&#x2F;name&gt;</span><br><span class="line">    &lt;value&gt;true&lt;&#x2F;value&gt;</span><br><span class="line">&lt;&#x2F;property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;mapreduce.map.output.compress.codec&lt;&#x2F;name&gt;</span><br><span class="line">    &lt;value&gt;com.hadoop.compression.lzo.LzoCodec&lt;&#x2F;value&gt;</span><br><span class="line">&lt;&#x2F;property&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>之后记得重启集群</strong></p>
+<h1 id="测试lzo"><a href="#测试lzo" class="headerlink" title="测试lzo"></a>测试lzo</h1><p>本测试提前下载了lzop，提前将文件进行了压缩，再传到hdfs上的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install lzop</span><br></pre></td></tr></table></figure>
+
+
+
+<p>通过python3生成测试数据(测试功能为wc)：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">filename = <span class="string">'test.txt'</span></span><br><span class="line"><span class="keyword">with</span> open(filename, <span class="string">'w'</span>) <span class="keyword">as</span> file_object:</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000000000</span>):</span><br><span class="line">        file_object.write(str(random.randint(<span class="number">1</span>, <span class="number">100000</span>))+<span class="string">"\t"</span>+str(random.randint(<span class="number">1</span>, <span class="number">5</span>))+<span class="string">"\n"</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="无索引测试"><a href="#无索引测试" class="headerlink" title="无索引测试"></a>无索引测试</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hadoop</span> jar hadoop-mapreduce-examples-<span class="number">2</span>.<span class="number">6</span>.<span class="number">0</span>-cdh5.<span class="number">16</span>.<span class="number">2</span>.jar wordcount \</span><br><span class="line">	-Dmapreduce.map.output.compress=<span class="literal">true</span> \</span><br><span class="line">	-Dmapreduce.map.output.compress.codec=com.hadoop.compression.lzo.LzopCodec \</span><br><span class="line">	-Dmapreduce.output.fileoutputformat.compress=<span class="literal">true</span> \</span><br><span class="line">	-Dmapreduce.output.fileoutputformat.compress.codec=com.hadoop.compression.lzo.LzopCodec \</span><br><span class="line">	/wc/test.txt.lzo /wc/out</span><br><span class="line">	</span><br><span class="line"><span class="number">20</span>/<span class="number">04</span>/<span class="number">10</span> <span class="number">17</span>:<span class="number">39</span>:<span class="number">51</span> INFO mapreduce.JobSubmitter: number of splits:<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="有索引测试"><a href="#有索引测试" class="headerlink" title="有索引测试"></a>有索引测试</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hadoop</span> jar hadoop-lzo-<span class="number">0</span>.<span class="number">4</span>.<span class="number">21</span>-SNAPSHOT.jar com.hadoop.compression.lzo.LzoIndexer /wc/test.txt.lzo</span><br><span class="line"></span><br><span class="line">hadoop jar hadoop-mapreduce-examples-<span class="number">2</span>.<span class="number">6</span>.<span class="number">0</span>-cdh5.<span class="number">16</span>.<span class="number">2</span>.jar wordcount \</span><br><span class="line">	-Dmapreduce.job.inputformat.class=com.hadoop.mapreduce.LzoTextInputFormat \</span><br><span class="line">	-Dmapreduce.map.output.compress=<span class="literal">true</span> \</span><br><span class="line">	-Dmapreduce.map.output.compress.codec=com.hadoop.compression.lzo.LzopCodec \</span><br><span class="line">	-Dmapreduce.output.fileoutputformat.compress=<span class="literal">true</span> \</span><br><span class="line">	-Dmapreduce.output.fileoutputformat.compress.codec=com.hadoop.compression.lzo.LzopCodec \</span><br><span class="line">	/wc/test.txt.lzo /wc/out</span><br><span class="line">	</span><br><span class="line"><span class="number">20</span>/<span class="number">04</span>/<span class="number">10</span> <span class="number">18</span>:<span class="number">18</span>:<span class="number">46</span> INFO input.FileInputFormat: Total input paths to process : <span class="number">1</span></span><br><span class="line"><span class="number">20</span>/<span class="number">04</span>/<span class="number">10</span> <span class="number">18</span>:<span class="number">18</span>:<span class="number">46</span> INFO mapreduce.JobSubmitter: number of splits:<span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+
+
+
     </div>
 
     
@@ -300,8 +366,8 @@
       <i class="fa fa-chevron-left"></i> hadoop之har
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/04/10/79.rdd%E8%BD%ACdf%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F/" rel="next" title="hadoop-lzo">
-      hadoop-lzo <i class="fa fa-chevron-right"></i>
+    <a href="/2020/04/11/79.rdd%E8%BD%ACdf%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F/" rel="next" title="rdd转df的两种方式">
+      rdd转df的两种方式 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -362,6 +428,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前置要求"><span class="nav-number">1.</span> <span class="nav-text">前置要求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lzo使用流程"><span class="nav-number">2.</span> <span class="nav-text">lzo使用流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#下载及安装"><span class="nav-number">2.1.</span> <span class="nav-text">下载及安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译hadoop-lzo源码"><span class="nav-number">2.2.</span> <span class="nav-text">编译hadoop-lzo源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hadoop配置文件"><span class="nav-number">2.3.</span> <span class="nav-text">hadoop配置文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试lzo"><span class="nav-number">3.</span> <span class="nav-text">测试lzo</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#无索引测试"><span class="nav-number">3.1.</span> <span class="nav-text">无索引测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有索引测试"><span class="nav-number">3.2.</span> <span class="nav-text">有索引测试</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -390,7 +457,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">44</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -444,12 +511,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">180k</span>
+    <span title="站点总字数">183k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:59</span>
+    <span title="站点阅读时长">5:05</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
