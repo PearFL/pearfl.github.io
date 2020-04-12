@@ -53,13 +53,13 @@
 <meta property="og:site_name" content="叶梨子的小窝">
 <meta property="og:description" content="文件压缩主要有两个好处，一是减少了存储文件所占空间，另一个就是为数据传输提速。在hadoop大数据的背景下，这两点尤为重要，那么我现在就先来了解下hadoop中的文件压缩。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2020/04/07/75.hadoop%E5%8E%8B%E7%BC%A9%E5%B7%A5%E5%85%B7%E5%AF%B9%E6%AF%94/images/75/1.png">
+<meta property="og:image" content="http://yoursite.com/images/75/1.png">
 <meta property="article:published_time" content="2020-04-07T09:12:34.000Z">
-<meta property="article:modified_time" content="2020-04-07T09:30:22.524Z">
+<meta property="article:modified_time" content="2020-04-12T02:53:09.987Z">
 <meta property="article:author" content="pearfl">
 <meta property="article:tag" content="hadoop">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/04/07/75.hadoop%E5%8E%8B%E7%BC%A9%E5%B7%A5%E5%85%B7%E5%AF%B9%E6%AF%94/images/75/1.png">
+<meta name="twitter:image" content="http://yoursite.com/images/75/1.png">
 
 <link rel="canonical" href="http://yoursite.com/2020/04/07/75.hadoop%E5%8E%8B%E7%BC%A9%E5%B7%A5%E5%85%B7%E5%AF%B9%E6%AF%94/">
 
@@ -237,10 +237,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-04-07 17:12:34 / 修改时间：17:30:22" itemprop="dateCreated datePublished" datetime="2020-04-07T17:12:34+08:00">2020-04-07</time>
+              <time title="创建时间：2020-04-07 17:12:34" itemprop="dateCreated datePublished" datetime="2020-04-07T17:12:34+08:00">2020-04-07</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-12 10:53:09" itemprop="dateModified" datetime="2020-04-12T10:53:09+08:00">2020-04-12</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -282,7 +288,7 @@
 <a id="more"></a>
 
 <p>hadoop里支持很多种压缩格式，我们看一个表格：</p>
-<p><img src="images/75/1.png" alt="1"></p>
+<p><img src="/images/75/1.png" alt="1"></p>
 <p>DEFLATE是同时使用了LZ77算法与哈夫曼编码（Huffman Coding）的一个无损数据压缩算法，源代码可以在zlib库中找到。gzip是以DEFLATE算法为基础扩展出来的一种算法。</p>
 <p>gzip在时间和空间上的取舍比较折中，bzip2压缩比gzip更有效，但是速度更慢。bzip2的解压速度比它的压缩速度要快。但是和其他压缩格式比又是最慢的，但是压缩效果明显是最好的。snappy和lz4的解压速度比lzo好很多。</p>
 <p> splittable表示压缩格式是否可以被分割，也就是说是否支持随即读。压缩数据是否能被mapreduce使用，压缩数据是否能被分割就很关键了。</p>
@@ -533,12 +539,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">183k</span>
+    <span title="站点总字数">187k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:05</span>
+    <span title="站点阅读时长">5:12</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
