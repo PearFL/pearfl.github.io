@@ -43,8 +43,17 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Scanner scanner &#x3D; new Scanner(System.in);</span><br><span class="line"></span><br><span class="line">while (true) &#123;</span><br><span class="line">	System.out.println(curPrompt + &quot;&gt; &quot;);</span><br><span class="line">	line &#x3D; scanner.nextLine();</span><br><span class="line">	if (null &#x3D;&#x3D; line) &#123;</span><br><span class="line">    	break;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F; ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+
+
 </li>
 </ol>
+<p>6.hdfs-site.xml中添加一个参数(debug四小时……)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.client.use.datanode.hostname&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;value&gt;true&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
 <h2 id="三、测试"><a href="#三、测试" class="headerlink" title="三、测试"></a>三、测试</h2><ol>
 <li><p>启动<code>CliDriver</code></p>
 </li>
