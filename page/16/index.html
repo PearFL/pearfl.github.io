@@ -210,6 +210,95 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/07/6.hdfs%E7%AE%80%E5%8D%95API%E7%BC%96%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="pearfl">
+      <meta itemprop="description" content="热爱从不降温">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="叶梨子的小窝">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/07/6.hdfs%E7%AE%80%E5%8D%95API%E7%BC%96%E7%A8%8B/" class="post-title-link" itemprop="url">hdfs简单API编程</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-07 19:40:33" itemprop="dateCreated datePublished" datetime="2020-01-07T19:40:33+08:00">2020-01-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-15 10:49:01" itemprop="dateModified" datetime="2020-01-15T10:49:01+08:00">2020-01-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.*;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.permission.FsPermission;</span><br><span class="line"><span class="keyword">import</span> org.junit.After;</span><br><span class="line"><span class="keyword">import</span> org.junit.Before;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.net.URI;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HDFSAPITest2</span> </span>&#123;</span><br><span class="line">    FileSystem fileSystem;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUp</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        URI uri = <span class="keyword">new</span> URI(<span class="string">"hdfs://hadoop:8020"</span>);</span><br><span class="line">        Configuration configuration = <span class="keyword">new</span> Configuration();</span><br><span class="line"></span><br><span class="line">        configuration.set(<span class="string">"dfs.client.use.datanode.hostname"</span>, <span class="string">"true"</span>);</span><br><span class="line">        configuration.set(<span class="string">"dfs.replication"</span>, <span class="string">"1"</span>);</span><br><span class="line">        <span class="comment">// 1) 获取HDFS客户端</span></span><br><span class="line">        fileSystem = FileSystem.get(uri, configuration, <span class="string">"root"</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@After</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">shutdown</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        <span class="comment">// 3) 关闭资源</span></span><br><span class="line">        <span class="keyword">if</span>(fileSystem != <span class="keyword">null</span>)&#123;</span><br><span class="line">            fileSystem.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mkdir</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        fileSystem.mkdirs(<span class="keyword">new</span> Path(<span class="string">"hdfs://hadoop:8020/hdfstest0"</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">copyFromLocalFile</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        Path src = <span class="keyword">new</span> Path(<span class="string">"data/ruozedata.txt"</span>);</span><br><span class="line">        Path dst = <span class="keyword">new</span> Path(<span class="string">"/hdfstest"</span>);</span><br><span class="line">        fileSystem.copyFromLocalFile(src, dst);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">copyToLocalFile</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        Path src = <span class="keyword">new</span> Path(<span class="string">"/20201011/146.txt"</span>);</span><br><span class="line">        Path dst = <span class="keyword">new</span> Path(<span class="string">"output/146.txt"</span>);</span><br><span class="line">        fileSystem.copyToLocalFile(src, dst);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rename</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        Path src = <span class="keyword">new</span> Path(<span class="string">"/20201011/20201011-0.txt"</span>);</span><br><span class="line">        Path dst = <span class="keyword">new</span> Path(<span class="string">"/20201011/146.txt"</span>);</span><br><span class="line">        fileSystem.rename(src, dst);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">listFiles</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        RemoteIterator&lt;LocatedFileStatus&gt; files = fileSystem.listFiles(<span class="keyword">new</span> Path(<span class="string">"/20201011"</span>), <span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(files.hasNext())&#123;</span><br><span class="line">            LocatedFileStatus fileStatus = files.next();</span><br><span class="line">            String path = fileStatus.getPath().toString();</span><br><span class="line">            <span class="keyword">long</span> len = fileStatus.getLen();</span><br><span class="line">            <span class="keyword">short</span> replication = fileStatus.getReplication();</span><br><span class="line">            FsPermission permission = fileStatus.getPermission();</span><br><span class="line">            String isDir = fileStatus.isDirectory()? <span class="string">"文件夹"</span> : <span class="string">"文件"</span>;</span><br><span class="line"></span><br><span class="line">            System.out.println(path + <span class="string">"\t"</span> + len + <span class="string">"\t"</span> + replication + <span class="string">"\t"</span> + permission + <span class="string">"\t"</span> + isDir);</span><br><span class="line"></span><br><span class="line">            BlockLocation[] blockLocations = fileStatus.getBlockLocations();</span><br><span class="line">            <span class="keyword">for</span>(BlockLocation location : blockLocations)&#123;</span><br><span class="line">                String[] hosts = location.getHosts();</span><br><span class="line">                <span class="keyword">for</span>(String host : hosts)&#123;</span><br><span class="line">                    System.out.println(host + <span class="string">"........"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        fileSystem.delete(<span class="keyword">new</span> Path(<span class="string">"/hdfstest"</span>), <span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/06/5.hadoop%E5%8D%95%E7%BB%93%E7%82%B9%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -643,108 +732,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/23/1.hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="pearfl">
-      <meta itemprop="description" content="热爱从不降温">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="叶梨子的小窝">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/23/1.hello-world/" class="post-title-link" itemprop="url">新篇章，新世界</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-12-23 16:29:04" itemprop="dateCreated datePublished" datetime="2019-12-23T16:29:04+08:00">2019-12-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-06 12:58:39" itemprop="dateModified" datetime="2020-03-06T12:58:39+08:00">2020-03-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%B8%AA%E4%BA%BA%E6%84%9F%E6%83%B3/" itemprop="url" rel="index">
-                    <span itemprop="name">个人感想</span>
-                  </a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>&emsp;&emsp;我在之前的hexo博客中写了50+篇文章，但质量都不太让我满意，解决问题的效率甚至比不上百度，恰巧之前的文档因操作失误丢失了，于是我就重置了整个博客内容从零开始</p>
-<p>&emsp;&emsp;今后的每一篇文章我都会尽心尽力而为，不灌水，如果对文章有问题或者想要交流的小伙伴，可以加我的qq或给我发送邮件进行联系。</p>
-<p>&emsp;&emsp;那么，加油！</p>
-<p>hexo搭建及相关教程可参考这→ <a href="https://io-oi.me/tech/hexo-next-optimization/" target="_blank" rel="noopener">https://io-oi.me/tech/hexo-next-optimization/</a></p>
-<p>在线工具合集→<a href="https://tool.lu/" target="_blank" rel="noopener">https://tool.lu/</a></p>
-<p>个人大数据配置留存</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">PATH&#x3D;$PATH:$HOME&#x2F;.local&#x2F;bin:$HOME&#x2F;bin</span><br><span class="line"></span><br><span class="line">export PATH</span><br><span class="line"></span><br><span class="line">export HADOOP_CLASSPATH&#x3D;$&#123;HADOOP_CLASSPATH&#125;:&#x2F;home&#x2F;pearfl&#x2F;lib&#x2F;*</span><br><span class="line"></span><br><span class="line">export MYSQL_HOME&#x3D;$PATH:&#x2F;home&#x2F;pearfl&#x2F;app&#x2F;mysql-5.6.47</span><br><span class="line">export PATH&#x3D;$MYSQL_HOME&#x2F;bin:$PATH</span><br><span class="line"></span><br><span class="line">export JAVA_HOME&#x3D;&#x2F;home&#x2F;pearfl&#x2F;app&#x2F;jdk1.8.0_231</span><br><span class="line">export PATH&#x3D;$JAVA_HOME&#x2F;bin:$PATH</span><br><span class="line"></span><br><span class="line">export HADOOP_HOME&#x3D;&#x2F;home&#x2F;pearfl&#x2F;app&#x2F;hadoop-2.6.0-cdh5.16.2</span><br><span class="line">export PATH&#x3D;$HADOOP_HOME&#x2F;bin:$PATH</span><br><span class="line"></span><br><span class="line">export HIVE_HOME&#x3D;&#x2F;home&#x2F;pearfl&#x2F;app&#x2F;apache-hive-1.1.0-cdh5.16.2-bin</span><br><span class="line">export PATH&#x3D;$HIVE_HOME&#x2F;bin:$PATH</span><br><span class="line"></span><br><span class="line">export MAVEN_HOME&#x3D;&#x2F;home&#x2F;pearfl&#x2F;app&#x2F;apache-maven-3.6.3</span><br><span class="line">export PATH&#x3D;$MAVEN_HOME&#x2F;bin:$PATH</span><br><span class="line"></span><br><span class="line">export ZOOKEEPER_HOME&#x3D;&#x2F;home&#x2F;pearfl&#x2F;app&#x2F;zookeeper-3.4.5-cdh5.16.2</span><br><span class="line">export PATH&#x3D;$ZOOKEEPER_HOME&#x2F;bin:$PATH</span><br><span class="line"></span><br><span class="line">export HUE_HOME&#x3D;&#x2F;home&#x2F;pearfl&#x2F;app&#x2F;hue-3.9.0-cdh5.16.2</span><br><span class="line">export PATH&#x3D;$HUE_HOME&#x2F;build&#x2F;env&#x2F;bin:$PATH</span><br><span class="line"></span><br><span class="line">export FLUME_HOME&#x3D;&#x2F;home&#x2F;pearfl&#x2F;app&#x2F;apache-flume-1.6.0-cdh5.16.2-bin</span><br><span class="line">export PATH&#x3D;$FLUME_HOME&#x2F;bin:$PATH</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span>
+    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -812,7 +804,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-count">81</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -879,12 +871,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">187k</span>
+    <span title="站点总字数">189k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:12</span>
+    <span title="站点阅读时长">5:16</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
